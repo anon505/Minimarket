@@ -1,9 +1,11 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports System.Reactive.Linq
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class penjualan
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,69 +22,60 @@ Partial Class penjualan
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.txtid = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.txtharga = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.total = New System.Windows.Forms.TextBox()
+        Me.labelIdBarang = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.dibayar = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.sisa = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.id_barang = New System.Windows.Forms.Label()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.textCountItem = New System.Windows.Forms.TextBox()
+        Me.labelBarcode = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.buttonScanBarang1 = New System.Windows.Forms.Button()
+        Me.buttonScanBarang2 = New System.Windows.Forms.Button()
+        Me.buttonScanBarang3 = New System.Windows.Forms.Button()
+        Me.buttonScanBarang4 = New System.Windows.Forms.Button()
+        Me.buttonScanBarang5 = New System.Windows.Forms.Button()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.dataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.textQty = New System.Windows.Forms.TextBox()
+        Me.labelQty = New System.Windows.Forms.Label()
+        Me.textKembalian = New System.Windows.Forms.TextBox()
+        Me.labelKembalian = New System.Windows.Forms.Label()
+        Me.labelBayar = New System.Windows.Forms.Label()
+        Me.textGrandTotal = New System.Windows.Forms.TextBox()
+        Me.textTotal = New System.Windows.Forms.TextBox()
+        Me.textPLU = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.qty = New System.Windows.Forms.TextBox()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.RectangleShape1 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.satuan = New System.Windows.Forms.Label()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.labelTotalBig = New System.Windows.Forms.TextBox()
+        Me.labelKembalianBig = New System.Windows.Forms.Label()
+        Me.textBayar = New System.Windows.Forms.TextBox()
+        Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'txtid
-        '
-        Me.txtid.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtid.Font = New System.Drawing.Font("Microsoft Sans Serif", 48.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
-        Me.txtid.Location = New System.Drawing.Point(289, 29)
-        Me.txtid.Name = "txtid"
-        Me.txtid.Size = New System.Drawing.Size(297, 62)
-        Me.txtid.TabIndex = 0
-        Me.txtid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label1
-        '
-        Me.Label1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(21, 33)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(233, 53)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "ID Barang"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
         Me.Label6.BackColor = System.Drawing.Color.Transparent
-        Me.Label6.Location = New System.Drawing.Point(105, 219)
+        Me.Label6.Location = New System.Drawing.Point(143, 68)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(28, 13)
+        Me.Label6.Size = New System.Drawing.Size(35, 16)
         Me.Label6.TabIndex = 11
         Me.Label6.Text = "Tipe"
         Me.Label6.Visible = False
@@ -91,9 +84,10 @@ Partial Class penjualan
         '
         Me.Label7.AutoSize = True
         Me.Label7.BackColor = System.Drawing.Color.Transparent
-        Me.Label7.Location = New System.Drawing.Point(139, 219)
+        Me.Label7.Location = New System.Drawing.Point(188, 68)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(39, 13)
+        Me.Label7.Size = New System.Drawing.Size(48, 16)
         Me.Label7.TabIndex = 12
         Me.Label7.Text = "Label7"
         Me.Label7.Visible = False
@@ -102,9 +96,10 @@ Partial Class penjualan
         '
         Me.Label8.AutoSize = True
         Me.Label8.BackColor = System.Drawing.Color.Transparent
-        Me.Label8.Location = New System.Drawing.Point(105, 201)
+        Me.Label8.Location = New System.Drawing.Point(143, 45)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(18, 13)
+        Me.Label8.Size = New System.Drawing.Size(20, 16)
         Me.Label8.TabIndex = 13
         Me.Label8.Text = "ID"
         Me.Label8.Visible = False
@@ -113,12 +108,294 @@ Partial Class penjualan
         '
         Me.Label9.AutoSize = True
         Me.Label9.BackColor = System.Drawing.Color.Transparent
-        Me.Label9.Location = New System.Drawing.Point(139, 201)
+        Me.Label9.Location = New System.Drawing.Point(188, 45)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(39, 13)
+        Me.Label9.Size = New System.Drawing.Size(48, 16)
         Me.Label9.TabIndex = 14
         Me.Label9.Text = "Label9"
         Me.Label9.Visible = False
+        '
+        'labelIdBarang
+        '
+        Me.labelIdBarang.AutoSize = True
+        Me.labelIdBarang.BackColor = System.Drawing.Color.Transparent
+        Me.labelIdBarang.Location = New System.Drawing.Point(781, 509)
+        Me.labelIdBarang.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.labelIdBarang.Name = "labelIdBarang"
+        Me.labelIdBarang.Size = New System.Drawing.Size(48, 16)
+        Me.labelIdBarang.TabIndex = 27
+        Me.labelIdBarang.Text = "Label5"
+        Me.labelIdBarang.Visible = False
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.Black
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Controls.Add(Me.textCountItem)
+        Me.Panel1.Controls.Add(Me.labelBarcode)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 104)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1408, 42)
+        Me.Panel1.TabIndex = 34
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Transparent
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(1232, 12)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(78, 16)
+        Me.Label2.TabIndex = 36
+        Me.Label2.Text = "Jumlah Item"
+        '
+        'textCountItem
+        '
+        Me.textCountItem.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textCountItem.BackColor = System.Drawing.Color.Black
+        Me.textCountItem.ForeColor = System.Drawing.Color.White
+        Me.textCountItem.Location = New System.Drawing.Point(1318, 9)
+        Me.textCountItem.MinimumSize = New System.Drawing.Size(50, 22)
+        Me.textCountItem.Name = "textCountItem"
+        Me.textCountItem.Size = New System.Drawing.Size(81, 22)
+        Me.textCountItem.TabIndex = 35
+        Me.textCountItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'labelBarcode
+        '
+        Me.labelBarcode.AutoSize = True
+        Me.labelBarcode.BackColor = System.Drawing.Color.Transparent
+        Me.labelBarcode.ForeColor = System.Drawing.Color.Lime
+        Me.labelBarcode.Location = New System.Drawing.Point(13, 15)
+        Me.labelBarcode.Name = "labelBarcode"
+        Me.labelBarcode.Size = New System.Drawing.Size(59, 16)
+        Me.labelBarcode.TabIndex = 0
+        Me.labelBarcode.Text = "Barcode"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.buttonScanBarang1)
+        Me.Panel2.Controls.Add(Me.buttonScanBarang2)
+        Me.Panel2.Controls.Add(Me.buttonScanBarang3)
+        Me.Panel2.Controls.Add(Me.buttonScanBarang4)
+        Me.Panel2.Controls.Add(Me.buttonScanBarang5)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Location = New System.Drawing.Point(0, 146)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1408, 50)
+        Me.Panel2.TabIndex = 48
+        '
+        'buttonScanBarang1
+        '
+        Me.buttonScanBarang1.Location = New System.Drawing.Point(718, 10)
+        Me.buttonScanBarang1.Name = "buttonScanBarang1"
+        Me.buttonScanBarang1.Size = New System.Drawing.Size(122, 30)
+        Me.buttonScanBarang1.TabIndex = 4
+        Me.buttonScanBarang1.Text = "Scan Barang 1"
+        Me.buttonScanBarang1.UseVisualStyleBackColor = True
+        '
+        'buttonScanBarang2
+        '
+        Me.buttonScanBarang2.Location = New System.Drawing.Point(866, 10)
+        Me.buttonScanBarang2.Name = "buttonScanBarang2"
+        Me.buttonScanBarang2.Size = New System.Drawing.Size(122, 30)
+        Me.buttonScanBarang2.TabIndex = 3
+        Me.buttonScanBarang2.Text = "Scan Barang 2"
+        Me.buttonScanBarang2.UseVisualStyleBackColor = True
+        '
+        'buttonScanBarang3
+        '
+        Me.buttonScanBarang3.Location = New System.Drawing.Point(1003, 10)
+        Me.buttonScanBarang3.Name = "buttonScanBarang3"
+        Me.buttonScanBarang3.Size = New System.Drawing.Size(122, 30)
+        Me.buttonScanBarang3.TabIndex = 2
+        Me.buttonScanBarang3.Text = "Scan Barang 3"
+        Me.buttonScanBarang3.UseVisualStyleBackColor = True
+        '
+        'buttonScanBarang4
+        '
+        Me.buttonScanBarang4.Location = New System.Drawing.Point(1140, 10)
+        Me.buttonScanBarang4.Name = "buttonScanBarang4"
+        Me.buttonScanBarang4.Size = New System.Drawing.Size(122, 30)
+        Me.buttonScanBarang4.TabIndex = 1
+        Me.buttonScanBarang4.Text = "Scan Barang 4"
+        Me.buttonScanBarang4.UseVisualStyleBackColor = True
+        '
+        'buttonScanBarang5
+        '
+        Me.buttonScanBarang5.Location = New System.Drawing.Point(1277, 10)
+        Me.buttonScanBarang5.Name = "buttonScanBarang5"
+        Me.buttonScanBarang5.Size = New System.Drawing.Size(122, 30)
+        Me.buttonScanBarang5.TabIndex = 0
+        Me.buttonScanBarang5.Text = "Scan Barang 5"
+        Me.buttonScanBarang5.UseVisualStyleBackColor = True
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.dataGridView1)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel3.Location = New System.Drawing.Point(0, 196)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(1408, 329)
+        Me.Panel3.TabIndex = 49
+        '
+        'dataGridView1
+        '
+        Me.dataGridView1.AllowUserToAddRows = False
+        Me.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        Me.dataGridView1.ColumnHeadersHeight = 30
+        Me.dataGridView1.Location = New System.Drawing.Point(0, 0)
+        Me.dataGridView1.Margin = New System.Windows.Forms.Padding(4)
+        Me.dataGridView1.Name = "dataGridView1"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
+        Me.dataGridView1.RowHeadersWidth = 51
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle6
+        Me.dataGridView1.Size = New System.Drawing.Size(1408, 325)
+        Me.dataGridView1.TabIndex = 29
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.textQty)
+        Me.Panel4.Controls.Add(Me.labelQty)
+        Me.Panel4.Controls.Add(Me.textKembalian)
+        Me.Panel4.Controls.Add(Me.labelKembalian)
+        Me.Panel4.Controls.Add(Me.textBayar)
+        Me.Panel4.Controls.Add(Me.labelBayar)
+        Me.Panel4.Controls.Add(Me.textGrandTotal)
+        Me.Panel4.Controls.Add(Me.textTotal)
+        Me.Panel4.Controls.Add(Me.textPLU)
+        Me.Panel4.Controls.Add(Me.Label5)
+        Me.Panel4.Controls.Add(Me.Label4)
+        Me.Panel4.Controls.Add(Me.Label3)
+        Me.Panel4.Controls.Add(Me.Button1)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel4.Location = New System.Drawing.Point(0, 524)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(1408, 233)
+        Me.Panel4.TabIndex = 50
+        '
+        'textQty
+        '
+        Me.textQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textQty.Location = New System.Drawing.Point(401, 8)
+        Me.textQty.Name = "textQty"
+        Me.textQty.Size = New System.Drawing.Size(195, 30)
+        Me.textQty.TabIndex = 62
+        '
+        'labelQty
+        '
+        Me.labelQty.AutoSize = True
+        Me.labelQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelQty.Location = New System.Drawing.Point(334, 10)
+        Me.labelQty.Name = "labelQty"
+        Me.labelQty.Size = New System.Drawing.Size(54, 25)
+        Me.labelQty.TabIndex = 61
+        Me.labelQty.Text = "Qty :"
+        '
+        'textKembalian
+        '
+        Me.textKembalian.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textKembalian.Location = New System.Drawing.Point(589, 139)
+        Me.textKembalian.Name = "textKembalian"
+        Me.textKembalian.ReadOnly = True
+        Me.textKembalian.Size = New System.Drawing.Size(260, 30)
+        Me.textKembalian.TabIndex = 60
+        '
+        'labelKembalian
+        '
+        Me.labelKembalian.AutoSize = True
+        Me.labelKembalian.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelKembalian.Location = New System.Drawing.Point(584, 107)
+        Me.labelKembalian.Name = "labelKembalian"
+        Me.labelKembalian.Size = New System.Drawing.Size(116, 25)
+        Me.labelKembalian.TabIndex = 59
+        Me.labelKembalian.Text = "Kembalian :"
+        '
+        'labelBayar
+        '
+        Me.labelBayar.AutoSize = True
+        Me.labelBayar.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelBayar.Location = New System.Drawing.Point(305, 107)
+        Me.labelBayar.Name = "labelBayar"
+        Me.labelBayar.Size = New System.Drawing.Size(74, 25)
+        Me.labelBayar.TabIndex = 57
+        Me.labelBayar.Text = "Bayar :"
+        '
+        'textGrandTotal
+        '
+        Me.textGrandTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textGrandTotal.Location = New System.Drawing.Point(32, 139)
+        Me.textGrandTotal.Name = "textGrandTotal"
+        Me.textGrandTotal.ReadOnly = True
+        Me.textGrandTotal.Size = New System.Drawing.Size(260, 30)
+        Me.textGrandTotal.TabIndex = 56
+        '
+        'textTotal
+        '
+        Me.textTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textTotal.Location = New System.Drawing.Point(98, 56)
+        Me.textTotal.Name = "textTotal"
+        Me.textTotal.ReadOnly = True
+        Me.textTotal.Size = New System.Drawing.Size(195, 30)
+        Me.textTotal.TabIndex = 55
+        '
+        'textPLU
+        '
+        Me.textPLU.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textPLU.Location = New System.Drawing.Point(97, 8)
+        Me.textPLU.Name = "textPLU"
+        Me.textPLU.Size = New System.Drawing.Size(195, 30)
+        Me.textPLU.TabIndex = 54
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(27, 107)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(126, 25)
+        Me.Label5.TabIndex = 53
+        Me.Label5.Text = "Grand Total :"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Location = New System.Drawing.Point(28, 58)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(67, 25)
+        Me.Label4.TabIndex = 52
+        Me.Label4.Text = "Total :"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(30, 8)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(61, 25)
+        Me.Label3.TabIndex = 51
+        Me.Label3.Text = "PLU :"
         '
         'Button1
         '
@@ -127,297 +404,118 @@ Partial Class penjualan
         Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.Button1.Location = New System.Drawing.Point(898, 533)
+        Me.Button1.Location = New System.Drawing.Point(16, 182)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(145, 39)
-        Me.Button1.TabIndex = 16
+        Me.Button1.Size = New System.Drawing.Size(430, 43)
+        Me.Button1.TabIndex = 48
         Me.Button1.Text = "Cetak Nota"
         Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'txtharga
+        'labelTotalBig
         '
-        Me.txtharga.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtharga.BackColor = System.Drawing.SystemColors.Control
-        Me.txtharga.Font = New System.Drawing.Font("Microsoft Sans Serif", 50.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtharga.Location = New System.Drawing.Point(289, 110)
-        Me.txtharga.Name = "txtharga"
-        Me.txtharga.ReadOnly = True
-        Me.txtharga.Size = New System.Drawing.Size(350, 83)
-        Me.txtharga.TabIndex = 19
-        Me.txtharga.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.labelTotalBig.BackColor = System.Drawing.Color.Black
+        Me.labelTotalBig.Dock = System.Windows.Forms.DockStyle.Top
+        Me.labelTotalBig.Font = New System.Drawing.Font("Arial", 50.25!)
+        Me.labelTotalBig.ForeColor = System.Drawing.Color.SpringGreen
+        Me.labelTotalBig.HideSelection = False
+        Me.labelTotalBig.Location = New System.Drawing.Point(0, 0)
+        Me.labelTotalBig.Margin = New System.Windows.Forms.Padding(4)
+        Me.labelTotalBig.Name = "labelTotalBig"
+        Me.labelTotalBig.ReadOnly = True
+        Me.labelTotalBig.Size = New System.Drawing.Size(1408, 104)
+        Me.labelTotalBig.TabIndex = 21
+        Me.labelTotalBig.Text = "0"
+        Me.labelTotalBig.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label11
+        'labelKembalianBig
         '
-        Me.Label11.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label11.AutoSize = True
-        Me.Label11.BackColor = System.Drawing.Color.Transparent
-        Me.Label11.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(21, 123)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(151, 53)
-        Me.Label11.TabIndex = 20
-        Me.Label11.Text = "Harga"
+        Me.labelKembalianBig.AutoSize = True
+        Me.labelKembalianBig.BackColor = System.Drawing.Color.Black
+        Me.labelKembalianBig.Font = New System.Drawing.Font("Microsoft Sans Serif", 28.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.labelKembalianBig.ForeColor = System.Drawing.Color.Gold
+        Me.labelKembalianBig.Location = New System.Drawing.Point(26, 30)
+        Me.labelKembalianBig.Name = "labelKembalianBig"
+        Me.labelKembalianBig.Size = New System.Drawing.Size(243, 54)
+        Me.labelKembalianBig.TabIndex = 37
+        Me.labelKembalianBig.Text = "Kembalian"
+
         '
-        'total
+        'textBayar
         '
-        Me.total.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.total.BackColor = System.Drawing.Color.White
-        Me.total.Font = New System.Drawing.Font("Arial", 50.25!)
-        Me.total.ForeColor = System.Drawing.Color.Black
-        Me.total.Location = New System.Drawing.Point(289, 213)
-        Me.total.Name = "total"
-        Me.total.ReadOnly = True
-        Me.total.Size = New System.Drawing.Size(740, 85)
-        Me.total.TabIndex = 21
-        Me.total.Text = "0"
-        Me.total.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label2
-        '
-        Me.Label2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(21, 232)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(262, 53)
-        Me.Label2.TabIndex = 22
-        Me.Label2.Text = "Total Harga"
-        '
-        'dibayar
-        '
-        Me.dibayar.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dibayar.Font = New System.Drawing.Font("Arial", 50.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dibayar.Location = New System.Drawing.Point(289, 320)
-        Me.dibayar.Name = "dibayar"
-        Me.dibayar.Size = New System.Drawing.Size(740, 85)
-        Me.dibayar.TabIndex = 23
-        Me.dibayar.Text = "0"
-        Me.dibayar.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(21, 329)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(202, 53)
-        Me.Label3.TabIndex = 24
-        Me.Label3.Text = "Di Bayar"
-        '
-        'sisa
-        '
-        Me.sisa.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.sisa.BackColor = System.Drawing.Color.White
-        Me.sisa.Font = New System.Drawing.Font("Microsoft Sans Serif", 50.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sisa.ForeColor = System.Drawing.Color.Black
-        Me.sisa.Location = New System.Drawing.Point(289, 427)
-        Me.sisa.Name = "sisa"
-        Me.sisa.ReadOnly = True
-        Me.sisa.Size = New System.Drawing.Size(740, 83)
-        Me.sisa.TabIndex = 25
-        Me.sisa.Text = "0"
-        Me.sisa.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label4
-        '
-        Me.Label4.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(21, 439)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(242, 53)
-        Me.Label4.TabIndex = 26
-        Me.Label4.Text = "Kembalian"
-        '
-        'id_barang
-        '
-        Me.id_barang.AutoSize = True
-        Me.id_barang.BackColor = System.Drawing.Color.Transparent
-        Me.id_barang.Location = New System.Drawing.Point(559, 533)
-        Me.id_barang.Name = "id_barang"
-        Me.id_barang.Size = New System.Drawing.Size(39, 13)
-        Me.id_barang.TabIndex = 27
-        Me.id_barang.Text = "Label5"
-        '
-        'DataGridView1
-        '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.MenuBar
-        Me.DataGridView1.ColumnHeadersHeight = 30
-        Me.DataGridView1.Location = New System.Drawing.Point(12, 533)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(880, 129)
-        Me.DataGridView1.TabIndex = 28
-        '
-        'Button2
-        '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button2.Location = New System.Drawing.Point(898, 580)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(145, 35)
-        Me.Button2.TabIndex = 29
-        Me.Button2.Text = "Hapus Data"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Label5
-        '
-        Me.Label5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(592, 33)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(173, 53)
-        Me.Label5.TabIndex = 30
-        Me.Label5.Text = "Jumlah"
-        '
-        'qty
-        '
-        Me.qty.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.qty.Font = New System.Drawing.Font("Microsoft Sans Serif", 48.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, CType(0, Byte))
-        Me.qty.Location = New System.Drawing.Point(771, 29)
-        Me.qty.Name = "qty"
-        Me.qty.Size = New System.Drawing.Size(258, 62)
-        Me.qty.TabIndex = 31
-        Me.qty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.RectangleShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(1054, 667)
-        Me.ShapeContainer1.TabIndex = 32
-        Me.ShapeContainer1.TabStop = False
-        '
-        'RectangleShape1
-        '
-        Me.RectangleShape1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RectangleShape1.Location = New System.Drawing.Point(12, 18)
-        Me.RectangleShape1.Name = "RectangleShape1"
-        Me.RectangleShape1.Size = New System.Drawing.Size(1030, 507)
-        '
-        'Button3
-        '
-        Me.Button3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.Location = New System.Drawing.Point(898, 621)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(145, 41)
-        Me.Button3.TabIndex = 33
-        Me.Button3.Text = "Transaksi Baru"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Label10
-        '
-        Me.Label10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(645, 123)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(36, 53)
-        Me.Label10.TabIndex = 34
-        Me.Label10.Text = "/"
-        '
-        'satuan
-        '
-        Me.satuan.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.satuan.AutoSize = True
-        Me.satuan.Font = New System.Drawing.Font("Arial", 35.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.satuan.Location = New System.Drawing.Point(673, 123)
-        Me.satuan.Name = "satuan"
-        Me.satuan.Size = New System.Drawing.Size(0, 53)
-        Me.satuan.TabIndex = 35
+        Me.textBayar.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textBayar.Location = New System.Drawing.Point(310, 139)
+        Me.textBayar.Name = "textBayar"
+        Me.textBayar.Size = New System.Drawing.Size(260, 30)
+        Me.textBayar.TabIndex = 58
         '
         'penjualan
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1054, 667)
-        Me.Controls.Add(Me.satuan)
-        Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.qty)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.DataGridView1)
-        Me.Controls.Add(Me.id_barang)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.sisa)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.dibayar)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.total)
-        Me.Controls.Add(Me.Label11)
-        Me.Controls.Add(Me.txtharga)
-        Me.Controls.Add(Me.Button1)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
+        Me.ClientSize = New System.Drawing.Size(1408, 757)
+        Me.Controls.Add(Me.labelKembalianBig)
+        Me.Controls.Add(Me.Panel4)
+        Me.Controls.Add(Me.Panel3)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.labelIdBarang)
+        Me.Controls.Add(Me.labelTotalBig)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.txtid)
-        Me.Controls.Add(Me.ShapeContainer1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.KeyPreview = True
+        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MaximizeBox = False
         Me.Name = "penjualan"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Penjualan"
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents txtid As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents txtharga As System.Windows.Forms.TextBox
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents total As System.Windows.Forms.TextBox
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents dibayar As System.Windows.Forms.TextBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents sisa As System.Windows.Forms.TextBox
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents id_barang As System.Windows.Forms.Label
-    Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents qty As System.Windows.Forms.TextBox
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents RectangleShape1 As Microsoft.VisualBasic.PowerPacks.RectangleShape
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents satuan As System.Windows.Forms.Label
+    Friend WithEvents labelIdBarang As System.Windows.Forms.Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents labelBarcode As Label
+    Friend WithEvents textCountItem As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents buttonScanBarang5 As Button
+    Friend WithEvents buttonScanBarang1 As Button
+    Friend WithEvents buttonScanBarang2 As Button
+    Friend WithEvents buttonScanBarang3 As Button
+    Friend WithEvents buttonScanBarang4 As Button
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents dataGridView1 As DataGridView
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents textQty As TextBox
+    Friend WithEvents labelQty As Label
+    Friend WithEvents textKembalian As TextBox
+    Friend WithEvents labelKembalian As Label
+    Friend WithEvents labelBayar As Label
+    Friend WithEvents textGrandTotal As TextBox
+    Friend WithEvents textTotal As TextBox
+    Friend WithEvents textPLU As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents labelTotalBig As TextBox
+    Friend WithEvents labelKembalianBig As Label
+    Friend WithEvents textBayar As TextBox
 End Class

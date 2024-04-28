@@ -50,4 +50,5 @@ Public Class Login
     Private Sub Cancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel.Click
         Me.Close()
     End Sub
+
 End Class

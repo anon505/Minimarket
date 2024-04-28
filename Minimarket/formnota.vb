@@ -8,8 +8,8 @@ Public Class formnota
         'TODO: This line of code loads data into the 'minimarketDataSet1.nota' table. You can move, or remove it, as needed.
         Dim paramlist As New Generic.List(Of ReportParameter)
         paramlist.Clear()
-         'Add the BASE64 stream to the parameters
-         paramlist.Add(New ReportParameter("dibayar", penjualan.dibayar.Tag.ToString))
+        'Add the BASE64 stream to the parameters
+        '' paramlist.Add(New ReportParameter("dibayar", penjualan.dibayar.Tag.ToString))
         paramlist.Add(New ReportParameter("logo1", "File:////" + pathlogo))
         paramlist.Add(New ReportParameter("namatoko", namatoko))
         Me.ReportViewer1.LocalReport.SetParameters(paramlist)

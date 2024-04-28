@@ -6,7 +6,9 @@
 End Class
 
 Namespace minimarketdsTableAdapters
-    
+    Partial Public Class DataTable2TableAdapter
+    End Class
+
     Partial Class DataTable1TableAdapter
 
     End Class
