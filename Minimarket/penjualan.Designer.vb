@@ -24,10 +24,9 @@ Partial Class penjualan
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -50,6 +49,7 @@ Partial Class penjualan
         Me.labelQty = New System.Windows.Forms.Label()
         Me.textKembalian = New System.Windows.Forms.TextBox()
         Me.labelKembalian = New System.Windows.Forms.Label()
+        Me.textBayar = New System.Windows.Forms.TextBox()
         Me.labelBayar = New System.Windows.Forms.Label()
         Me.textGrandTotal = New System.Windows.Forms.TextBox()
         Me.textTotal = New System.Windows.Forms.TextBox()
@@ -58,9 +58,9 @@ Partial Class penjualan
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.labelTotalBig = New System.Windows.Forms.TextBox()
+        Me.labelTotalBig = New System.Windows.Forms.Label()
         Me.labelKembalianBig = New System.Windows.Forms.Label()
-        Me.textBayar = New System.Windows.Forms.TextBox()
+        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -162,7 +162,7 @@ Partial Class penjualan
         Me.textCountItem.MinimumSize = New System.Drawing.Size(50, 22)
         Me.textCountItem.Name = "textCountItem"
         Me.textCountItem.Size = New System.Drawing.Size(81, 22)
-        Me.textCountItem.TabIndex = 35
+        Me.textCountItem.TabIndex = 4
         Me.textCountItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'labelBarcode
@@ -247,29 +247,29 @@ Partial Class penjualan
         '
         Me.dataGridView1.AllowUserToAddRows = False
         Me.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dataGridView1.ColumnHeadersHeight = 30
         Me.dataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.dataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.dataGridView1.Name = "dataGridView1"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.dataGridView1.RowHeadersWidth = 51
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle9
         Me.dataGridView1.Size = New System.Drawing.Size(1408, 325)
         Me.dataGridView1.TabIndex = 29
         '
@@ -300,7 +300,7 @@ Partial Class penjualan
         Me.textQty.Location = New System.Drawing.Point(401, 8)
         Me.textQty.Name = "textQty"
         Me.textQty.Size = New System.Drawing.Size(195, 30)
-        Me.textQty.TabIndex = 62
+        Me.textQty.TabIndex = 2
         '
         'labelQty
         '
@@ -330,6 +330,14 @@ Partial Class penjualan
         Me.labelKembalian.Size = New System.Drawing.Size(116, 25)
         Me.labelKembalian.TabIndex = 59
         Me.labelKembalian.Text = "Kembalian :"
+        '
+        'textBayar
+        '
+        Me.textBayar.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textBayar.Location = New System.Drawing.Point(310, 139)
+        Me.textBayar.Name = "textBayar"
+        Me.textBayar.Size = New System.Drawing.Size(260, 30)
+        Me.textBayar.TabIndex = 3
         '
         'labelBayar
         '
@@ -365,7 +373,7 @@ Partial Class penjualan
         Me.textPLU.Location = New System.Drawing.Point(97, 8)
         Me.textPLU.Name = "textPLU"
         Me.textPLU.Size = New System.Drawing.Size(195, 30)
-        Me.textPLU.TabIndex = 54
+        Me.textPLU.TabIndex = 1
         '
         'Label5
         '
@@ -419,15 +427,13 @@ Partial Class penjualan
         Me.labelTotalBig.Dock = System.Windows.Forms.DockStyle.Top
         Me.labelTotalBig.Font = New System.Drawing.Font("Arial", 50.25!)
         Me.labelTotalBig.ForeColor = System.Drawing.Color.SpringGreen
-        Me.labelTotalBig.HideSelection = False
         Me.labelTotalBig.Location = New System.Drawing.Point(0, 0)
         Me.labelTotalBig.Margin = New System.Windows.Forms.Padding(4)
         Me.labelTotalBig.Name = "labelTotalBig"
-        Me.labelTotalBig.ReadOnly = True
         Me.labelTotalBig.Size = New System.Drawing.Size(1408, 104)
         Me.labelTotalBig.TabIndex = 21
         Me.labelTotalBig.Text = "0"
-        Me.labelTotalBig.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.labelTotalBig.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'labelKembalianBig
         '
@@ -435,20 +441,19 @@ Partial Class penjualan
         Me.labelKembalianBig.BackColor = System.Drawing.Color.Black
         Me.labelKembalianBig.Font = New System.Drawing.Font("Microsoft Sans Serif", 28.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelKembalianBig.ForeColor = System.Drawing.Color.Gold
-        Me.labelKembalianBig.Location = New System.Drawing.Point(26, 30)
+        Me.labelKembalianBig.Location = New System.Drawing.Point(24, 24)
         Me.labelKembalianBig.Name = "labelKembalianBig"
         Me.labelKembalianBig.Size = New System.Drawing.Size(243, 54)
         Me.labelKembalianBig.TabIndex = 37
         Me.labelKembalianBig.Text = "Kembalian"
-
         '
-        'textBayar
+        'Panel5
         '
-        Me.textBayar.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textBayar.Location = New System.Drawing.Point(310, 139)
-        Me.textBayar.Name = "textBayar"
-        Me.textBayar.Size = New System.Drawing.Size(260, 30)
-        Me.textBayar.TabIndex = 58
+        Me.Panel5.BackColor = System.Drawing.Color.White
+        Me.Panel5.Location = New System.Drawing.Point(0, 101)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(1408, 2)
+        Me.Panel5.TabIndex = 30
         '
         'penjualan
         '
@@ -460,6 +465,7 @@ Partial Class penjualan
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.labelIdBarang)
+        Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.labelTotalBig)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
@@ -475,7 +481,6 @@ Partial Class penjualan
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
@@ -515,7 +520,8 @@ Partial Class penjualan
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Button1 As Button
-    Friend WithEvents labelTotalBig As TextBox
+    Friend WithEvents labelTotalBig As Label
     Friend WithEvents labelKembalianBig As Label
     Friend WithEvents textBayar As TextBox
+    Friend WithEvents Panel5 As Panel
 End Class

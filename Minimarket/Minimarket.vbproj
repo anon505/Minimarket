@@ -341,6 +341,12 @@
     <Compile Include="penjualan.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="popup_supplier.Designer.vb">
+      <DependentUpon>popup_supplier.vb</DependentUpon>
+    </Compile>
+    <Compile Include="popup_supplier.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="satuan.Designer.vb">
       <DependentUpon>satuan.vb</DependentUpon>
     </Compile>
@@ -392,6 +398,9 @@
     <EmbeddedResource Include="penjualan.rdlc" />
     <EmbeddedResource Include="penjualan.resx">
       <DependentUpon>penjualan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="popup_supplier.resx">
+      <DependentUpon>popup_supplier.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="satuan.resx">

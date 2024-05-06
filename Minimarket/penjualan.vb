@@ -18,7 +18,7 @@ Public Class penjualan
     End Function
     Dim debounceSubject As Subject(Of String)
     Private Sub loadTable()
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok from ds_transaksi_penjualan", konek)
+        Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok from ds_transaksi_penjualan where id_transaksi=" & getIdTransaksi(Module1.id_kasir), konek)
         Dim ds = New DataTable()
         mySqlAdapter.Fill(ds)
         dataGridView1.AutoGenerateColumns = True
@@ -78,7 +78,7 @@ Public Class penjualan
         Dim stokDisplay As Integer
         Dim stokGudang As String
         Dim stokTotal As Integer
-        Dim hargaBeli As Integer
+        Dim hargaBeliNetto As Integer
         Dim hargaJual1 As Integer
         Dim hargaJual2 As Integer
         Dim hargaJual3 As Integer
@@ -92,7 +92,7 @@ Public Class penjualan
             stokDisplay = barangReader("stok_display")
             stokGudang = barangReader("stok_gudang")
             stokTotal = stokDisplay + stokGudang
-            hargaBeli = barangReader("harga_beli")
+            hargaBeliNetto = barangReader("harga_beli_netto")
             hargaJual1 = barangReader("harga_jual1")
             hargaJual2 = barangReader("harga_jual2")
             hargaJual3 = barangReader("harga_jual3")
@@ -141,7 +141,7 @@ Public Class penjualan
                 If idTransaksiDetail Is Nothing Then
                     Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (
 id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual)
-VALUES (NULL, '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeli.ToString & "',
+VALUES (NULL, '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "',
 '" & hargaJualTerpilih.ToString & "')", konek)
                     insertTransaksiDetail.ExecuteNonQuery()
                 Else
@@ -162,7 +162,7 @@ WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
 
                         Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (
 id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual)
-VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeli.ToString & "',
+VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "',
 '" & hargaJualTerpilih.ToString & "')", konek)
                         insertTransaksiDetail.ExecuteNonQuery()
                     End If
@@ -370,4 +370,5 @@ WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
         Dim row = dataGridView1.Rows(e.RowIndex)
         inputUpdateBarang("setvalue", row.Cells(1).Value.ToString, row.Cells(e.ColumnIndex).Value.ToString)
     End Sub
+
 End Class
