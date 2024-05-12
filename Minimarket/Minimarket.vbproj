@@ -304,6 +304,12 @@
     <Compile Include="main.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="markup.Designer.vb">
+      <DependentUpon>markup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="markup.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="minimarketds.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -341,6 +347,12 @@
     <Compile Include="penjualan.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="popup_faktur.Designer.vb">
+      <DependentUpon>popup_faktur.vb</DependentUpon>
+    </Compile>
+    <Compile Include="popup_faktur.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="popup_supplier.Designer.vb">
       <DependentUpon>popup_supplier.vb</DependentUpon>
     </Compile>
@@ -373,6 +385,9 @@
     <EmbeddedResource Include="cpanel.resx">
       <DependentUpon>cpanel.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="markup.resx">
+      <DependentUpon>markup.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="pembelian.rdlc" />
     <EmbeddedResource Include="formnota.resx">
       <DependentUpon>formnota.vb</DependentUpon>
@@ -398,6 +413,9 @@
     <EmbeddedResource Include="penjualan.rdlc" />
     <EmbeddedResource Include="penjualan.resx">
       <DependentUpon>penjualan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="popup_faktur.resx">
+      <DependentUpon>popup_faktur.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="popup_supplier.resx">
       <DependentUpon>popup_supplier.vb</DependentUpon>

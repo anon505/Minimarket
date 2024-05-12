@@ -16,7 +16,7 @@ Public Class Login
                     id_kasir = i
                     hak_akses = cektipe
                     main.MenuStrip1.Enabled = True
-                    main.ObrolanToolStripMenuItem.Enabled = True
+                    main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True
                     main.BarangToolStripMenuItem.Enabled = True
                     main.PembelianToolStripMenuItem.Enabled = True
@@ -31,7 +31,7 @@ Public Class Login
                     id_kasir = i
                     hak_akses = cektipe
                     main.MenuStrip1.Enabled = True
-                    main.ObrolanToolStripMenuItem.Enabled = True
+                    main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True
                     main.BarangToolStripMenuItem.Enabled = True
                     main.PembelianToolStripMenuItem.Enabled = True

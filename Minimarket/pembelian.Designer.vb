@@ -30,8 +30,6 @@ Partial Class pembelian
         Me.dataGridView1 = New System.Windows.Forms.DataGridView()
         Me.textNoFaktur = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.textSupplier = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.comboPembayaran = New System.Windows.Forms.ComboBox()
         Me.textTempoHari = New System.Windows.Forms.TextBox()
@@ -55,6 +53,8 @@ Partial Class pembelian
         Me.buttonScan4 = New System.Windows.Forms.Button()
         Me.buttonScan5 = New System.Windows.Forms.Button()
         Me.labelIdSuplier = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.textSupplier = New System.Windows.Forms.TextBox()
         CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -125,24 +125,6 @@ Partial Class pembelian
         Me.Label1.Size = New System.Drawing.Size(130, 25)
         Me.Label1.TabIndex = 58
         Me.Label1.Text = "Nomor Faktur"
-        '
-        'textSupplier
-        '
-        Me.textSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textSupplier.Location = New System.Drawing.Point(170, 109)
-        Me.textSupplier.Name = "textSupplier"
-        Me.textSupplier.Size = New System.Drawing.Size(86, 30)
-        Me.textSupplier.TabIndex = 61
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(10, 112)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(84, 25)
-        Me.Label2.TabIndex = 60
-        Me.Label2.Text = "Supplier"
         '
         'Label4
         '
@@ -365,6 +347,24 @@ Partial Class pembelian
         Me.labelIdSuplier.TabIndex = 84
         Me.labelIdSuplier.Visible = False
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(10, 112)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(84, 25)
+        Me.Label2.TabIndex = 60
+        Me.Label2.Text = "Supplier"
+        '
+        'textSupplier
+        '
+        Me.textSupplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textSupplier.Location = New System.Drawing.Point(170, 109)
+        Me.textSupplier.Name = "textSupplier"
+        Me.textSupplier.Size = New System.Drawing.Size(86, 30)
+        Me.textSupplier.TabIndex = 61
+        '
         'pembelian
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -417,8 +417,6 @@ Partial Class pembelian
     Friend WithEvents dataGridView1 As DataGridView
     Friend WithEvents textNoFaktur As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents textSupplier As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents comboPembayaran As ComboBox
     Friend WithEvents textTempoHari As TextBox
@@ -442,4 +440,6 @@ Partial Class pembelian
     Friend WithEvents buttonScan4 As Button
     Friend WithEvents buttonScan5 As Button
     Friend WithEvents labelIdSuplier As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents textSupplier As TextBox
 End Class

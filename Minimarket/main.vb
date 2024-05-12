@@ -111,9 +111,9 @@ Public Class main
         pembelian.Show()
     End Sub
 
-    Private Sub ObrolanToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ObrolanToolStripMenuItem.Click
-        chat.MdiParent = Me
-        chat.Show()
+    Private Sub MarkupToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MarkupToolStripMenuItem.Click
+        markup.MdiParent = Me
+        markup.Show()
     End Sub
 
     Private Sub LaporanHarianToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LaporanHarianToolStripMenuItem.Click
