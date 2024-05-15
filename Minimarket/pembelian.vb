@@ -1,4 +1,5 @@
 ﻿Imports System.Threading.Tasks
+Imports Microsoft.VisualBasic.Logging
 Imports MySql.Data.MySqlClient
 Imports Mysqlx.Crud
 Public Class pembelian
@@ -332,7 +333,6 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
     End Sub
 
     Private Sub dataGridView1_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles dataGridView1.EditingControlShowing
-
         If TypeOf e.Control Is TextBox And (dataGridView1.CurrentCell.ColumnIndex = 5 Or dataGridView1.CurrentCell.ColumnIndex = 7) Then
             Dim tb As TextBox = TryCast(e.Control, TextBox)
 
