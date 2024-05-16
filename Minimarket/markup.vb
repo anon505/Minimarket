@@ -61,16 +61,16 @@ Public Class markup
         dataGridView1.Columns(4).HeaderText = "Nama Barang"
         dataGridView1.Columns(5).HeaderText = "Harga Beli Netto"
         dataGridView1.Columns(6).HeaderText = "Harga Satuan"
-        dataGridView1.Columns(7).HeaderText = "Profit1"
+        dataGridView1.Columns(7).HeaderText = "Profit1 (%)"
         dataGridView1.Columns(8).HeaderText = "Q2"
         dataGridView1.Columns(9).HeaderText = "Harga Q2"
-        dataGridView1.Columns(10).HeaderText = "Profit2"
+        dataGridView1.Columns(10).HeaderText = "Profit2 (%)"
         dataGridView1.Columns(11).HeaderText = "Q3"
         dataGridView1.Columns(12).HeaderText = "Harga Q3"
-        dataGridView1.Columns(13).HeaderText = "Profit3"
+        dataGridView1.Columns(13).HeaderText = "Profit3 (%)"
         dataGridView1.Columns(14).HeaderText = "Q4"
         dataGridView1.Columns(15).HeaderText = "Harga Q4"
-        dataGridView1.Columns(16).HeaderText = "Profit4"
+        dataGridView1.Columns(16).HeaderText = "Profit4 (%)"
 
 
 
@@ -222,5 +222,43 @@ Public Class markup
         If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
             calculate(e.ColumnIndex, e.RowIndex)
         End If
+    End Sub
+    Private Sub saveMarkup()
+        Dim rows = dataGridView1.Rows
+        Dim noFaktur = ""
+        For i = 0 To rows.Count - 1
+            noFaktur = rows(i).Cells(1).Value.ToString
+            Dim idBarang = rows(i).Cells(2).Value.ToString
+            Dim hargaSatuan = rows(i).Cells(6).Value.ToString
+            Dim qty2 = rows(i).Cells(8).Value.ToString
+            Dim hargaJual2 = rows(i).Cells(9).Value.ToString
+            Dim qty3 = rows(i).Cells(11).Value.ToString
+            Dim hargaJual3 = rows(i).Cells(12).Value.ToString
+            Dim qty4 = rows(i).Cells(14).Value.ToString
+            Dim hargaJual4 = rows(i).Cells(15).Value.ToString
+
+            Dim updateItemPembelian As MySqlCommand = New MySqlCommand("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "',
+                harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',
+                qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang, konek)
+            updateItemPembelian.ExecuteNonQuery()
+        Next
+        Dim updatePembelian As MySqlCommand = New MySqlCommand("Update pembelian Set status = 'mark_up' WHERE no_faktur = " & noFaktur, konek)
+        updatePembelian.ExecuteNonQuery()
+        textNoFaktur.Text = ""
+        dataGridView1.DataSource = Nothing
+    End Sub
+    Private Sub buttonSave_Click(sender As Object, e As EventArgs) Handles buttonSave.Click
+        If dataGridView1.DataSource IsNot Nothing Then
+            If dataGridView1.RowCount > 0 Then
+                Dim result As DialogResult = MessageBox.Show("PASTIKAN DATA SUDAH BENAR, apakah anda yakin ingin menyimpannya?",
+                         "Konfirmasi",
+                         MessageBoxButtons.YesNo)
+
+                If (result = DialogResult.Yes) Then
+                    saveMarkup()
+                End If
+            End If
+        End If
+
     End Sub
 End Class
