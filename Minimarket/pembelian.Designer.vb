@@ -55,6 +55,7 @@ Partial Class pembelian
         Me.labelIdSuplier = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.textSupplier = New System.Windows.Forms.TextBox()
+        Me.btnEditFaktor = New System.Windows.Forms.Button()
         CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -365,11 +366,22 @@ Partial Class pembelian
         Me.textSupplier.Size = New System.Drawing.Size(86, 30)
         Me.textSupplier.TabIndex = 61
         '
+        'btnEditFaktor
+        '
+        Me.btnEditFaktor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnEditFaktor.Location = New System.Drawing.Point(372, 56)
+        Me.btnEditFaktor.Name = "btnEditFaktor"
+        Me.btnEditFaktor.Size = New System.Drawing.Size(120, 33)
+        Me.btnEditFaktor.TabIndex = 85
+        Me.btnEditFaktor.Text = "Edit Faktur"
+        Me.btnEditFaktor.UseVisualStyleBackColor = True
+        '
         'pembelian
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1438, 741)
+        Me.Controls.Add(Me.btnEditFaktor)
         Me.Controls.Add(Me.labelIdSuplier)
         Me.Controls.Add(Me.buttonScan5)
         Me.Controls.Add(Me.buttonScan4)
@@ -442,4 +454,5 @@ Partial Class pembelian
     Friend WithEvents labelIdSuplier As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents textSupplier As TextBox
+    Friend WithEvents btnEditFaktor As Button
 End Class
