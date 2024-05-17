@@ -5,6 +5,7 @@ Imports Mysqlx.Crud
 Imports Org.BouncyCastle.Utilities.IO
 Public Class pembelian
     Dim noFaktorEdit As String
+    Dim statusFaktorEdit As String
 
     Private Function getIdPembelian(ByVal idKasir As String) As String
         If noFaktorEdit IsNot Nothing Then
@@ -281,6 +282,14 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
             textNoFaktur.Enabled = False
             btnEditFaktor.Text = "Kembali"
             buttonNew.Enabled = False
+            If statusFaktorEdit = "mark_up" Then
+                buttonSave.Enabled = False
+                comboPembayaran.Enabled = False
+                textTempoHari.Enabled = False
+                buttonDelete.Enabled = False
+                textPpn.Enabled = False
+                textDiscount.Enabled = False
+            End If
         Else
             textTempoHari.Text = ""
             textTempoHari.Enabled = False
@@ -589,12 +598,12 @@ WHERE id_pembelian_detail = " & getIdDariTabel(), konek)
             ElseIf textSupplier.Text = "" Or labelIdSuplier.Text = "" Or labelSupplier.Text = "" Then
                 MsgBox("Harap PILIH suplier terlebih dahulu")
             Else
-                Dim cekFakturCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian from pembelian WHERE (status='temp' or status='saved') AND no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
+                Dim cekFakturCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
                 Dim idPembelian = cekFakturCmd.ExecuteScalar
                 If idPembelian Is Nothing Then
-                    MsgBox("Faktor yang dipilih TIDAK BISA DIEDIT(SUDAH DI MARK UP)")
+                    MsgBox("Faktur tidak ditemukan")
                 Else
-                    Dim cekPembelianCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian WHERE (status='temp' or status='saved') AND no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
+                    Dim cekPembelianCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
                     Dim pembelianReader As MySqlDataReader = cekPembelianCmd.ExecuteReader()
                     If pembelianReader.Read Then
                         Dim newPembelian = New pembelian
@@ -618,7 +627,8 @@ WHERE id_pembelian_detail = " & getIdDariTabel(), konek)
                             End If
                         End If
                         pembelianReader.Close()
-
+                        Dim cekFakturSTatusCmd As MySqlCommand = New MySqlCommand("SELECT status from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
+                        newPembelian.statusFaktorEdit = cekFakturSTatusCmd.ExecuteScalar
                         newPembelian.noFaktorEdit = Me.textNoFaktur.Text
                         newPembelian.textNoFaktur.Text = Me.textNoFaktur.Text
                         newPembelian.textSupplier.Text = Me.textSupplier.Text

@@ -25,7 +25,10 @@ Public Class markup
             Return
         End If
 
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4 from ds_markup  where no_faktur=" & noFaktur, konek)
+        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,
+profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,
+`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto`
+from ds_markup  where no_faktur=" & noFaktur, konek)
         Dim ds = New DataTable()
         mySqlAdapter.Fill(ds)
 
@@ -50,9 +53,21 @@ Public Class markup
         dataGridView1.Columns(15).ReadOnly = False
         dataGridView1.Columns(16).ReadOnly = False
 
+        dataGridView1.Columns(17).ReadOnly = False
+        dataGridView1.Columns(18).ReadOnly = False
+        dataGridView1.Columns(19).ReadOnly = False
+        dataGridView1.Columns(20).ReadOnly = False
+        dataGridView1.Columns(21).ReadOnly = False
+
         dataGridView1.Columns(0).Visible = False
         dataGridView1.Columns(1).Visible = False
         dataGridView1.Columns(2).Visible = False
+        dataGridView1.Columns(16).Visible = False
+        dataGridView1.Columns(17).Visible = False
+        dataGridView1.Columns(18).Visible = False
+        dataGridView1.Columns(19).Visible = False
+        dataGridView1.Columns(20).Visible = False
+        dataGridView1.Columns(21).Visible = False
 
         dataGridView1.Columns(0).HeaderText = "id_pembelian_detail"
         dataGridView1.Columns(1).HeaderText = "no_faktur"
@@ -236,9 +251,17 @@ Public Class markup
             Dim hargaJual3 = rows(i).Cells(12).Value.ToString
             Dim qty4 = rows(i).Cells(14).Value.ToString
             Dim hargaJual4 = rows(i).Cells(15).Value.ToString
+            'pembelian_detail.qty,pembelian_detail.ppn,pembelian_detail.discount,pembelian_detail.price,pembelian_detail_price_netto
 
+            Dim qty = rows(i).Cells(17).Value.ToString
+            Dim ppn = rows(i).Cells(18).Value.ToString
+            Dim discount = rows(i).Cells(19).Value.ToString
+            Dim price = rows(i).Cells(20).Value.ToString
+            Dim priceNetto = rows(i).Cells(21).Value.ToString
             Dim updateItemPembelian As MySqlCommand = New MySqlCommand("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "',
                 harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',
+                ppn = '" & ppn & "',discount = '" & discount & "',
+                stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "',
                 qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang, konek)
             updateItemPembelian.ExecuteNonQuery()
         Next
