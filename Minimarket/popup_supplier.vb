@@ -1,6 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class popup_supplier
+    Public frmPembelian As pembelian
     Private Sub popup_supplier_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtcari.Select(txtcari.Text.Length, 0)
         txtcari.Select(0, 0)
@@ -21,9 +22,9 @@ Public Class popup_supplier
     End Sub
 
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        pembelian.textSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString
-        pembelian.labelSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString
-        pembelian.labelIdSuplier.Text = DataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString
+        frmPembelian.textSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString
+        frmPembelian.labelSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString
+        frmPembelian.labelIdSuplier.Text = DataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString
         Close()
     End Sub
 End Class

@@ -1,4 +1,5 @@
-﻿Imports System.Threading.Tasks
+﻿Imports System.Globalization
+Imports System.Threading.Tasks
 Imports Microsoft.VisualBasic.Logging
 Imports MySql.Data.MySqlClient
 Imports Mysqlx.Crud
@@ -83,7 +84,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
         column.CellTemplate = cell
     End Sub
     Private Sub loadTable()
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir), konek)
+        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir), konek)
         Dim ds = New DataTable()
         mySqlAdapter.Fill(ds)
 
@@ -106,6 +107,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
         dataGridView1.Columns(13).ReadOnly = True
         dataGridView1.Columns(14).ReadOnly = True
         dataGridView1.Columns(15).ReadOnly = True
+        dataGridView1.Columns(16).ReadOnly = True
 
         dataGridView1.Columns(0).Visible = False
         dataGridView1.Columns(1).Visible = False
@@ -129,6 +131,9 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
         dataGridView1.Columns(13).HeaderText = "Harga Netto"
         dataGridView1.Columns(14).HeaderText = "Harga Netto Lama"
         dataGridView1.Columns(15).HeaderText = "Total"
+        dataGridView1.Columns(16).HeaderText = "Expired"
+        dataGridView1.Columns(16).ValueType = GetType(Date)
+        dataGridView1.Columns(16).DefaultCellStyle.Format = "dd/MM/yyyy"
 
 
 
@@ -145,6 +150,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
         dataGridView1.Columns(13).Width = 108
         dataGridView1.Columns(14).Width = 158
         dataGridView1.Columns(15).Width = 158
+        dataGridView1.Columns(16).Width = 158
         customizeCellsInColumn(5)
         customizeCellsInColumn(7)
         customizeCellsInColumn(9)
@@ -301,6 +307,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
 
     Private Sub textSupplier_TextChanged(sender As Object, e As EventArgs) Handles textSupplier.TextChanged
         If textSupplier.Text IsNot "" And popup_supplier.Visible = False And noFaktorEdit Is Nothing Then
+            popup_supplier.frmPembelian = Me
             popup_supplier.txtcari.Text = textSupplier.Text
             popup_supplier.Show()
         End If
@@ -374,6 +381,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
                 Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
                                                                    dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
                 updateTabel.ExecuteNonQuery()
+                loadTable()
             ElseIf e.ColumnIndex = 7 Then
                 Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
                 Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
@@ -391,6 +399,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
                 Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                    dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
                 updateTabel.ExecuteNonQuery()
+                loadTable()
             ElseIf e.ColumnIndex = 9 Then
                 Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
                 Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
@@ -408,6 +417,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
                 Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                    dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
                 updateTabel.ExecuteNonQuery()
+                loadTable()
             ElseIf e.ColumnIndex = 11 Then
                 Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
                 Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
@@ -425,9 +435,10 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
                 Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                    dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
                 updateTabel.ExecuteNonQuery()
+                loadTable()
             End If
 
-            loadTable()
+
         End If
 
     End Sub
@@ -648,5 +659,34 @@ WHERE id_pembelian_detail = " & getIdDariTabel(), konek)
 
 
     End Sub
+    Dim oDateTimePicker As DateTimePicker
+    Private Sub dataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dataGridView1.CellClick
+        If e.ColumnIndex = 16 Then
 
+
+            oDateTimePicker = New DateTimePicker()
+            dataGridView1.Controls.Add(oDateTimePicker)
+            oDateTimePicker.Format = DateTimePickerFormat.Short
+            Dim orectangle As Rectangle = dataGridView1.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
+            oDateTimePicker.Size = New Size(orectangle.Width, orectangle.Height)
+            oDateTimePicker.Location = New Point(orectangle.X, orectangle.Y)
+            AddHandler oDateTimePicker.CloseUp, AddressOf oDateTimePicker_CloseUp
+            AddHandler oDateTimePicker.TextChanged, AddressOf dateTimePicker_OnTextChange
+            oDateTimePicker.Visible = True
+        End If
+    End Sub
+
+    Private Sub dateTimePicker_OnTextChange(ByVal sender As Object, ByVal e As EventArgs)
+        Dim cell = dataGridView1.CurrentCell
+        Dim newDate As Date = Date.ParseExact(oDateTimePicker.Text.ToString(), "dd/MM/yyyy",
+        System.Globalization.DateTimeFormatInfo.InvariantInfo)
+        dataGridView1.Rows(cell.RowIndex).Cells(16).Value = newDate
+
+        Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set expiry = '" & newDate.ToString("yyyy-MM-dd") & "' WHERE id_barang = '" &
+                                                                   dataGridView1.Rows(cell.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
+        updateTabel.ExecuteNonQuery()
+    End Sub
+    Private Sub oDateTimePicker_CloseUp(ByVal sender As Object, ByVal e As EventArgs)
+        oDateTimePicker.Visible = False
+    End Sub
 End Class
