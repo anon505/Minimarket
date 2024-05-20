@@ -24,18 +24,18 @@ Partial Class formnota
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Me.Minimarketds = New Minimarket.minimarketds()
+        'Me.Minimarketds = New Minimarket.minimarketds()
+        'Me.NotaTableAdapter = New Minimarket.minimarketdsTableAdapters.notaTableAdapter()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.NotaTableAdapter = New Minimarket.minimarketdsTableAdapters.notaTableAdapter()
         Me.NotaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).BeginInit()
+        'CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NotaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Minimarketds
         '
-        Me.Minimarketds.DataSetName = "minimarketds"
-        Me.Minimarketds.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        'Me.Minimarketds.DataSetName = "minimarketds"
+        'Me.Minimarketds.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'ReportViewer1
         '
@@ -54,12 +54,12 @@ Partial Class formnota
         '
         'NotaTableAdapter
         '
-        Me.NotaTableAdapter.ClearBeforeFill = True
+        'Me.NotaTableAdapter.ClearBeforeFill = True
         '
         'NotaBindingSource
         '
         Me.NotaBindingSource.DataMember = "nota"
-        Me.NotaBindingSource.DataSource = Me.Minimarketds
+        'Me.NotaBindingSource.DataSource = Me.Minimarketds
         '
         'formnota
         '
@@ -69,13 +69,13 @@ Partial Class formnota
         Me.Controls.Add(Me.ReportViewer1)
         Me.Name = "formnota"
         Me.Text = "formnota"
-        CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).EndInit()
+        'CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NotaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
-    Friend WithEvents Minimarketds As Minimarket.minimarketds
-    Friend WithEvents NotaTableAdapter As Minimarket.minimarketdsTableAdapters.notaTableAdapter
+    'Friend WithEvents Minimarketds As Minimarket.minimarketds
+    'Friend WithEvents NotaTableAdapter As Minimarket.minimarketdsTableAdapters.notaTableAdapter
     Friend WithEvents NotaBindingSource As System.Windows.Forms.BindingSource
 End Class

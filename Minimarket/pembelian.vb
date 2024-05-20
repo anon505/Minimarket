@@ -2,8 +2,6 @@
 Imports System.Threading.Tasks
 Imports Microsoft.VisualBasic.Logging
 Imports MySql.Data.MySqlClient
-Imports Mysqlx.Crud
-Imports Org.BouncyCastle.Utilities.IO
 Public Class pembelian
     Dim noFaktorEdit As String
     Dim statusFaktorEdit As String
@@ -48,9 +46,7 @@ Public Class pembelian
             Dim currentQty = currentQtyCmd.ExecuteScalar
             If currentQty Is Nothing Then
                 currentQty = "1"
-                Dim insertPembelianDetail As MySqlCommand = New MySqlCommand("INSERT INTO pembelian_detail (
-id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto)
-VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')", konek)
+                Dim insertPembelianDetail As MySqlCommand = New MySqlCommand("INSERT INTO pembelian_detail (id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')", konek)
                 insertPembelianDetail.ExecuteNonQuery()
             Else
                 currentQty = (Integer.Parse(currentQty.ToString) + 1).ToString
@@ -468,8 +464,7 @@ VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" 
         If comboPembayaran.SelectedIndex = 2 Then
             metodePembayaran = "konsinyasi"
         End If
-        Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', 
-metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & textTempoHari.Text & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir), konek)
+        Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & textTempoHari.Text & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir), konek)
         updateTabel.ExecuteNonQuery()
         If noFaktorEdit IsNot Nothing Then
             MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
@@ -532,8 +527,7 @@ metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.T
         Console.WriteLine(dataGridView1.SelectedRows.Count)
 
         If getIdDariTabel() IsNot "" Then
-            Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from pembelian_detail 
-WHERE id_pembelian_detail = " & getIdDariTabel(), konek)
+            Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from pembelian_detail WHERE id_pembelian_detail = " & getIdDariTabel(), konek)
             deleteTransaksiDetail.ExecuteNonQuery()
             loadTable()
         End If

@@ -1,8 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
-Imports Org.BouncyCastle.Asn1
 Imports System.Data
-Imports System.Reactive.Linq
-Imports System.Reactive.Subjects
+
 Public Class penjualan
 
     Private Function getIdTransaksi(ByVal idKasir As String) As String
@@ -16,7 +14,7 @@ Public Class penjualan
             Return idTransaksi.ToString
         End If
     End Function
-    Dim debounceSubject As Subject(Of String)
+    Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
         Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok from ds_transaksi_penjualan where id_transaksi=" & getIdTransaksi(Module1.id_kasir), konek)
         Dim ds = New DataTable()
@@ -139,31 +137,21 @@ Public Class penjualan
 
 
                 If idTransaksiDetail Is Nothing Then
-                    Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (
-id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual)
-VALUES (NULL, '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "',
-'" & hargaJualTerpilih.ToString & "')", konek)
+                    Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual) VALUES (NULL, '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "')", konek)
                     insertTransaksiDetail.ExecuteNonQuery()
                 Else
 
 
                     If typeSet = "increment" Then
 
-                        Dim updateTransaksiDetail As MySqlCommand = New MySqlCommand("UPDATE transaksi_detail Set 
-qty = '" & (Integer.Parse(currentQty.ToString) + qty).ToString & "',
-harga_jual = '" & hargaJualTerpilih.ToString & "'
-WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
+                        Dim updateTransaksiDetail As MySqlCommand = New MySqlCommand("UPDATE transaksi_detail Set qty = '" & (Integer.Parse(currentQty.ToString) + qty).ToString & "',harga_jual = '" & hargaJualTerpilih.ToString & "' WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
                         updateTransaksiDetail.ExecuteNonQuery()
                     Else
-                        Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail 
-WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
+                        Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
                         deleteTransaksiDetail.ExecuteNonQuery()
                         'restok otomatis akan kembali ke tabel barang di kolom stok display via trigger mysql
 
-                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (
-id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual)
-VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "',
-'" & hargaJualTerpilih.ToString & "')", konek)
+                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "')", konek)
                         insertTransaksiDetail.ExecuteNonQuery()
                     End If
                 End If
@@ -203,8 +191,7 @@ VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransa
         Console.WriteLine(dataGridView1.SelectedRows.Count)
 
         If getIdDariTabel() IsNot "" Then
-            Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail 
-WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
+            Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
             deleteTransaksiDetail.ExecuteNonQuery()
             loadTable()
         End If
@@ -244,9 +231,8 @@ WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
     End Sub
 
     Private Sub initializeDebounce()
-        debounceSubject = New Subject(Of String)()
-        debounceSubject.Throttle(TimeSpan.FromMilliseconds(100))
-        debounceSubject.Subscribe(AddressOf debouncedTextBayarChanged)
+        debounceSubject = New DebounceDispatcher()
+        
     End Sub
 
 
@@ -266,9 +252,7 @@ WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
     End Sub
     Private Sub voidTransaksi()
         Dim idTransaksi = getIdTransaksi(Module1.id_kasir)
-        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set 
-status = 'void'
-WHERE id_transaksi = " & idTransaksi.ToString, konek)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & idTransaksi.ToString, konek)
         updateTransaksi.ExecuteNonQuery()
         initializeForm()
         getIdTransaksi(Module1.id_kasir)
@@ -276,12 +260,7 @@ WHERE id_transaksi = " & idTransaksi.ToString, konek)
     End Sub
     Private Sub doneTransaksi(ByVal nominalKembalian As Integer)
         Dim idTransaksi = getIdTransaksi(Module1.id_kasir)
-        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set 
-bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "',
-grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "',
-kembalian = '" & nominalKembalian.ToString & "',
-status = 'done'
-WHERE id_transaksi = " & idTransaksi.ToString, konek)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'done'WHERE id_transaksi = " & idTransaksi.ToString, konek)
         updateTransaksi.ExecuteNonQuery()
         initializeForm()
         getIdTransaksi(Module1.id_kasir)
@@ -392,7 +371,9 @@ WHERE id_transaksi = " & idTransaksi.ToString, konek)
     End Sub
 
     Private Sub textBayar_TextChanged(sender As Object, e As EventArgs) Handles textBayar.TextChanged
-        debounceSubject.OnNext(textBayar.Text)
+        debounceSubject.Debounce(100, Function(p)
+                                          debouncedTextBayarChanged(textBayar.Text)
+                                      End Function)
     End Sub
 
     Private Sub dataGridView1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dataGridView1.CellEndEdit

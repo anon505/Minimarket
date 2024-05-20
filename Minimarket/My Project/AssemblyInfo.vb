@@ -1,6 +1,4 @@
-﻿Imports System.Resources
-
-Imports System
+﻿Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -12,15 +10,15 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Minimarket")> 
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Umam Corporation")> 
+<Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("Minimarket")> 
-<Assembly: AssemblyCopyright("Copyright ©  2013")> 
+<Assembly: AssemblyCopyright("Copyright ©  2024")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)> 
+<Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("cfb6fdd0-9bf4-4e91-9a13-f10f0ab3edda")> 
+<Assembly: Guid("358f917e-2f0a-46cd-820e-fccf1593001a")> 
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -35,5 +33,3 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> 
-
-<Assembly: NeutralResourcesLanguageAttribute("id-ID")> 

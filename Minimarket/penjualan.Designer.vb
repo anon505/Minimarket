@@ -1,5 +1,4 @@
-﻿Imports System.Reactive.Linq
-
+﻿
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class penjualan
     Inherits System.Windows.Forms.Form

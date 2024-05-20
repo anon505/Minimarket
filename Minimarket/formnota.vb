@@ -4,7 +4,7 @@ Public Class formnota
     Private Sub formnota_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'TODO: This line of code loads data into the 'Minimarketds.kasir' table. You can move, or remove it, as needed.
         Me.ReportViewer1.LocalReport.EnableExternalImages = True
-        Me.NotaTableAdapter.Fill(Me.Minimarketds.nota, id_kasir)
+        'Me.NotaTableAdapter.Fill(Me.Minimarketds.nota, id_kasir)
         'TODO: This line of code loads data into the 'minimarketDataSet1.nota' table. You can move, or remove it, as needed.
         Dim paramlist As New Generic.List(Of ReportParameter)
         paramlist.Clear()

@@ -1,6 +1,4 @@
 ﻿Imports MySql.Data.MySqlClient
-Imports Org.BouncyCastle.Crypto.Paddings
-Imports Org.BouncyCastle.Pqc.Crypto
 
 Public Class markup
     Private Sub dataGridView1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
@@ -25,10 +23,7 @@ Public Class markup
             Return
         End If
 
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,
-profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,
-`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto`
-from ds_markup  where no_faktur=" & noFaktur, konek)
+        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto` from ds_markup  where no_faktur=" & noFaktur, konek)
         Dim ds = New DataTable()
         mySqlAdapter.Fill(ds)
 
@@ -258,11 +253,7 @@ from ds_markup  where no_faktur=" & noFaktur, konek)
             Dim discount = rows(i).Cells(19).Value.ToString
             Dim price = rows(i).Cells(20).Value.ToString
             Dim priceNetto = rows(i).Cells(21).Value.ToString
-            Dim updateItemPembelian As MySqlCommand = New MySqlCommand("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "',
-                harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',
-                ppn = '" & ppn & "',discount = '" & discount & "',
-                stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "',
-                qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang, konek)
+            Dim updateItemPembelian As MySqlCommand = New MySqlCommand("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "', harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',ppn = '" & ppn & "',discount = '" & discount & "',stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "',qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang, konek)
             updateItemPembelian.ExecuteNonQuery()
         Next
         Dim updatePembelian As MySqlCommand = New MySqlCommand("Update pembelian Set status = 'mark_up' WHERE no_faktur = " & noFaktur, konek)

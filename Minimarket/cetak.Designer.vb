@@ -26,7 +26,7 @@ Partial Class cetak
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(cetak))
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.DataTable1BindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.Minimarketds = New Minimarket.minimarketds()
+        'Me.Minimarketds = New Minimarket.minimarketds()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.kasirbox = New System.Windows.Forms.ComboBox()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -37,22 +37,22 @@ Partial Class cetak
         Me.txtdatetime = New System.Windows.Forms.TextBox()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.DataTable2BindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DataTable1TableAdapter = New Minimarket.minimarketdsTableAdapters.DataTable1TableAdapter()
-        Me.DataTable2TableAdapter = New Minimarket.minimarketdsTableAdapters.DataTable2TableAdapter()
+        'Me.DataTable1TableAdapter = New Minimarket.minimarketdsTableAdapters.DataTable1TableAdapter()
+        'Me.DataTable2TableAdapter = New Minimarket.minimarketdsTableAdapters.DataTable2TableAdapter()
         CType(Me.DataTable1BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).BeginInit()
+        'CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataTable2BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DataTable1BindingSource
         '
         Me.DataTable1BindingSource.DataMember = "DataTable1"
-        Me.DataTable1BindingSource.DataSource = Me.Minimarketds
+        'Me.DataTable1BindingSource.DataSource = Me.Minimarketds
         '
         'Minimarketds
         '
-        Me.Minimarketds.DataSetName = "minimarketds"
-        Me.Minimarketds.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        'Me.Minimarketds.DataSetName = "minimarketds"
+        'Me.Minimarketds.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'DateTimePicker1
         '
@@ -164,15 +164,15 @@ Partial Class cetak
         'DataTable2BindingSource
         '
         Me.DataTable2BindingSource.DataMember = "DataTable2"
-        Me.DataTable2BindingSource.DataSource = Me.Minimarketds
+        'Me.DataTable2BindingSource.DataSource = Me.Minimarketds
         '
         'DataTable1TableAdapter
         '
-        Me.DataTable1TableAdapter.ClearBeforeFill = True
+        'Me.DataTable1TableAdapter.ClearBeforeFill = True
         '
         'DataTable2TableAdapter
         '
-        Me.DataTable2TableAdapter.ClearBeforeFill = True
+        'Me.DataTable2TableAdapter.ClearBeforeFill = True
         '
         'cetak
         '
@@ -191,7 +191,7 @@ Partial Class cetak
         Me.Name = "cetak"
         Me.Text = "Laporan "
         CType(Me.DataTable1BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).EndInit()
+        'CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataTable2BindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -206,9 +206,10 @@ Partial Class cetak
     Friend WithEvents transbox As System.Windows.Forms.ComboBox
     Friend WithEvents txtdatetime As System.Windows.Forms.TextBox
     Friend WithEvents DataTable1BindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents Minimarketds As Minimarket.minimarketds
-    Friend WithEvents DataTable1TableAdapter As Minimarket.minimarketdsTableAdapters.DataTable1TableAdapter
+    'Friend WithEvents Minimarketds As Minimarket.minimarketds
+    'Friend WithEvents DataTable1TableAdapter As Minimarket.minimarketdsTableAdapters.DataTable1TableAdapter
+    'Friend WithEvents DataTable2TableAdapter As Minimarket.minimarketdsTableAdapters.DataTable2TableAdapter
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents DataTable2BindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DataTable2TableAdapter As Minimarket.minimarketdsTableAdapters.DataTable2TableAdapter
+
 End Class
