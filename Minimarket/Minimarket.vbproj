@@ -318,6 +318,11 @@
     <Compile Include="minimarketds.vb">
       <DependentUpon>minimarketds.xsd</DependentUpon>
     </Compile>
+    <Compile Include="minimarket_ds.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>minimarket_ds.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -440,6 +445,17 @@
     </None>
     <None Include="minimarketds.xss">
       <DependentUpon>minimarketds.xsd</DependentUpon>
+    </None>
+    <None Include="minimarket_ds.xsc">
+      <DependentUpon>minimarket_ds.xsd</DependentUpon>
+    </None>
+    <None Include="minimarket_ds.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>minimarket_ds.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="minimarket_ds.xss">
+      <DependentUpon>minimarket_ds.xsd</DependentUpon>
     </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">

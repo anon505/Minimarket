@@ -2,14 +2,14 @@
 <xs:schema id="minimarketds" targetNamespace="http://tempuri.org/minimarketds.xsd" xmlns:mstns="http://tempuri.org/minimarketds.xsd" xmlns="http://tempuri.org/minimarketds.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ConnectionString (MySettings)" PropertyReference="ApplicationSettings.Minimarket.My.MySettings.GlobalReference.Default.ConnectionString" Provider="System.Data.Odbc" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="notaTableAdapter" GeneratorDataComponentClassName="notaTableAdapter" Name="nota" UserDataComponentName="notaTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        penjualan.id_barang, barang.nama_barang, barang.harga_jual, SUM(penjualan.total) AS jumlah, penjualan.id_kasir, satuan.nama_satuan
@@ -36,7 +36,7 @@ GROUP BY penjualan.id_barang</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>SELECT        keuntungan.`waktu beli` AS kapan, keuntungan.id_barang, kasir.nama_kasir, keuntungan.nama_barang, keuntungan.harga_beli, keuntungan.harga_jual, 
@@ -68,7 +68,7 @@ ORDER BY kapan</CommandText>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable2TableAdapter" GeneratorDataComponentClassName="DataTable2TableAdapter" Name="DataTable2" UserDataComponentName="DataTable2TableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="ConnectionString (MySettings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        view_beli.id_kasir, view_beli.id_barang, view_beli.nama_barang, view_beli.waktu_beli, view_beli.harga_beli, view_beli.jumlah, view_beli.nama_satuan, 
@@ -101,24 +101,24 @@ WHERE        view_beli.id_kasir = kasir.id_kasir AND (view_beli.tanggal = ?) AND
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="minimarketds" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="minimarketds" msprop:Generator_DataSetName="minimarketds">
+  <xs:element name="minimarketds" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="minimarketds" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="minimarketds">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="nota" msprop:Generator_RowEvHandlerName="notaRowChangeEventHandler" msprop:Generator_RowDeletedName="notaRowDeleted" msprop:Generator_RowDeletingName="notaRowDeleting" msprop:Generator_RowEvArgName="notaRowChangeEvent" msprop:Generator_TablePropName="nota" msprop:Generator_RowChangedName="notaRowChanged" msprop:Generator_RowChangingName="notaRowChanging" msprop:Generator_UserTableName="nota" msprop:Generator_TableClassName="notaDataTable" msprop:Generator_RowClassName="notaRow" msprop:Generator_TableVarName="tablenota">
+        <xs:element name="nota" msprop:Generator_RowEvHandlerName="notaRowChangeEventHandler" msprop:Generator_RowDeletedName="notaRowDeleted" msprop:Generator_RowDeletingName="notaRowDeleting" msprop:Generator_RowEvArgName="notaRowChangeEvent" msprop:Generator_TablePropName="nota" msprop:Generator_RowChangedName="notaRowChanged" msprop:Generator_UserTableName="nota" msprop:Generator_RowChangingName="notaRowChanging" msprop:Generator_RowClassName="notaRow" msprop:Generator_TableClassName="notaDataTable" msprop:Generator_TableVarName="tablenota">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id_barang" msprop:Generator_ColumnPropNameInRow="id_barang" msprop:Generator_ColumnPropNameInTable="id_barangColumn" msprop:Generator_ColumnVarNameInTable="columnid_barang" msprop:Generator_UserColumnName="id_barang" type="xs:int" />
-              <xs:element name="id_kasir" msprop:Generator_ColumnPropNameInRow="id_kasir" msprop:Generator_ColumnPropNameInTable="id_kasirColumn" msprop:Generator_ColumnVarNameInTable="columnid_kasir" msprop:Generator_UserColumnName="id_kasir" type="xs:int" minOccurs="0" />
-              <xs:element name="nama_barang" msprop:Generator_ColumnPropNameInRow="nama_barang" msprop:Generator_ColumnPropNameInTable="nama_barangColumn" msprop:Generator_ColumnVarNameInTable="columnnama_barang" msprop:Generator_UserColumnName="nama_barang">
+              <xs:element name="id_barang" msprop:Generator_ColumnPropNameInTable="id_barangColumn" msprop:Generator_ColumnPropNameInRow="id_barang" msprop:Generator_UserColumnName="id_barang" msprop:Generator_ColumnVarNameInTable="columnid_barang" type="xs:int" />
+              <xs:element name="id_kasir" msprop:Generator_ColumnPropNameInTable="id_kasirColumn" msprop:Generator_ColumnPropNameInRow="id_kasir" msprop:Generator_UserColumnName="id_kasir" msprop:Generator_ColumnVarNameInTable="columnid_kasir" type="xs:int" minOccurs="0" />
+              <xs:element name="nama_barang" msprop:Generator_ColumnPropNameInTable="nama_barangColumn" msprop:Generator_ColumnPropNameInRow="nama_barang" msprop:Generator_UserColumnName="nama_barang" msprop:Generator_ColumnVarNameInTable="columnnama_barang">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="harga_jual" msprop:Generator_ColumnPropNameInRow="harga_jual" msprop:Generator_ColumnPropNameInTable="harga_jualColumn" msprop:Generator_ColumnVarNameInTable="columnharga_jual" msprop:Generator_UserColumnName="harga_jual" type="xs:int" />
-              <xs:element name="jumlah" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="jumlah" msprop:Generator_ColumnPropNameInTable="jumlahColumn" msprop:Generator_ColumnVarNameInTable="columnjumlah" msprop:Generator_UserColumnName="jumlah" type="xs:decimal" minOccurs="0" />
-              <xs:element name="nama_satuan" msprop:Generator_ColumnPropNameInRow="nama_satuan" msprop:Generator_ColumnPropNameInTable="nama_satuanColumn" msprop:Generator_ColumnVarNameInTable="columnnama_satuan" msprop:Generator_UserColumnName="nama_satuan">
+              <xs:element name="harga_jual" msprop:Generator_ColumnPropNameInTable="harga_jualColumn" msprop:Generator_ColumnPropNameInRow="harga_jual" msprop:Generator_UserColumnName="harga_jual" msprop:Generator_ColumnVarNameInTable="columnharga_jual" type="xs:int" />
+              <xs:element name="jumlah" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="jumlahColumn" msprop:Generator_ColumnPropNameInRow="jumlah" msprop:Generator_UserColumnName="jumlah" msprop:Generator_ColumnVarNameInTable="columnjumlah" type="xs:decimal" minOccurs="0" />
+              <xs:element name="nama_satuan" msprop:Generator_ColumnPropNameInTable="nama_satuanColumn" msprop:Generator_ColumnPropNameInRow="nama_satuan" msprop:Generator_UserColumnName="nama_satuan" msprop:Generator_ColumnVarNameInTable="columnnama_satuan">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
@@ -128,31 +128,31 @@ WHERE        view_beli.id_kasir = kasir.id_kasir AND (view_beli.tanggal = ?) AND
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DataTable1" msdata:Locale="id-ID" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_UserTableName="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_TableVarName="tableDataTable1">
+        <xs:element name="DataTable1" msdata:Locale="id-ID" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id_barang" msprop:Generator_ColumnPropNameInRow="id_barang" msprop:Generator_ColumnPropNameInTable="id_barangColumn" msprop:Generator_ColumnVarNameInTable="columnid_barang" msprop:Generator_UserColumnName="id_barang" type="xs:int" minOccurs="0" />
-              <xs:element name="nama_barang" msprop:Generator_ColumnPropNameInRow="nama_barang" msprop:Generator_ColumnPropNameInTable="nama_barangColumn" msprop:Generator_ColumnVarNameInTable="columnnama_barang" msprop:Generator_UserColumnName="nama_barang">
+              <xs:element name="id_barang" msprop:Generator_ColumnPropNameInTable="id_barangColumn" msprop:Generator_ColumnPropNameInRow="id_barang" msprop:Generator_UserColumnName="id_barang" msprop:Generator_ColumnVarNameInTable="columnid_barang" type="xs:int" minOccurs="0" />
+              <xs:element name="nama_barang" msprop:Generator_ColumnPropNameInTable="nama_barangColumn" msprop:Generator_ColumnPropNameInRow="nama_barang" msprop:Generator_UserColumnName="nama_barang" msprop:Generator_ColumnVarNameInTable="columnnama_barang">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="harga_beli" msprop:Generator_ColumnPropNameInRow="harga_beli" msprop:Generator_ColumnPropNameInTable="harga_beliColumn" msprop:Generator_ColumnVarNameInTable="columnharga_beli" msprop:Generator_UserColumnName="harga_beli" type="xs:int" />
-              <xs:element name="harga_jual" msprop:Generator_ColumnPropNameInRow="harga_jual" msprop:Generator_ColumnPropNameInTable="harga_jualColumn" msprop:Generator_ColumnVarNameInTable="columnharga_jual" msprop:Generator_UserColumnName="harga_jual" type="xs:int" />
-              <xs:element name="id_kasir" msprop:Generator_ColumnPropNameInRow="id_kasir" msprop:Generator_ColumnPropNameInTable="id_kasirColumn" msprop:Generator_ColumnVarNameInTable="columnid_kasir" msprop:Generator_UserColumnName="id_kasir" type="xs:int" />
-              <xs:element name="nama_satuan" msprop:Generator_ColumnPropNameInRow="nama_satuan" msprop:Generator_ColumnPropNameInTable="nama_satuanColumn" msprop:Generator_ColumnVarNameInTable="columnnama_satuan" msprop:Generator_UserColumnName="nama_satuan">
+              <xs:element name="harga_beli" msprop:Generator_ColumnPropNameInTable="harga_beliColumn" msprop:Generator_ColumnPropNameInRow="harga_beli" msprop:Generator_UserColumnName="harga_beli" msprop:Generator_ColumnVarNameInTable="columnharga_beli" type="xs:int" />
+              <xs:element name="harga_jual" msprop:Generator_ColumnPropNameInTable="harga_jualColumn" msprop:Generator_ColumnPropNameInRow="harga_jual" msprop:Generator_UserColumnName="harga_jual" msprop:Generator_ColumnVarNameInTable="columnharga_jual" type="xs:int" />
+              <xs:element name="id_kasir" msprop:Generator_ColumnPropNameInTable="id_kasirColumn" msprop:Generator_ColumnPropNameInRow="id_kasir" msprop:Generator_UserColumnName="id_kasir" msprop:Generator_ColumnVarNameInTable="columnid_kasir" type="xs:int" />
+              <xs:element name="nama_satuan" msprop:Generator_ColumnPropNameInTable="nama_satuanColumn" msprop:Generator_ColumnPropNameInRow="nama_satuan" msprop:Generator_UserColumnName="nama_satuan" msprop:Generator_ColumnVarNameInTable="columnnama_satuan">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="tanggal" msprop:Generator_ColumnPropNameInRow="tanggal" msprop:Generator_ColumnPropNameInTable="tanggalColumn" msprop:Generator_ColumnVarNameInTable="columntanggal" msprop:Generator_UserColumnName="tanggal" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="total" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_UserColumnName="total" type="xs:int" minOccurs="0" />
-              <xs:element name="kapan" msprop:Generator_ColumnPropNameInRow="kapan" msprop:Generator_ColumnPropNameInTable="kapanColumn" msprop:Generator_ColumnVarNameInTable="columnkapan" msprop:Generator_UserColumnName="kapan" type="xs:dateTime" />
-              <xs:element name="nama_kasir" msprop:Generator_ColumnPropNameInRow="nama_kasir" msprop:Generator_ColumnPropNameInTable="nama_kasirColumn" msprop:Generator_ColumnVarNameInTable="columnnama_kasir" msprop:Generator_UserColumnName="nama_kasir">
+              <xs:element name="tanggal" msprop:Generator_ColumnPropNameInTable="tanggalColumn" msprop:Generator_ColumnPropNameInRow="tanggal" msprop:Generator_UserColumnName="tanggal" msprop:Generator_ColumnVarNameInTable="columntanggal" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_UserColumnName="total" msprop:Generator_ColumnVarNameInTable="columntotal" type="xs:int" minOccurs="0" />
+              <xs:element name="kapan" msprop:Generator_ColumnPropNameInTable="kapanColumn" msprop:Generator_ColumnPropNameInRow="kapan" msprop:Generator_UserColumnName="kapan" msprop:Generator_ColumnVarNameInTable="columnkapan" type="xs:dateTime" />
+              <xs:element name="nama_kasir" msprop:Generator_ColumnPropNameInTable="nama_kasirColumn" msprop:Generator_ColumnPropNameInRow="nama_kasir" msprop:Generator_UserColumnName="nama_kasir" msprop:Generator_ColumnVarNameInTable="columnnama_kasir">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="30" />
@@ -162,30 +162,30 @@ WHERE        view_beli.id_kasir = kasir.id_kasir AND (view_beli.tanggal = ?) AND
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DataTable2" msprop:Generator_RowEvHandlerName="DataTable2RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable2RowDeleted" msprop:Generator_RowDeletingName="DataTable2RowDeleting" msprop:Generator_RowEvArgName="DataTable2RowChangeEvent" msprop:Generator_TablePropName="DataTable2" msprop:Generator_RowChangedName="DataTable2RowChanged" msprop:Generator_RowChangingName="DataTable2RowChanging" msprop:Generator_UserTableName="DataTable2" msprop:Generator_TableClassName="DataTable2DataTable" msprop:Generator_RowClassName="DataTable2Row" msprop:Generator_TableVarName="tableDataTable2">
+        <xs:element name="DataTable2" msprop:Generator_RowEvHandlerName="DataTable2RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable2RowDeleted" msprop:Generator_RowDeletingName="DataTable2RowDeleting" msprop:Generator_RowEvArgName="DataTable2RowChangeEvent" msprop:Generator_TablePropName="DataTable2" msprop:Generator_RowChangedName="DataTable2RowChanged" msprop:Generator_UserTableName="DataTable2" msprop:Generator_RowChangingName="DataTable2RowChanging" msprop:Generator_RowClassName="DataTable2Row" msprop:Generator_TableClassName="DataTable2DataTable" msprop:Generator_TableVarName="tableDataTable2">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="id_kasir" msprop:Generator_ColumnPropNameInRow="id_kasir" msprop:Generator_ColumnPropNameInTable="id_kasirColumn" msprop:Generator_ColumnVarNameInTable="columnid_kasir" msprop:Generator_UserColumnName="id_kasir" type="xs:int" />
-              <xs:element name="id_barang" msprop:Generator_ColumnPropNameInRow="id_barang" msprop:Generator_ColumnPropNameInTable="id_barangColumn" msprop:Generator_ColumnVarNameInTable="columnid_barang" msprop:Generator_UserColumnName="id_barang" type="xs:int" minOccurs="0" />
-              <xs:element name="nama_barang" msprop:Generator_ColumnPropNameInRow="nama_barang" msprop:Generator_ColumnPropNameInTable="nama_barangColumn" msprop:Generator_ColumnVarNameInTable="columnnama_barang" msprop:Generator_UserColumnName="nama_barang">
+              <xs:element name="id_kasir" msprop:Generator_ColumnPropNameInTable="id_kasirColumn" msprop:Generator_ColumnPropNameInRow="id_kasir" msprop:Generator_UserColumnName="id_kasir" msprop:Generator_ColumnVarNameInTable="columnid_kasir" type="xs:int" />
+              <xs:element name="id_barang" msprop:Generator_ColumnPropNameInTable="id_barangColumn" msprop:Generator_ColumnPropNameInRow="id_barang" msprop:Generator_UserColumnName="id_barang" msprop:Generator_ColumnVarNameInTable="columnid_barang" type="xs:int" minOccurs="0" />
+              <xs:element name="nama_barang" msprop:Generator_ColumnPropNameInTable="nama_barangColumn" msprop:Generator_ColumnPropNameInRow="nama_barang" msprop:Generator_UserColumnName="nama_barang" msprop:Generator_ColumnVarNameInTable="columnnama_barang">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="waktu_beli" msprop:Generator_ColumnPropNameInRow="waktu_beli" msprop:Generator_ColumnPropNameInTable="waktu_beliColumn" msprop:Generator_ColumnVarNameInTable="columnwaktu_beli" msprop:Generator_UserColumnName="waktu_beli" type="xs:dateTime" />
-              <xs:element name="harga_beli" msprop:Generator_ColumnPropNameInRow="harga_beli" msprop:Generator_ColumnPropNameInTable="harga_beliColumn" msprop:Generator_ColumnVarNameInTable="columnharga_beli" msprop:Generator_UserColumnName="harga_beli" type="xs:int" />
-              <xs:element name="jumlah" msprop:Generator_ColumnPropNameInRow="jumlah" msprop:Generator_ColumnPropNameInTable="jumlahColumn" msprop:Generator_ColumnVarNameInTable="columnjumlah" msprop:Generator_UserColumnName="jumlah" type="xs:int" minOccurs="0" />
-              <xs:element name="nama_satuan" msprop:Generator_ColumnPropNameInRow="nama_satuan" msprop:Generator_ColumnPropNameInTable="nama_satuanColumn" msprop:Generator_ColumnVarNameInTable="columnnama_satuan" msprop:Generator_UserColumnName="nama_satuan">
+              <xs:element name="waktu_beli" msprop:Generator_ColumnPropNameInTable="waktu_beliColumn" msprop:Generator_ColumnPropNameInRow="waktu_beli" msprop:Generator_UserColumnName="waktu_beli" msprop:Generator_ColumnVarNameInTable="columnwaktu_beli" type="xs:dateTime" />
+              <xs:element name="harga_beli" msprop:Generator_ColumnPropNameInTable="harga_beliColumn" msprop:Generator_ColumnPropNameInRow="harga_beli" msprop:Generator_UserColumnName="harga_beli" msprop:Generator_ColumnVarNameInTable="columnharga_beli" type="xs:int" />
+              <xs:element name="jumlah" msprop:Generator_ColumnPropNameInTable="jumlahColumn" msprop:Generator_ColumnPropNameInRow="jumlah" msprop:Generator_UserColumnName="jumlah" msprop:Generator_ColumnVarNameInTable="columnjumlah" type="xs:int" minOccurs="0" />
+              <xs:element name="nama_satuan" msprop:Generator_ColumnPropNameInTable="nama_satuanColumn" msprop:Generator_ColumnPropNameInRow="nama_satuan" msprop:Generator_UserColumnName="nama_satuan" msprop:Generator_ColumnVarNameInTable="columnnama_satuan">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="tanggal" msprop:Generator_ColumnPropNameInRow="tanggal" msprop:Generator_ColumnPropNameInTable="tanggalColumn" msprop:Generator_ColumnVarNameInTable="columntanggal" msprop:Generator_UserColumnName="tanggal" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="nama_kasir" msprop:Generator_ColumnPropNameInRow="nama_kasir" msprop:Generator_ColumnPropNameInTable="nama_kasirColumn" msprop:Generator_ColumnVarNameInTable="columnnama_kasir" msprop:Generator_UserColumnName="nama_kasir">
+              <xs:element name="tanggal" msprop:Generator_ColumnPropNameInTable="tanggalColumn" msprop:Generator_ColumnPropNameInRow="tanggal" msprop:Generator_UserColumnName="tanggal" msprop:Generator_ColumnVarNameInTable="columntanggal" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="nama_kasir" msprop:Generator_ColumnPropNameInTable="nama_kasirColumn" msprop:Generator_ColumnPropNameInRow="nama_kasir" msprop:Generator_UserColumnName="nama_kasir" msprop:Generator_ColumnVarNameInTable="columnnama_kasir">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="30" />

@@ -255,11 +255,37 @@ WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
         If nominalKembalian > 0 Then
             textKembalian.Text = Format(nominalKembalian, "#,0;-#,0")
             labelTotalBig.Text = textKembalian.Text
+
             Dim buton As DialogResult = MsgBox("Ingin CETAK NOTA?", MsgBoxStyle.YesNo)
             If (buton = 6) Then
-
+                doneTransaksi(nominalKembalian)
+            Else
+                doneTransaksi(nominalKembalian)
             End If
         End If
+    End Sub
+    Private Sub voidTransaksi()
+        Dim idTransaksi = getIdTransaksi(Module1.id_kasir)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set 
+status = 'void'
+WHERE id_transaksi = " & idTransaksi.ToString, konek)
+        updateTransaksi.ExecuteNonQuery()
+        initializeForm()
+        getIdTransaksi(Module1.id_kasir)
+        loadTable()
+    End Sub
+    Private Sub doneTransaksi(ByVal nominalKembalian As Integer)
+        Dim idTransaksi = getIdTransaksi(Module1.id_kasir)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set 
+bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "',
+grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "',
+kembalian = '" & nominalKembalian.ToString & "',
+status = 'done'
+WHERE id_transaksi = " & idTransaksi.ToString, konek)
+        updateTransaksi.ExecuteNonQuery()
+        initializeForm()
+        getIdTransaksi(Module1.id_kasir)
+        loadTable()
     End Sub
 
     Private Sub debouncedTextBayarChanged(textBayarString As String)
@@ -310,6 +336,9 @@ WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
             toggleQty()
         End If
         If e.KeyCode = Keys.Escape Then
+            voidTransaksi()
+        End If
+        If e.KeyCode = Keys.End Then
             labelBayar.Visible = True
             textBayar.Visible = True
             labelKembalian.Visible = True

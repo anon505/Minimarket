@@ -12,27 +12,7 @@ Public Class main
                 konek = New MySqlConnection
                 konek.ConnectionString = koneksi
                 konek.Open()
-                If konek.State = ConnectionState.Fetching Or konek.State = ConnectionState.Open Then
-                    
-                    If cpanel.checkMySQLDriver(strdriverodbc) = False Then
-                        MsgBox("MySQL ODBC 5.1 Driver tidak di install." + vbCrLf + " Silahkan Instal  MySQl ODBC 5.1 Driver.", MsgBoxStyle.Information, "Buat Mysql DSN")
-                        cpanel.MdiParent = Me
-                        cpanel.Show()
-                        cpanel.MaximizeBox = False
-                    Else
-                        cpanel.MdiParent = Me
-                        cpanel.Show()
-                        cpanel.MaximizeBox = False
-                        cpanel.MakeMySQLDSN(Trim(cpanel.txtdb.Text), Trim(cpanel.txtdsn.Text), Trim(cpanel.txtdesc.Text), strdriverodbc, Trim(cpanel.txtuser.Text), Trim(cpanel.txtpass.Text), Trim(cpanel.txthost.Text), Trim(cpanel.txtport.Text), 3, "")
-                        strdriverodbc = "C:\WINDOWS\System32\odbc32.dll"
-                        If cpanel.Visible = True Then
-                            cpanel.Close()
-                        End If
-                        Login.MdiParent = Me
-                        Login.Show()
-                        MenuStrip1.Enabled = False
-                    End If
-                End If
+
             ElseIf File.Exists("koneksi.txt") = False Then
                 MenuStrip1.Enabled = False
                 If cpanel.Visible = True Then

@@ -1,4 +1,5 @@
 ﻿Partial Class minimarketds
+
     Partial Class notaDataTable
 
     End Class
@@ -6,6 +7,12 @@
 End Class
 
 Namespace minimarketdsTableAdapters
+    Partial Public Class DataTable3TableAdapter
+    End Class
+
+    Partial Public Class DsReportPenjualanAdapter
+    End Class
+
     Partial Public Class DataTable2TableAdapter
     End Class
 
