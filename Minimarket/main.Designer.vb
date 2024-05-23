@@ -34,6 +34,8 @@ Partial Class main
         Me.LaporanHarianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KeuntunganToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KadaluarsaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -55,7 +57,7 @@ Partial Class main
         Me.BarangToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BarangToolStripMenuItem.Image = CType(resources.GetObject("BarangToolStripMenuItem.Image"), System.Drawing.Image)
         Me.BarangToolStripMenuItem.Name = "BarangToolStripMenuItem"
-        Me.BarangToolStripMenuItem.Size = New System.Drawing.Size(107, 27)
+        Me.BarangToolStripMenuItem.Size = New System.Drawing.Size(105, 27)
         Me.BarangToolStripMenuItem.Text = "Barang"
         '
         'SatuanToolStripMenuItem
@@ -63,7 +65,7 @@ Partial Class main
         Me.SatuanToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SatuanToolStripMenuItem.Image = CType(resources.GetObject("SatuanToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SatuanToolStripMenuItem.Name = "SatuanToolStripMenuItem"
-        Me.SatuanToolStripMenuItem.Size = New System.Drawing.Size(105, 27)
+        Me.SatuanToolStripMenuItem.Size = New System.Drawing.Size(103, 27)
         Me.SatuanToolStripMenuItem.Text = "Satuan"
         '
         'KasirToolStripMenuItem
@@ -72,7 +74,7 @@ Partial Class main
         Me.KasirToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KasirToolStripMenuItem.Image = CType(resources.GetObject("KasirToolStripMenuItem.Image"), System.Drawing.Image)
         Me.KasirToolStripMenuItem.Name = "KasirToolStripMenuItem"
-        Me.KasirToolStripMenuItem.Size = New System.Drawing.Size(89, 27)
+        Me.KasirToolStripMenuItem.Size = New System.Drawing.Size(87, 27)
         Me.KasirToolStripMenuItem.Text = "Kasir"
         '
         'SupplierToolStripMenuItem
@@ -81,7 +83,7 @@ Partial Class main
         Me.SupplierToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SupplierToolStripMenuItem.Image = CType(resources.GetObject("SupplierToolStripMenuItem.Image"), System.Drawing.Image)
         Me.SupplierToolStripMenuItem.Name = "SupplierToolStripMenuItem"
-        Me.SupplierToolStripMenuItem.Size = New System.Drawing.Size(115, 27)
+        Me.SupplierToolStripMenuItem.Size = New System.Drawing.Size(113, 27)
         Me.SupplierToolStripMenuItem.Text = "Supplier"
         '
         'MarkupToolStripMenuItem
@@ -89,7 +91,7 @@ Partial Class main
         Me.MarkupToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MarkupToolStripMenuItem.Image = CType(resources.GetObject("MarkupToolStripMenuItem.Image"), System.Drawing.Image)
         Me.MarkupToolStripMenuItem.Name = "MarkupToolStripMenuItem"
-        Me.MarkupToolStripMenuItem.Size = New System.Drawing.Size(169, 27)
+        Me.MarkupToolStripMenuItem.Size = New System.Drawing.Size(167, 27)
         Me.MarkupToolStripMenuItem.Text = "Markup Harga"
         '
         'PembelianToolStripMenuItem
@@ -98,7 +100,7 @@ Partial Class main
         Me.PembelianToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PembelianToolStripMenuItem.Image = CType(resources.GetObject("PembelianToolStripMenuItem.Image"), System.Drawing.Image)
         Me.PembelianToolStripMenuItem.Name = "PembelianToolStripMenuItem"
-        Me.PembelianToolStripMenuItem.Size = New System.Drawing.Size(135, 27)
+        Me.PembelianToolStripMenuItem.Size = New System.Drawing.Size(133, 27)
         Me.PembelianToolStripMenuItem.Text = "Pembelian"
         '
         'PenjualanToolStripMenuItem
@@ -107,16 +109,17 @@ Partial Class main
         Me.PenjualanToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PenjualanToolStripMenuItem.Image = CType(resources.GetObject("PenjualanToolStripMenuItem.Image"), System.Drawing.Image)
         Me.PenjualanToolStripMenuItem.Name = "PenjualanToolStripMenuItem"
-        Me.PenjualanToolStripMenuItem.Size = New System.Drawing.Size(128, 27)
+        Me.PenjualanToolStripMenuItem.Size = New System.Drawing.Size(126, 27)
         Me.PenjualanToolStripMenuItem.Text = "Penjualan"
         '
         'LaporanHarianToolStripMenuItem
         '
         Me.LaporanHarianToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control
+        Me.LaporanHarianToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KeuntunganToolStripMenuItem, Me.KadaluarsaToolStripMenuItem})
         Me.LaporanHarianToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LaporanHarianToolStripMenuItem.Image = CType(resources.GetObject("LaporanHarianToolStripMenuItem.Image"), System.Drawing.Image)
         Me.LaporanHarianToolStripMenuItem.Name = "LaporanHarianToolStripMenuItem"
-        Me.LaporanHarianToolStripMenuItem.Size = New System.Drawing.Size(116, 27)
+        Me.LaporanHarianToolStripMenuItem.Size = New System.Drawing.Size(114, 27)
         Me.LaporanHarianToolStripMenuItem.Text = "Laporan"
         '
         'ToolStripMenuItem1
@@ -125,7 +128,7 @@ Partial Class main
         Me.ToolStripMenuItem1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStripMenuItem1.Image = CType(resources.GetObject("ToolStripMenuItem1.Image"), System.Drawing.Image)
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(141, 27)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(139, 27)
         Me.ToolStripMenuItem1.Text = "Konfigurasi"
         '
         'LoginToolStripMenuItem
@@ -134,8 +137,20 @@ Partial Class main
         Me.LoginToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LoginToolStripMenuItem.Image = CType(resources.GetObject("LoginToolStripMenuItem.Image"), System.Drawing.Image)
         Me.LoginToolStripMenuItem.Name = "LoginToolStripMenuItem"
-        Me.LoginToolStripMenuItem.Size = New System.Drawing.Size(91, 27)
+        Me.LoginToolStripMenuItem.Size = New System.Drawing.Size(89, 27)
         Me.LoginToolStripMenuItem.Text = "Login"
+        '
+        'KeuntunganToolStripMenuItem
+        '
+        Me.KeuntunganToolStripMenuItem.Name = "KeuntunganToolStripMenuItem"
+        Me.KeuntunganToolStripMenuItem.Size = New System.Drawing.Size(182, 28)
+        Me.KeuntunganToolStripMenuItem.Text = "Keuntungan"
+        '
+        'KadaluarsaToolStripMenuItem
+        '
+        Me.KadaluarsaToolStripMenuItem.Name = "KadaluarsaToolStripMenuItem"
+        Me.KadaluarsaToolStripMenuItem.Size = New System.Drawing.Size(182, 28)
+        Me.KadaluarsaToolStripMenuItem.Text = "Kadaluarsa"
         '
         'main
         '
@@ -147,7 +162,7 @@ Partial Class main
         Me.Controls.Add(Me.MenuStrip1)
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "main"
         Me.Text = "Minimarket by Um@m Corporation"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -168,4 +183,6 @@ Partial Class main
     Friend WithEvents SatuanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MarkupToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents KeuntunganToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents KadaluarsaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

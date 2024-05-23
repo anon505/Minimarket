@@ -96,14 +96,20 @@ Public Class main
         markup.Show()
     End Sub
 
-    Private Sub LaporanHarianToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LaporanHarianToolStripMenuItem.Click
-        cetak.MdiParent = Me
-        cetak.Show()
-    End Sub
 
     Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem1.Click
         cpanel.MdiParent = Me
         cpanel.Show()
         cpanel.MaximizeBox = False
+    End Sub
+
+    Private Sub KeuntunganToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KeuntunganToolStripMenuItem.Click
+        cetak_keuntungan.MdiParent = Me
+        cetak_keuntungan.Show()
+    End Sub
+
+    Private Sub KadaluarsaToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KadaluarsaToolStripMenuItem.Click
+        cetak_expiry.MdiParent = Me
+        cetak_expiry.Show()
     End Sub
 End Class

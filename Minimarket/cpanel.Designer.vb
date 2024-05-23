@@ -51,9 +51,6 @@ Partial Class cpanel
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
-        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
-        Me.RectangleShape2 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
-        Me.RectangleShape1 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -62,7 +59,7 @@ Partial Class cpanel
         Me.simpan.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.simpan.Image = CType(resources.GetObject("simpan.Image"), System.Drawing.Image)
         Me.simpan.Location = New System.Drawing.Point(219, 405)
-        Me.simpan.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.simpan.Margin = New System.Windows.Forms.Padding(4)
         Me.simpan.Name = "simpan"
         Me.simpan.Size = New System.Drawing.Size(292, 89)
         Me.simpan.TabIndex = 0
@@ -75,7 +72,7 @@ Partial Class cpanel
         '
         Me.txthost.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txthost.Location = New System.Drawing.Point(219, 138)
-        Me.txthost.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txthost.Margin = New System.Windows.Forms.Padding(4)
         Me.txthost.Name = "txthost"
         Me.txthost.Size = New System.Drawing.Size(288, 30)
         Me.txthost.TabIndex = 1
@@ -84,7 +81,7 @@ Partial Class cpanel
         '
         Me.txtport.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtport.Location = New System.Drawing.Point(219, 193)
-        Me.txtport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtport.Margin = New System.Windows.Forms.Padding(4)
         Me.txtport.Name = "txtport"
         Me.txtport.Size = New System.Drawing.Size(288, 30)
         Me.txtport.TabIndex = 2
@@ -93,7 +90,7 @@ Partial Class cpanel
         '
         Me.txtuser.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtuser.Location = New System.Drawing.Point(219, 246)
-        Me.txtuser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtuser.Margin = New System.Windows.Forms.Padding(4)
         Me.txtuser.Name = "txtuser"
         Me.txtuser.Size = New System.Drawing.Size(288, 30)
         Me.txtuser.TabIndex = 3
@@ -102,7 +99,7 @@ Partial Class cpanel
         '
         Me.txtpass.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtpass.Location = New System.Drawing.Point(219, 302)
-        Me.txtpass.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtpass.Margin = New System.Windows.Forms.Padding(4)
         Me.txtpass.Name = "txtpass"
         Me.txtpass.Size = New System.Drawing.Size(288, 30)
         Me.txtpass.TabIndex = 4
@@ -112,7 +109,7 @@ Partial Class cpanel
         Me.txtdb.BackColor = System.Drawing.Color.White
         Me.txtdb.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtdb.Location = New System.Drawing.Point(219, 354)
-        Me.txtdb.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtdb.Margin = New System.Windows.Forms.Padding(4)
         Me.txtdb.Name = "txtdb"
         Me.txtdb.ReadOnly = True
         Me.txtdb.Size = New System.Drawing.Size(288, 30)
@@ -179,7 +176,7 @@ Partial Class cpanel
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.Image = CType(resources.GetObject("Button1.Image"), System.Drawing.Image)
         Me.Button1.Location = New System.Drawing.Point(579, 30)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(299, 70)
         Me.Button1.TabIndex = 11
@@ -192,7 +189,7 @@ Partial Class cpanel
         Me.Button2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button2.Image = CType(resources.GetObject("Button2.Image"), System.Drawing.Image)
         Me.Button2.Location = New System.Drawing.Point(579, 105)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(4)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(299, 65)
         Me.Button2.TabIndex = 12
@@ -216,7 +213,7 @@ Partial Class cpanel
         Me.txtdsn.BackColor = System.Drawing.Color.White
         Me.txtdsn.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtdsn.Location = New System.Drawing.Point(219, 30)
-        Me.txtdsn.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtdsn.Margin = New System.Windows.Forms.Padding(4)
         Me.txtdsn.Name = "txtdsn"
         Me.txtdsn.ReadOnly = True
         Me.txtdsn.Size = New System.Drawing.Size(288, 30)
@@ -226,7 +223,7 @@ Partial Class cpanel
         'PictureBox1
         '
         Me.PictureBox1.Location = New System.Drawing.Point(579, 214)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(299, 84)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -237,7 +234,7 @@ Partial Class cpanel
         '
         Me.txtpath.BackColor = System.Drawing.Color.White
         Me.txtpath.Location = New System.Drawing.Point(579, 298)
-        Me.txtpath.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtpath.Margin = New System.Windows.Forms.Padding(4)
         Me.txtpath.Name = "txtpath"
         Me.txtpath.ReadOnly = True
         Me.txtpath.Size = New System.Drawing.Size(199, 22)
@@ -257,7 +254,7 @@ Partial Class cpanel
         'Button3
         '
         Me.Button3.Location = New System.Drawing.Point(777, 295)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(4)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(100, 27)
         Me.Button3.TabIndex = 18
@@ -279,7 +276,7 @@ Partial Class cpanel
         '
         Me.txtnamatoko.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtnamatoko.Location = New System.Drawing.Point(579, 354)
-        Me.txtnamatoko.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtnamatoko.Margin = New System.Windows.Forms.Padding(4)
         Me.txtnamatoko.Name = "txtnamatoko"
         Me.txtnamatoko.Size = New System.Drawing.Size(296, 30)
         Me.txtnamatoko.TabIndex = 20
@@ -304,7 +301,7 @@ Partial Class cpanel
         Me.txtdesc.BackColor = System.Drawing.Color.White
         Me.txtdesc.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtdesc.Location = New System.Drawing.Point(219, 86)
-        Me.txtdesc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtdesc.Margin = New System.Windows.Forms.Padding(4)
         Me.txtdesc.Name = "txtdesc"
         Me.txtdesc.ReadOnly = True
         Me.txtdesc.Size = New System.Drawing.Size(288, 30)
@@ -316,7 +313,7 @@ Partial Class cpanel
         Me.Button4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button4.Image = CType(resources.GetObject("Button4.Image"), System.Drawing.Image)
         Me.Button4.Location = New System.Drawing.Point(24, 405)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(4)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(176, 89)
         Me.Button4.TabIndex = 23
@@ -330,7 +327,7 @@ Partial Class cpanel
         Me.Button5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button5.Image = CType(resources.GetObject("Button5.Image"), System.Drawing.Image)
         Me.Button5.Location = New System.Drawing.Point(579, 404)
-        Me.Button5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button5.Margin = New System.Windows.Forms.Padding(4)
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(299, 90)
         Me.Button5.TabIndex = 24
@@ -343,33 +340,11 @@ Partial Class cpanel
         '
         Me.OpenFileDialog2.FileName = "OpenFileDialog2"
         '
-        'ShapeContainer1
-        '
-        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ShapeContainer1.Name = "ShapeContainer1"
-        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.RectangleShape2, Me.RectangleShape1})
-        Me.ShapeContainer1.Size = New System.Drawing.Size(923, 523)
-        Me.ShapeContainer1.TabIndex = 25
-        Me.ShapeContainer1.TabStop = False
-        '
-        'RectangleShape2
-        '
-        Me.RectangleShape2.Location = New System.Drawing.Point(551, 14)
-        Me.RectangleShape2.Name = "RectangleShape2"
-        Me.RectangleShape2.Size = New System.Drawing.Size(352, 490)
-        '
-        'RectangleShape1
-        '
-        Me.RectangleShape1.Location = New System.Drawing.Point(9, 12)
-        Me.RectangleShape1.Name = "RectangleShape1"
-        Me.RectangleShape1.Size = New System.Drawing.Size(517, 494)
-        '
         'cpanel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(923, 523)
+        Me.ClientSize = New System.Drawing.Size(893, 512)
         Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Label9)
@@ -395,9 +370,9 @@ Partial Class cpanel
         Me.Controls.Add(Me.txtport)
         Me.Controls.Add(Me.txthost)
         Me.Controls.Add(Me.simpan)
-        Me.Controls.Add(Me.ShapeContainer1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.MaximizeBox = False
         Me.Name = "cpanel"
         Me.Text = "cpanel"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -433,7 +408,4 @@ Partial Class cpanel
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Button5 As System.Windows.Forms.Button
     Friend WithEvents OpenFileDialog2 As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
-    Friend WithEvents RectangleShape2 As Microsoft.VisualBasic.PowerPacks.RectangleShape
-    Friend WithEvents RectangleShape1 As Microsoft.VisualBasic.PowerPacks.RectangleShape
 End Class

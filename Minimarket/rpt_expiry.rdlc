@@ -12,44 +12,28 @@
   <DataSets>
     <DataSet Name="minimarket_ds">
       <Fields>
-        <Field Name="id_transaksi">
-          <DataField>id_transaksi</DataField>
+        <Field Name="id_barang">
+          <DataField>id_barang</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="waktu">
-          <DataField>waktu</DataField>
+        <Field Name="no_faktur">
+          <DataField>no_faktur</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="tgl_faktur">
+          <DataField>tgl_faktur</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="kode_transaksi">
-          <DataField>kode_transaksi</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="id_kasir">
-          <DataField>id_kasir</DataField>
+        <Field Name="lama_jatuh_tempo">
+          <DataField>lama_jatuh_tempo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="bayar">
-          <DataField>bayar</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="grand_total">
-          <DataField>grand_total</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="kembalian">
-          <DataField>kembalian</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
-        </Field>
-        <Field Name="status">
-          <DataField>status</DataField>
+        <Field Name="kode_suplier">
+          <DataField>kode_suplier</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="id_transaksi_detail">
-          <DataField>id_transaksi_detail</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="barcode">
-          <DataField>barcode</DataField>
+        <Field Name="nama_suplier">
+          <DataField>nama_suplier</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="nama_barang">
@@ -60,13 +44,17 @@
           <DataField>qty</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="harga_beli">
-          <DataField>harga_beli</DataField>
+        <Field Name="expire_in">
+          <DataField>expire_in</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="harga_jual">
-          <DataField>harga_jual</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+        <Field Name="barcode">
+          <DataField>barcode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="expiry">
+          <DataField>expiry</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
       <Query>
@@ -75,11 +63,11 @@
       </Query>
       <rd:DataSetInfo>
         <rd:DataSetName>minimarket_ds</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\dell\Documents\Visual Studio 2010\Projects\Minimarket\Minimarket\minimarket_ds.xsd</rd:SchemaPath>
-        <rd:TableName>ds_report_penjualan</rd:TableName>
-        <rd:TableAdapterFillMethod>FillByKasir</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetDataByKasir</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>ds_report_penjualanTableAdapter</rd:TableAdapterName>
+        <rd:SchemaPath>D:\Minimarket\Minimarket\minimarket_ds.xsd</rd:SchemaPath>
+        <rd:TableName>ds_report_expiry</rd:TableName>
+        <rd:TableAdapterFillMethod>FillByDay</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetDataByDay</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>ds_report_expiryTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -92,7 +80,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>LAPORAN TRANSAKSI KEUANGAN</Value>
+                <Value>LAPORAN BARANG KADALUARSA</Value>
                 <Style>
                   <FontSize>12pt</FontSize>
                   <FontWeight>SemiBold</FontWeight>
@@ -122,25 +110,22 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.61076in</Width>
+              <Width>1.35243in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.21368in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.22211in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.76909in</Width>
+              <Width>2.02742in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.76076in</Width>
+              <Width>1.19687in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.0302in</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>1.01354in</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>0.86125in</Width>
+              <Width>1.25521in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -156,7 +141,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Kode Transaksi</Value>
+                              <Value>No Faktur</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -166,6 +151,39 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>8pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox11">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Tgl Kadaluarsa</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox11</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -248,39 +266,6 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox5">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>Qty</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox5</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <BackgroundColor>WhiteSmoke</BackgroundColor>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>8pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
                     <Textbox Name="Textbox8">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -288,7 +273,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Harga Beli</Value>
+                              <Value>Supplier</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -321,7 +306,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Harga Jual</Value>
+                              <Value>Kadaluarsa Dalam</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -345,16 +330,21 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.36122in</Height>
+              <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox12">
+                    <Textbox Name="no_faktur">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Laba</Value>
+                              <Value>=Fields!no_faktur.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -363,13 +353,12 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <rd:DefaultName>no_faktur</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
                           <Style>Solid</Style>
                         </Border>
-                        <BackgroundColor>WhiteSmoke</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>8pt</PaddingTop>
@@ -378,22 +367,19 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.36122in</Height>
-              <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="kode_transaksi">
+                    <Textbox Name="expiry">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!kode_transaksi.Value</Value>
-                              <Style />
+                              <Value>=Fields!expiry.Value</Value>
+                              <Style>
+                                <Format>dd MMMM yyyy</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -401,7 +387,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>kode_transaksi</rd:DefaultName>
+                      <rd:DefaultName>expiry</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -413,6 +399,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -479,46 +466,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="qty">
+                    <Textbox Name="nama_suplier">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!qty.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>qty</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>8pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="harga_beli">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!harga_beli.Value</Value>
+                              <Value>=Fields!nama_suplier.Value</Value>
                               <Style>
                                 <Format>'Rp' #.0;'Rp' -#.0</Format>
                               </Style>
@@ -529,7 +484,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>harga_beli</rd:DefaultName>
+                      <rd:DefaultName>nama_suplier</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -552,7 +507,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!harga_jual.Value</Value>
+                              <Value>= Fields!expire_in.Value &amp; " Hari"</Value>
                               <Style>
                                 <Format>'Rp' #.0;'Rp' -#.0</Format>
                               </Style>
@@ -577,208 +532,12 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox13">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=(Fields!qty.Value * Fields!harga_jual.Value) - (Fields!qty.Value * Fields!harga_beli.Value)</Value>
-                              <Style>
-                                <Format>'Rp' #.0;'Rp' -#.0</Format>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox13</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>8pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.29455in</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox24">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>= "Total Omset " &amp; Parameters!startDatePenjualan.Value &amp; " - " &amp; Parameters!endDatePenjualan.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox24</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <BackgroundColor>WhiteSmoke</BackgroundColor>
-                        <PaddingLeft>6pt</PaddingLeft>
-                        <PaddingRight>6pt</PaddingRight>
-                        <PaddingTop>6pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <ColSpan>4</ColSpan>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox28">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>= Sum(Fields!qty.Value * Fields!harga_jual.Value)</Value>
-                              <Style>
-                                <Format>'Rp' #.0;'Rp' -#.0</Format>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox28</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <BackgroundColor>WhiteSmoke</BackgroundColor>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>6pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <ColSpan>3</ColSpan>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell />
-                <TablixCell />
-              </TablixCells>
-            </TablixRow>
-            <TablixRow>
-              <Height>0.31122in</Height>
-              <TablixCells>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox17">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>= "Total Laba " &amp; Parameters!startDatePenjualan.Value &amp; " - " &amp; Parameters!endDatePenjualan.Value</Value>
-                              <Style />
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Left</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox17</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <BackgroundColor>WhiteSmoke</BackgroundColor>
-                        <PaddingLeft>6pt</PaddingLeft>
-                        <PaddingRight>6pt</PaddingRight>
-                        <PaddingTop>6pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <ColSpan>4</ColSpan>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell />
-                <TablixCell />
-                <TablixCell />
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox21">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Sum((Fields!qty.Value * Fields!harga_jual.Value) - (Fields!qty.Value * Fields!harga_beli.Value))</Value>
-                              <Style>
-                                <Format>'Rp' #.0;'Rp' -#.0</Format>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox21</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <BackgroundColor>WhiteSmoke</BackgroundColor>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>6pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                    <ColSpan>3</ColSpan>
-                    <rd:Selected>true</rd:Selected>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell />
-                <TablixCell />
               </TablixCells>
             </TablixRow>
           </TablixRows>
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
-            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -795,17 +554,11 @@
             <TablixMember>
               <Group Name="Details" />
             </TablixMember>
-            <TablixMember>
-              <KeepWithGroup>Before</KeepWithGroup>
-            </TablixMember>
-            <TablixMember>
-              <KeepWithGroup>Before</KeepWithGroup>
-            </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>minimarket_ds</DataSetName>
         <Top>2.2352cm</Top>
-        <Height>3.37367cm</Height>
+        <Height>1.835cm</Height>
         <Width>21cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
@@ -833,7 +586,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Parameters!startDatePenjualan.Value &amp; " - " &amp; Parameters!endDatePenjualan.Value</Value>
+                <Value>="Dalam " &amp; Parameters!expiryDay.Value &amp; " Hari"</Value>
                 <Style>
                   <FontSize>12pt</FontSize>
                   <FontWeight>SemiBold</FontWeight>
@@ -861,18 +614,14 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>2.49155in</Height>
+    <Height>1.80822in</Height>
     <Style />
   </Body>
   <ReportParameters>
-    <ReportParameter Name="startDatePenjualan">
+    <ReportParameter Name="expiryDay">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="endDatePenjualan">
-      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

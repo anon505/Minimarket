@@ -92,16 +92,22 @@
     <Compile Include="barang.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="cetak.Designer.vb">
-      <DependentUpon>cetak.vb</DependentUpon>
+    <Compile Include="cetak_keuntungan.Designer.vb">
+      <DependentUpon>cetak_keuntungan.vb</DependentUpon>
     </Compile>
-    <Compile Include="cetak.vb">
+    <Compile Include="cetak_keuntungan.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="chat.Designer.vb">
       <DependentUpon>chat.vb</DependentUpon>
     </Compile>
     <Compile Include="chat.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cetak_expiry.Designer.vb">
+      <DependentUpon>cetak_expiry.vb</DependentUpon>
+    </Compile>
+    <Compile Include="cetak_expiry.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="cpanel.Designer.vb">
@@ -195,7 +201,6 @@
     <Compile Include="satuan.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Subject.vb" />
     <Compile Include="supplier.Designer.vb">
       <DependentUpon>supplier.vb</DependentUpon>
     </Compile>
@@ -207,11 +212,17 @@
     <EmbeddedResource Include="barang.resx">
       <DependentUpon>barang.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="cetak.resx">
-      <DependentUpon>cetak.vb</DependentUpon>
+    <EmbeddedResource Include="cetak_keuntungan.resx">
+      <DependentUpon>cetak_keuntungan.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="chat.resx">
       <DependentUpon>chat.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cetak_expiry.resx">
+      <DependentUpon>cetak_expiry.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpt_expiry.rdlc">
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="cpanel.resx">
       <DependentUpon>cpanel.vb</DependentUpon>
@@ -240,7 +251,6 @@
     <EmbeddedResource Include="pembelian.resx">
       <DependentUpon>pembelian.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="report_penjualan.rdlc" />
     <EmbeddedResource Include="penjualan.resx">
       <DependentUpon>penjualan.vb</DependentUpon>
     </EmbeddedResource>
@@ -250,7 +260,9 @@
     <EmbeddedResource Include="popup_supplier.resx">
       <DependentUpon>popup_supplier.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="rpt_penjualan.rdlc" />
+    <EmbeddedResource Include="rpt_penjualan.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="satuan.resx">
       <DependentUpon>satuan.vb</DependentUpon>
     </EmbeddedResource>
@@ -276,10 +288,13 @@
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="My Project\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
