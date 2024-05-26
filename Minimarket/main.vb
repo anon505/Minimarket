@@ -36,7 +36,17 @@ Public Class main
         End Try
     End Sub
     Private Sub main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+        MenuStrip1.Enabled = False
+        MarkupToolStripMenuItem.Enabled = False
+        LoginToolStripMenuItem.Enabled = False
+        BarangToolStripMenuItem.Enabled = False
+        PembelianToolStripMenuItem.Enabled = False
+        PenjualanToolStripMenuItem.Enabled = False
+        SatuanToolStripMenuItem.Enabled = False
+        KasirToolStripMenuItem.Enabled = False
+        SupplierToolStripMenuItem.Enabled = False
+        ToolStripMenuItem1.Enabled = False
+        Me.Close()
         Call konekbuka()
         Try
             If File.Exists("config.txt") = True Then

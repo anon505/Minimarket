@@ -11,10 +11,25 @@ Public Class Login
             If (status = "Aktif") Then
                 Dim tipe As MySqlCommand = New MySqlCommand("SELECT type FROM kasir where id_kasir='" + i + "'", konek)
                 Dim cektipe As String = tipe.ExecuteScalar
+                id_kasir = i
+                hak_akses = cektipe
                 If (cektipe = "1") Then
-                    MsgBox("Login Sukses. Anda login sebagai ADMINISTRATOR", MsgBoxStyle.OkOnly)   
-                    id_kasir = i
-                    hak_akses = cektipe
+                    MsgBox("Login Sukses. Anda login sebagai SUPER ADMINISTRATOR", MsgBoxStyle.OkOnly)
+                    
+                    main.MenuStrip1.Enabled = True
+                    main.MarkupToolStripMenuItem.Enabled = True
+                    main.LoginToolStripMenuItem.Enabled = True
+                    main.BarangToolStripMenuItem.Enabled = True
+                    main.PembelianToolStripMenuItem.Enabled = True
+                    main.PenjualanToolStripMenuItem.Enabled = True
+                    main.SatuanToolStripMenuItem.Enabled = True
+                    main.KasirToolStripMenuItem.Enabled = True
+                    main.SupplierToolStripMenuItem.Enabled = True
+                    main.ToolStripMenuItem1.Enabled = True
+                    Me.Close()
+                ElseIf (cektipe = "2") Then
+                    MsgBox("Login Sukses. Anda login sebagai ADMINISTRATOR", MsgBoxStyle.OkOnly)
+
                     main.MenuStrip1.Enabled = True
                     main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True
@@ -28,8 +43,6 @@ Public Class Login
                     Me.Close()
                 Else
                     MsgBox("Login Sukses. Anda login sebagai KASIR", MsgBoxStyle.OkOnly)
-                    id_kasir = i
-                    hak_akses = cektipe
                     main.MenuStrip1.Enabled = True
                     main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True
@@ -40,7 +53,7 @@ Public Class Login
                     main.KasirToolStripMenuItem.Enabled = False
                     main.SupplierToolStripMenuItem.Enabled = False
                     main.ToolStripMenuItem1.Enabled = False
-                     Me.Close()
+                    Me.Close()
                 End If
             Else
                 MsgBox("Akun anda untuk sementara TIDAK AKTIF, silahkan hubungi Administrator", MsgBoxStyle.OkOnly)
