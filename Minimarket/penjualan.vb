@@ -2,7 +2,7 @@
 Imports System.Data
 
 Public Class penjualan
-
+    Public previousIdTransaksi As String
     Private Function getIdTransaksi(ByVal idKasir As String) As String
         Dim cekTransaksiCmd As MySqlCommand = New MySqlCommand("SELECT id_transaksi from transaksi WHERE status='active' AND id_kasir=" & idKasir, konek)
         Dim idTransaksi = cekTransaksiCmd.ExecuteScalar
@@ -16,7 +16,7 @@ Public Class penjualan
     End Function
     Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi=" & getIdTransaksi(Module1.id_kasir), konek)
+        Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi=" & lblIdTransaksi.Text, konek)
         Dim ds = New DataTable()
         mySqlAdapter.Fill(ds)
         ds.DefaultView.Sort = "updated_at desc"
@@ -103,7 +103,7 @@ Public Class penjualan
 
             barangReader.Close()
 
-            Dim currentQtyCmd As MySqlCommand = New MySqlCommand("SELECT qty from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & getIdTransaksi(Module1.id_kasir), konek)
+            Dim currentQtyCmd As MySqlCommand = New MySqlCommand("SELECT qty from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text, konek)
             Dim currentQty = currentQtyCmd.ExecuteScalar
             If currentQty Is Nothing Then
                 currentQty = "1"
@@ -133,13 +133,13 @@ Public Class penjualan
                     updateStokGudang.ExecuteNonQuery()
                 End If
 
-                Dim cekBarangCmd As MySqlCommand = New MySqlCommand("SELECT id_transaksi_detail from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & getIdTransaksi(Module1.id_kasir), konek)
+                Dim cekBarangCmd As MySqlCommand = New MySqlCommand("SELECT id_transaksi_detail from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text, konek)
                 Dim idTransaksiDetail = cekBarangCmd.ExecuteScalar
 
 
 
                 If idTransaksiDetail Is Nothing Then
-                    Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (NULL, '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
+                    Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (NULL, '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
                     insertTransaksiDetail.ExecuteNonQuery()
                 Else
 
@@ -153,7 +153,7 @@ Public Class penjualan
                         deleteTransaksiDetail.ExecuteNonQuery()
                         'restok otomatis akan kembali ke tabel barang di kolom stok display via trigger mysql
 
-                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
+                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
                         insertTransaksiDetail.ExecuteNonQuery()
                     End If
                 End If
@@ -253,19 +253,25 @@ Public Class penjualan
         End If
     End Sub
     Private Sub voidTransaksi()
-        Dim idTransaksi = getIdTransaksi(Module1.id_kasir)
-        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & idTransaksi.ToString, konek)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
         updateTransaksi.ExecuteNonQuery()
         initializeForm()
-        getIdTransaksi(Module1.id_kasir)
+        lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
         loadTable()
     End Sub
+    Private Sub pendingTransaksi()
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'pending' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        updateTransaksi.ExecuteNonQuery()
+        Dim newPenjualan = New penjualan
+        newPenjualan.previousIdTransaksi = lblIdTransaksi.Text
+        newPenjualan.MdiParent = main
+        newPenjualan.Show()
+    End Sub
     Private Sub doneTransaksi(ByVal nominalKembalian As Integer)
-        Dim idTransaksi = getIdTransaksi(Module1.id_kasir)
-        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'done'WHERE id_transaksi = " & idTransaksi.ToString, konek)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'done'WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
         updateTransaksi.ExecuteNonQuery()
         initializeForm()
-        getIdTransaksi(Module1.id_kasir)
+        lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
         loadTable()
     End Sub
 
@@ -279,10 +285,26 @@ Public Class penjualan
 
     End Sub
 
+    Private Sub penjualan_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        updateTransaksi.ExecuteNonQuery()
+        If previousIdTransaksi IsNot Nothing Then
+            Dim updateTransaksiPrev As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'active' WHERE id_transaksi = " & previousIdTransaksi, konek)
+            updateTransaksiPrev.ExecuteNonQuery()
+        End If
+    End Sub
+
+    Private Sub penjualan_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.GotFocus
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'active' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        updateTransaksi.ExecuteNonQuery()
+    End Sub
+
+
     Private Sub penjualan_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         initializeForm()
         initializeDebounce()
-        getIdTransaksi(Module1.id_kasir)
+        lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
+        Console.WriteLine("onload")
         loadTable()
 
     End Sub
@@ -318,6 +340,9 @@ Public Class penjualan
         End If
         If e.KeyCode = Keys.Escape Then
             voidTransaksi()
+        End If
+        If e.KeyCode = Keys.F11 Then
+            pendingTransaksi()
         End If
         If e.KeyCode = Keys.End Then
             labelBayar.Visible = True
@@ -382,5 +407,6 @@ Public Class penjualan
         Dim row = dataGridView1.Rows(e.RowIndex)
         inputUpdateBarang("setvalue", row.Cells(1).Value.ToString, row.Cells(e.ColumnIndex).Value.ToString)
     End Sub
+
 
 End Class

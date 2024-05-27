@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports MySql.Data.MySqlClient
 Public Class main
+
     Public Sub konekbuka()
         Dim strdriverodbc As New String(Space(255))
         Try
@@ -84,8 +85,9 @@ Public Class main
     End Sub
 
     Private Sub PenjualanToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PenjualanToolStripMenuItem.Click
-        penjualan.MdiParent = Me
-        penjualan.Show()
+        Dim newPenjualan = New penjualan
+        newPenjualan.MdiParent = Me
+        newPenjualan.Show()
     End Sub
 
     Private Sub LoginToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoginToolStripMenuItem.Click

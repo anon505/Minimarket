@@ -36,6 +36,7 @@ Partial Class penjualan
         Me.textCountItem = New System.Windows.Forms.TextBox()
         Me.labelBarcode = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.lblIdTransaksi = New System.Windows.Forms.Label()
         Me.buttonScanBarang1 = New System.Windows.Forms.Button()
         Me.buttonScanBarang2 = New System.Windows.Forms.Button()
         Me.buttonScanBarang3 = New System.Windows.Forms.Button()
@@ -60,6 +61,7 @@ Partial Class penjualan
         Me.labelTotalBig = New System.Windows.Forms.Label()
         Me.labelKembalianBig = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -74,7 +76,7 @@ Partial Class penjualan
         Me.Label6.Location = New System.Drawing.Point(143, 68)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(35, 16)
+        Me.Label6.Size = New System.Drawing.Size(36, 17)
         Me.Label6.TabIndex = 11
         Me.Label6.Text = "Tipe"
         Me.Label6.Visible = False
@@ -86,7 +88,7 @@ Partial Class penjualan
         Me.Label7.Location = New System.Drawing.Point(188, 68)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(48, 16)
+        Me.Label7.Size = New System.Drawing.Size(51, 17)
         Me.Label7.TabIndex = 12
         Me.Label7.Text = "Label7"
         Me.Label7.Visible = False
@@ -98,7 +100,7 @@ Partial Class penjualan
         Me.Label8.Location = New System.Drawing.Point(143, 45)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(20, 16)
+        Me.Label8.Size = New System.Drawing.Size(21, 17)
         Me.Label8.TabIndex = 13
         Me.Label8.Text = "ID"
         Me.Label8.Visible = False
@@ -110,7 +112,7 @@ Partial Class penjualan
         Me.Label9.Location = New System.Drawing.Point(188, 45)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(48, 16)
+        Me.Label9.Size = New System.Drawing.Size(51, 17)
         Me.Label9.TabIndex = 14
         Me.Label9.Text = "Label9"
         Me.Label9.Visible = False
@@ -122,7 +124,7 @@ Partial Class penjualan
         Me.labelIdBarang.Location = New System.Drawing.Point(781, 509)
         Me.labelIdBarang.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.labelIdBarang.Name = "labelIdBarang"
-        Me.labelIdBarang.Size = New System.Drawing.Size(48, 16)
+        Me.labelIdBarang.Size = New System.Drawing.Size(51, 17)
         Me.labelIdBarang.TabIndex = 27
         Me.labelIdBarang.Text = "Label5"
         Me.labelIdBarang.Visible = False
@@ -146,15 +148,15 @@ Partial Class penjualan
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(1232, 12)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(78, 16)
+        Me.Label2.Size = New System.Drawing.Size(83, 17)
         Me.Label2.TabIndex = 36
         Me.Label2.Text = "Jumlah Item"
         '
         'textCountItem
         '
         Me.textCountItem.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textCountItem.BackColor = System.Drawing.Color.Black
         Me.textCountItem.ForeColor = System.Drawing.Color.White
         Me.textCountItem.Location = New System.Drawing.Point(1318, 9)
@@ -171,12 +173,14 @@ Partial Class penjualan
         Me.labelBarcode.ForeColor = System.Drawing.Color.Lime
         Me.labelBarcode.Location = New System.Drawing.Point(13, 15)
         Me.labelBarcode.Name = "labelBarcode"
-        Me.labelBarcode.Size = New System.Drawing.Size(59, 16)
+        Me.labelBarcode.Size = New System.Drawing.Size(61, 17)
         Me.labelBarcode.TabIndex = 0
         Me.labelBarcode.Text = "Barcode"
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.Label1)
+        Me.Panel2.Controls.Add(Me.lblIdTransaksi)
         Me.Panel2.Controls.Add(Me.buttonScanBarang1)
         Me.Panel2.Controls.Add(Me.buttonScanBarang2)
         Me.Panel2.Controls.Add(Me.buttonScanBarang3)
@@ -187,6 +191,14 @@ Partial Class penjualan
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1408, 50)
         Me.Panel2.TabIndex = 48
+        '
+        'lblIdTransaksi
+        '
+        Me.lblIdTransaksi.AutoSize = True
+        Me.lblIdTransaksi.Location = New System.Drawing.Point(106, 17)
+        Me.lblIdTransaksi.Name = "lblIdTransaksi"
+        Me.lblIdTransaksi.Size = New System.Drawing.Size(0, 17)
+        Me.lblIdTransaksi.TabIndex = 5
         '
         'buttonScanBarang1
         '
@@ -442,7 +454,7 @@ Partial Class penjualan
         Me.labelKembalianBig.ForeColor = System.Drawing.Color.Gold
         Me.labelKembalianBig.Location = New System.Drawing.Point(24, 24)
         Me.labelKembalianBig.Name = "labelKembalianBig"
-        Me.labelKembalianBig.Size = New System.Drawing.Size(243, 54)
+        Me.labelKembalianBig.Size = New System.Drawing.Size(251, 55)
         Me.labelKembalianBig.TabIndex = 37
         Me.labelKembalianBig.Text = "Kembalian"
         '
@@ -453,6 +465,15 @@ Partial Class penjualan
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(1408, 2)
         Me.Panel5.TabIndex = 30
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(13, 17)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(87, 17)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "ID Transaksi"
         '
         'penjualan
         '
@@ -480,6 +501,7 @@ Partial Class penjualan
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
@@ -523,4 +545,6 @@ Partial Class penjualan
     Friend WithEvents labelKembalianBig As Label
     Friend WithEvents textBayar As TextBox
     Friend WithEvents Panel5 As Panel
+    Friend WithEvents lblIdTransaksi As System.Windows.Forms.Label
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 End Class
