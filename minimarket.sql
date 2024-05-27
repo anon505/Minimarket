@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2024 at 06:21 PM
+-- Generation Time: May 27, 2024 at 06:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,9 +53,9 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `id_suplier`, `id_satuan`, `barcode`, `nama_barang`, `harga_beli`, `ppn`, `discount`, `harga_beli_netto`, `stok_display`, `stok_gudang`, `harga_jual1`, `harga_jual2`, `harga_jual3`, `harga_jual4`, `qty2`, `qty3`, `qty4`) VALUES
-(1, 2, 1, '11', 'Mie SedaapMie SedaapMie SedaapMie Sedaap', 2500, 11, 0, 2775, 48, 50, 3386, 3372, 3316, 3191, 3, 6, 9),
-(2, 2, 1, '22', 'POP Mie', 2000, 11, 0, 2220, 38, 60, 2600, 2300, 2270, 2264, 3, 8, 12),
-(3, 3, 1, '33', 'Ciptadent', 3000, 0, 0, 3000, 30, 50, 3550, 3530, 3520, 3510, 5, 10, 15),
+(1, 2, 1, '11', 'Mie SedaapMie SedaapMie SedaapMie Sedaap', 2500, 11, 0, 2775, 40, 50, 3386, 3372, 3316, 3191, 3, 6, 9),
+(2, 2, 1, '22', 'POP Mie', 2000, 11, 0, 2220, 30, 60, 2600, 2300, 2270, 2264, 3, 8, 12),
+(3, 3, 1, '33', 'Ciptadent', 3000, 0, 0, 3000, 28, 50, 3550, 3530, 3520, 3510, 5, 10, 15),
 (4, 2, 1, '44', 'Mama Lime', 4000, 0, 0, 4000, 20, 80, 4500, 4400, 4300, 4200, 2, 6, 10),
 (5, 4, 1, '55', 'Kacang Garuda', 5000, 0, 0, 5000, 9, 90, 5900, 5700, 5600, 5500, 10, 20, 30);
 
@@ -176,6 +176,7 @@ CREATE TABLE `ds_transaksi_penjualan` (
 ,`qty` int(30)
 ,`jumlah` bigint(40)
 ,`stok` bigint(31)
+,`updated_at` datetime
 );
 
 -- --------------------------------------------------------
@@ -189,7 +190,7 @@ CREATE TABLE `kasir` (
   `nama_kasir` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
   `alamat` varchar(100) NOT NULL,
-  `type` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '1 superadmin, 2 admin, 3 kasir',
   `status` char(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -266,7 +267,8 @@ INSERT INTO `pembelian_detail` (`id_pembelian_detail`, `id_pembelian`, `id_baran
 (11, 10, 1, 2, 2500, 11, 5, 2636, '2024-06-12', 0, 'active'),
 (12, 10, 2, 10, 2000, 11, 0, 2220, '2024-06-22', 0, 'active'),
 (14, 11, 2, 10, 2000, 11, 0, 2220, '2024-05-16', 0, 'active'),
-(15, 10, 3, 1, 3000, 0, 0, 3000, '2024-05-29', 0, 'active');
+(15, 10, 3, 1, 3000, 0, 0, 3000, '2024-05-29', 0, 'active'),
+(16, 12, 2, 1, 2000, 11, 0, 2220, NULL, 0, 'active');
 
 -- --------------------------------------------------------
 
@@ -355,23 +357,27 @@ CREATE TABLE `transaksi_detail` (
   `id_transaksi` int(11) NOT NULL,
   `qty` int(30) NOT NULL,
   `harga_beli` int(11) NOT NULL,
-  `harga_jual` int(11) NOT NULL
+  `harga_jual` int(11) NOT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `transaksi_detail`
 --
 
-INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `id_barang`, `id_transaksi`, `qty`, `harga_beli`, `harga_jual`) VALUES
-(54, 1, 2, 30, 1000, 1100),
-(56, 3, 2, 1, 3000, 3550),
-(57, 4, 2, 1, 4000, 4500),
-(58, 5, 2, 1, 5000, 5900),
-(60, 1, 3, 1, 2775, 3386),
-(61, 5, 3, 1, 5000, 5900),
-(62, 2, 4, 1, 2220, 2600),
-(63, 2, 5, 1, 2220, 2600),
-(64, 1, 6, 1, 2775, 3386);
+INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `id_barang`, `id_transaksi`, `qty`, `harga_beli`, `harga_jual`, `updated_at`) VALUES
+(54, 1, 2, 30, 1000, 1100, '2024-05-27 09:58:24'),
+(56, 3, 2, 1, 3000, 3550, '2024-05-27 09:58:24'),
+(57, 4, 2, 1, 4000, 4500, '2024-05-27 09:58:24'),
+(58, 5, 2, 1, 5000, 5900, '2024-05-27 09:58:24'),
+(60, 1, 3, 1, 2775, 3386, '2024-05-27 09:58:24'),
+(61, 5, 3, 1, 5000, 5900, '2024-05-27 09:58:24'),
+(62, 2, 4, 1, 2220, 2600, '2024-05-27 09:58:24'),
+(63, 2, 5, 1, 2220, 2600, '2024-05-27 09:58:24'),
+(64, 1, 6, 1, 2775, 3386, '2024-05-27 09:58:24'),
+(65, 1, 7, 8, 2775, 3316, '2024-05-27 10:57:09'),
+(66, 2, 7, 8, 2220, 2300, '2024-05-27 10:57:05'),
+(67, 3, 7, 2, 3000, 3550, '2024-05-27 10:57:11');
 
 --
 -- Triggers `transaksi_detail`
@@ -424,7 +430,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `ds_transaksi_penjualan`;
 
-CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ds_transaksi_penjualan`  AS SELECT `transaksi_detail`.`id_transaksi_detail` AS `id_transaksi_detail`, `transaksi_detail`.`id_transaksi` AS `id_transaksi`, `barang`.`barcode` AS `barcode`, `barang`.`nama_barang` AS `nama_barang`, `transaksi_detail`.`harga_jual` AS `harga`, `transaksi_detail`.`qty` AS `qty`, `transaksi_detail`.`harga_jual`* `transaksi_detail`.`qty` AS `jumlah`, `barang`.`stok_display`+ `barang`.`stok_gudang` AS `stok` FROM (`transaksi_detail` left join `barang` on(`transaksi_detail`.`id_barang` = `barang`.`id_barang`)) ;
+CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ds_transaksi_penjualan`  AS SELECT `transaksi_detail`.`id_transaksi_detail` AS `id_transaksi_detail`, `transaksi_detail`.`id_transaksi` AS `id_transaksi`, `barang`.`barcode` AS `barcode`, `barang`.`nama_barang` AS `nama_barang`, `transaksi_detail`.`harga_jual` AS `harga`, `transaksi_detail`.`qty` AS `qty`, `transaksi_detail`.`harga_jual`* `transaksi_detail`.`qty` AS `jumlah`, `barang`.`stok_display`+ `barang`.`stok_gudang` AS `stok`, `transaksi_detail`.`updated_at` AS `updated_at` FROM (`transaksi_detail` left join `barang` on(`transaksi_detail`.`id_barang` = `barang`.`id_barang`)) ORDER BY `transaksi_detail`.`updated_at` DESC ;
 
 --
 -- Indexes for dumped tables
@@ -504,7 +510,7 @@ ALTER TABLE `pembelian`
 -- AUTO_INCREMENT for table `pembelian_detail`
 --
 ALTER TABLE `pembelian_detail`
-  MODIFY `id_pembelian_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pembelian_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `satuan`
@@ -528,7 +534,7 @@ ALTER TABLE `transaksi`
 -- AUTO_INCREMENT for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id_transaksi_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_transaksi_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

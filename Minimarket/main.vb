@@ -36,9 +36,9 @@ Public Class main
         End Try
     End Sub
     Private Sub main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        MenuStrip1.Enabled = False
+        MenuStrip1.Enabled = True
         MarkupToolStripMenuItem.Enabled = False
-        LoginToolStripMenuItem.Enabled = False
+        LoginToolStripMenuItem.Enabled = True
         BarangToolStripMenuItem.Enabled = False
         PembelianToolStripMenuItem.Enabled = False
         PenjualanToolStripMenuItem.Enabled = False
@@ -46,7 +46,10 @@ Public Class main
         KasirToolStripMenuItem.Enabled = False
         SupplierToolStripMenuItem.Enabled = False
         ToolStripMenuItem1.Enabled = False
-        Me.Close()
+        LaporanHarianToolStripMenuItem.Enabled = False
+        KeuntunganToolStripMenuItem.Enabled = False
+        KadaluarsaToolStripMenuItem.Enabled = False
+
         Call konekbuka()
         Try
             If File.Exists("config.txt") = True Then

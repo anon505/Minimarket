@@ -123,7 +123,7 @@ Partial Class Login
         Me.jabatan.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.jabatan.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.jabatan.FormattingEnabled = True
-        Me.jabatan.Items.AddRange(New Object() {"Administrator", "Kasir"})
+        Me.jabatan.Items.AddRange(New Object() {"Super Administrator", "Administrator", "Kasir"})
         Me.jabatan.Location = New System.Drawing.Point(236, 33)
         Me.jabatan.Margin = New System.Windows.Forms.Padding(4)
         Me.jabatan.Name = "jabatan"

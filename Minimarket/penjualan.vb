@@ -16,11 +16,13 @@ Public Class penjualan
     End Function
     Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok from ds_transaksi_penjualan where id_transaksi=" & getIdTransaksi(Module1.id_kasir), konek)
+        Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi=" & getIdTransaksi(Module1.id_kasir), konek)
         Dim ds = New DataTable()
         mySqlAdapter.Fill(ds)
+        ds.DefaultView.Sort = "updated_at desc"
         dataGridView1.AutoGenerateColumns = True
         dataGridView1.DataSource = ds
+
         dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dataGridView1.Columns(0).ReadOnly = True
         dataGridView1.Columns(1).ReadOnly = True
@@ -137,21 +139,21 @@ Public Class penjualan
 
 
                 If idTransaksiDetail Is Nothing Then
-                    Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual) VALUES (NULL, '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "')", konek)
+                    Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (NULL, '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
                     insertTransaksiDetail.ExecuteNonQuery()
                 Else
 
 
                     If typeSet = "increment" Then
 
-                        Dim updateTransaksiDetail As MySqlCommand = New MySqlCommand("UPDATE transaksi_detail Set qty = '" & (Integer.Parse(currentQty.ToString) + qty).ToString & "',harga_jual = '" & hargaJualTerpilih.ToString & "' WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
+                        Dim updateTransaksiDetail As MySqlCommand = New MySqlCommand("UPDATE transaksi_detail Set qty = '" & (Integer.Parse(currentQty.ToString) + qty).ToString & "',harga_jual = '" & hargaJualTerpilih.ToString & "',updated_at=now() WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
                         updateTransaksiDetail.ExecuteNonQuery()
                     Else
                         Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
                         deleteTransaksiDetail.ExecuteNonQuery()
                         'restok otomatis akan kembali ke tabel barang di kolom stok display via trigger mysql
 
-                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "')", konek)
+                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & getIdTransaksi(Module1.id_kasir) & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
                         insertTransaksiDetail.ExecuteNonQuery()
                     End If
                 End If

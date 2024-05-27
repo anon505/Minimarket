@@ -20,8 +20,9 @@ Public Class kasir
         hak_akses.Text = ""
         berdasarkan.SelectedIndex = 0
         hak_akses.Items.Clear()
-        hak_akses.Items.Add("1. Administrator")
-        hak_akses.Items.Add("2. Kasir")
+        hak_akses.Items.Add("1. Super Administrator")
+        hak_akses.Items.Add("2. Administrator")
+        hak_akses.Items.Add("3. Kasir")
         Button1.Text = "Aktifkan Kasir"
     End Sub
 

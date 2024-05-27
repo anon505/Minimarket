@@ -26,6 +26,9 @@ Public Class Login
                     main.KasirToolStripMenuItem.Enabled = True
                     main.SupplierToolStripMenuItem.Enabled = True
                     main.ToolStripMenuItem1.Enabled = True
+                    main.LaporanHarianToolStripMenuItem.Enabled = True
+                    main.KeuntunganToolStripMenuItem.Enabled = True
+                    main.KadaluarsaToolStripMenuItem.Enabled = True
                     Me.Close()
                 ElseIf (cektipe = "2") Then
                     MsgBox("Login Sukses. Anda login sebagai ADMINISTRATOR", MsgBoxStyle.OkOnly)
@@ -33,26 +36,32 @@ Public Class Login
                     main.MenuStrip1.Enabled = True
                     main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True
-                    main.BarangToolStripMenuItem.Enabled = True
+                    main.BarangToolStripMenuItem.Enabled = False
                     main.PembelianToolStripMenuItem.Enabled = True
                     main.PenjualanToolStripMenuItem.Enabled = True
                     main.SatuanToolStripMenuItem.Enabled = True
                     main.KasirToolStripMenuItem.Enabled = True
                     main.SupplierToolStripMenuItem.Enabled = True
-                    main.ToolStripMenuItem1.Enabled = True
+                    main.ToolStripMenuItem1.Enabled = False
+                    main.LaporanHarianToolStripMenuItem.Enabled = True
+                    main.KeuntunganToolStripMenuItem.Enabled = False
+                    main.KadaluarsaToolStripMenuItem.Enabled = True
                     Me.Close()
                 Else
                     MsgBox("Login Sukses. Anda login sebagai KASIR", MsgBoxStyle.OkOnly)
                     main.MenuStrip1.Enabled = True
-                    main.MarkupToolStripMenuItem.Enabled = True
+                    main.MarkupToolStripMenuItem.Enabled = False
                     main.LoginToolStripMenuItem.Enabled = True
-                    main.BarangToolStripMenuItem.Enabled = True
+                    main.BarangToolStripMenuItem.Enabled = False
                     main.PembelianToolStripMenuItem.Enabled = True
                     main.PenjualanToolStripMenuItem.Enabled = True
                     main.SatuanToolStripMenuItem.Enabled = False
                     main.KasirToolStripMenuItem.Enabled = False
                     main.SupplierToolStripMenuItem.Enabled = False
                     main.ToolStripMenuItem1.Enabled = False
+                    main.LaporanHarianToolStripMenuItem.Enabled = False
+                    main.KeuntunganToolStripMenuItem.Enabled = False
+                    main.KadaluarsaToolStripMenuItem.Enabled = False
                     Me.Close()
                 End If
             Else
