@@ -239,18 +239,34 @@ Public Class penjualan
 
 
     Private Sub kembalian()
-        Dim nominalKembalian = Integer.Parse(textBayar.Text.Replace(",", "").Replace(".", "")) - Integer.Parse(textGrandTotal.Text.Replace(",", "").Replace(".", ""))
-        If nominalKembalian > 0 Then
-            textKembalian.Text = Format(nominalKembalian, "#,0;-#,0")
+        Dim grandTotal = Integer.Parse(textGrandTotal.Text.Replace(",", "").Replace(".", ""))
+        If grandTotal < 0 Then
+            'proses retur
+            textKembalian.Text = Format(0, "#,0;-#,0")
             labelTotalBig.Text = textKembalian.Text
 
             Dim buton As DialogResult = MsgBox("Ingin CETAK NOTA?", MsgBoxStyle.YesNo)
             If (buton = 6) Then
-                doneTransaksi(nominalKembalian)
+                returTransaksi(0)
             Else
-                doneTransaksi(nominalKembalian)
+                returTransaksi(0)
+            End If
+        Else
+            'proses transaksi normal
+            Dim nominalKembalian = Integer.Parse(textBayar.Text.Replace(",", "").Replace(".", "")) - grandTotal
+            If nominalKembalian > 0 Then
+                textKembalian.Text = Format(nominalKembalian, "#,0;-#,0")
+                labelTotalBig.Text = textKembalian.Text
+
+                Dim buton As DialogResult = MsgBox("Ingin CETAK NOTA?", MsgBoxStyle.YesNo)
+                If (buton = 6) Then
+                    doneTransaksi(nominalKembalian)
+                Else
+                    doneTransaksi(nominalKembalian)
+                End If
             End If
         End If
+        
     End Sub
     Private Sub voidTransaksi()
         Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
@@ -268,7 +284,15 @@ Public Class penjualan
         newPenjualan.Show()
     End Sub
     Private Sub doneTransaksi(ByVal nominalKembalian As Integer)
-        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'done'WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'done' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        updateTransaksi.ExecuteNonQuery()
+        initializeForm()
+        lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
+        loadTable()
+    End Sub
+
+    Private Sub returTransaksi(ByVal nominalKembalian As Integer)
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'retur' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
         updateTransaksi.ExecuteNonQuery()
         initializeForm()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
@@ -341,8 +365,13 @@ Public Class penjualan
         If e.KeyCode = Keys.Escape Then
             voidTransaksi()
         End If
-        If e.KeyCode = Keys.F11 Then
+        If e.KeyCode = Keys.F8 Then
             pendingTransaksi()
+        End If
+        If e.KeyCode = Keys.F11 Then
+            Dim updateTransaksi As MySqlCommand = New MySqlCommand("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text, konek)
+            updateTransaksi.ExecuteNonQuery()
+            loadTable()
         End If
         If e.KeyCode = Keys.End Then
             labelBayar.Visible = True
