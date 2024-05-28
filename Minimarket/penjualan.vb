@@ -241,7 +241,11 @@ Public Class penjualan
     Private Sub kembalian()
         Dim grandTotal = Integer.Parse(textGrandTotal.Text.Replace(",", "").Replace(".", ""))
         If grandTotal < 0 Then
-            'proses retur
+            'proses retur, kembalikan stok barang
+
+            Dim mySqlCommand = New MySqlCommand("update barang INNER JOIN transaksi_detail on barang.id_barang=transaksi_detail.id_barang set barang.stok_gudang = barang.stok_gudang+ (transaksi_detail.qty*-1) WHERE transaksi_detail.id_transaksi=" & lblIdTransaksi.Text, konek)
+            mySqlCommand.ExecuteNonQuery()
+           
             textKembalian.Text = Format(0, "#,0;-#,0")
             labelTotalBig.Text = textKembalian.Text
 
@@ -372,6 +376,7 @@ Public Class penjualan
             Dim updateTransaksi As MySqlCommand = New MySqlCommand("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text, konek)
             updateTransaksi.ExecuteNonQuery()
             loadTable()
+
         End If
         If e.KeyCode = Keys.End Then
             labelBayar.Visible = True

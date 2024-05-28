@@ -4,7 +4,7 @@ Imports System.IO
 Public Class barang
 
     Public Sub view()
-        Dim sql As MySqlCommand = New MySqlCommand("select * from barang", konek)
+        Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang", konek)
         Dim ds As DataSet = New DataSet
         Dim da As MySqlDataAdapter = New MySqlDataAdapter
         da.SelectCommand = sql
@@ -155,7 +155,7 @@ Public Class barang
         txtnama.Text = ""
         txtstok.Text = ""
         If berdasarkan.SelectedIndex = 0 Then
-            Dim sql As MySqlCommand = New MySqlCommand("select * from barang where nama_barang like '%" + txtcari.Text + "%' order by nama_barang asc", konek)
+            Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where nama_barang like '%" + txtcari.Text + "%' order by nama_barang asc", konek)
             Dim ds As DataSet = New DataSet
             Dim da As MySqlDataAdapter = New MySqlDataAdapter
             da.SelectCommand = sql
@@ -166,7 +166,7 @@ Public Class barang
         End If
         If berdasarkan.SelectedIndex = 1 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from barang where harga_jual" + syarat.SelectedItem + txtcari.Text + "", konek)
+                Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where harga_jual" + syarat.SelectedItem + txtcari.Text + "", konek)
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql
@@ -181,7 +181,7 @@ Public Class barang
         End If
         If berdasarkan.SelectedIndex = 2 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from barang where harga_beli" + syarat.SelectedItem + txtcari.Text + "", konek)
+                Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where harga_beli" + syarat.SelectedItem + txtcari.Text + "", konek)
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql
@@ -196,7 +196,7 @@ Public Class barang
         End If
         If berdasarkan.SelectedIndex = 3 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from barang where stok" + syarat.SelectedItem + txtcari.Text + "", konek)
+                Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where stok" + syarat.SelectedItem + txtcari.Text + "", konek)
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql
