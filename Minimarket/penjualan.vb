@@ -16,152 +16,165 @@ Public Class penjualan
     End Function
     Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi=" & lblIdTransaksi.Text, konek)
-        Dim ds = New DataTable()
-        mySqlAdapter.Fill(ds)
-        ds.DefaultView.Sort = "updated_at desc"
-        dataGridView1.AutoGenerateColumns = True
-        dataGridView1.DataSource = ds
+        Try
+            Dim mySqlAdapter = New MySqlDataAdapter("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi=" & lblIdTransaksi.Text, konek)
+            Dim ds = New DataTable()
+            mySqlAdapter.Fill(ds)
+            ds.DefaultView.Sort = "updated_at desc"
+            dataGridView1.AutoGenerateColumns = True
+            dataGridView1.DataSource = ds
 
-        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dataGridView1.Columns(0).ReadOnly = True
-        dataGridView1.Columns(1).ReadOnly = True
-        dataGridView1.Columns(2).ReadOnly = True
-        dataGridView1.Columns(3).ReadOnly = True
-        dataGridView1.Columns(4).ReadOnly = False
-        dataGridView1.Columns(5).ReadOnly = True
-        dataGridView1.Columns(6).ReadOnly = True
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            dataGridView1.Columns(0).ReadOnly = True
+            dataGridView1.Columns(1).ReadOnly = True
+            dataGridView1.Columns(2).ReadOnly = True
+            dataGridView1.Columns(3).ReadOnly = True
+            dataGridView1.Columns(4).ReadOnly = False
+            dataGridView1.Columns(5).ReadOnly = True
+            dataGridView1.Columns(6).ReadOnly = True
 
-        dataGridView1.Columns(0).HeaderText = "id"
-        dataGridView1.Columns(1).HeaderText = "Barcode"
-        dataGridView1.Columns(2).HeaderText = "Nama Barang"
-        dataGridView1.Columns(3).HeaderText = "Harga"
-        dataGridView1.Columns(4).HeaderText = "Qty"
-        dataGridView1.Columns(5).HeaderText = "Jumlah"
-        dataGridView1.Columns(6).HeaderText = "Stok"
-        dataGridView1.Columns(0).Visible = False
-        dataGridView1.Columns(1).Width = 300
-        dataGridView1.Columns(2).Width = 508
-        dataGridView1.Columns(3).Width = 150
-        dataGridView1.Columns(4).Width = 150
-        dataGridView1.Columns(5).Width = 150
-        dataGridView1.Columns(6).Width = 150
+            dataGridView1.Columns(0).HeaderText = "id"
+            dataGridView1.Columns(1).HeaderText = "Barcode"
+            dataGridView1.Columns(2).HeaderText = "Nama Barang"
+            dataGridView1.Columns(3).HeaderText = "Harga"
+            dataGridView1.Columns(4).HeaderText = "Qty"
+            dataGridView1.Columns(5).HeaderText = "Jumlah"
+            dataGridView1.Columns(6).HeaderText = "Stok"
+            dataGridView1.Columns(0).Visible = False
+            dataGridView1.Columns(1).Width = 300
+            dataGridView1.Columns(2).Width = 508
+            dataGridView1.Columns(3).Width = 150
+            dataGridView1.Columns(4).Width = 150
+            dataGridView1.Columns(5).Width = 150
+            dataGridView1.Columns(6).Width = 150
 
-        textCountItem.Text = dataGridView1.Rows.Count.ToString
-        Dim grandTotal = 0
-        For i = 0 To dataGridView1.RowCount - 1
-            grandTotal += Integer.Parse(dataGridView1.Rows(i).Cells(3).Value.
-                                        ToString.Replace(".", "").
-                                        Replace(",", "")) * Integer.
-                                        Parse(dataGridView1.Rows(i).Cells(4).Value.ToString)
-        Next
-        If dataGridView1.RowCount > 0 Then
-            textTotal.Text = Format(Integer.Parse(dataGridView1.Rows(dataGridView1.RowCount - 1).Cells(3).Value.
-                                        ToString.Replace(".", "").
-                                        Replace(",", "")) * Integer.
-                                        Parse(dataGridView1.Rows(dataGridView1.RowCount - 1).Cells(4).Value.ToString), "#,0;-#,0")
-        Else
-            textTotal.Text = ""
-        End If
-        labelTotalBig.Text = Format(grandTotal, "#,0;-#,0")
-        textGrandTotal.Text = Format(grandTotal, "#,0;-#,0")
-        textPLU.Focus()
+            textCountItem.Text = dataGridView1.Rows.Count.ToString
+            Dim grandTotal = 0
+            For i = 0 To dataGridView1.RowCount - 1
+                grandTotal += Integer.Parse(dataGridView1.Rows(i).Cells(3).Value.
+                                            ToString.Replace(".", "").
+                                            Replace(",", "")) * Integer.
+                                            Parse(dataGridView1.Rows(i).Cells(4).Value.ToString)
+            Next
+            If dataGridView1.RowCount > 0 Then
+                textTotal.Text = Format(Integer.Parse(dataGridView1.Rows(dataGridView1.RowCount - 1).Cells(3).Value.
+                                            ToString.Replace(".", "").
+                                            Replace(",", "")) * Integer.
+                                            Parse(dataGridView1.Rows(dataGridView1.RowCount - 1).Cells(4).Value.ToString), "#,0;-#,0")
+            Else
+                textTotal.Text = ""
+            End If
+            labelTotalBig.Text = Format(grandTotal, "#,0;-#,0")
+            textGrandTotal.Text = Format(grandTotal, "#,0;-#,0")
+            textPLU.Text = ""
+            textPLU.Select()
+
+            textPLU.Focus()
+        Catch ex As Exception
+
+        End Try
+        
     End Sub
 
     'typeSet = increment or setvalue
     Private Sub inputUpdateBarang(ByVal typeSet As String, ByVal barcode As String, ByVal qty As Integer)
-        labelBarcode.Text = barcode
-        Dim barangCmd As MySqlCommand = New MySqlCommand("SELECT * from barang WHERE barcode='" & barcode & "'", konek)
-        Dim barangReader As MySqlDataReader = barangCmd.ExecuteReader()
-        Dim idBarang As Integer
-        Dim namaBarang As String
-        Dim stokDisplay As Integer
-        Dim stokGudang As String
-        Dim stokTotal As Integer
-        Dim hargaBeliNetto As Integer
-        Dim hargaJual1 As Integer
-        Dim hargaJual2 As Integer
-        Dim hargaJual3 As Integer
-        Dim hargaJual4 As Integer
-        Dim qty2 As Integer
-        Dim qty3 As Integer
-        Dim qty4 As Integer
-        If barangReader.Read Then
-            idBarang = barangReader("id_barang")
-            namaBarang = barangReader("nama_barang")
-            stokDisplay = barangReader("stok_display")
-            stokGudang = barangReader("stok_gudang")
-            stokTotal = stokDisplay + stokGudang
-            hargaBeliNetto = barangReader("harga_beli_netto")
-            hargaJual1 = barangReader("harga_jual1")
-            hargaJual2 = barangReader("harga_jual2")
-            hargaJual3 = barangReader("harga_jual3")
-            hargaJual4 = barangReader("harga_jual4")
-            qty2 = barangReader("qty2")
-            qty3 = barangReader("qty3")
-            qty4 = barangReader("qty4")
+        Try
+            labelBarcode.Text = barcode
+            Dim barangCmd As MySqlCommand = New MySqlCommand("SELECT * from barang WHERE barcode='" & barcode & "'", konek)
+            Dim barangReader As MySqlDataReader = barangCmd.ExecuteReader()
+            Dim idBarang As Integer
+            Dim namaBarang As String
+            Dim stokDisplay As Integer
+            Dim stokGudang As String
+            Dim stokTotal As Integer
+            Dim hargaBeliNetto As Integer
+            Dim hargaJual1 As Integer
+            Dim hargaJual2 As Integer
+            Dim hargaJual3 As Integer
+            Dim hargaJual4 As Integer
+            Dim qty2 As Integer
+            Dim qty3 As Integer
+            Dim qty4 As Integer
+            If barangReader.Read Then
+                idBarang = barangReader("id_barang")
+                namaBarang = barangReader("nama_barang")
+                stokDisplay = barangReader("stok_display")
+                stokGudang = barangReader("stok_gudang")
+                stokTotal = stokDisplay + stokGudang
+                hargaBeliNetto = barangReader("harga_beli_netto")
+                hargaJual1 = barangReader("harga_jual1")
+                hargaJual2 = barangReader("harga_jual2")
+                hargaJual3 = barangReader("harga_jual3")
+                hargaJual4 = barangReader("harga_jual4")
+                qty2 = barangReader("qty2")
+                qty3 = barangReader("qty3")
+                qty4 = barangReader("qty4")
 
-            barangReader.Close()
+                barangReader.Close()
 
-            Dim currentQtyCmd As MySqlCommand = New MySqlCommand("SELECT qty from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text, konek)
-            Dim currentQty = currentQtyCmd.ExecuteScalar
-            If currentQty Is Nothing Then
-                currentQty = "1"
-            End If
-            If typeSet = "setvalue" Then
-                currentQty = qty
-            End If
-            Dim hargaJualTerpilih = 0
-            If Integer.Parse(currentQty.ToString) < qty2 Then
-                hargaJualTerpilih = hargaJual1
-            ElseIf Integer.Parse(currentQty.ToString) >= qty2 And Integer.Parse(currentQty.ToString) < qty3 Then
-                hargaJualTerpilih = hargaJual2
-            ElseIf Integer.Parse(currentQty.ToString) >= qty3 And Integer.Parse(currentQty.ToString) < qty4 Then
-                hargaJualTerpilih = hargaJual3
-            ElseIf Integer.Parse(currentQty.ToString) >= qty4 Then
-                hargaJualTerpilih = hargaJual4
-            End If
-            If qty <= (stokDisplay + stokGudang) Then
-                If qty <= stokDisplay Then
-                    Dim updateStokDisplay As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_display = '" & (stokDisplay - qty).ToString & "' WHERE id_barang = " & idBarang.ToString, konek)
-                    updateStokDisplay.ExecuteNonQuery()
-                Else
-                    Dim stokYgHarusDariGudang = qty - stokDisplay
-                    Dim updateStokDisplay As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_display = '0' WHERE id_barang = " & idBarang.ToString, konek)
-                    updateStokDisplay.ExecuteNonQuery()
-                    Dim updateStokGudang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & (stokGudang - stokYgHarusDariGudang).ToString & "' WHERE id_barang = " & idBarang.ToString, konek)
-                    updateStokGudang.ExecuteNonQuery()
+                Dim currentQtyCmd As MySqlCommand = New MySqlCommand("SELECT qty from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text, konek)
+                Dim currentQty = currentQtyCmd.ExecuteScalar
+                If currentQty Is Nothing Then
+                    currentQty = "1"
                 End If
-
-                Dim cekBarangCmd As MySqlCommand = New MySqlCommand("SELECT id_transaksi_detail from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text, konek)
-                Dim idTransaksiDetail = cekBarangCmd.ExecuteScalar
-
-
-
-                If idTransaksiDetail Is Nothing Then
-                    Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (NULL, '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
-                    insertTransaksiDetail.ExecuteNonQuery()
-                Else
-
-
-                    If typeSet = "increment" Then
-
-                        Dim updateTransaksiDetail As MySqlCommand = New MySqlCommand("UPDATE transaksi_detail Set qty = '" & (Integer.Parse(currentQty.ToString) + qty).ToString & "',harga_jual = '" & hargaJualTerpilih.ToString & "',updated_at=now() WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
-                        updateTransaksiDetail.ExecuteNonQuery()
+                If typeSet = "setvalue" Then
+                    currentQty = qty
+                End If
+                Dim hargaJualTerpilih = 0
+                If Integer.Parse(currentQty.ToString) < qty2 Then
+                    hargaJualTerpilih = hargaJual1
+                ElseIf Integer.Parse(currentQty.ToString) >= qty2 And Integer.Parse(currentQty.ToString) < qty3 Then
+                    hargaJualTerpilih = hargaJual2
+                ElseIf Integer.Parse(currentQty.ToString) >= qty3 And Integer.Parse(currentQty.ToString) < qty4 Then
+                    hargaJualTerpilih = hargaJual3
+                ElseIf Integer.Parse(currentQty.ToString) >= qty4 Then
+                    hargaJualTerpilih = hargaJual4
+                End If
+                If qty <= (stokDisplay + stokGudang) Then
+                    If qty <= stokDisplay Then
+                        Dim updateStokDisplay As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_display = '" & (stokDisplay - qty).ToString & "' WHERE id_barang = " & idBarang.ToString, konek)
+                        updateStokDisplay.ExecuteNonQuery()
                     Else
-                        Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
-                        deleteTransaksiDetail.ExecuteNonQuery()
-                        'restok otomatis akan kembali ke tabel barang di kolom stok display via trigger mysql
-
-                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
-                        insertTransaksiDetail.ExecuteNonQuery()
+                        Dim stokYgHarusDariGudang = qty - stokDisplay
+                        Dim updateStokDisplay As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_display = '0' WHERE id_barang = " & idBarang.ToString, konek)
+                        updateStokDisplay.ExecuteNonQuery()
+                        Dim updateStokGudang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & (stokGudang - stokYgHarusDariGudang).ToString & "' WHERE id_barang = " & idBarang.ToString, konek)
+                        updateStokGudang.ExecuteNonQuery()
                     End If
+
+                    Dim cekBarangCmd As MySqlCommand = New MySqlCommand("SELECT id_transaksi_detail from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text, konek)
+                    Dim idTransaksiDetail = cekBarangCmd.ExecuteScalar
+
+
+
+                    If idTransaksiDetail Is Nothing Then
+                        Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (NULL, '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
+                        insertTransaksiDetail.ExecuteNonQuery()
+                    Else
+
+
+                        If typeSet = "increment" Then
+
+                            Dim updateTransaksiDetail As MySqlCommand = New MySqlCommand("UPDATE transaksi_detail Set qty = '" & (Integer.Parse(currentQty.ToString) + qty).ToString & "',harga_jual = '" & hargaJualTerpilih.ToString & "',updated_at=now() WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
+                            updateTransaksiDetail.ExecuteNonQuery()
+                        Else
+                            Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idTransaksiDetail.ToString, konek)
+                            deleteTransaksiDetail.ExecuteNonQuery()
+                            'restok otomatis akan kembali ke tabel barang di kolom stok display via trigger mysql
+
+                            Dim insertTransaksiDetail As MySqlCommand = New MySqlCommand("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())", konek)
+                            insertTransaksiDetail.ExecuteNonQuery()
+                        End If
+                    End If
+                    loadTable()
+                Else
+                    MsgBox("Stok sudah habis", MsgBoxStyle.OkCancel)
                 End If
-                loadTable()
-            Else
-                MsgBox("Stok sudah habis", MsgBoxStyle.OkCancel)
             End If
-        End If
+        Catch ex As Exception
+
+        End Try
+        
     End Sub
     Private Function getIdDariTabel() As String
         Dim idTransaksiDetail = ""
@@ -181,16 +194,16 @@ Public Class penjualan
         If dataGridView1.SelectedRows.Count > 0 Then
             barcodeTransaksiDetail = dataGridView1.SelectedRows(0).Cells(1).Value.ToString
         Else
-            Dim lastRow = dataGridView1.Rows.Count - 1
-            If lastRow >= 0 Then
-                barcodeTransaksiDetail = dataGridView1.Rows(lastRow).Cells(1).Value.ToString
-            End If
+            Try
+                barcodeTransaksiDetail = dataGridView1.Rows(0).Cells(1).Value.ToString
+            Catch ex As Exception
+                barcodeTransaksiDetail = ""
+            End Try
 
         End If
         Return barcodeTransaksiDetail
     End Function
     Private Sub deleteTransaksiDetail()
-        Console.WriteLine(dataGridView1.SelectedRows.Count)
 
         If getIdDariTabel() IsNot "" Then
             Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from transaksi_detail WHERE id_transaksi_detail = " & getIdDariTabel(), konek)
@@ -200,17 +213,25 @@ Public Class penjualan
 
     End Sub
     Private Sub toggleQty()
+        Console.WriteLine(textQty.Visible)
         If textQty.Visible = True Then
             textQty.Text = ""
             labelQty.Visible = False
             textQty.Visible = False
-            textPLU.Focus()
-        Else
+            Return
+        End If
+        If textQty.Visible = False Then
+            textQty.Text = ""
             labelQty.Visible = True
             textQty.Visible = True
-            textQty.Focus()
-            textQty.Text = ""
+
+
+
+            Return
+
         End If
+
+
     End Sub
     Private Sub initializeForm()
         labelKembalianBig.Hide()
@@ -304,7 +325,6 @@ Public Class penjualan
     End Sub
 
     Private Sub debouncedTextBayarChanged(textBayarString As String)
-        Console.WriteLine("debounce " & textBayarString)
         If Not textBayarString = "" Then
             textBayar.Text = Format(Integer.Parse(textBayarString.Replace(",", "").Replace(".", "")), "#,0;-#,0")
             textBayar.SelectionStart = textBayar.Text.Length
@@ -332,29 +352,8 @@ Public Class penjualan
         initializeForm()
         initializeDebounce()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
-        Console.WriteLine("onload")
         loadTable()
 
-    End Sub
-
-    Private Sub buttonScanBarang1_Click(sender As Object, e As EventArgs) Handles buttonScanBarang1.Click
-        inputUpdateBarang("increment", "11", 1)
-    End Sub
-
-    Private Sub buttonScanBarang2_Click(sender As Object, e As EventArgs) Handles buttonScanBarang2.Click
-        inputUpdateBarang("increment", "22", 1)
-    End Sub
-
-    Private Sub buttonScanBarang3_Click(sender As Object, e As EventArgs) Handles buttonScanBarang3.Click
-        inputUpdateBarang("increment", "33", 1)
-    End Sub
-
-    Private Sub buttonScanBarang4_Click(sender As Object, e As EventArgs) Handles buttonScanBarang4.Click
-        inputUpdateBarang("increment", "44", 1)
-    End Sub
-
-    Private Sub buttonScanBarang5_Click(sender As Object, e As EventArgs) Handles buttonScanBarang5.Click
-        inputUpdateBarang("increment", "55", 1)
     End Sub
 
     Private Sub penjualan_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
@@ -394,7 +393,7 @@ Public Class penjualan
     End Sub
 
 
-    Private Sub textQty_KeyDown(sender As Object, e As KeyEventArgs) Handles textQty.KeyDown
+    Private Sub textQty_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles textQty.KeyDown
         If Not IsNumeric(Chr(e.KeyCode)) And Not e.KeyCode = Keys.Delete And Not e.KeyCode = Keys.Back And Not e.KeyCode = Keys.Enter Then
             e.Handled = True
         End If
@@ -402,6 +401,8 @@ Public Class penjualan
             If getIdDariTabel() IsNot "" Then
                 inputUpdateBarang("setvalue", getBarcodeDariTabel, Integer.Parse(textQty.Text))
                 toggleQty()
+
+
             End If
         End If
     End Sub
@@ -411,6 +412,11 @@ Public Class penjualan
         If Not IsNumeric(e.KeyChar) And Not (ascChar = 8) And Not (ascChar = 32) And Not (ascChar = 13) Then
             e.KeyChar = ""
             e.Handled = False
+            'textPLU.Focus()
+
+        End If
+        If ascChar = 13 Then
+            inputUpdateBarang("increment", textPLU.Text, 1)
         End If
     End Sub
 
@@ -443,4 +449,13 @@ Public Class penjualan
     End Sub
 
 
+    Private Sub textQty_VisibleChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles textQty.VisibleChanged
+        If textQty.Visible = True Then
+            textQty.Select()
+            textQty.Focus()
+        Else
+            textPLU.Select()
+            textPLU.Focus()
+        End If
+    End Sub
 End Class

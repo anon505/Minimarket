@@ -23,9 +23,9 @@ Partial Class penjualan
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -36,16 +36,11 @@ Partial Class penjualan
         Me.textCountItem = New System.Windows.Forms.TextBox()
         Me.labelBarcode = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.lblIdTransaksi = New System.Windows.Forms.Label()
-        Me.buttonScanBarang1 = New System.Windows.Forms.Button()
-        Me.buttonScanBarang2 = New System.Windows.Forms.Button()
-        Me.buttonScanBarang3 = New System.Windows.Forms.Button()
-        Me.buttonScanBarang4 = New System.Windows.Forms.Button()
-        Me.buttonScanBarang5 = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.dataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.textQty = New System.Windows.Forms.TextBox()
         Me.labelQty = New System.Windows.Forms.Label()
         Me.textKembalian = New System.Windows.Forms.TextBox()
         Me.labelKembalian = New System.Windows.Forms.Label()
@@ -61,7 +56,7 @@ Partial Class penjualan
         Me.labelTotalBig = New System.Windows.Forms.Label()
         Me.labelKembalianBig = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.textQty = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -162,6 +157,7 @@ Partial Class penjualan
         Me.textCountItem.Location = New System.Drawing.Point(1318, 9)
         Me.textCountItem.MinimumSize = New System.Drawing.Size(50, 22)
         Me.textCountItem.Name = "textCountItem"
+        Me.textCountItem.ReadOnly = True
         Me.textCountItem.Size = New System.Drawing.Size(81, 22)
         Me.textCountItem.TabIndex = 4
         Me.textCountItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -181,16 +177,20 @@ Partial Class penjualan
         '
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Controls.Add(Me.lblIdTransaksi)
-        Me.Panel2.Controls.Add(Me.buttonScanBarang1)
-        Me.Panel2.Controls.Add(Me.buttonScanBarang2)
-        Me.Panel2.Controls.Add(Me.buttonScanBarang3)
-        Me.Panel2.Controls.Add(Me.buttonScanBarang4)
-        Me.Panel2.Controls.Add(Me.buttonScanBarang5)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 146)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1408, 50)
         Me.Panel2.TabIndex = 48
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(13, 17)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(87, 17)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "ID Transaksi"
         '
         'lblIdTransaksi
         '
@@ -199,51 +199,6 @@ Partial Class penjualan
         Me.lblIdTransaksi.Name = "lblIdTransaksi"
         Me.lblIdTransaksi.Size = New System.Drawing.Size(0, 17)
         Me.lblIdTransaksi.TabIndex = 5
-        '
-        'buttonScanBarang1
-        '
-        Me.buttonScanBarang1.Location = New System.Drawing.Point(718, 10)
-        Me.buttonScanBarang1.Name = "buttonScanBarang1"
-        Me.buttonScanBarang1.Size = New System.Drawing.Size(122, 30)
-        Me.buttonScanBarang1.TabIndex = 4
-        Me.buttonScanBarang1.Text = "Scan Barang 1"
-        Me.buttonScanBarang1.UseVisualStyleBackColor = True
-        '
-        'buttonScanBarang2
-        '
-        Me.buttonScanBarang2.Location = New System.Drawing.Point(866, 10)
-        Me.buttonScanBarang2.Name = "buttonScanBarang2"
-        Me.buttonScanBarang2.Size = New System.Drawing.Size(122, 30)
-        Me.buttonScanBarang2.TabIndex = 3
-        Me.buttonScanBarang2.Text = "Scan Barang 2"
-        Me.buttonScanBarang2.UseVisualStyleBackColor = True
-        '
-        'buttonScanBarang3
-        '
-        Me.buttonScanBarang3.Location = New System.Drawing.Point(1003, 10)
-        Me.buttonScanBarang3.Name = "buttonScanBarang3"
-        Me.buttonScanBarang3.Size = New System.Drawing.Size(122, 30)
-        Me.buttonScanBarang3.TabIndex = 2
-        Me.buttonScanBarang3.Text = "Scan Barang 3"
-        Me.buttonScanBarang3.UseVisualStyleBackColor = True
-        '
-        'buttonScanBarang4
-        '
-        Me.buttonScanBarang4.Location = New System.Drawing.Point(1140, 10)
-        Me.buttonScanBarang4.Name = "buttonScanBarang4"
-        Me.buttonScanBarang4.Size = New System.Drawing.Size(122, 30)
-        Me.buttonScanBarang4.TabIndex = 1
-        Me.buttonScanBarang4.Text = "Scan Barang 4"
-        Me.buttonScanBarang4.UseVisualStyleBackColor = True
-        '
-        'buttonScanBarang5
-        '
-        Me.buttonScanBarang5.Location = New System.Drawing.Point(1277, 10)
-        Me.buttonScanBarang5.Name = "buttonScanBarang5"
-        Me.buttonScanBarang5.Size = New System.Drawing.Size(122, 30)
-        Me.buttonScanBarang5.TabIndex = 0
-        Me.buttonScanBarang5.Text = "Scan Barang 5"
-        Me.buttonScanBarang5.UseVisualStyleBackColor = True
         '
         'Panel3
         '
@@ -258,29 +213,29 @@ Partial Class penjualan
         '
         Me.dataGridView1.AllowUserToAddRows = False
         Me.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle7.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dataGridView1.ColumnHeadersHeight = 30
         Me.dataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.dataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.dataGridView1.Name = "dataGridView1"
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.dataGridView1.RowHeadersWidth = 51
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.dataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle3
         Me.dataGridView1.Size = New System.Drawing.Size(1408, 325)
         Me.dataGridView1.TabIndex = 29
         '
@@ -304,14 +259,6 @@ Partial Class penjualan
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1408, 233)
         Me.Panel4.TabIndex = 50
-        '
-        'textQty
-        '
-        Me.textQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textQty.Location = New System.Drawing.Point(401, 8)
-        Me.textQty.Name = "textQty"
-        Me.textQty.Size = New System.Drawing.Size(195, 30)
-        Me.textQty.TabIndex = 2
         '
         'labelQty
         '
@@ -466,14 +413,13 @@ Partial Class penjualan
         Me.Panel5.Size = New System.Drawing.Size(1408, 2)
         Me.Panel5.TabIndex = 30
         '
-        'Label1
+        'textQty
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 17)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(87, 17)
-        Me.Label1.TabIndex = 6
-        Me.Label1.Text = "ID Transaksi"
+        Me.textQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textQty.Location = New System.Drawing.Point(394, 10)
+        Me.textQty.Name = "textQty"
+        Me.textQty.Size = New System.Drawing.Size(195, 30)
+        Me.textQty.TabIndex = 1
         '
         'penjualan
         '
@@ -521,15 +467,9 @@ Partial Class penjualan
     Friend WithEvents textCountItem As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents buttonScanBarang5 As Button
-    Friend WithEvents buttonScanBarang1 As Button
-    Friend WithEvents buttonScanBarang2 As Button
-    Friend WithEvents buttonScanBarang3 As Button
-    Friend WithEvents buttonScanBarang4 As Button
     Friend WithEvents Panel3 As Panel
     Friend WithEvents dataGridView1 As DataGridView
     Friend WithEvents Panel4 As Panel
-    Friend WithEvents textQty As TextBox
     Friend WithEvents labelQty As Label
     Friend WithEvents textKembalian As TextBox
     Friend WithEvents labelKembalian As Label
@@ -547,4 +487,5 @@ Partial Class penjualan
     Friend WithEvents Panel5 As Panel
     Friend WithEvents lblIdTransaksi As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents textQty As System.Windows.Forms.TextBox
 End Class
