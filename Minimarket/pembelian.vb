@@ -6,7 +6,7 @@ Public Class pembelian
     Dim noFaktorEdit As String
     Dim statusFaktorEdit As String
 
-    Private Function getIdPembelian(ByVal idKasir As String) As String
+    Public Function getIdPembelian(ByVal idKasir As String) As String
         If noFaktorEdit IsNot Nothing Then
             Dim cekPembelianCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian from pembelian WHERE no_faktur=" & noFaktorEdit, konek)
             Dim idPembelian = cekPembelianCmd.ExecuteScalar
@@ -24,7 +24,16 @@ Public Class pembelian
         End If
 
     End Function
-
+    Private Sub textPLU_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles textPLU.KeyPress
+        Dim ascChar As Integer = Asc(e.KeyChar)
+        If Not IsNumeric(e.KeyChar) And Not (ascChar = 8) And Not (ascChar = 32) And Not (ascChar = 13) Then
+            e.KeyChar = ""
+            e.Handled = False
+        End If
+        If ascChar = 13 Then
+            inputUpdateBarang(textPLU.Text)
+        End If
+    End Sub
     Private Sub inputUpdateBarang(ByVal barcode As String)
 
         Dim barangCmd As MySqlCommand = New MySqlCommand("SELECT * from barang WHERE barcode='" & barcode & "'", konek)
@@ -55,13 +64,11 @@ Public Class pembelian
             End If
             loadTable()
         End If
+        textPLU.Text = ""
+        textPLU.Focus()
+
     End Sub
 
-    Private Sub updateTable(ByVal idBarang As String, ByVal namaKolom As String, ByVal valueKolom As String)
-        Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set " & namaKolom & " = '" & valueKolom.ToString & "' WHERE id_barang = '" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-        updateTabel.ExecuteNonQuery()
-        loadTable()
-    End Sub
 
     Private Sub dataGridView1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
         'If (e.ColumnIndex = 5 Or e.ColumnIndex = 7 Or e.ColumnIndex = 9 Or e.ColumnIndex = 11 Or e.ColumnIndex = 13 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
@@ -80,86 +87,91 @@ Public Class pembelian
         column.CellTemplate = cell
     End Sub
     Private Sub loadTable()
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir), konek)
-        Dim ds = New DataTable()
-        mySqlAdapter.Fill(ds)
+        Try
+            Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir), konek)
+            Dim ds = New DataTable()
+            mySqlAdapter.Fill(ds)
 
-        dataGridView1.AutoGenerateColumns = True
-        dataGridView1.DataSource = ds
-        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
-        dataGridView1.Columns(0).ReadOnly = True
-        dataGridView1.Columns(1).ReadOnly = True
-        dataGridView1.Columns(2).ReadOnly = True
-        dataGridView1.Columns(3).ReadOnly = True
-        dataGridView1.Columns(4).ReadOnly = True
-        dataGridView1.Columns(5).ReadOnly = False
-        dataGridView1.Columns(6).ReadOnly = True
-        dataGridView1.Columns(7).ReadOnly = False
-        dataGridView1.Columns(8).ReadOnly = True
-        dataGridView1.Columns(9).ReadOnly = False
-        dataGridView1.Columns(10).ReadOnly = True
-        dataGridView1.Columns(11).ReadOnly = False
-        dataGridView1.Columns(12).ReadOnly = True
-        dataGridView1.Columns(13).ReadOnly = True
-        dataGridView1.Columns(14).ReadOnly = True
-        dataGridView1.Columns(15).ReadOnly = True
-        dataGridView1.Columns(16).ReadOnly = True
+            dataGridView1.AutoGenerateColumns = True
+            dataGridView1.DataSource = ds
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
+            dataGridView1.Columns(0).ReadOnly = True
+            dataGridView1.Columns(1).ReadOnly = True
+            dataGridView1.Columns(2).ReadOnly = True
+            dataGridView1.Columns(3).ReadOnly = True
+            dataGridView1.Columns(4).ReadOnly = True
+            dataGridView1.Columns(5).ReadOnly = False
+            dataGridView1.Columns(6).ReadOnly = True
+            dataGridView1.Columns(7).ReadOnly = False
+            dataGridView1.Columns(8).ReadOnly = True
+            dataGridView1.Columns(9).ReadOnly = False
+            dataGridView1.Columns(10).ReadOnly = True
+            dataGridView1.Columns(11).ReadOnly = False
+            dataGridView1.Columns(12).ReadOnly = True
+            dataGridView1.Columns(13).ReadOnly = True
+            dataGridView1.Columns(14).ReadOnly = True
+            dataGridView1.Columns(15).ReadOnly = True
+            dataGridView1.Columns(16).ReadOnly = True
 
-        dataGridView1.Columns(0).Visible = False
-        dataGridView1.Columns(1).Visible = False
-        dataGridView1.Columns(2).Visible = False
+            dataGridView1.Columns(0).Visible = False
+            dataGridView1.Columns(1).Visible = False
+            dataGridView1.Columns(2).Visible = False
 
-        dataGridView1.Columns(0).HeaderText = "id_pembelian_detail"
-        dataGridView1.Columns(1).HeaderText = "no_faktur"
-        dataGridView1.Columns(2).HeaderText = "id_barang"
-        dataGridView1.Columns(3).HeaderText = "Barcode"
-        dataGridView1.Columns(4).HeaderText = "Nama Barang"
-        dataGridView1.Columns(5).HeaderText = "Qty"
-        dataGridView1.Columns(6).HeaderText = "Stok"
-        dataGridView1.Columns(7).HeaderText = "Harga"
-        dataGridView1.Columns(8).HeaderText = "Harga Lama"
-        dataGridView1.Columns(9).HeaderText = "PPn(%)"
-        dataGridView1.Columns(10).HeaderText = "PPn Lama(%)"
-        dataGridView1.Columns(10).DefaultCellStyle.Format = "N2"
-        dataGridView1.Columns(11).HeaderText = "Discount(%)"
-        dataGridView1.Columns(12).HeaderText = "Discount Lama(%)"
-        dataGridView1.Columns(12).DefaultCellStyle.Format = "N2"
-        dataGridView1.Columns(13).HeaderText = "Harga Netto"
-        dataGridView1.Columns(14).HeaderText = "Harga Netto Lama"
-        dataGridView1.Columns(15).HeaderText = "Total"
-        dataGridView1.Columns(16).HeaderText = "Expired"
-        dataGridView1.Columns(16).ValueType = GetType(Date)
-        dataGridView1.Columns(16).DefaultCellStyle.Format = "dd/MM/yyyy"
+            dataGridView1.Columns(0).HeaderText = "id_pembelian_detail"
+            dataGridView1.Columns(1).HeaderText = "no_faktur"
+            dataGridView1.Columns(2).HeaderText = "id_barang"
+            dataGridView1.Columns(3).HeaderText = "Barcode"
+            dataGridView1.Columns(4).HeaderText = "Nama Barang"
+            dataGridView1.Columns(5).HeaderText = "Qty"
+            dataGridView1.Columns(6).HeaderText = "Stok"
+            dataGridView1.Columns(7).HeaderText = "Harga"
+            dataGridView1.Columns(8).HeaderText = "Harga Lama"
+            dataGridView1.Columns(9).HeaderText = "PPn(%)"
+            dataGridView1.Columns(10).HeaderText = "PPn Lama(%)"
+            dataGridView1.Columns(10).DefaultCellStyle.Format = "N2"
+            dataGridView1.Columns(11).HeaderText = "Discount(%)"
+            dataGridView1.Columns(12).HeaderText = "Discount Lama(%)"
+            dataGridView1.Columns(12).DefaultCellStyle.Format = "N2"
+            dataGridView1.Columns(13).HeaderText = "Harga Netto"
+            dataGridView1.Columns(14).HeaderText = "Harga Netto Lama"
+            dataGridView1.Columns(15).HeaderText = "Total"
+            dataGridView1.Columns(16).HeaderText = "Expired"
+            dataGridView1.Columns(16).ValueType = GetType(Date)
+            dataGridView1.Columns(16).DefaultCellStyle.Format = "dd/MM/yyyy"
 
 
 
-        dataGridView1.Columns(3).Width = 108
-        dataGridView1.Columns(4).Width = 208
-        dataGridView1.Columns(5).Width = 108
-        dataGridView1.Columns(6).Width = 108
-        dataGridView1.Columns(7).Width = 108
-        dataGridView1.Columns(8).Width = 108
-        dataGridView1.Columns(9).Width = 108
-        dataGridView1.Columns(10).Width = 108
-        dataGridView1.Columns(11).Width = 108
-        dataGridView1.Columns(12).Width = 138
-        dataGridView1.Columns(13).Width = 108
-        dataGridView1.Columns(14).Width = 158
-        dataGridView1.Columns(15).Width = 158
-        dataGridView1.Columns(16).Width = 158
-        customizeCellsInColumn(5)
-        customizeCellsInColumn(7)
-        customizeCellsInColumn(9)
-        customizeCellsInColumn(11)
-        dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter
-        Dim grandTotal = 0
-        For i = 0 To dataGridView1.RowCount - 1
-            grandTotal += Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
-                                        ToString.Replace(".", "").
-                                        Replace(",", "")) * Integer.
-                                        Parse(dataGridView1.Rows(i).Cells(13).Value.ToString)
-        Next
-        textTotal.Text = Format(grandTotal, "#,0;-#,0")
+            dataGridView1.Columns(3).Width = 108
+            dataGridView1.Columns(4).Width = 208
+            dataGridView1.Columns(5).Width = 108
+            dataGridView1.Columns(6).Width = 108
+            dataGridView1.Columns(7).Width = 108
+            dataGridView1.Columns(8).Width = 108
+            dataGridView1.Columns(9).Width = 108
+            dataGridView1.Columns(10).Width = 108
+            dataGridView1.Columns(11).Width = 108
+            dataGridView1.Columns(12).Width = 138
+            dataGridView1.Columns(13).Width = 108
+            dataGridView1.Columns(14).Width = 158
+            dataGridView1.Columns(15).Width = 158
+            dataGridView1.Columns(16).Width = 158
+            customizeCellsInColumn(5)
+            customizeCellsInColumn(7)
+            customizeCellsInColumn(9)
+            customizeCellsInColumn(11)
+            dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter
+            Dim grandTotal = 0
+            For i = 0 To dataGridView1.RowCount - 1
+                grandTotal += Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
+                                            ToString.Replace(".", "").
+                                            Replace(",", "")) * Integer.
+                                            Parse(dataGridView1.Rows(i).Cells(13).Value.ToString)
+            Next
+            textTotal.Text = Format(grandTotal, "#,0;-#,0")
+        Catch ex As Exception
+
+        End Try
+        
     End Sub
     Private Sub textDiscount_KeyUp(sender As Object, e As KeyEventArgs) Handles textDiscount.KeyUp
         If e.KeyCode = Keys.Enter Then
@@ -196,6 +208,8 @@ Public Class pembelian
                 grandTotal += subTotal
             Next
             textTotal.Text = Format(grandTotal, "#,0;-#,0")
+            textPLU.Text = ""
+            textPLU.Focus()
 
         End If
     End Sub
@@ -235,6 +249,8 @@ Public Class pembelian
                 grandTotal += subTotal
             Next
             textTotal.Text = Format(grandTotal, "#,0;-#,0")
+            textPLU.Text = ""
+            textPLU.Focus()
         End If
     End Sub
     Private Sub textPpn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textPpn.KeyPress
@@ -330,26 +346,6 @@ Public Class pembelian
 
     End Sub
 
-    Private Sub buttonScan1_Click(sender As Object, e As EventArgs) Handles buttonScan1.Click
-        inputUpdateBarang("11")
-
-    End Sub
-
-    Private Sub buttonScan2_Click(sender As Object, e As EventArgs) Handles buttonScan2.Click
-        inputUpdateBarang("22")
-    End Sub
-
-    Private Sub buttonScan3_Click(sender As Object, e As EventArgs) Handles buttonScan3.Click
-        inputUpdateBarang("33")
-    End Sub
-
-    Private Sub buttonScan4_Click(sender As Object, e As EventArgs) Handles buttonScan4.Click
-        inputUpdateBarang("44")
-    End Sub
-
-    Private Sub buttonScan5_Click(sender As Object, e As EventArgs) Handles buttonScan5.Click
-        inputUpdateBarang("55")
-    End Sub
     Private Sub Tb_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
         Dim tb As TextBox = TryCast(sender, TextBox)
 
@@ -372,71 +368,75 @@ Public Class pembelian
 
     Private Sub dataGridView1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
         '5(qty), 7(harga), 9(ppn), 11(discount)
-        If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
-            If e.ColumnIndex = 5 Then
-                Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                updateTabel.ExecuteNonQuery()
-                loadTable()
-            ElseIf e.ColumnIndex = 7 Then
-                Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
-                Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
-                Dim price As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
-                Dim ppn As Double
-                Dim discount As Double
-                Dim priceNetto As Integer
-                If pembelianDetailReader.Read Then
-                    ppn = pembelianDetailReader("ppn")
-                    discount = pembelianDetailReader("discount")
-                    Dim priceAfterPpn = (price + ((ppn / 100) * price))
-                    priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                    pembelianDetailReader.Close()
+        Try
+            If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
+                If e.ColumnIndex = 5 Then
+                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
+                    updateTabel.ExecuteNonQuery()
+                    loadTable()
+                ElseIf e.ColumnIndex = 7 Then
+                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
+                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim price As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
+                    Dim ppn As Double
+                    Dim discount As Double
+                    Dim priceNetto As Integer
+                    If pembelianDetailReader.Read Then
+                        ppn = pembelianDetailReader("ppn")
+                        discount = pembelianDetailReader("discount")
+                        Dim priceAfterPpn = (price + ((ppn / 100) * price))
+                        priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
+                        pembelianDetailReader.Close()
+                    End If
+                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
+                    updateTabel.ExecuteNonQuery()
+                    loadTable()
+                ElseIf e.ColumnIndex = 9 Then
+                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
+                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim price As Integer
+                    Dim ppn As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
+                    Dim discount As Double
+                    Dim priceNetto As Integer
+                    If pembelianDetailReader.Read Then
+                        price = pembelianDetailReader("price")
+                        discount = pembelianDetailReader("discount")
+                        Dim priceAfterPpn = (price + ((ppn / 100) * price))
+                        priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
+                        pembelianDetailReader.Close()
+                    End If
+                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
+                    updateTabel.ExecuteNonQuery()
+                    loadTable()
+                ElseIf e.ColumnIndex = 11 Then
+                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
+                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim price As Integer
+                    Dim ppn As Double
+                    Dim discount As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
+                    Dim priceNetto As Integer
+                    If pembelianDetailReader.Read Then
+                        price = pembelianDetailReader("price")
+                        ppn = pembelianDetailReader("ppn")
+                        Dim priceAfterPpn = (price + ((ppn / 100) * price))
+                        priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
+                        pembelianDetailReader.Close()
+                    End If
+                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
+                    updateTabel.ExecuteNonQuery()
+                    loadTable()
                 End If
-                Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                updateTabel.ExecuteNonQuery()
-                loadTable()
-            ElseIf e.ColumnIndex = 9 Then
-                Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
-                Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
-                Dim price As Integer
-                Dim ppn As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
-                Dim discount As Double
-                Dim priceNetto As Integer
-                If pembelianDetailReader.Read Then
-                    price = pembelianDetailReader("price")
-                    discount = pembelianDetailReader("discount")
-                    Dim priceAfterPpn = (price + ((ppn / 100) * price))
-                    priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                    pembelianDetailReader.Close()
-                End If
-                Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                updateTabel.ExecuteNonQuery()
-                loadTable()
-            ElseIf e.ColumnIndex = 11 Then
-                Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
-                Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
-                Dim price As Integer
-                Dim ppn As Double
-                Dim discount As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
-                Dim priceNetto As Integer
-                If pembelianDetailReader.Read Then
-                    price = pembelianDetailReader("price")
-                    ppn = pembelianDetailReader("ppn")
-                    Dim priceAfterPpn = (price + ((ppn / 100) * price))
-                    priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                    pembelianDetailReader.Close()
-                End If
-                Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                updateTabel.ExecuteNonQuery()
-                loadTable()
+                textPLU.Text = ""
+                textPLU.Focus()
             End If
+        Catch ex As Exception
 
-
-        End If
-
+        End Try
+        
     End Sub
     Private Sub savePembelian()
         'Dim mySqlAdapter = New MySqlDataAdapter("SELECT * from pembelian_detail WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)

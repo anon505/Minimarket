@@ -32,10 +32,10 @@ Partial Class main
         Me.PembelianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PenjualanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LaporanHarianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KeuntunganToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KadaluarsaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -122,6 +122,18 @@ Partial Class main
         Me.LaporanHarianToolStripMenuItem.Size = New System.Drawing.Size(114, 27)
         Me.LaporanHarianToolStripMenuItem.Text = "Laporan"
         '
+        'KeuntunganToolStripMenuItem
+        '
+        Me.KeuntunganToolStripMenuItem.Name = "KeuntunganToolStripMenuItem"
+        Me.KeuntunganToolStripMenuItem.Size = New System.Drawing.Size(182, 28)
+        Me.KeuntunganToolStripMenuItem.Text = "Keuntungan"
+        '
+        'KadaluarsaToolStripMenuItem
+        '
+        Me.KadaluarsaToolStripMenuItem.Name = "KadaluarsaToolStripMenuItem"
+        Me.KadaluarsaToolStripMenuItem.Size = New System.Drawing.Size(182, 28)
+        Me.KadaluarsaToolStripMenuItem.Text = "Kadaluarsa"
+        '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.BackColor = System.Drawing.SystemColors.Control
@@ -140,18 +152,6 @@ Partial Class main
         Me.LoginToolStripMenuItem.Size = New System.Drawing.Size(89, 27)
         Me.LoginToolStripMenuItem.Text = "Login"
         '
-        'KeuntunganToolStripMenuItem
-        '
-        Me.KeuntunganToolStripMenuItem.Name = "KeuntunganToolStripMenuItem"
-        Me.KeuntunganToolStripMenuItem.Size = New System.Drawing.Size(182, 28)
-        Me.KeuntunganToolStripMenuItem.Text = "Keuntungan"
-        '
-        'KadaluarsaToolStripMenuItem
-        '
-        Me.KadaluarsaToolStripMenuItem.Name = "KadaluarsaToolStripMenuItem"
-        Me.KadaluarsaToolStripMenuItem.Size = New System.Drawing.Size(182, 28)
-        Me.KadaluarsaToolStripMenuItem.Text = "Kadaluarsa"
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -164,7 +164,7 @@ Partial Class main
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "main"
-        Me.Text = "Minimarket by Um@m Corporation"
+        Me.Text = "Minimarket"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

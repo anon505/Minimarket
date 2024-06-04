@@ -47,15 +47,12 @@ Partial Class pembelian
         Me.buttonSave = New System.Windows.Forms.Button()
         Me.buttonDelete = New System.Windows.Forms.Button()
         Me.buttonFind = New System.Windows.Forms.Button()
-        Me.buttonScan1 = New System.Windows.Forms.Button()
-        Me.buttonScan2 = New System.Windows.Forms.Button()
-        Me.buttonScan3 = New System.Windows.Forms.Button()
-        Me.buttonScan4 = New System.Windows.Forms.Button()
-        Me.buttonScan5 = New System.Windows.Forms.Button()
         Me.labelIdSuplier = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.textSupplier = New System.Windows.Forms.TextBox()
         Me.btnEditFaktor = New System.Windows.Forms.Button()
+        Me.textPLU = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -227,7 +224,7 @@ Partial Class pembelian
         'textDiscount
         '
         Me.textDiscount.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textDiscount.Location = New System.Drawing.Point(170, 572)
+        Me.textDiscount.Location = New System.Drawing.Point(175, 624)
         Me.textDiscount.Name = "textDiscount"
         Me.textDiscount.Size = New System.Drawing.Size(204, 30)
         Me.textDiscount.TabIndex = 73
@@ -236,7 +233,7 @@ Partial Class pembelian
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(13, 577)
+        Me.Label9.Location = New System.Drawing.Point(18, 629)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(120, 25)
         Me.Label9.TabIndex = 72
@@ -293,51 +290,6 @@ Partial Class pembelian
         Me.buttonFind.Text = "Cari"
         Me.buttonFind.UseVisualStyleBackColor = True
         '
-        'buttonScan1
-        '
-        Me.buttonScan1.Location = New System.Drawing.Point(55, 624)
-        Me.buttonScan1.Name = "buttonScan1"
-        Me.buttonScan1.Size = New System.Drawing.Size(139, 34)
-        Me.buttonScan1.TabIndex = 79
-        Me.buttonScan1.Text = "Scan Barang 1"
-        Me.buttonScan1.UseVisualStyleBackColor = True
-        '
-        'buttonScan2
-        '
-        Me.buttonScan2.Location = New System.Drawing.Point(235, 620)
-        Me.buttonScan2.Name = "buttonScan2"
-        Me.buttonScan2.Size = New System.Drawing.Size(139, 34)
-        Me.buttonScan2.TabIndex = 80
-        Me.buttonScan2.Text = "Scan Barang 2"
-        Me.buttonScan2.UseVisualStyleBackColor = True
-        '
-        'buttonScan3
-        '
-        Me.buttonScan3.Location = New System.Drawing.Point(407, 618)
-        Me.buttonScan3.Name = "buttonScan3"
-        Me.buttonScan3.Size = New System.Drawing.Size(139, 34)
-        Me.buttonScan3.TabIndex = 81
-        Me.buttonScan3.Text = "Scan Barang 3"
-        Me.buttonScan3.UseVisualStyleBackColor = True
-        '
-        'buttonScan4
-        '
-        Me.buttonScan4.Location = New System.Drawing.Point(587, 618)
-        Me.buttonScan4.Name = "buttonScan4"
-        Me.buttonScan4.Size = New System.Drawing.Size(139, 34)
-        Me.buttonScan4.TabIndex = 82
-        Me.buttonScan4.Text = "Scan Barang 4"
-        Me.buttonScan4.UseVisualStyleBackColor = True
-        '
-        'buttonScan5
-        '
-        Me.buttonScan5.Location = New System.Drawing.Point(761, 618)
-        Me.buttonScan5.Name = "buttonScan5"
-        Me.buttonScan5.Size = New System.Drawing.Size(139, 34)
-        Me.buttonScan5.TabIndex = 83
-        Me.buttonScan5.Text = "Scan Barang 5"
-        Me.buttonScan5.UseVisualStyleBackColor = True
-        '
         'labelIdSuplier
         '
         Me.labelIdSuplier.AutoSize = True
@@ -376,18 +328,33 @@ Partial Class pembelian
         Me.btnEditFaktor.Text = "Edit Faktur"
         Me.btnEditFaktor.UseVisualStyleBackColor = True
         '
+        'textPLU
+        '
+        Me.textPLU.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textPLU.Location = New System.Drawing.Point(175, 574)
+        Me.textPLU.Name = "textPLU"
+        Me.textPLU.Size = New System.Drawing.Size(204, 30)
+        Me.textPLU.TabIndex = 86
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(18, 577)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(50, 25)
+        Me.Label6.TabIndex = 87
+        Me.Label6.Text = "PLU"
+        '
         'pembelian
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1438, 741)
+        Me.Controls.Add(Me.textPLU)
+        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.btnEditFaktor)
         Me.Controls.Add(Me.labelIdSuplier)
-        Me.Controls.Add(Me.buttonScan5)
-        Me.Controls.Add(Me.buttonScan4)
-        Me.Controls.Add(Me.buttonScan3)
-        Me.Controls.Add(Me.buttonScan2)
-        Me.Controls.Add(Me.buttonScan1)
         Me.Controls.Add(Me.buttonFind)
         Me.Controls.Add(Me.buttonDelete)
         Me.Controls.Add(Me.buttonSave)
@@ -446,13 +413,10 @@ Partial Class pembelian
     Friend WithEvents buttonSave As Button
     Friend WithEvents buttonDelete As Button
     Friend WithEvents buttonFind As Button
-    Friend WithEvents buttonScan1 As Button
-    Friend WithEvents buttonScan2 As Button
-    Friend WithEvents buttonScan3 As Button
-    Friend WithEvents buttonScan4 As Button
-    Friend WithEvents buttonScan5 As Button
     Friend WithEvents labelIdSuplier As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents textSupplier As TextBox
     Friend WithEvents btnEditFaktor As Button
+    Friend WithEvents textPLU As System.Windows.Forms.TextBox
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class
