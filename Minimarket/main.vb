@@ -40,12 +40,14 @@ Public Class main
         MenuStrip1.Enabled = True
         MarkupToolStripMenuItem.Enabled = False
         LoginToolStripMenuItem.Enabled = True
-        BarangToolStripMenuItem.Enabled = False
+        MasterMenuItem.Enabled = False
         PembelianToolStripMenuItem.Enabled = False
         PenjualanToolStripMenuItem.Enabled = False
-        SatuanToolStripMenuItem.Enabled = False
-        KasirToolStripMenuItem.Enabled = False
-        SupplierToolStripMenuItem.Enabled = False
+        BarangSubMenuItem.Enabled = False
+        SatuanSubMenuItem.Enabled = False
+        KasirSubMenuItem.Enabled = False
+        SupplierSubMenuItem.Enabled = False
+        MutasiSubMenuItem.Enabled = False
         ToolStripMenuItem1.Enabled = False
         LaporanHarianToolStripMenuItem.Enabled = False
         KeuntunganToolStripMenuItem.Enabled = False
@@ -69,17 +71,17 @@ Public Class main
         End Try
 
     End Sub
-    Private Sub BarangToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BarangToolStripMenuItem.Click
+    Private Sub BarangToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BarangSubMenuItem.Click
         barang.MdiParent = Me
         barang.Show()
         barang.MaximizeBox = False
     End Sub
-    Private Sub KasirToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KasirToolStripMenuItem.Click
+    Private Sub KasirToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KasirSubMenuItem.Click
         kasir.MdiParent = Me
         kasir.Show()
         kasir.MaximizeBox = False
     End Sub
-    Private Sub SupplierToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SupplierToolStripMenuItem.Click
+    Private Sub SupplierToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SupplierSubMenuItem.Click
         supplier.MdiParent = Me
         supplier.Show()
     End Sub
@@ -95,7 +97,7 @@ Public Class main
         Login.Show()
     End Sub
 
-    Private Sub SatuanToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SatuanToolStripMenuItem.Click
+    Private Sub SatuanToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SatuanSubMenuItem.Click
         satuan.MdiParent = Me
         satuan.Show()
         satuan.MaximizeBox = False

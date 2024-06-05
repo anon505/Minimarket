@@ -15,7 +15,7 @@ Public Class pembelian
             Dim cekPembelianCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir, konek)
             Dim idPembelian = cekPembelianCmd.ExecuteScalar
             If idPembelian Is Nothing Then
-                Dim insertPembelian As MySqlCommand = New MySqlCommand("INSERT INTO `pembelian` (`id_pembelian`, `no_faktur`, `tgl_faktur`, `id_supplier`, `id_kasir`, `grand_total`, `metode_pembayaran`, `lama_jatuh_tempo`, `status`) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', '', '0', 'temp');", konek)
+                Dim insertPembelian As MySqlCommand = New MySqlCommand("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', '', '0', 'temp');", konek)
                 insertPembelian.ExecuteNonQuery()
                 Return getIdPembelian(idKasir)
             Else
@@ -466,23 +466,43 @@ Public Class pembelian
         End If
         Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & textTempoHari.Text & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir), konek)
         updateTabel.ExecuteNonQuery()
-        If noFaktorEdit IsNot Nothing Then
-            MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
-        Else
-            loadTable()
-
-            textNoFaktur.Text = ""
-            textSupplier.Text = ""
-            labelSupplier.Text = ""
-            labelIdSuplier.Text = ""
-            comboPembayaran.SelectedIndex = -1
-            textTempoHari.Text = ""
-            textJatuhTempo.Text = ""
-            textDiscount.Text = ""
-            textPpn.Text = ""
-            textTotal.Text = ""
-            MsgBox("Faktur pembelian berhasil disimpan", MsgBoxStyle.OkOnly)
+        If metodePembayaran = "tunai" Then
+            Dim cekIdMutasi As MySqlCommand = New MySqlCommand("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'", konek)
+            Dim idMutasi = cekIdMutasi.ExecuteScalar
+            If idMutasi Is Nothing Then
+                Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,status, nominal,created_at) VALUES (NULL, '" &
+                                                                    getIdPembelian(Module1.id_kasir) &
+                                                                    "','pembelian','PEMBELIAN secara TUNAI dengan faktur: " &
+                                                                    textNoFaktur.Text & "', 'debit','" & textTotal.
+                                                                    Text.
+                                                                    Replace(",", "").
+                                                                    Replace(".", "") & "', now());", konek)
+                insertMutasi.ExecuteNonQuery()
+            Else
+                Dim updateMutasi As MySqlCommand = New MySqlCommand("UPDATE mutasi SET deskripsi = 'update PEMBELIAN secara TUNAI dengan faktur: " & textNoFaktur.Text & "',nominal = '" & textTotal.
+                                                                    Text.
+                                                                    Replace(",", "").
+                                                                    Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString, konek)
+                updateMutasi.ExecuteNonQuery()
+            End If
         End If
+            If noFaktorEdit IsNot Nothing Then
+                MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
+            Else
+                loadTable()
+
+                textNoFaktur.Text = ""
+                textSupplier.Text = ""
+                labelSupplier.Text = ""
+                labelIdSuplier.Text = ""
+                comboPembayaran.SelectedIndex = -1
+                textTempoHari.Text = ""
+                textJatuhTempo.Text = ""
+                textDiscount.Text = ""
+                textPpn.Text = ""
+                textTotal.Text = ""
+                MsgBox("Faktur pembelian berhasil disimpan", MsgBoxStyle.OkOnly)
+            End If
 
 
     End Sub

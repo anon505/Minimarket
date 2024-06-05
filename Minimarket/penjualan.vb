@@ -309,16 +309,66 @@ Public Class penjualan
         newPenjualan.Show()
     End Sub
     Private Sub doneTransaksi(ByVal nominalKembalian As Integer)
-        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'done' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        Dim cekTransaksiCmd As MySqlCommand = New MySqlCommand("SELECT waktu from transaksi WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        Dim waktuTransaksi = cekTransaksiCmd.ExecuteScalar
+        Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.
+                                                               Text.
+                                                               Replace(",", "").
+                                                               Replace(".", "") &
+                                                               "', grand_total = '" &
+                                                               textGrandTotal.Text.Replace(",", "").Replace(".", "") &
+                                                               "', kembalian = '" & nominalKembalian.ToString &
+                                                               "', status = 'done' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+
         updateTransaksi.ExecuteNonQuery()
+        Dim cekIdMutasi As MySqlCommand = New MySqlCommand("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff='" & lblIdTransaksi.Text & "'", konek)
+        Dim idMutasi = cekIdMutasi.ExecuteScalar
+        If idMutasi Is Nothing Then
+            Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,status, nominal,created_at) VALUES (NULL, '" &
+                                                                 lblIdTransaksi.Text &
+                                                                "','penjualan','PENJUALAN pada waktu: " &
+                                                                waktuTransaksi & "', 'credit','" & textTotal.
+                                                                Text.
+                                                                Replace(",", "").
+                                                                Replace(".", "") & "', now());", konek)
+            insertMutasi.ExecuteNonQuery()
+        Else
+            Dim updateMutasi As MySqlCommand = New MySqlCommand("UPDATE mutasi SET deskripsi = 'update PENJUALAN pada waktu: " &
+                                                                waktuTransaksi & "',nominal = '" & textTotal.
+                                                                Text.
+                                                                Replace(",", "").
+                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString, konek)
+            updateMutasi.ExecuteNonQuery()
+        End If
         initializeForm()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
         loadTable()
     End Sub
 
     Private Sub returTransaksi(ByVal nominalKembalian As Integer)
+        Dim cekTransaksiCmd As MySqlCommand = New MySqlCommand("SELECT waktu from transaksi WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
+        Dim waktuTransaksi = cekTransaksiCmd.ExecuteScalar
         Dim updateTransaksi As MySqlCommand = New MySqlCommand("UPDATE transaksi Set bayar = '" & textBayar.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '" & nominalKembalian.ToString & "', status = 'retur' WHERE id_transaksi = " & lblIdTransaksi.Text, konek)
         updateTransaksi.ExecuteNonQuery()
+        Dim cekIdMutasi As MySqlCommand = New MySqlCommand("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff='" & lblIdTransaksi.Text & "'", konek)
+        Dim idMutasi = cekIdMutasi.ExecuteScalar
+        If idMutasi Is Nothing Then
+            Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,status, nominal,created_at) VALUES (NULL, '" &
+                                                                 lblIdTransaksi.Text &
+                                                                "','penjualan','RETUR PENJUALAN pada waktu: " &
+                                                                waktuTransaksi & "', 'debit','" & textTotal.
+                                                                Text.
+                                                                Replace(",", "").
+                                                                Replace(".", "") & "', now());", konek)
+            insertMutasi.ExecuteNonQuery()
+        Else
+            Dim updateMutasi As MySqlCommand = New MySqlCommand("UPDATE mutasi SET deskripsi = 'update RETUR PENJUALAN pada waktu: " &
+                                                                waktuTransaksi & "',nominal = '" & textTotal.
+                                                                Text.
+                                                                Replace(",", "").
+                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString, konek)
+            updateMutasi.ExecuteNonQuery()
+        End If
         initializeForm()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
         loadTable()

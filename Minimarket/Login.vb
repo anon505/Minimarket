@@ -19,12 +19,16 @@ Public Class Login
                     main.MenuStrip1.Enabled = True
                     main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True
-                    main.BarangToolStripMenuItem.Enabled = True
+                    main.MasterMenuItem.Enabled = True
                     main.PembelianToolStripMenuItem.Enabled = True
                     main.PenjualanToolStripMenuItem.Enabled = True
-                    main.SatuanToolStripMenuItem.Enabled = True
-                    main.KasirToolStripMenuItem.Enabled = True
-                    main.SupplierToolStripMenuItem.Enabled = True
+
+                    main.BarangSubMenuItem.Enabled = True
+                    main.SatuanSubMenuItem.Enabled = True
+                    main.KasirSubMenuItem.Enabled = True
+                    main.SupplierSubMenuItem.Enabled = True
+                    main.MutasiSubMenuItem.Enabled = True
+
                     main.ToolStripMenuItem1.Enabled = True
                     main.LaporanHarianToolStripMenuItem.Enabled = True
                     main.KeuntunganToolStripMenuItem.Enabled = True
@@ -36,12 +40,17 @@ Public Class Login
                     main.MenuStrip1.Enabled = True
                     main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True
-                    main.BarangToolStripMenuItem.Enabled = False
+                    main.MasterMenuItem.Enabled = True
                     main.PembelianToolStripMenuItem.Enabled = True
                     main.PenjualanToolStripMenuItem.Enabled = True
-                    main.SatuanToolStripMenuItem.Enabled = True
-                    main.KasirToolStripMenuItem.Enabled = True
-                    main.SupplierToolStripMenuItem.Enabled = True
+
+                    main.BarangSubMenuItem.Enabled = False
+                    main.SatuanSubMenuItem.Enabled = True
+                    main.KasirSubMenuItem.Enabled = True
+                    main.SupplierSubMenuItem.Enabled = True
+                    main.MutasiSubMenuItem.Enabled = False
+
+
                     main.ToolStripMenuItem1.Enabled = False
                     main.LaporanHarianToolStripMenuItem.Enabled = True
                     main.KeuntunganToolStripMenuItem.Enabled = False
@@ -52,12 +61,14 @@ Public Class Login
                     main.MenuStrip1.Enabled = True
                     main.MarkupToolStripMenuItem.Enabled = False
                     main.LoginToolStripMenuItem.Enabled = True
-                    main.BarangToolStripMenuItem.Enabled = False
+                    main.MasterMenuItem.Enabled = False
                     main.PembelianToolStripMenuItem.Enabled = True
                     main.PenjualanToolStripMenuItem.Enabled = True
-                    main.SatuanToolStripMenuItem.Enabled = False
-                    main.KasirToolStripMenuItem.Enabled = False
-                    main.SupplierToolStripMenuItem.Enabled = False
+                    main.BarangSubMenuItem.Enabled = False
+                    main.SatuanSubMenuItem.Enabled = False
+                    main.KasirSubMenuItem.Enabled = False
+                    main.SupplierSubMenuItem.Enabled = False
+                    main.MutasiSubMenuItem.Enabled = False
                     main.ToolStripMenuItem1.Enabled = False
                     main.LaporanHarianToolStripMenuItem.Enabled = False
                     main.KeuntunganToolStripMenuItem.Enabled = False
