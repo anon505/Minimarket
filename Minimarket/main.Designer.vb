@@ -25,6 +25,11 @@ Partial Class main
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(main))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MasterMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BarangSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SatuanSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KasirSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SupplierSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MutasiSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MarkupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PembelianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PenjualanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -33,11 +38,6 @@ Partial Class main
         Me.KadaluarsaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BarangSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SatuanSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.KasirSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SupplierSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MutasiSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -62,6 +62,36 @@ Partial Class main
         Me.MasterMenuItem.Name = "MasterMenuItem"
         Me.MasterMenuItem.Size = New System.Drawing.Size(152, 27)
         Me.MasterMenuItem.Text = "Master Data"
+        '
+        'BarangSubMenuItem
+        '
+        Me.BarangSubMenuItem.Name = "BarangSubMenuItem"
+        Me.BarangSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.BarangSubMenuItem.Text = "Barang"
+        '
+        'SatuanSubMenuItem
+        '
+        Me.SatuanSubMenuItem.Name = "SatuanSubMenuItem"
+        Me.SatuanSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.SatuanSubMenuItem.Text = "Satuan"
+        '
+        'KasirSubMenuItem
+        '
+        Me.KasirSubMenuItem.Name = "KasirSubMenuItem"
+        Me.KasirSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.KasirSubMenuItem.Text = "Kasir"
+        '
+        'SupplierSubMenuItem
+        '
+        Me.SupplierSubMenuItem.Name = "SupplierSubMenuItem"
+        Me.SupplierSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.SupplierSubMenuItem.Text = "Supplier"
+        '
+        'MutasiSubMenuItem
+        '
+        Me.MutasiSubMenuItem.Name = "MutasiSubMenuItem"
+        Me.MutasiSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.MutasiSubMenuItem.Text = "Mutasi"
         '
         'MarkupToolStripMenuItem
         '
@@ -128,36 +158,6 @@ Partial Class main
         Me.LoginToolStripMenuItem.Name = "LoginToolStripMenuItem"
         Me.LoginToolStripMenuItem.Size = New System.Drawing.Size(89, 27)
         Me.LoginToolStripMenuItem.Text = "Login"
-        '
-        'BarangSubMenuItem
-        '
-        Me.BarangSubMenuItem.Name = "BarangSubMenuItem"
-        Me.BarangSubMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.BarangSubMenuItem.Text = "Barang"
-        '
-        'SatuanSubMenuItem
-        '
-        Me.SatuanSubMenuItem.Name = "SatuanSubMenuItem"
-        Me.SatuanSubMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.SatuanSubMenuItem.Text = "Satuan"
-        '
-        'KasirSubMenuItem
-        '
-        Me.KasirSubMenuItem.Name = "KasirSubMenuItem"
-        Me.KasirSubMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.KasirSubMenuItem.Text = "Kasir"
-        '
-        'SupplierSubMenuItem
-        '
-        Me.SupplierSubMenuItem.Name = "SupplierSubMenuItem"
-        Me.SupplierSubMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.SupplierSubMenuItem.Text = "Supplier"
-        '
-        'MutasiSubMenuItem
-        '
-        Me.MutasiSubMenuItem.Name = "MutasiSubMenuItem"
-        Me.MutasiSubMenuItem.Size = New System.Drawing.Size(152, 28)
-        Me.MutasiSubMenuItem.Text = "Mutasi"
         '
         'main
         '

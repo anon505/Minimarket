@@ -129,4 +129,9 @@ Public Class main
         cetak_expiry.MdiParent = Me
         cetak_expiry.Show()
     End Sub
+
+    Private Sub MutasiSubMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MutasiSubMenuItem.Click
+        mutasi.MdiParent = Me
+        mutasi.Show()
+    End Sub
 End Class
