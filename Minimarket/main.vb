@@ -134,4 +134,11 @@ Public Class main
         mutasi.MdiParent = Me
         mutasi.Show()
     End Sub
+
+    Private Sub ToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem2.Click
+        Dim form2 = New scan_harga()
+        AddHandler form2.Shown, AddressOf Me.Hide
+        AddHandler form2.FormClosed, AddressOf Me.Close
+        form2.Show()
+    End Sub
 End Class

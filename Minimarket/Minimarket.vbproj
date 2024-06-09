@@ -207,6 +207,12 @@
     <Compile Include="satuan.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="scan_harga.Designer.vb">
+      <DependentUpon>scan_harga.vb</DependentUpon>
+    </Compile>
+    <Compile Include="scan_harga.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="supplier.Designer.vb">
       <DependentUpon>supplier.vb</DependentUpon>
     </Compile>
@@ -276,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="satuan.resx">
       <DependentUpon>satuan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="scan_harga.resx">
+      <DependentUpon>scan_harga.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="supplier.resx">
       <DependentUpon>supplier.vb</DependentUpon>

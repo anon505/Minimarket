@@ -38,6 +38,7 @@ Partial Class main
         Me.KadaluarsaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -46,7 +47,7 @@ Partial Class main
         Me.MenuStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasterMenuItem, Me.MarkupToolStripMenuItem, Me.PembelianToolStripMenuItem, Me.PenjualanToolStripMenuItem, Me.LaporanHarianToolStripMenuItem, Me.ToolStripMenuItem1, Me.LoginToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasterMenuItem, Me.MarkupToolStripMenuItem, Me.PembelianToolStripMenuItem, Me.PenjualanToolStripMenuItem, Me.LaporanHarianToolStripMenuItem, Me.ToolStripMenuItem1, Me.LoginToolStripMenuItem, Me.ToolStripMenuItem2})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1341, 31)
@@ -66,31 +67,31 @@ Partial Class main
         'BarangSubMenuItem
         '
         Me.BarangSubMenuItem.Name = "BarangSubMenuItem"
-        Me.BarangSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.BarangSubMenuItem.Size = New System.Drawing.Size(151, 28)
         Me.BarangSubMenuItem.Text = "Barang"
         '
         'SatuanSubMenuItem
         '
         Me.SatuanSubMenuItem.Name = "SatuanSubMenuItem"
-        Me.SatuanSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.SatuanSubMenuItem.Size = New System.Drawing.Size(151, 28)
         Me.SatuanSubMenuItem.Text = "Satuan"
         '
         'KasirSubMenuItem
         '
         Me.KasirSubMenuItem.Name = "KasirSubMenuItem"
-        Me.KasirSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.KasirSubMenuItem.Size = New System.Drawing.Size(151, 28)
         Me.KasirSubMenuItem.Text = "Kasir"
         '
         'SupplierSubMenuItem
         '
         Me.SupplierSubMenuItem.Name = "SupplierSubMenuItem"
-        Me.SupplierSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.SupplierSubMenuItem.Size = New System.Drawing.Size(151, 28)
         Me.SupplierSubMenuItem.Text = "Supplier"
         '
         'MutasiSubMenuItem
         '
         Me.MutasiSubMenuItem.Name = "MutasiSubMenuItem"
-        Me.MutasiSubMenuItem.Size = New System.Drawing.Size(152, 28)
+        Me.MutasiSubMenuItem.Size = New System.Drawing.Size(151, 28)
         Me.MutasiSubMenuItem.Text = "Mutasi"
         '
         'MarkupToolStripMenuItem
@@ -159,6 +160,15 @@ Partial Class main
         Me.LoginToolStripMenuItem.Size = New System.Drawing.Size(89, 27)
         Me.LoginToolStripMenuItem.Text = "Login"
         '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.BackColor = System.Drawing.SystemColors.Control
+        Me.ToolStripMenuItem2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripMenuItem2.Image = CType(resources.GetObject("ToolStripMenuItem2.Image"), System.Drawing.Image)
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(136, 27)
+        Me.ToolStripMenuItem2.Text = "Cek Harga"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -194,4 +204,5 @@ Partial Class main
     Friend WithEvents KasirSubMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SupplierSubMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MutasiSubMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
 End Class

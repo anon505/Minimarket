@@ -40,18 +40,26 @@ Partial Class mutasi
         Me.Label6 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.comboTipe = New System.Windows.Forms.ComboBox()
-        Me.comboStatus = New System.Windows.Forms.ComboBox()
-        Me.Label7 = New System.Windows.Forms.Label()
         Me.textNominal = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.buttonCari = New System.Windows.Forms.Button()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.lblCashOnHand = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lblModalBarang = New System.Windows.Forms.Label()
+        Me.lblTotalHutang = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lblModalAkhir = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.lblPengeluaran = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(68, 625)
+        Me.Label4.Location = New System.Drawing.Point(33, 555)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(51, 17)
@@ -62,7 +70,7 @@ Partial Class mutasi
         'textDeskripsi
         '
         Me.textDeskripsi.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textDeskripsi.Location = New System.Drawing.Point(176, 569)
+        Me.textDeskripsi.Location = New System.Drawing.Point(172, 499)
         Me.textDeskripsi.Margin = New System.Windows.Forms.Padding(4)
         Me.textDeskripsi.Multiline = True
         Me.textDeskripsi.Name = "textDeskripsi"
@@ -73,7 +81,7 @@ Partial Class mutasi
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(13, 569)
+        Me.Label3.Location = New System.Drawing.Point(9, 499)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(92, 25)
@@ -93,7 +101,7 @@ Partial Class mutasi
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(11, 514)
+        Me.Label2.Location = New System.Drawing.Point(10, 583)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(142, 25)
@@ -130,7 +138,7 @@ Partial Class mutasi
         Me.lihat.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.lihat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lihat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lihat.Location = New System.Drawing.Point(519, 646)
+        Me.lihat.Location = New System.Drawing.Point(518, 680)
         Me.lihat.Margin = New System.Windows.Forms.Padding(4)
         Me.lihat.Name = "lihat"
         Me.lihat.Size = New System.Drawing.Size(170, 39)
@@ -143,7 +151,7 @@ Partial Class mutasi
         Me.edit.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.edit.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.edit.Location = New System.Drawing.Point(185, 646)
+        Me.edit.Location = New System.Drawing.Point(184, 680)
         Me.edit.Margin = New System.Windows.Forms.Padding(4)
         Me.edit.Name = "edit"
         Me.edit.Size = New System.Drawing.Size(159, 39)
@@ -156,7 +164,7 @@ Partial Class mutasi
         Me.hapus.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.hapus.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.hapus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.hapus.Location = New System.Drawing.Point(352, 646)
+        Me.hapus.Location = New System.Drawing.Point(351, 680)
         Me.hapus.Margin = New System.Windows.Forms.Padding(4)
         Me.hapus.Name = "hapus"
         Me.hapus.Size = New System.Drawing.Size(159, 39)
@@ -169,7 +177,7 @@ Partial Class mutasi
         Me.tambah.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.tambah.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tambah.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.tambah.Location = New System.Drawing.Point(15, 646)
+        Me.tambah.Location = New System.Drawing.Point(14, 680)
         Me.tambah.Margin = New System.Windows.Forms.Padding(4)
         Me.tambah.Name = "tambah"
         Me.tambah.Size = New System.Drawing.Size(162, 39)
@@ -245,37 +253,16 @@ Partial Class mutasi
         '
         Me.comboTipe.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.comboTipe.FormattingEnabled = True
-        Me.comboTipe.Items.AddRange(New Object() {"penjualan", "pembelian", "hutang", "lainnya"})
-        Me.comboTipe.Location = New System.Drawing.Point(176, 511)
+        Me.comboTipe.Items.AddRange(New Object() {"penjualan", "pembelian", "bayar_hutang", "pengeluaran"})
+        Me.comboTipe.Location = New System.Drawing.Point(176, 575)
         Me.comboTipe.Name = "comboTipe"
         Me.comboTipe.Size = New System.Drawing.Size(187, 33)
         Me.comboTipe.TabIndex = 47
         '
-        'comboStatus
-        '
-        Me.comboStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.comboStatus.FormattingEnabled = True
-        Me.comboStatus.Items.AddRange(New Object() {"credit", "debit"})
-        Me.comboStatus.Location = New System.Drawing.Point(1000, 450)
-        Me.comboStatus.Name = "comboStatus"
-        Me.comboStatus.Size = New System.Drawing.Size(191, 33)
-        Me.comboStatus.TabIndex = 49
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(780, 453)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(159, 25)
-        Me.Label7.TabIndex = 48
-        Me.Label7.Text = "Status Transaksi"
-        '
         'textNominal
         '
         Me.textNominal.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textNominal.Location = New System.Drawing.Point(1000, 509)
+        Me.textNominal.Location = New System.Drawing.Point(176, 625)
         Me.textNominal.Margin = New System.Windows.Forms.Padding(4)
         Me.textNominal.Name = "textNominal"
         Me.textNominal.Size = New System.Drawing.Size(191, 30)
@@ -285,7 +272,7 @@ Partial Class mutasi
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(780, 512)
+        Me.Label8.Location = New System.Drawing.Point(11, 628)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(83, 25)
@@ -298,19 +285,142 @@ Partial Class mutasi
         Me.buttonCari.Name = "buttonCari"
         Me.buttonCari.Size = New System.Drawing.Size(94, 30)
         Me.buttonCari.TabIndex = 52
-        Me.buttonCari.Text = "Tampilkan"
+        Me.buttonCari.Text = "Filter"
         Me.buttonCari.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label9.Location = New System.Drawing.Point(836, 465)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(120, 20)
+        Me.Label9.TabIndex = 53
+        Me.Label9.Text = "Cash On Hand"
+        '
+        'lblCashOnHand
+        '
+        Me.lblCashOnHand.AutoSize = True
+        Me.lblCashOnHand.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCashOnHand.Location = New System.Drawing.Point(990, 463)
+        Me.lblCashOnHand.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblCashOnHand.Name = "lblCashOnHand"
+        Me.lblCashOnHand.Size = New System.Drawing.Size(23, 25)
+        Me.lblCashOnHand.TabIndex = 54
+        Me.lblCashOnHand.Text = "0"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label11.Location = New System.Drawing.Point(836, 507)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(113, 20)
+        Me.Label11.TabIndex = 55
+        Me.Label11.Text = "Modal Barang"
+        '
+        'lblModalBarang
+        '
+        Me.lblModalBarang.AutoSize = True
+        Me.lblModalBarang.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblModalBarang.Location = New System.Drawing.Point(990, 505)
+        Me.lblModalBarang.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblModalBarang.Name = "lblModalBarang"
+        Me.lblModalBarang.Size = New System.Drawing.Size(23, 25)
+        Me.lblModalBarang.TabIndex = 56
+        Me.lblModalBarang.Text = "0"
+        '
+        'lblTotalHutang
+        '
+        Me.lblTotalHutang.AutoSize = True
+        Me.lblTotalHutang.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalHutang.Location = New System.Drawing.Point(990, 543)
+        Me.lblTotalHutang.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblTotalHutang.Name = "lblTotalHutang"
+        Me.lblTotalHutang.Size = New System.Drawing.Size(23, 25)
+        Me.lblTotalHutang.TabIndex = 60
+        Me.lblTotalHutang.Text = "0"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label15.Location = New System.Drawing.Point(836, 545)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(105, 20)
+        Me.Label15.TabIndex = 59
+        Me.Label15.Text = "Total Hutang"
+        '
+        'lblModalAkhir
+        '
+        Me.lblModalAkhir.AutoSize = True
+        Me.lblModalAkhir.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblModalAkhir.Location = New System.Drawing.Point(990, 621)
+        Me.lblModalAkhir.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblModalAkhir.Name = "lblModalAkhir"
+        Me.lblModalAkhir.Size = New System.Drawing.Size(23, 25)
+        Me.lblModalAkhir.TabIndex = 62
+        Me.lblModalAkhir.Text = "0"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label17.Location = New System.Drawing.Point(836, 625)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(97, 20)
+        Me.Label17.TabIndex = 61
+        Me.Label17.Text = "Modal Akhir"
+        '
+        'lblPengeluaran
+        '
+        Me.lblPengeluaran.AutoSize = True
+        Me.lblPengeluaran.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPengeluaran.Location = New System.Drawing.Point(990, 583)
+        Me.lblPengeluaran.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblPengeluaran.Name = "lblPengeluaran"
+        Me.lblPengeluaran.Size = New System.Drawing.Size(23, 25)
+        Me.lblPengeluaran.TabIndex = 64
+        Me.lblPengeluaran.Text = "0"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label10.Location = New System.Drawing.Point(836, 586)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(102, 20)
+        Me.Label10.TabIndex = 63
+        Me.Label10.Text = "Pengeluaran"
         '
         'mutasi
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1204, 698)
+        Me.ClientSize = New System.Drawing.Size(1204, 732)
+        Me.Controls.Add(Me.lblPengeluaran)
+        Me.Controls.Add(Me.Label10)
+        Me.Controls.Add(Me.lblModalAkhir)
+        Me.Controls.Add(Me.Label17)
+        Me.Controls.Add(Me.lblTotalHutang)
+        Me.Controls.Add(Me.Label15)
+        Me.Controls.Add(Me.lblModalBarang)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.lblCashOnHand)
+        Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.buttonCari)
         Me.Controls.Add(Me.textNominal)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.comboStatus)
-        Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.comboTipe)
         Me.Controls.Add(Me.txtStartDateTime)
         Me.Controls.Add(Me.Label5)
@@ -333,7 +443,7 @@ Partial Class mutasi
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "mutasi"
-        Me.Text = "Mutasi Saldo"
+        Me.Text = "Mutasi"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -357,9 +467,17 @@ Partial Class mutasi
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
     Friend WithEvents comboTipe As System.Windows.Forms.ComboBox
-    Friend WithEvents comboStatus As System.Windows.Forms.ComboBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents textNominal As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents buttonCari As System.Windows.Forms.Button
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents lblCashOnHand As System.Windows.Forms.Label
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents lblModalBarang As System.Windows.Forms.Label
+    Friend WithEvents lblTotalHutang As System.Windows.Forms.Label
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents lblModalAkhir As System.Windows.Forms.Label
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents lblPengeluaran As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
 End Class

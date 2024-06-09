@@ -324,10 +324,10 @@ Public Class penjualan
         Dim cekIdMutasi As MySqlCommand = New MySqlCommand("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff='" & lblIdTransaksi.Text & "'", konek)
         Dim idMutasi = cekIdMutasi.ExecuteScalar
         If idMutasi Is Nothing Then
-            Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,status, nominal,created_at) VALUES (NULL, '" &
+            Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
                                                                  lblIdTransaksi.Text &
                                                                 "','penjualan','PENJUALAN pada waktu: " &
-                                                                waktuTransaksi & "', 'credit','" & textTotal.
+                                                                waktuTransaksi & "', '" & textTotal.
                                                                 Text.
                                                                 Replace(",", "").
                                                                 Replace(".", "") & "', now());", konek)
@@ -353,10 +353,10 @@ Public Class penjualan
         Dim cekIdMutasi As MySqlCommand = New MySqlCommand("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff='" & lblIdTransaksi.Text & "'", konek)
         Dim idMutasi = cekIdMutasi.ExecuteScalar
         If idMutasi Is Nothing Then
-            Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,status, nominal,created_at) VALUES (NULL, '" &
+            Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
                                                                  lblIdTransaksi.Text &
                                                                 "','penjualan','RETUR PENJUALAN pada waktu: " &
-                                                                waktuTransaksi & "', 'debit','" & textTotal.
+                                                                waktuTransaksi & "', '-" & textTotal.
                                                                 Text.
                                                                 Replace(",", "").
                                                                 Replace(".", "") & "', now());", konek)
