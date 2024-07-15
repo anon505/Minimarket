@@ -201,6 +201,14 @@
     <Compile Include="popup_supplier.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="print.Designer.vb">
+      <DependentUpon>print.vb</DependentUpon>
+    </Compile>
+    <Compile Include="print.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Printer.vb" />
+    <Compile Include="PrintingFormat.vb" />
     <Compile Include="satuan.Designer.vb">
       <DependentUpon>satuan.vb</DependentUpon>
     </Compile>
@@ -227,6 +235,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cetak_keuntungan.resx">
       <DependentUpon>cetak_keuntungan.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="chat.resx">
       <DependentUpon>chat.vb</DependentUpon>
@@ -237,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="mutasi.resx">
       <DependentUpon>mutasi.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="print.resx">
+      <DependentUpon>print.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="rpt_expiry.rdlc">
       <SubType>Designer</SubType>

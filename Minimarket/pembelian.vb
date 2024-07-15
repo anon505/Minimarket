@@ -81,8 +81,11 @@ Public Class pembelian
         Dim column As DataGridViewColumn = dataGridView1.Columns(columnIndex)
         Dim cell = New DataGridViewTextBoxCell()
         cell.Style.BackColor = Color.Wheat
+
         If columnIndex = 9 Or columnIndex = 11 Then
             cell.Style.Format = "N2"
+        ElseIf columnIndex = 6 And Module1.hak_akses = "1" Then
+            cell.Style.ForeColor = Color.DarkRed
         End If
         column.CellTemplate = cell
     End Sub
@@ -101,7 +104,7 @@ Public Class pembelian
             dataGridView1.Columns(3).ReadOnly = True
             dataGridView1.Columns(4).ReadOnly = True
             dataGridView1.Columns(5).ReadOnly = False
-            dataGridView1.Columns(6).ReadOnly = True
+            dataGridView1.Columns(6).ReadOnly = Not (Module1.hak_akses = "1")
             dataGridView1.Columns(7).ReadOnly = False
             dataGridView1.Columns(8).ReadOnly = True
             dataGridView1.Columns(9).ReadOnly = False
@@ -156,6 +159,9 @@ Public Class pembelian
             dataGridView1.Columns(15).Width = 158
             dataGridView1.Columns(16).Width = 158
             customizeCellsInColumn(5)
+            If (Module1.hak_akses = "1") Then
+                customizeCellsInColumn(6)
+            End If
             customizeCellsInColumn(7)
             customizeCellsInColumn(9)
             customizeCellsInColumn(11)
@@ -392,6 +398,42 @@ Public Class pembelian
                     Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
                     updateTabel.ExecuteNonQuery()
+                    loadTable()
+                ElseIf e.ColumnIndex = 6 Then
+                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
+                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim newStok As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
+                    If pembelianDetailReader.Read Then
+                        Dim idBarang = pembelianDetailReader("id_barang")
+                        pembelianDetailReader.Close()
+                        Dim barangCmd As MySqlCommand = New MySqlCommand("SELECT * from barang WHERE id_barang='" & idBarang & "'", konek)
+                        Dim barangReader As MySqlDataReader = barangCmd.ExecuteReader()
+                        If barangReader.Read Then
+                            Dim stokDisplay = Integer.Parse(barangReader("stok_display").ToString)
+                            Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
+                            barangReader.Close()
+                            If newStok > (stokDisplay + stokGudang) Then
+                                Dim sisa = newStok - (stokDisplay + stokGudang)
+                                stokGudang = stokGudang + sisa
+                                Dim updateBarang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'", konek)
+                                updateBarang.ExecuteNonQuery()
+                            End If
+                            If (stokDisplay + stokGudang) > newStok Then
+                                Dim sisa = (stokDisplay + stokGudang) - newStok
+                                If sisa > stokGudang Then
+                                    stokGudang = 0
+                                    Dim sisaDisplay = sisa - stokGudang
+                                    stokDisplay = stokDisplay - sisaDisplay
+                                    Dim updateBarang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "', stok_display='" & stokDisplay.ToString & "' WHERE id_barang = '" & idBarang & "'", konek)
+                                    updateBarang.ExecuteNonQuery()
+                                Else
+                                    stokGudang = stokGudang - sisa
+                                    Dim updateBarang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'", konek)
+                                    updateBarang.ExecuteNonQuery()
+                                End If
+                            End If
+                        End If
+                    End If
                     loadTable()
                 ElseIf e.ColumnIndex = 9 Then
                     Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
