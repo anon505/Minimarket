@@ -41,6 +41,7 @@ Partial Class penjualan
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.dataGridView1 = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.textQty = New System.Windows.Forms.TextBox()
         Me.labelQty = New System.Windows.Forms.Label()
         Me.textKembalian = New System.Windows.Forms.TextBox()
         Me.labelKembalian = New System.Windows.Forms.Label()
@@ -56,7 +57,6 @@ Partial Class penjualan
         Me.labelTotalBig = New System.Windows.Forms.Label()
         Me.labelKembalianBig = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.textQty = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -260,6 +260,14 @@ Partial Class penjualan
         Me.Panel4.Size = New System.Drawing.Size(1408, 233)
         Me.Panel4.TabIndex = 50
         '
+        'textQty
+        '
+        Me.textQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textQty.Location = New System.Drawing.Point(394, 10)
+        Me.textQty.Name = "textQty"
+        Me.textQty.Size = New System.Drawing.Size(195, 30)
+        Me.textQty.TabIndex = 1
+        '
         'labelQty
         '
         Me.labelQty.AutoSize = True
@@ -413,14 +421,6 @@ Partial Class penjualan
         Me.Panel5.Size = New System.Drawing.Size(1408, 2)
         Me.Panel5.TabIndex = 30
         '
-        'textQty
-        '
-        Me.textQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textQty.Location = New System.Drawing.Point(394, 10)
-        Me.textQty.Name = "textQty"
-        Me.textQty.Size = New System.Drawing.Size(195, 30)
-        Me.textQty.TabIndex = 1
-        '
         'penjualan
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -440,7 +440,6 @@ Partial Class penjualan
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.MaximizeBox = False
         Me.Name = "penjualan"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Penjualan"

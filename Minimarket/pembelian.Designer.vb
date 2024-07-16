@@ -103,7 +103,7 @@ Partial Class pembelian
         Me.dataGridView1.RowHeadersWidth = 51
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle3
-        Me.dataGridView1.Size = New System.Drawing.Size(1404, 391)
+        Me.dataGridView1.Size = New System.Drawing.Size(1425, 391)
         Me.dataGridView1.TabIndex = 57
         '
         'textNoFaktur
@@ -141,7 +141,7 @@ Partial Class pembelian
         Me.comboPembayaran.Items.AddRange(New Object() {"Tunai", "Kredit", "Konsinyasi"})
         Me.comboPembayaran.Location = New System.Drawing.Point(1221, 9)
         Me.comboPembayaran.Name = "comboPembayaran"
-        Me.comboPembayaran.Size = New System.Drawing.Size(204, 33)
+        Me.comboPembayaran.Size = New System.Drawing.Size(221, 33)
         Me.comboPembayaran.TabIndex = 63
         '
         'textTempoHari
@@ -149,7 +149,7 @@ Partial Class pembelian
         Me.textTempoHari.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textTempoHari.Location = New System.Drawing.Point(1221, 61)
         Me.textTempoHari.Name = "textTempoHari"
-        Me.textTempoHari.Size = New System.Drawing.Size(204, 30)
+        Me.textTempoHari.Size = New System.Drawing.Size(221, 30)
         Me.textTempoHari.TabIndex = 65
         '
         'Label5
@@ -179,7 +179,7 @@ Partial Class pembelian
         Me.textJatuhTempo.Location = New System.Drawing.Point(1220, 112)
         Me.textJatuhTempo.Name = "textJatuhTempo"
         Me.textJatuhTempo.ReadOnly = True
-        Me.textJatuhTempo.Size = New System.Drawing.Size(205, 30)
+        Me.textJatuhTempo.Size = New System.Drawing.Size(222, 30)
         Me.textJatuhTempo.TabIndex = 68
         '
         'Label7
@@ -350,7 +350,7 @@ Partial Class pembelian
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1438, 741)
+        Me.ClientSize = New System.Drawing.Size(1483, 741)
         Me.Controls.Add(Me.textPLU)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.btnEditFaktor)
