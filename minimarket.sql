@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2024 at 05:25 PM
+-- Generation Time: Jul 16, 2024 at 09:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,11 +53,11 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `id_suplier`, `id_satuan`, `barcode`, `nama_barang`, `harga_beli`, `ppn`, `discount`, `harga_beli_netto`, `stok_display`, `stok_gudang`, `harga_jual1`, `harga_jual2`, `harga_jual3`, `harga_jual4`, `qty2`, `qty3`, `qty4`) VALUES
-(1, 2, 1, '8992696407688', 'Nestle 700g', 2500, 11, 0, 2775, 58, 57, 3386, 3372, 3316, 3191, 3, 6, 9),
+(1, 2, 1, '8992696407688', 'Nestle 700g', 2500, 11, 0.5, 0, 58, 57, 3386, 3372, 3316, 3191, 3, 6, 9),
 (2, 2, 1, '896867700326', 'Le Minerale', 2000, 11, 0, 2220, 28, 61, 2600, 2300, 2270, 2264, 3, 8, 12),
 (3, 3, 1, '7237844127560', 'Pempers Sensi', 3000, 0, 0, 3000, 27, 50, 3550, 3530, 3520, 3510, 5, 10, 15),
-(4, 2, 1, '8992112011017', 'Cerebrovot', 4000, 0, 0, 4000, 12, 80, 4500, 4400, 4300, 4200, 2, 6, 10),
-(5, 4, 1, '8886008101053', 'Aqua Sedang', 5000, 0, 0, 5000, 11, 90, 5900, 5700, 5600, 5500, 10, 20, 30);
+(4, 2, 3, '8992112011017', 'Cerebrovot', 4000, 0, 0, 0, 12, 80, 4500, 4400, 4300, 4200, 2, 6, 10),
+(5, 4, 4, '1234', 'Aqua Sedang', 5000, 0, 0, 0, 5, 45, 5900, 5700, 5600, 5500, 10, 20, 30);
 
 -- --------------------------------------------------------
 
@@ -212,9 +212,8 @@ INSERT INTO `kasir` (`id_kasir`, `nama_kasir`, `password`, `alamat`, `type`, `st
 CREATE TABLE `mutasi` (
   `id_mutasi` int(11) NOT NULL,
   `id_reff` int(11) DEFAULT NULL,
-  `type` enum('penjualan','pembelian','hutang','lainnya') NOT NULL,
+  `type` enum('penjualan','pembelian','bayar_hutang','pengeluaran') NOT NULL,
   `deskripsi` text NOT NULL,
-  `status` enum('debit','credit') NOT NULL,
   `nominal` int(11) NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -223,11 +222,14 @@ CREATE TABLE `mutasi` (
 -- Dumping data for table `mutasi`
 --
 
-INSERT INTO `mutasi` (`id_mutasi`, `id_reff`, `type`, `deskripsi`, `status`, `nominal`, `created_at`) VALUES
-(3, 15, 'pembelian', 'update PEMBELIAN secara TUNAI dengan faktur: 223344', 'debit', 8325, '2024-06-05 21:03:55'),
-(4, 50, 'penjualan', 'PENJUALAN pada waktu: 05/06/2024 21:46:10', 'credit', 3386, '2024-06-05 21:48:23'),
-(5, 51, 'penjualan', 'RETUR PENJUALAN pada waktu: 05/06/2024 21:48:23', 'debit', -3386, '2024-06-05 21:51:33'),
-(6, 53, 'penjualan', 'PENJUALAN pada waktu: 05/06/2024 21:51:33', 'credit', 6772, '2024-06-05 21:53:28');
+INSERT INTO `mutasi` (`id_mutasi`, `id_reff`, `type`, `deskripsi`, `nominal`, `created_at`) VALUES
+(3, 15, 'pembelian', 'update PEMBELIAN secara TUNAI dengan faktur: 223344', 8325, '2024-06-05 21:03:55'),
+(4, 50, 'penjualan', 'PENJUALAN pada waktu: 05/06/2024 21:46:10', 3386, '2024-06-05 21:48:23'),
+(5, 51, 'penjualan', 'RETUR PENJUALAN pada waktu: 05/06/2024 21:48:23', -3386, '2024-06-05 21:51:33'),
+(6, 53, 'penjualan', 'PENJUALAN pada waktu: 05/06/2024 21:51:33', 6772, '2024-06-05 21:53:28'),
+(7, 17, 'pembelian', 'PEMBELIAN secara KREDIT dengan faktur: 7788999', -2775, '2024-06-07 16:01:23'),
+(10, -1, 'pengeluaran', 'ambil keuntungan', 1000, '2024-06-08 07:25:16'),
+(11, 34, 'pengeluaran', 'bayar listrik', 1000, '2024-06-14 06:17:12');
 
 -- --------------------------------------------------------
 
@@ -264,7 +266,8 @@ CREATE TABLE `pembelian` (
 INSERT INTO `pembelian` (`id_pembelian`, `no_faktur`, `tgl_faktur`, `id_supplier`, `id_kasir`, `grand_total`, `metode_pembayaran`, `lama_jatuh_tempo`, `status`) VALUES
 (14, '112233', '2024-06-04 05:55:34', 1, 1, 2775, 'tunai', 0, 'saved'),
 (15, '223344', '2024-06-05 20:55:32', 1, 1, 8325, 'tunai', 0, 'saved'),
-(16, '', '2024-06-05 20:59:01', 1, 1, 0, '', 0, 'temp');
+(16, '7788999', '2024-06-05 20:59:01', 4, 1, 2775, 'kredit', 4, 'saved'),
+(17, '', '2024-06-07 16:01:23', 0, 1, 0, '', 0, 'temp');
 
 -- --------------------------------------------------------
 
@@ -292,7 +295,9 @@ CREATE TABLE `pembelian_detail` (
 
 INSERT INTO `pembelian_detail` (`id_pembelian_detail`, `id_pembelian`, `id_barang`, `qty`, `price`, `ppn`, `discount`, `price_netto`, `expiry`, `qty_return`, `status_return`) VALUES
 (18, 14, 1, 1, 2500, 11, 0, 2775, NULL, 0, 'active'),
-(19, 15, 1, 3, 2500, 11, 0, 2775, NULL, 0, 'active');
+(19, 15, 1, 3, 2500, 11, 0, 2775, NULL, 0, 'active'),
+(20, 16, 1, 1, 2500, 11, 0, 2775, NULL, 0, 'active'),
+(21, 17, 5, 1, 5000, 0, 0, 0, NULL, 0, 'active');
 
 -- --------------------------------------------------------
 
@@ -373,7 +378,7 @@ INSERT INTO `transaksi` (`id_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_to
 (51, 1, '2024-06-05 21:48:23', 0, -3386, 0, 'retur'),
 (52, 1, '2024-06-05 21:49:18', 0, 0, 0, 'void'),
 (53, 1, '2024-06-05 21:51:33', 10000, 6772, 3228, 'done'),
-(54, 1, '2024-06-05 21:53:28', 0, 0, 0, 'active');
+(54, 1, '2024-06-05 21:53:28', 0, 0, 0, 'void');
 
 -- --------------------------------------------------------
 
@@ -536,19 +541,19 @@ ALTER TABLE `kasir`
 -- AUTO_INCREMENT for table `mutasi`
 --
 ALTER TABLE `mutasi`
-  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pembelian_detail`
 --
 ALTER TABLE `pembelian_detail`
-  MODIFY `id_pembelian_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_pembelian_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `satuan`
