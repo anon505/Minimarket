@@ -364,7 +364,7 @@ Public Class penjualan
             Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
                                                                  lblIdTransaksi.Text &
                                                                 "','penjualan','RETUR PENJUALAN pada waktu: " &
-                                                                waktuTransaksi & "', '-" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', now());", konek)
+                                                                waktuTransaksi & "', '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', now());", konek)
             insertMutasi.ExecuteNonQuery()
 
         Else
