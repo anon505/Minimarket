@@ -6,6 +6,7 @@ Public Class penjualan
     Private Function getIdTransaksi(ByVal idKasir As String) As String
         Dim cekTransaksiCmd As MySqlCommand = New MySqlCommand("SELECT id_transaksi from transaksi WHERE status='active' AND id_kasir=" & idKasir, konek)
         Dim idTransaksi = cekTransaksiCmd.ExecuteScalar
+
         If idTransaksi Is Nothing Then
             Dim insertTransaksi As MySqlCommand = New MySqlCommand("INSERT INTO `transaksi` (`id_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES (NULL, '" & idKasir & "', NOW(), '0', '0', '0', 'active');", konek)
             insertTransaksi.ExecuteNonQuery()
@@ -70,6 +71,11 @@ Public Class penjualan
             textPLU.Select()
 
             textPLU.Focus()
+
+            konek.Dispose()
+            konek.Close()
+            konek.Open()
+
         Catch ex As Exception
 
         End Try
@@ -263,9 +269,11 @@ Public Class penjualan
         Dim grandTotal = Integer.Parse(textGrandTotal.Text.Replace(",", "").Replace(".", ""))
         If grandTotal < 0 Then
             'proses retur, kembalikan stok barang
+            konek.Close()
+            konek.Open()
 
-            Dim mySqlCommand = New MySqlCommand("update barang INNER JOIN transaksi_detail on barang.id_barang=transaksi_detail.id_barang set barang.stok_gudang = barang.stok_gudang+ (transaksi_detail.qty*-1) WHERE transaksi_detail.id_transaksi=" & lblIdTransaksi.Text, konek)
-            mySqlCommand.ExecuteNonQuery()
+            Dim mySqlCommand1 = New MySqlCommand("update barang INNER JOIN transaksi_detail on barang.id_barang=transaksi_detail.id_barang set barang.stok_gudang = barang.stok_gudang+ (transaksi_detail.qty*-1) WHERE transaksi_detail.id_transaksi=" & lblIdTransaksi.Text, konek)
+            mySqlCommand1.ExecuteNonQuery()
            
             textKembalian.Text = Format(0, "#,0;-#,0")
             labelTotalBig.Text = textKembalian.Text
@@ -358,6 +366,7 @@ Public Class penjualan
                                                                 "','penjualan','RETUR PENJUALAN pada waktu: " &
                                                                 waktuTransaksi & "', '-" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', now());", konek)
             insertMutasi.ExecuteNonQuery()
+
         Else
             Dim updateMutasi As MySqlCommand = New MySqlCommand("UPDATE mutasi SET deskripsi = 'update RETUR PENJUALAN pada waktu: " &
                                                                 waktuTransaksi & "',nominal = '" & textGrandTotal.
@@ -369,6 +378,7 @@ Public Class penjualan
         initializeForm()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
         loadTable()
+
     End Sub
 
     Private Sub debouncedTextBayarChanged(textBayarString As String)
