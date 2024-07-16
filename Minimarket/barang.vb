@@ -89,7 +89,7 @@ Public Class barang
                 "'" + txtHargaBeli.Tag.ToString + "'," +
                 "'" + txtPajak.Text.ToString + "'," +
                 "'" + txtDiskon.Text.ToString + "'," +
-                "'" + txtHargaBeliNetto.Text.ToString + "'," +
+                "'" + txtHargaBeliNetto.Tag.ToString + "'," +
                 "'" + txtStokDisplay.Text.ToString + "'," +
                 "'" + txtStokGudang.Text.ToString + "'," +
                 "'" + txtHargaJual1.Tag.ToString + "'," +
@@ -179,7 +179,7 @@ Public Class barang
                 "harga_beli='" & txtHargaBeli.Tag.ToString & "'," &
                 "ppn='" & txtPajak.Text.ToString & "'," &
                 "discount='" & txtDiskon.Text.ToString & "'," &
-                "harga_beli_netto='" & txtHargaBeliNetto.Text.ToString & "'," &
+                "harga_beli_netto='" & txtHargaBeliNetto.Tag.ToString & "'," &
                 "stok_display='" & txtStokDisplay.Text.ToString & "'," &
                 "stok_gudang='" & txtStokGudang.Text.ToString & "'," &
                 "harga_jual1='" & txtHargaJual1.Tag.ToString & "'," &
