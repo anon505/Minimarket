@@ -1,0 +1,92 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Minimarket
+</name>
+</assembly>
+<members>
+<member name="T:Minimarket.minimarket_ds.ds_report_penjualanDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_expiryDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_penjualanRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_expiryRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_penjualanRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_expiryRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Minimarket.minimarket_ds">
+	<summary>
+Represents a strongly typed in-memory cache of data.
+</summary>
+</member><member name="T:Minimarket.minimarket_dsTableAdapters.ds_report_penjualanTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Minimarket.minimarket_dsTableAdapters.ds_report_expiryTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="M:Minimarket.minimarket_dsTableAdapters.TableAdapterManager.UpdateUpdatedRows(Minimarket.minimarket_ds,System.Collections.Generic.List{System.Data.DataRow},System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Update rows in top-down order.
+</summary>
+</member><member name="M:Minimarket.minimarket_dsTableAdapters.TableAdapterManager.UpdateInsertedRows(Minimarket.minimarket_ds,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Insert rows in top-down order.
+</summary>
+</member><member name="M:Minimarket.minimarket_dsTableAdapters.TableAdapterManager.UpdateDeletedRows(Minimarket.minimarket_ds,System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Delete rows in bottom-up order.
+</summary>
+</member><member name="M:Minimarket.minimarket_dsTableAdapters.TableAdapterManager.GetRealUpdatedRows(System.Data.DataRow[],System.Collections.Generic.List{System.Data.DataRow})">
+	<summary>
+Remove inserted rows that become updated rows after calling TableAdapter.Update(inserted rows) first
+</summary>
+</member><member name="M:Minimarket.minimarket_dsTableAdapters.TableAdapterManager.UpdateAll(Minimarket.minimarket_ds)">
+	<summary>
+Update all changes to the dataset.
+</summary>
+</member><member name="T:Minimarket.minimarket_dsTableAdapters.TableAdapterManager.UpdateOrderOption">
+	<summary>
+Update Order Option
+</summary>
+</member><member name="T:Minimarket.minimarket_dsTableAdapters.TableAdapterManager.SelfReferenceComparer">
+	<summary>
+Used to sort self-referenced table's rows
+</summary>
+</member><member name="T:Minimarket.minimarket_dsTableAdapters.TableAdapterManager">
+	<summary>
+TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
+</summary>
+</member><member name="P:Minimarket.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:Minimarket.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:Minimarket.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>
