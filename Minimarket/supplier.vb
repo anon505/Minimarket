@@ -2,13 +2,8 @@
 Imports System.IO
 Public Class supplier
     Public Sub view()
-        Dim sql As MySqlCommand = New MySqlCommand("select * from supplier", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        da.SelectCommand = sql
-        da.Fill(ds, "Supplier")
+        Dim ds = newConnect.ExecuteReader("select * from supplier")
         DataGridView1.DataSource = ds
-        DataGridView1.DataMember = "Supplier"
         DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
         DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
         DataGridView1.AutoResizeColumns()
@@ -36,9 +31,9 @@ Public Class supplier
             MsgBox("Data tentang supplier, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Query = "INSERT INTO supplier(nama_suplier,alamat_suplier,contact_person)VALUES('" + txtnama.Text + "','" + txtharga.Text + "','" + txtstok.Text + "')"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If i Then
                 MsgBox("Supplier baru berhasil ditambahkan", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -75,9 +70,9 @@ Public Class supplier
             MsgBox("Data tentang supplier, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Query = "UPDATE  supplier SET nama_suplier= '" + txtnama.Text + "',alamat_suplier ='" + txtharga.Text + "',contact_person ='" + txtstok.Text + "' WHERE  id_suplier ='" + Label4.Text + "'"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If (i) Then
                 MsgBox("Data Suplier berhasil diubah", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -91,21 +86,18 @@ Public Class supplier
         If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "") Then
             MsgBox("Harap pilih supplier yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Dim coba As MySqlCommand = New MySqlCommand("select count(*) from barang where id_suplier='" + Label4.Text + "'", konek)
-            Dim rdr As Integer = coba.ExecuteScalar
+            Dim rdr As Integer = newConnect.ExecuteScalar("select count(*) from barang where id_suplier='" + Label4.Text + "'")
             If (rdr > 0) Then
                 Dim buton As DialogResult = MsgBox("Supplier masih di pakai di Tabel Barang!!!. Jika anda klik Yes maka Barang juga akan terhapus.", MsgBoxStyle.YesNo)
                 If buton = 6 Then
 
                     hapus = "delete from barang WHERE  id_suplier ='" + Label4.Text + "'"
-                    Dim del As MySqlCommand = New MySqlCommand(hapus, konek)
-                    Dim j As Integer = del.ExecuteNonQuery()
+                    Dim j = newConnect.ExecuteNonQuery(hapus)
 
                     Query = "delete from supplier WHERE  id_suplier ='" + Label4.Text + "'"
-                    Dim status As MySqlCommand = New MySqlCommand(Query, konek)
-                    Dim i As Integer = status.ExecuteNonQuery()
+                    Dim i As Integer = newConnect.ExecuteNonQuery(Query)
 
-                    If (i > 0) And j > 0 Then
+                    If i And j Then
                         MsgBox("Satu Data Supplier berhasil dihapus", MsgBoxStyle.OkOnly)
                         Call view()
                     Else
@@ -114,9 +106,8 @@ Public Class supplier
                 End If
             ElseIf Not (rdr > 0) Then
                 Query = "delete from supplier WHERE  id_suplier ='" + Label4.Text + "'"
-                Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-                Dim i As Integer = cmd.ExecuteNonQuery()
-                If (i > 0) Then
+                Dim i = newConnect.ExecuteNonQuery(Query)
+                If i Then
                     MsgBox("Satu Data Supplier berhasil dihapus", MsgBoxStyle.OkOnly)
                     Call view()
                 Else
@@ -133,13 +124,9 @@ Public Class supplier
         txtstok.Text = ""
         If berdasarkan.SelectedIndex = 0 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where id_suplier=" + txtcari.Text + " order by id_suplier asc", konek)
-            Dim ds As DataSet = New DataSet
-            Dim da As MySqlDataAdapter = New MySqlDataAdapter
-            da.SelectCommand = sql
-            da.Fill(ds, "id")
+                Dim ds = newConnect.ExecuteReader("select * from supplier where id_suplier=" + txtcari.Text + " order by id_suplier asc")
+          
             DataGridView1.DataSource = ds
-            DataGridView1.DataMember = "id"
             Catch ex As Exception
                 txtcari.Text = ""
                 txtcari.Focus()
@@ -147,13 +134,9 @@ Public Class supplier
         End If
         If berdasarkan.SelectedIndex = 1 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where nama_suplier like '%" + txtcari.Text + "%'", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "harga")
+                Dim ds = newConnect.ExecuteReader("select * from supplier where nama_suplier like '%" + txtcari.Text + "%'")
+            
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "harga"
 
             Catch e As Exception
                 txtcari.Text = ""
@@ -162,13 +145,9 @@ Public Class supplier
         End If
         If berdasarkan.SelectedIndex = 2 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where alamat_suplier like '%" + txtcari.Text + "%'", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "stok")
+                Dim ds = newConnect.ExecuteReader("select * from supplier where alamat_suplier like '%" + txtcari.Text + "%'")
+             
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "stok"
 
             Catch e As Exception
                 txtcari.Text = ""

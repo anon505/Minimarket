@@ -2,13 +2,8 @@
 Imports System.IO
 Public Class satuan
     Public Sub view()
-        Dim sql As MySqlCommand = New MySqlCommand("select * from satuan", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        da.SelectCommand = sql
-        da.Fill(ds, "satuan")
+        Dim ds = newConnect.ExecuteReader("select * from satuan")
         DataGridView1.DataSource = ds
-        DataGridView1.DataMember = "satuan"
         DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
         DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
         DataGridView1.AutoResizeColumns()
@@ -33,9 +28,8 @@ Public Class satuan
         Else
 
             Query = "INSERT INTO satuan(nama_satuan)VALUES('" + txtnama.Text + "')"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If (i) Then
                 MsgBox("Satuan Baru berhasil ditambahkan", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -69,9 +63,8 @@ Public Class satuan
             MsgBox("Data tentang barang, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Query = "UPDATE  satuan SET nama_satuan='" + txtnama.Text + "' WHERE  id_satuan ='" + Label4.Text + "'"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If (i) Then
                 MsgBox("Data Satuan berhasil diubah", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -85,21 +78,18 @@ Public Class satuan
         If (txtnama.Text = "") Then
             MsgBox("Harap pilih satuan yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Dim coba As MySqlCommand = New MySqlCommand("select count(*) from barang where satuan='" + Label4.Text + "'", konek)
-            Dim rdr As Integer = coba.ExecuteScalar
+            Dim rdr As Integer = newConnect.ExecuteScalar("select count(*) from barang where satuan='" + Label4.Text + "'")
             If (rdr > 0) Then
                 Dim buton As DialogResult = MsgBox("Satuan masih di pakai di Tabel Barang!!!. Jika anda klik Yes maka Barang juga akan terhapus.", MsgBoxStyle.YesNo)
                 If buton = 6 Then
 
                     hapus = "delete from barang WHERE  satuan ='" + Label4.Text + "'"
-                    Dim del As MySqlCommand = New MySqlCommand(hapus, konek)
-                    Dim j As Integer = del.ExecuteNonQuery()
+                    Dim j = newConnect.ExecuteNonQuery(hapus)
 
                     Query = "delete from satuan WHERE  id_satuan ='" + Label4.Text + "'"
-                    Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-                    Dim i As Integer = cmd.ExecuteNonQuery()
+                    Dim i = newConnect.ExecuteNonQuery(Query)
 
-                    If (i > 0) And (j > 0) Then
+                    If i And j Then
                         MsgBox("Satu Data Satuan berhasil dihapus", MsgBoxStyle.OkOnly)
                         Call view()
                     Else
@@ -108,9 +98,8 @@ Public Class satuan
                 End If
             Else
                 Query = "delete from satuan WHERE  id_satuan ='" + Label4.Text + "'"
-                Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-                Dim i As Integer = cmd.ExecuteNonQuery()
-                If (i > 0) Then
+                Dim i = newConnect.ExecuteNonQuery(Query)
+                If i Then
                     MsgBox("Satu Data Satuan berhasil dihapus", MsgBoxStyle.OkOnly)
                     Call view()
                 Else
@@ -122,13 +111,8 @@ Public Class satuan
     Public Sub pencarian()
        txtnama.Text = ""
         Try
-            Dim sql As MySqlCommand = New MySqlCommand("select * from satuan where nama_satuan like '%" + txtcari.Text + "%' order by nama_satuan asc", konek)
-            Dim ds As DataSet = New DataSet
-            Dim da As MySqlDataAdapter = New MySqlDataAdapter
-            da.SelectCommand = sql
-            da.Fill(ds, "namasatuan")
+            Dim ds = newConnect.ExecuteReader("select * from satuan where nama_satuan like '%" + txtcari.Text + "%' order by nama_satuan asc")
             DataGridView1.DataSource = ds
-            DataGridView1.DataMember = "namasatuan"
         Catch
             txtcari.Text = ""
             txtcari.Focus()

@@ -5,19 +5,15 @@ Imports System.Globalization
 Public Class cetak_keuntungan
     Dim kasirIds As List(Of Integer)
     Private Sub cetak_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Dim kasircmd As MySqlCommand = New MySqlCommand("select id_kasir,nama_kasir from kasir", konek)
-        Dim ksr As DataSet = New DataSet
-        Dim ksrda As MySqlDataAdapter = New MySqlDataAdapter
-        Dim j As Integer
-        ksrda.SelectCommand = kasircmd
-        ksrda.Fill(ksr, "kasir")
+        Dim ksr = newConnect.ExecuteReader("select id_kasir,nama_kasir from kasir")
+       
         kasirbox.Items.Clear()
         kasirIds = New List(Of Integer)
         kasirIds.Clear()
 
-        For j = 0 To ksr.Tables("kasir").Rows.Count - 1
-            kasirIds.Add(ksr.Tables("kasir").Rows(j).ItemArray.GetValue(0))
-            kasirbox.Items.Add(ksr.Tables("kasir").Rows(j).ItemArray.GetValue(1))
+        For j = 0 To ksr.Rows.Count - 1
+            kasirIds.Add(ksr.Rows(j).ItemArray.GetValue(0))
+            kasirbox.Items.Add(ksr.Rows(j).ItemArray.GetValue(1))
         Next
         txtEndDateTime.Text = DateTimePicker1.Value.Date
         txtStartDateTime.Text = DateTimePicker1.Value.Date

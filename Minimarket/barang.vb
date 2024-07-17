@@ -4,13 +4,9 @@ Imports System.IO
 Public Class barang
 
     Public Sub view()
-        Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        da.SelectCommand = sql
-        da.Fill(ds, "Barang")
+        Dim ds = newConnect.ExecuteReader("select *,(stok_display+stok_gudang) as total_stok from barang")
+
         DataGridView1.DataSource = ds
-        DataGridView1.DataMember = "Barang"
         DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
         DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
         DataGridView1.AutoResizeColumns()
@@ -40,25 +36,16 @@ Public Class barang
         Call binding()
     End Sub
     Public Sub binding()
-        Dim sql As MySqlCommand = New MySqlCommand("select id_suplier,nama_suplier from supplier", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        Dim i As Integer
-        da.SelectCommand = sql
-        da.Fill(ds, "Supplier")
+        Dim ds = newConnect.ExecuteReader("select id_suplier,nama_suplier from supplier")
         nm_suplier.Items.Clear()
-        For i = 0 To ds.Tables("Supplier").Rows.Count - 1
-            nm_suplier.Items.Add(ds.Tables("Supplier").Rows(i).ItemArray.GetValue(1))
+        For i = 0 To ds.Rows.Count - 1
+            nm_suplier.Items.Add(ds.Rows(i).ItemArray.GetValue(1))
         Next
-        Dim satuan As MySqlCommand = New MySqlCommand("select id_satuan,nama_satuan from satuan", konek)
-        Dim dsat As DataSet = New DataSet
-        Dim dasat As MySqlDataAdapter = New MySqlDataAdapter
-        Dim j As Integer
-        dasat.SelectCommand = satuan
-        dasat.Fill(dsat, "Satuan")
+        Dim dsat = newConnect.ExecuteReader("select id_satuan,nama_satuan from satuan")
+
         satuanbox.Items.Clear()
-        For j = 0 To dsat.Tables("Satuan").Rows.Count - 1
-            satuanbox.Items.Add(dsat.Tables("Satuan").Rows(j).ItemArray.GetValue(1))
+        For j = 0 To dsat.Rows.Count - 1
+            satuanbox.Items.Add(dsat.Rows(j).ItemArray.GetValue(1))
         Next
     End Sub
     Public Sub reload()
@@ -100,10 +87,7 @@ Public Class barang
                 "'" + txtQty3.Text.ToString + "'," +
                 "'" + txtQty4.Text.ToString + "'" +
                 ")"
-
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+            If ( newConnect.ExecuteNonQuery(Query)) Then
                 MsgBox("Barang berhasil ditambahkan", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -171,7 +155,7 @@ Public Class barang
             lblIdBarang.Text = "" Then
             MsgBox("Data tentang barang, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Dim cmd As MySqlCommand = New MySqlCommand("UPDATE  barang SET " &
+            Dim isExecute = newConnect.ExecuteNonQuery("UPDATE  barang SET " &
             "id_suplier='" & (nm_suplier.SelectedIndex + 1).ToString & "'," &
             "id_satuan='" & (satuanbox.SelectedIndex + 1).ToString & "'," &
             "barcode='" & txtBarcode.Text.ToString & "'," &
@@ -189,9 +173,8 @@ Public Class barang
                 "qty2='" & txtQty2.Text.ToString & "'," &
                 "qty3='" & txtQty3.Text.ToString & "'," &
                 "qty4='" & txtQty4.Text.ToString & "'" &
-                " WHERE  id_barang ='" & lblIdBarang.Text & "'", konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+                " WHERE  id_barang ='" & lblIdBarang.Text & "'")
+            If (isExecute) Then
                 MsgBox("Data Barang berhasil diubah", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -210,9 +193,7 @@ Public Class barang
             MsgBox("Harap pilih data yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
             Query = "delete from barang WHERE  id_barang ='" + lblIdBarang.Text + "'"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+            If ( newConnect.ExecuteNonQuery(Query)) Then
                 MsgBox("Satu Data Barang berhasil dihapus", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -229,24 +210,16 @@ Public Class barang
         txtNama.Text = ""
         txtStokGudang.Text = ""
         If berdasarkan.SelectedIndex = 0 Then
-            Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where nama_barang like '%" + txtcari.Text + "%' order by nama_barang asc", konek)
-            Dim ds As DataSet = New DataSet
-            Dim da As MySqlDataAdapter = New MySqlDataAdapter
-            da.SelectCommand = sql
-            da.Fill(ds, "nama")
+            Dim ds = newConnect.ExecuteReader("select *,(stok_display+stok_gudang) as total_stok from barang where nama_barang like '%" + txtcari.Text + "%' order by nama_barang asc")
+           
             DataGridView1.DataSource = ds
-            DataGridView1.DataMember = "nama"
             Call binding()
         End If
         If berdasarkan.SelectedIndex = 1 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where harga_jual" + syarat.SelectedItem + txtcari.Text + "", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "hargajual")
+                Dim ds = newConnect.ExecuteReader("select *,(stok_display+stok_gudang) as total_stok from barang where harga_jual" + syarat.SelectedItem + txtcari.Text + "")
+                
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "hargajual"
                 Call binding()
             Catch e As Exception
                 txtcari.Text = ""
@@ -255,13 +228,9 @@ Public Class barang
         End If
         If berdasarkan.SelectedIndex = 2 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where harga_beli" + syarat.SelectedItem + txtcari.Text + "", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "hargabeli")
+                Dim ds = newConnect.ExecuteReader("select *,(stok_display+stok_gudang) as total_stok from barang where harga_beli" + syarat.SelectedItem + txtcari.Text + "")
+              
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "hargabeli"
                 Call binding()
             Catch e As Exception
                 txtcari.Text = ""
@@ -270,13 +239,9 @@ Public Class barang
         End If
         If berdasarkan.SelectedIndex = 3 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select *,(stok_display+stok_gudang) as total_stok from barang where stok" + syarat.SelectedItem + txtcari.Text + "", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "stok")
+                Dim ds = newConnect.ExecuteReader("select *,(stok_display+stok_gudang) as total_stok from barang where stok" + syarat.SelectedItem + txtcari.Text + "")
+
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "stok"
                 Call binding()
             Catch e As Exception
                 txtcari.Text = ""
@@ -297,15 +262,11 @@ Public Class barang
     End Sub
 
     Private Sub nm_suplier_DropDown(ByVal sender As Object, ByVal e As System.EventArgs) Handles nm_suplier.DropDown
-        Dim sql As MySqlCommand = New MySqlCommand("select id_suplier,nama_suplier from supplier", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
+        Dim ds = newConnect.ExecuteReader("select id_suplier,nama_suplier from supplier")
         Dim i As Integer
-        da.SelectCommand = sql
-        da.Fill(ds, "Supplier")
         nm_suplier.Items.Clear()
-        For i = 0 To ds.Tables("Supplier").Rows.Count - 1
-            nm_suplier.Items.Add(ds.Tables("Supplier").Rows(i).ItemArray.GetValue(1))
+        For i = 0 To ds.Rows.Count - 1
+            nm_suplier.Items.Add(ds.Rows(i).ItemArray.GetValue(1))
         Next
     End Sub
 
@@ -390,15 +351,12 @@ Public Class barang
     End Sub
 
     Private Sub satuanbox_DropDown(ByVal sender As Object, ByVal e As System.EventArgs) Handles satuanbox.DropDown
-        Dim satuan As MySqlCommand = New MySqlCommand("select id_satuan,nama_satuan from satuan", konek)
-        Dim dsat As DataSet = New DataSet
-        Dim dasat As MySqlDataAdapter = New MySqlDataAdapter
+        Dim dsat = newConnect.ExecuteReader("select id_satuan,nama_satuan from satuan")
+
         Dim j As Integer
-        dasat.SelectCommand = satuan
-        dasat.Fill(dsat, "Satuan")
         satuanbox.Items.Clear()
-        For j = 0 To dsat.Tables("Satuan").Rows.Count - 1
-            satuanbox.Items.Add(dsat.Tables("Satuan").Rows(j).ItemArray.GetValue(1))
+        For j = 0 To dsat.Rows.Count - 1
+            satuanbox.Items.Add(dsat.Rows(j).ItemArray.GetValue(1))
         Next
     End Sub
     Private Sub txtStokGudang_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtStokGudang.KeyPress

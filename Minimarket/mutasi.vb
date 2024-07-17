@@ -44,40 +44,31 @@ Public Class mutasi
             queryTotalHutang = "SELECT sum(nominal) as total_hutang FROM `mutasi` where ((type='pembelian' and nominal<0) or type='bayar_hutang')"
             queryPengeluaran = "SELECT sum(nominal) as pengeluaran FROM `mutasi` where type='pengeluaran'"
         End If
-        Dim sql As MySqlCommand = New MySqlCommand(query, konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        da.SelectCommand = sql
-        da.Fill(ds, "Mutasi")
+        Dim ds = newConnect.ExecuteReader(query)
         DataGridView1.DataSource = ds
-        DataGridView1.DataMember = "Mutasi"
         DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
         DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
         DataGridView1.AutoResizeColumns()
 
-        Dim cashOnHandCmd As MySqlCommand = New MySqlCommand(queryCashOnHand, konek)
-        Dim cashOnHand = cashOnHandCmd.ExecuteScalar
+        Dim cashOnHand = newConnect.ExecuteScalar(queryCashOnHand)
         If IsDBNull(cashOnHand) Then
             cashOnHand = 0
         End If
         lblCashOnHand.Text = Format(cashOnHand, "#,0;-#,0")
 
-        Dim modalBarangCmd As MySqlCommand = New MySqlCommand(queryModalBarang, konek)
-        Dim modalBarang = modalBarangCmd.ExecuteScalar
+        Dim modalBarang = newConnect.ExecuteScalar(queryModalBarang)
         If IsDBNull(modalBarang) Then
             modalBarang = 0
         End If
         lblModalBarang.Text = Format(modalBarang, "#,0;-#,0")
 
-        Dim totalHutangCmd As MySqlCommand = New MySqlCommand(queryTotalHutang, konek)
-        Dim totalHutang = totalHutangCmd.ExecuteScalar
+        Dim totalHutang = newConnect.ExecuteScalar(queryTotalHutang)
         If IsDBNull(totalHutang) Then
             totalHutang = 0
         End If
         lblTotalHutang.Text = Format(totalHutang, "#,0;-#,0")
 
-        Dim pengeluaranCmd As MySqlCommand = New MySqlCommand(queryPengeluaran, konek)
-        Dim pengeluaran = pengeluaranCmd.ExecuteScalar
+        Dim pengeluaran = newConnect.ExecuteScalar(queryPengeluaran)
         If IsDBNull(pengeluaran) Then
             pengeluaran = 0
         End If
@@ -110,9 +101,9 @@ Public Class mutasi
         Else
             Query = "INSERT INTO mutasi(id_reff,type,deskripsi,nominal,created_at)VALUES('" +
                 textIdReff.Text + "','" + comboTipe.Text + "','" + textDeskripsi.Text + "','" + textNominal.Text.Replace(",", "").Replace(".", "") + "',now())"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If i Then
                 MsgBox("Mutasi baru berhasil ditambahkan", MsgBoxStyle.OkOnly)
                 Call reload()
             Else
@@ -159,9 +150,9 @@ Public Class mutasi
         Else
             Query = "UPDATE  mutasi SET id_reff= '" + textIdReff.Text + "',type ='" + comboTipe.Text +
                 "',deskripsi ='" + textDeskripsi.Text + "',nominal ='" + textNominal.Text.Replace(",", "").Replace(".", "") + "' WHERE  id_mutasi ='" + Label4.Text + "'"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If (i) Then
                 MsgBox("Data Mutasi berhasil diubah", MsgBoxStyle.OkOnly)
                 Call reload()
             Else
@@ -177,9 +168,8 @@ Public Class mutasi
         textDeskripsi.Text = "") Then
             MsgBox("Harap pilih mutasi yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Dim cmd As MySqlCommand = New MySqlCommand("delete from mutasi WHERE  id_mutasi ='" + Label4.Text + "'", konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+            Dim i = newConnect.ExecuteNonQuery("delete from mutasi WHERE  id_mutasi ='" + Label4.Text + "'")
+            If (i) Then
                 MsgBox("Satu Data Mutasi berhasil dihapus", MsgBoxStyle.OkOnly)
                 Call reload()
             Else

@@ -3,13 +3,8 @@ Imports System.Data
 Imports System.IO
 Public Class kasir
     Public Sub view()
-        Dim sql As MySqlCommand = New MySqlCommand("select * from kasir", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        da.SelectCommand = sql
-        da.Fill(ds, "Kasir")
+        Dim ds = newConnect.ExecuteReader("select * from kasir")
         DataGridView1.DataSource = ds
-        DataGridView1.DataMember = "Kasir"
         DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
         DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
         DataGridView1.AutoResizeColumns()
@@ -44,9 +39,9 @@ Public Class kasir
             MsgBox("Data tentang Kasir, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Query = "INSERT INTO kasir(nama_kasir,password,alamat,type,status)VALUES('" + txtnama.Text + "','" + txtpassword.Text + "','" + txtalamat.Text + "','" + (hak_akses.SelectedIndex + 1).ToString + "','Tidak Aktif')"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If (i) Then
                 MsgBox("Kasir baru berhasil ditambahkan", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -89,9 +84,9 @@ Public Class kasir
             MsgBox("Data tentang kasir, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Query = "UPDATE  kasir SET type='" + (hak_akses.SelectedIndex + 1).ToString + "',  nama_kasir= '" + txtnama.Text + "',  password= '" + txtpassword.Text + "',alamat ='" + txtalamat.Text + "' WHERE  id_kasir ='" + Label4.Text + "'"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If (i) Then
                 MsgBox("Data Kasir berhasil diubah", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -106,9 +101,8 @@ Public Class kasir
             MsgBox("Harap pilih data yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
             Query = "delete from kasir WHERE  id_kasir ='" + Label4.Text + "'"
-            Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
-            Dim i As Integer = cmd.ExecuteNonQuery()
-            If (i > 0) Then
+            Dim i = newConnect.ExecuteNonQuery(Query)
+            If (i) Then
                 MsgBox("Satu Kasir berhasil dihapus", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -123,13 +117,8 @@ Public Class kasir
         txtalamat.Text = ""
         If berdasarkan.SelectedIndex = 0 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where id_kasir=" + txtcari.Text + "'", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "id")
+                Dim ds = newConnect.ExecuteReader("select * from kasir where id_kasir=" + txtcari.Text + "'")
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "id"
             Catch e As Exception
                 txtcari.Text = ""
                 txtcari.Focus()
@@ -137,13 +126,8 @@ Public Class kasir
         End If
         If berdasarkan.SelectedIndex = 1 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where nama_kasir  like '%" + txtcari.Text + "%'", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "nama")
+                Dim ds = newConnect.ExecuteReader("select * from kasir where nama_kasir  like '%" + txtcari.Text + "%'")
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "nama"
             Catch e As Exception
                 txtcari.Text = ""
                 txtcari.Focus()
@@ -151,13 +135,8 @@ Public Class kasir
         End If
         If berdasarkan.SelectedIndex = 2 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where alamat like '%" + txtcari.Text + "%'", konek)
-                Dim ds As DataSet = New DataSet
-                Dim da As MySqlDataAdapter = New MySqlDataAdapter
-                da.SelectCommand = sql
-                da.Fill(ds, "alamat")
+                Dim ds = newConnect.ExecuteReader("select * from kasir where alamat like '%" + txtcari.Text + "%'")
                 DataGridView1.DataSource = ds
-                DataGridView1.DataMember = "alamat"
 
             Catch e As Exception
                 txtcari.Text = ""
@@ -177,14 +156,12 @@ Public Class kasir
             MsgBox("Kasir belum dipilih", MsgBoxStyle.OkOnly)
         ElseIf (Button1.Text = "Aktifkan Kasir") Then
            
-            Dim status As MySqlCommand = New MySqlCommand("update kasir set status='Aktif' where id_kasir='" + Label4.Text + "'", konek)
-            status.ExecuteNonQuery()
+            newConnect.ExecuteNonQuery("update kasir set status='Aktif' where id_kasir='" + Label4.Text + "'")
             MsgBox("Kasir No" + Label4.Text + " telah Aktif", MsgBoxStyle.OkOnly)
             Call view()
         ElseIf (Button1.Text = "Nonaktifkan Kasir") Then
            
-            Dim status As MySqlCommand = New MySqlCommand("update kasir set status='Tidak Aktif' where id_kasir='" + Label4.Text + "'", konek)
-            status.ExecuteNonQuery()
+            newConnect.ExecuteNonQuery("update kasir set status='Tidak Aktif' where id_kasir='" + Label4.Text + "'")
             MsgBox("Kasir No" + Label4.Text + " di Nonaktifkan", MsgBoxStyle.OkOnly)
             Call view()
         End If

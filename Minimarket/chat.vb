@@ -1,26 +1,16 @@
 ﻿Imports MySql.Data.MySqlClient
 Public Class chat
     Public Sub reload()
-        Dim sql As MySqlCommand = New MySqlCommand("select pesan from obrolan", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        Dim i As Integer
-        da.SelectCommand = sql
-        da.Fill(ds, "obrolan")
+        Dim ds = newConnect.ExecuteReader("select pesan from obrolan")
         ListBox1.Items.Clear()
-        For i = 0 To ds.Tables("obrolan").Rows.Count - 1
-            ListBox1.Items.Add(ds.Tables("obrolan").Rows(i).ItemArray.GetValue(0))
+        For i = 0 To ds.Rows.Count - 1
+            ListBox1.Items.Add(ds.Rows(i).ItemArray.GetValue(0))
         Next
     End Sub
     Public Sub reset()
-        Dim sql As MySqlCommand = New MySqlCommand("select pesan from obrolan", konek)
-        Dim ds As DataSet = New DataSet
-        Dim da As MySqlDataAdapter = New MySqlDataAdapter
-        da.SelectCommand = sql
-        da.Fill(ds, "obrolan")
-        If ds.Tables("obrolan").Rows.Count = 21 Then
-            Dim hapus As MySqlCommand = New MySqlCommand("delete * from obrolan", konek)
-            hapus.ExecuteNonQuery()
+        Dim ds = newConnect.ExecuteReader("select pesan from obrolan")
+        If ds.Rows.Count = 21 Then
+            newConnect.ExecuteNonQuery("delete * from obrolan")
         End If
     End Sub
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
@@ -35,14 +25,12 @@ Public Class chat
         Dim tombol As Integer = Asc(e.KeyChar)
         If tombol = 13 Then
             If hak_akses = "1" Then
-                Dim kirim As MySqlCommand = New MySqlCommand("insert into obrolan(pesan) values('Administator" + id_kasir + ": " + TextBox1.Text + "')", konek)
-                kirim.ExecuteNonQuery()
+                newConnect.ExecuteNonQuery("insert into obrolan(pesan) values('Administator" + id_kasir + ": " + TextBox1.Text + "')")
                 TextBox1.Text = ""
                 TextBox1.Focus()
                 Call reload()
             Else
-                Dim kirim As MySqlCommand = New MySqlCommand("insert into obrolan(pesan) values('Kasir" + id_kasir + ": " + TextBox1.Text + "')", konek)
-                kirim.ExecuteNonQuery()
+                newConnect.ExecuteNonQuery("insert into obrolan(pesan) values('Kasir" + id_kasir + ": " + TextBox1.Text + "')")
                 TextBox1.Text = ""
                 TextBox1.Focus()
                 Call reload()

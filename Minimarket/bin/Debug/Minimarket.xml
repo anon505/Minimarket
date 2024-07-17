@@ -6,7 +6,143 @@ Minimarket
 </name>
 </assembly>
 <members>
-<member name="T:Minimarket.minimarket_ds.ds_report_penjualanDataTable">
+<member name="E:Minimarket.Connection.eLog">
+	<summary>
+ Event raise to allow external event logging
+ </summary>
+	<param name="eventText"></param>
+	<param name="eventType"></param>
+	<remarks></remarks>
+</member><member name="F:Minimarket.Connection._VERBOSE">
+	<summary>
+ If true error events will be displayed in a messagebox
+ If false the eLog event will be raised 
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.#ctor(System.String)">
+	<summary>
+ Creates a new instance of the Connection class.
+ </summary>
+	<param name="_connString">Connection string to connection to the database</param>
+	<remarks> A call to the shared function TestConnection should be made to validate the connection string first</remarks>
+</member><member name="M:Minimarket.Connection.ExecuteNonQuery(System.String)">
+	<summary>
+ Executes a non-query command on the database 
+ </summary>
+	<param name="cmdString">The command string for the database query</param>
+	<returns>True is the query suceeds, otherwise False</returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.ExecuteNonQuery(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
+ Executes a parameterized non-query command on the database 
+ </summary>
+	<param name="cmdString">The command string for the database query</param>
+	<param name="parameters">Dictionary of parameters used by the query</param>
+	<returns>True if the query suceeds, otherwise False</returns>
+	<remarks>The parameters dictionary object contains the parameter name in the key collection and its corresponding value in the values collection. </remarks>
+</member><member name="M:Minimarket.Connection.ExecuteReader(System.String)">
+	<summary>
+ Executes a reader command on the database 
+ </summary>
+	<param name="cmdString">The command string for the database query</param>
+	<returns>Returns a data table with the query results. If the query fails, nothing will be returned.</returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.ExecuteReader(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
+ Executes a parameterized reader command on the database 
+ </summary>
+	<param name="cmdString">The command string for the database query</param>
+	<param name="parameters">Dictionary of parameters used by the query</param>
+	<returns>Returns a data table with the query results. If the query fails, nothing will be returned.</returns>
+	<remarks>The parameters dictionary object contains the parameter name in the key collection and its corresponding value in the values collection.</remarks>
+</member><member name="M:Minimarket.Connection.ExecuteScalar(System.String)">
+	<summary>
+ Executes a scalar command on the database 
+ </summary>
+	<param name="cmdString">The command string for the database query</param>
+	<returns>Returns an object with the query results. If the query fails, nothing will be returned.</returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.ExecuteScalar(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
+ Executes a parameterized scalar command on the database 
+ </summary>
+	<param name="cmdString">The command string for the database query</param>
+	<param name="parameters">Dictionary of parameters used by the query. </param>
+	<returns>Returns an object with the query results. If the query fails, nothing will be returned.</returns>
+	<remarks>The parameters dictionary object contains the parameter name in the key collection and its corresponding value in the values collection.</remarks>
+</member><member name="M:Minimarket.Connection.doesTableExist(System.String)">
+	<summary>
+ Checks the database connected to for the existance of a particualr table
+ </summary>
+	<param name="tblName">Name of the data table to search for</param>
+	<returns>Returns True if the database contains the table or False if either the table is not in the database or if the query fails</returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.databaseSizeInBytes">
+	<summary>
+ Returns the size of the database in Bytes
+ </summary>
+	<returns>Returns to size of the database in byte or -1 if the query fails</returns>
+	<remarks>The database must be reachable using the credentials given to the connection</remarks>
+</member><member name="M:Minimarket.Connection.getDataBaseRowCount(System.String)">
+	<summary>
+ Returns the number of data rows in a datatable contained in the connection's database
+ </summary>
+	<param name="tableName">Name of the table to return the row count from</param>
+	<returns>Return the number of rows in the table or -1 if the query fails</returns>
+	<remarks>The table must belong to the database that is connected to</remarks>
+</member><member name="M:Minimarket.Connection.getSQLParameterStringFromList(System.Collections.Generic.Dictionary{System.String,System.Object})">
+	<summary>
+ The getSQLParameterStringFromList will convert a Dictionary of parameters to a string that can be embedded in a command string
+ </summary>
+	<param name="pList">Dictionary of parameters to be converted</param>
+	<returns></returns>
+	<remarks>The parameters dictionary object contains the parameter name in the key collection and its corresponding value in the values collection.
+ For a command string using the results to succeed, the parameter names in the Dictionary's key collection <B>must be in the form of @<I>fieldName</I></B></remarks>
+</member><member name="M:Minimarket.Connection.getMaxFromColumn(System.String,System.String)">
+	<summary>
+ Gets the maximum value from a data column in a table.
+ </summary>
+	<returns>Return the last index or -1 if the query fails</returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.getColumnNames(System.String)">
+	<summary>
+ Returns the columns name for a particular table
+ </summary>
+	<param name="tableName"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.getConnection(System.String@,System.String@,System.String@,System.String@)">
+	<summary>
+ Overloaded Call this method to create a connection. All parameters passed to the method are ByRef so the caller can access the values after the connection is made.
+ </summary>
+	<param name="dbServer">ByRef - Machine IP address that is hosting the serve</param>
+	<param name="dbUser">ByRef - Database user name</param>
+	<param name="dbPassword">ByRef password for the dbUser</param>
+	<param name="dbName">Byref - Name of the database on the server</param>
+	<returns>If the connection cannot be made, the Connection Dialog will be displayed to the user. If a connection is made, the credentials in the dialog box are returned in the ByRef arguments.</returns>
+</member><member name="M:Minimarket.Connection.getConnection(System.String)">
+	<summary>
+ Overloaded. Call this method to create a connection from a connection string.
+ </summary>
+	<param name="connString"></param>
+	<returns></returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.TestConnection(System.String,Minimarket.DataBaseTypeEnum)">
+	<summary>
+ Overloaded. Shared method to test a connection string. This method should be called before creating the connection
+ </summary>
+	<param name="connString">Connection string to test</param>
+	<param name="dbType">DataBaseTypeEnum enumeration to set the database manufacturer</param>
+	<returns>Return true if the test succeeds, faslse if it fails</returns>
+	<remarks></remarks>
+</member><member name="M:Minimarket.Connection.GetSQLDateString(System.DateTime)">
+	<summary>
+ Returns a date string formated for a mySQL data base
+ </summary>
+	<param name="DateToConvert">DateTime object to convert to mySQL database format</param>
+	<returns>String representing the data and time in mySQL format</returns>
+	<remarks></remarks>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_penjualanDataTable">
 	<summary>
 Represents the strongly named DataTable class.
 </summary>

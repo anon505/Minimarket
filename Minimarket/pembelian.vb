@@ -8,15 +8,12 @@ Public Class pembelian
 
     Public Function getIdPembelian(ByVal idKasir As String) As String
         If noFaktorEdit IsNot Nothing Then
-            Dim cekPembelianCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian from pembelian WHERE no_faktur=" & noFaktorEdit, konek)
-            Dim idPembelian = cekPembelianCmd.ExecuteScalar
+            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE no_faktur=" & noFaktorEdit)
             Return idPembelian.ToString
         Else
-            Dim cekPembelianCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir, konek)
-            Dim idPembelian = cekPembelianCmd.ExecuteScalar
+            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir)
             If idPembelian Is Nothing Then
-                Dim insertPembelian As MySqlCommand = New MySqlCommand("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', '', '0', 'temp');", konek)
-                insertPembelian.ExecuteNonQuery()
+                newConnect.ExecuteNonQuery("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', '', '0', 'temp');")
                 Return getIdPembelian(idKasir)
             Else
                 Return idPembelian.ToString
@@ -36,31 +33,27 @@ Public Class pembelian
     End Sub
     Private Sub inputUpdateBarang(ByVal barcode As String)
 
-        Dim barangCmd As MySqlCommand = New MySqlCommand("SELECT * from barang WHERE barcode='" & barcode & "'", konek)
-        Dim barangReader As MySqlDataReader = barangCmd.ExecuteReader()
+        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE barcode='" & barcode & "'")
         Dim idBarang As Integer
         Dim hargaBeli As Integer
         Dim ppn As Double
         Dim discount As Double
         Dim hargaBeliNetto As Integer
-        If barangReader.Read Then
+        If barangReaders.Rows.Count > 0 Then
+            Dim barangReader = barangReaders.Rows(0)
             idBarang = barangReader("id_barang")
             hargaBeli = barangReader("harga_beli")
             ppn = barangReader("ppn")
             discount = barangReader("discount")
             hargaBeliNetto = barangReader("harga_beli_netto")
-            barangReader.Close()
 
-            Dim currentQtyCmd As MySqlCommand = New MySqlCommand("SELECT qty from pembelian_detail WHERE id_barang='" & idBarang.ToString & "' AND id_pembelian=" & getIdPembelian(Module1.id_kasir), konek)
-            Dim currentQty = currentQtyCmd.ExecuteScalar
+            Dim currentQty = newConnect.ExecuteScalar("SELECT qty from pembelian_detail WHERE id_barang='" & idBarang.ToString & "' AND id_pembelian=" & getIdPembelian(Module1.id_kasir))
             If currentQty Is Nothing Then
                 currentQty = "1"
-                Dim insertPembelianDetail As MySqlCommand = New MySqlCommand("INSERT INTO pembelian_detail (id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')", konek)
-                insertPembelianDetail.ExecuteNonQuery()
+                newConnect.ExecuteNonQuery("INSERT INTO pembelian_detail (id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')")
             Else
                 currentQty = (Integer.Parse(currentQty.ToString) + 1).ToString
-                Dim updateStokGudang As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set qty = '" & currentQty.ToString & "' WHERE id_barang = '" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                updateStokGudang.ExecuteNonQuery()
+                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & currentQty.ToString & "' WHERE id_barang = '" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
             End If
             loadTable()
         End If
@@ -91,10 +84,8 @@ Public Class pembelian
     End Sub
     Private Sub loadTable()
         Try
-            Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir), konek)
-            Dim ds = New DataTable()
-            mySqlAdapter.Fill(ds)
-
+            Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
+          
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
@@ -184,27 +175,25 @@ Public Class pembelian
             For i = 0 To dataGridView1.RowCount - 1
                 dataGridView1.Rows(i).Cells(11).Value = textDiscount.Text.ToString
 
-                Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'", konek)
-                Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
                 Dim price As Integer
                 Dim ppn As Double
                 Dim discount As Double = Double.Parse(dataGridView1.Rows(i).Cells(11).Value.ToString)
                 Dim priceNetto As Integer
-                If pembelianDetailReader.Read Then
+                If pembelianDetailReaders.Rows.Count > 0 Then
+                    Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
                     price = pembelianDetailReader("price")
                     ppn = pembelianDetailReader("ppn")
                     Dim priceAfterPpn = (price + ((ppn / 100) * price))
                     priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                    pembelianDetailReader.Close()
                 End If
                 dataGridView1.Rows(i).Cells(13).Value = priceNetto.ToString
                 dataGridView1.Rows(i).Cells(15).Value = (Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
                                         ToString.Replace(".", "").
                                         Replace(",", "")) * priceNetto).ToString
 
-                Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                updateTabel.ExecuteNonQuery()
+                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
             Next
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
@@ -225,27 +214,25 @@ Public Class pembelian
             For i = 0 To dataGridView1.RowCount - 1
                 dataGridView1.Rows(i).Cells(9).Value = textPpn.Text.ToString
 
-                Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'", konek)
-                Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
                 Dim price As Integer
                 Dim ppn As Double = Double.Parse(dataGridView1.Rows(i).Cells(9).Value.ToString)
                 Dim discount As Double
                 Dim priceNetto As Integer
-                If pembelianDetailReader.Read Then
+                If pembelianDetailReaders.Rows.Count > 0 Then
+                    Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
                     price = pembelianDetailReader("price")
                     discount = pembelianDetailReader("discount")
                     Dim priceAfterPpn = (price + ((ppn / 100) * price))
                     priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                    pembelianDetailReader.Close()
                 End If
                 dataGridView1.Rows(i).Cells(13).Value = priceNetto.ToString
                 dataGridView1.Rows(i).Cells(15).Value = (Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
                                         ToString.Replace(".", "").
                                         Replace(",", "")) * priceNetto).ToString
 
-                Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                updateTabel.ExecuteNonQuery()
+                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
             Next
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
@@ -377,46 +364,40 @@ Public Class pembelian
         Try
             If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
                 If e.ColumnIndex = 5 Then
-                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                    updateTabel.ExecuteNonQuery()
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
                 ElseIf e.ColumnIndex = 7 Then
-                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
-                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim price As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim ppn As Double
                     Dim discount As Double
                     Dim priceNetto As Integer
-                    If pembelianDetailReader.Read Then
+                    If pembelianDetailReaders.Rows.Count > 0 Then
+                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(1)
                         ppn = pembelianDetailReader("ppn")
                         discount = pembelianDetailReader("discount")
                         Dim priceAfterPpn = (price + ((ppn / 100) * price))
                         priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                        pembelianDetailReader.Close()
                     End If
-                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                    updateTabel.ExecuteNonQuery()
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
                 ElseIf e.ColumnIndex = 6 Then
-                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
-                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim newStok As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
-                    If pembelianDetailReader.Read Then
+                    If pembelianDetailReaders.Rows.Count > 0 Then
+                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
                         Dim idBarang = pembelianDetailReader("id_barang")
-                        pembelianDetailReader.Close()
-                        Dim barangCmd As MySqlCommand = New MySqlCommand("SELECT * from barang WHERE id_barang='" & idBarang & "'", konek)
-                        Dim barangReader As MySqlDataReader = barangCmd.ExecuteReader()
-                        If barangReader.Read Then
+                        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
+                        If barangReaders.Rows.Count > 0 Then
+                            Dim barangReader = barangReaders.Rows(0)
                             Dim stokDisplay = Integer.Parse(barangReader("stok_display").ToString)
                             Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
-                            barangReader.Close()
                             If newStok > (stokDisplay + stokGudang) Then
                                 Dim sisa = newStok - (stokDisplay + stokGudang)
                                 stokGudang = stokGudang + sisa
-                                Dim updateBarang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'", konek)
-                                updateBarang.ExecuteNonQuery()
+                                newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
                             End If
                             If (stokDisplay + stokGudang) > newStok Then
                                 Dim sisa = (stokDisplay + stokGudang) - newStok
@@ -424,52 +405,46 @@ Public Class pembelian
                                     stokGudang = 0
                                     Dim sisaDisplay = sisa - stokGudang
                                     stokDisplay = stokDisplay - sisaDisplay
-                                    Dim updateBarang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "', stok_display='" & stokDisplay.ToString & "' WHERE id_barang = '" & idBarang & "'", konek)
-                                    updateBarang.ExecuteNonQuery()
+                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "', stok_display='" & stokDisplay.ToString & "' WHERE id_barang = '" & idBarang & "'")
                                 Else
                                     stokGudang = stokGudang - sisa
-                                    Dim updateBarang As MySqlCommand = New MySqlCommand("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'", konek)
-                                    updateBarang.ExecuteNonQuery()
+                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
                                 End If
                             End If
                         End If
                     End If
                     loadTable()
                 ElseIf e.ColumnIndex = 9 Then
-                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
-                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim price As Integer
                     Dim ppn As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim discount As Double
                     Dim priceNetto As Integer
-                    If pembelianDetailReader.Read Then
+                    If pembelianDetailReaders.Rows.Count > 0 Then
+                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
                         price = pembelianDetailReader("price")
                         discount = pembelianDetailReader("discount")
                         Dim priceAfterPpn = (price + ((ppn / 100) * price))
                         priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                        pembelianDetailReader.Close()
                     End If
-                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                    updateTabel.ExecuteNonQuery()
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
                 ElseIf e.ColumnIndex = 11 Then
-                    Dim pembelianDetailCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'", konek)
-                    Dim pembelianDetailReader As MySqlDataReader = pembelianDetailCmd.ExecuteReader()
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim price As Integer
                     Dim ppn As Double
                     Dim discount As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim priceNetto As Integer
-                    If pembelianDetailReader.Read Then
+                    If pembelianDetailReaders.Rows.Count > 0 Then
+                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
                         price = pembelianDetailReader("price")
                         ppn = pembelianDetailReader("ppn")
                         Dim priceAfterPpn = (price + ((ppn / 100) * price))
                         priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
-                        pembelianDetailReader.Close()
                     End If
-                    Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-                    updateTabel.ExecuteNonQuery()
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
                 End If
                 textPLU.Text = ""
@@ -481,20 +456,7 @@ Public Class pembelian
         
     End Sub
     Private Sub savePembelian()
-        'Dim mySqlAdapter = New MySqlDataAdapter("SELECT * from pembelian_detail WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-        'Dim ds = New DataTable()
-        'mySqlAdapter.Fill(ds)
-        'For i = 0 To ds.Rows.Count - 1
-        '    Dim idBarang = ds.Rows(i).Item("id_barang").ToString
-        '    Dim qty = ds.Rows(i).Item("qty").ToString
-        '    Dim ppn = ds.Rows(i).Item("ppn").ToString.Replace(",", ".")
-        '    Dim discount = ds.Rows(i).Item("discount").ToString.Replace(",", ".")
-        '    Dim price = ds.Rows(i).Item("price").ToString
-        '    Dim priceNetto = ds.Rows(i).Item("price_netto").ToString
-        '    Dim updateItemPembelian As MySqlCommand = New MySqlCommand("Update barang Set ppn = '" & ppn & "',discount = '" & discount & "',
-        '        stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "' WHERE id_barang = " & idBarang, konek)
-        '    updateItemPembelian.ExecuteNonQuery()
-        'Next
+       
 
         Dim metodePembayaran = ""
         Dim minus = ""
@@ -510,28 +472,25 @@ Public Class pembelian
             metodePembayaran = "konsinyasi"
             minus = "-"
         End If
-        Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & textTempoHari.Text & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir), konek)
-        updateTabel.ExecuteNonQuery()
 
-        Dim cekIdMutasi As MySqlCommand = New MySqlCommand("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-        Dim idMutasi = cekIdMutasi.ExecuteScalar
+        newConnect.ExecuteNonQuery("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & textTempoHari.Text & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir))
+
+        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'")
         If idMutasi Is Nothing Then
-            Dim insertMutasi As MySqlCommand = New MySqlCommand("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
+            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
                                                                 getIdPembelian(Module1.id_kasir) &
                                                                 "','pembelian','PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
                                                                 textNoFaktur.Text & "', '" & minus & "" & textTotal.
                                                                 Text.
                                                                 Replace(",", "").
-                                                                Replace(".", "") & "', now());", konek)
-            insertMutasi.ExecuteNonQuery()
+                                                                Replace(".", "") & "', now());")
         Else
-            Dim updateMutasi As MySqlCommand = New MySqlCommand("UPDATE mutasi SET deskripsi = 'update PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
+            newConnect.ExecuteNonQuery("UPDATE mutasi SET deskripsi = 'update PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
                                                                 textNoFaktur.Text & "',nominal = '" & minus & "" &
                                                                 textTotal.
                                                                 Text.
                                                                 Replace(",", "").
-                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString, konek)
-            updateMutasi.ExecuteNonQuery()
+                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
         End If
         If noFaktorEdit IsNot Nothing Then
             MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
@@ -554,10 +513,8 @@ Public Class pembelian
 
     End Sub
     Private Sub fakturBaru()
-        Dim deletePembelianDetailCmd = New MySqlCommand("DELETE from pembelian_detail WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-        deletePembelianDetailCmd.ExecuteNonQuery()
-        Dim deletePembelianCmd = New MySqlCommand("DELETE from pembelian WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-        deletePembelianCmd.ExecuteNonQuery()
+        newConnect.ExecuteNonQuery("DELETE from pembelian_detail WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+        newConnect.ExecuteNonQuery("DELETE from pembelian WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
 
         loadTable()
         textNoFaktur.Text = ""
@@ -594,8 +551,7 @@ Public Class pembelian
         Console.WriteLine(dataGridView1.SelectedRows.Count)
 
         If getIdDariTabel() IsNot "" Then
-            Dim deleteTransaksiDetail As MySqlCommand = New MySqlCommand("DELETE from pembelian_detail WHERE id_pembelian_detail = " & getIdDariTabel(), konek)
-            deleteTransaksiDetail.ExecuteNonQuery()
+            newConnect.ExecuteNonQuery("DELETE from pembelian_detail WHERE id_pembelian_detail = " & getIdDariTabel())
             loadTable()
         End If
 
@@ -670,14 +626,13 @@ Public Class pembelian
             ElseIf textSupplier.Text = "" Or labelIdSuplier.Text = "" Or labelSupplier.Text = "" Then
                 MsgBox("Harap PILIH suplier terlebih dahulu")
             Else
-                Dim cekFakturCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
-                Dim idPembelian = cekFakturCmd.ExecuteScalar
+                Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'")
                 If idPembelian Is Nothing Then
                     MsgBox("Faktur tidak ditemukan")
                 Else
-                    Dim cekPembelianCmd As MySqlCommand = New MySqlCommand("SELECT * from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
-                    Dim pembelianReader As MySqlDataReader = cekPembelianCmd.ExecuteReader()
-                    If pembelianReader.Read Then
+                    Dim pembelianReaders = newConnect.ExecuteReader("SELECT * from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'")
+                    If pembelianReaders.Rows.Count > 0 Then
+                        Dim pembelianReader = pembelianReaders.Rows(0)
                         Dim newPembelian = New pembelian
                         If pembelianReader("metode_pembayaran") IsNot Nothing And pembelianReader("metode_pembayaran") IsNot "" Then
                             If pembelianReader("metode_pembayaran").ToString = "tunai" Then
@@ -698,9 +653,7 @@ Public Class pembelian
                                 End If
                             End If
                         End If
-                        pembelianReader.Close()
-                        Dim cekFakturSTatusCmd As MySqlCommand = New MySqlCommand("SELECT status from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'", konek)
-                        newPembelian.statusFaktorEdit = cekFakturSTatusCmd.ExecuteScalar
+                        newPembelian.statusFaktorEdit = newConnect.ExecuteScalar("SELECT status from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'")
                         newPembelian.noFaktorEdit = Me.textNoFaktur.Text
                         newPembelian.textNoFaktur.Text = Me.textNoFaktur.Text
                         newPembelian.textSupplier.Text = Me.textSupplier.Text
@@ -743,9 +696,8 @@ Public Class pembelian
         System.Globalization.DateTimeFormatInfo.InvariantInfo)
         dataGridView1.Rows(cell.RowIndex).Cells(16).Value = newDate
 
-        Dim updateTabel As MySqlCommand = New MySqlCommand("UPDATE pembelian_detail Set expiry = '" & newDate.ToString("yyyy-MM-dd") & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(cell.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'", konek)
-        updateTabel.ExecuteNonQuery()
+        newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set expiry = '" & newDate.ToString("yyyy-MM-dd") & "' WHERE id_barang = '" &
+                                                                   dataGridView1.Rows(cell.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
     End Sub
     Private Sub oDateTimePicker_CloseUp(ByVal sender As Object, ByVal e As EventArgs)
         oDateTimePicker.Visible = False

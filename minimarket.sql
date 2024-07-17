@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2024 at 09:12 AM
+-- Generation Time: Jul 17, 2024 at 07:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,8 +56,8 @@ INSERT INTO `barang` (`id_barang`, `id_suplier`, `id_satuan`, `barcode`, `nama_b
 (1, 2, 1, '8992696407688', 'Nestle 700g', 2500, 11, 0.5, 0, 58, 57, 3386, 3372, 3316, 3191, 3, 6, 9),
 (2, 2, 1, '896867700326', 'Le Minerale', 2000, 11, 0, 2220, 28, 61, 2600, 2300, 2270, 2264, 3, 8, 12),
 (3, 3, 1, '7237844127560', 'Pempers Sensi', 3000, 0, 0, 3000, 27, 50, 3550, 3530, 3520, 3510, 5, 10, 15),
-(4, 2, 3, '8992112011017', 'Cerebrovot', 4000, 0, 0, 0, 12, 80, 4500, 4400, 4300, 4200, 2, 6, 10),
-(5, 4, 4, '1234', 'Aqua Sedang', 5000, 0, 0, 0, 5, 45, 5900, 5700, 5600, 5500, 10, 20, 30);
+(4, 2, 3, '8992112011017', 'Cerebrovot1', 4000, 0, 0, 0, 12, 80, 4500, 4400, 4300, 4200, 2, 6, 10),
+(5, 4, 4, '1234', 'Aqua Sedang1', 5000, 0, 0, 0, 0, 45, 5900, 5700, 5600, 5500, 10, 20, 30);
 
 -- --------------------------------------------------------
 
@@ -223,13 +223,8 @@ CREATE TABLE `mutasi` (
 --
 
 INSERT INTO `mutasi` (`id_mutasi`, `id_reff`, `type`, `deskripsi`, `nominal`, `created_at`) VALUES
-(3, 15, 'pembelian', 'update PEMBELIAN secara TUNAI dengan faktur: 223344', 8325, '2024-06-05 21:03:55'),
-(4, 50, 'penjualan', 'PENJUALAN pada waktu: 05/06/2024 21:46:10', 3386, '2024-06-05 21:48:23'),
-(5, 51, 'penjualan', 'RETUR PENJUALAN pada waktu: 05/06/2024 21:48:23', -3386, '2024-06-05 21:51:33'),
-(6, 53, 'penjualan', 'PENJUALAN pada waktu: 05/06/2024 21:51:33', 6772, '2024-06-05 21:53:28'),
-(7, 17, 'pembelian', 'PEMBELIAN secara KREDIT dengan faktur: 7788999', -2775, '2024-06-07 16:01:23'),
-(10, -1, 'pengeluaran', 'ambil keuntungan', 1000, '2024-06-08 07:25:16'),
-(11, 34, 'pengeluaran', 'bayar listrik', 1000, '2024-06-14 06:17:12');
+(23, 72, 'penjualan', 'PENJUALAN pada waktu: 17/07/2024 11:51:40', 11800, '2024-07-17 11:54:05'),
+(24, 73, 'penjualan', 'RETUR PENJUALAN pada waktu: 17/07/2024 11:54:05', -5900, '2024-07-17 11:54:41');
 
 -- --------------------------------------------------------
 
@@ -367,18 +362,9 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES
-(43, 1, '2024-06-03 07:45:17', 0, 0, 0, 'void'),
-(44, 1, '2024-06-03 07:48:13', 0, 0, 0, 'void'),
-(45, 1, '2024-06-03 08:20:57', 0, 0, 0, 'void'),
-(46, 1, '2024-06-03 08:30:10', 0, 0, 0, 'void'),
-(47, 1, '2024-06-03 08:30:37', 0, 0, 0, 'void'),
-(48, 1, '2024-06-04 06:29:46', 0, 0, 0, 'void'),
-(49, 1, '2024-06-05 20:57:14', 0, 0, 0, 'void'),
-(50, 1, '2024-06-05 21:46:10', 5000, 3386, 1614, 'done'),
-(51, 1, '2024-06-05 21:48:23', 0, -3386, 0, 'retur'),
-(52, 1, '2024-06-05 21:49:18', 0, 0, 0, 'void'),
-(53, 1, '2024-06-05 21:51:33', 10000, 6772, 3228, 'done'),
-(54, 1, '2024-06-05 21:53:28', 0, 0, 0, 'void');
+(72, 1, '2024-07-17 11:51:40', 20000, 11800, 8200, 'done'),
+(73, 1, '2024-07-17 11:54:05', -5900, -5900, 0, 'retur'),
+(74, 1, '2024-07-17 11:54:41', 0, 0, 0, 'void');
 
 -- --------------------------------------------------------
 
@@ -401,22 +387,9 @@ CREATE TABLE `transaksi_detail` (
 --
 
 INSERT INTO `transaksi_detail` (`id_transaksi_detail`, `id_barang`, `id_transaksi`, `qty`, `harga_beli`, `harga_jual`, `updated_at`) VALUES
-(93, 4, 43, 1, 4000, 4500, '2024-06-03 07:45:19'),
-(94, 4, 44, 5, 4000, 4400, '2024-06-03 08:10:19'),
-(97, 4, 47, 3, 4000, 4400, '2024-06-03 09:02:46'),
-(98, 1, 47, 4, 2775, 3372, '2024-06-03 09:02:55'),
-(99, 2, 47, 8, 2220, 2270, '2024-06-03 09:03:53'),
-(100, 1, 50, 1, 2775, 3386, '2024-06-05 21:48:01'),
-(101, 1, 51, -1, 2775, 3386, '2024-06-05 21:49:08'),
-(102, 1, 53, 2, 2775, 3386, '2024-06-05 21:52:55');
-
---
--- Triggers `transaksi_detail`
---
-DELIMITER $$
-CREATE TRIGGER `updatestokjual1` AFTER DELETE ON `transaksi_detail` FOR EACH ROW begin update barang set stok_display=stok_display+old.qty where id_barang=old.id_barang;END
-$$
-DELIMITER ;
+(117, 5, 72, 2, 0, 5900, '2024-07-17 11:52:10'),
+(118, 5, 73, -1, 0, 5900, '2024-07-17 11:54:23'),
+(119, 5, 74, 1, 0, 5900, '2024-07-17 11:55:08');
 
 -- --------------------------------------------------------
 
@@ -529,7 +502,7 @@ ALTER TABLE `transaksi_detail`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `kasir`
@@ -541,7 +514,7 @@ ALTER TABLE `kasir`
 -- AUTO_INCREMENT for table `mutasi`
 --
 ALTER TABLE `mutasi`
-  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
@@ -571,13 +544,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `transaksi_detail`
 --
 ALTER TABLE `transaksi_detail`
-  MODIFY `id_transaksi_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id_transaksi_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

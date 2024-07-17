@@ -20,8 +20,7 @@ Public Class scan_harga
     Private Sub inputUpdateBarang(ByVal barcode As String)
         Try
             lblBarcode.Text = barcode
-            Dim barangCmd As MySqlCommand = New MySqlCommand("SELECT * from barang WHERE barcode='" & barcode & "'", konek)
-            Dim barangReader As MySqlDataReader = barangCmd.ExecuteReader()
+            Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE barcode='" & barcode & "'")
             Dim stokDisplay As Integer
             Dim stokGudang As Integer
             Dim stokTotal As Integer
@@ -33,7 +32,8 @@ Public Class scan_harga
             Dim qty3 As Integer
             Dim qty4 As Integer
             Dim namaBarang As String
-            If barangReader.Read Then
+            If barangReaders.Rows.Count > 0 Then
+                Dim barangReader = barangReaders.Rows(0)
                 namaBarang = barangReader("nama_barang")
                 stokDisplay = barangReader("stok_display")
                 stokGudang = barangReader("stok_gudang")
@@ -45,8 +45,6 @@ Public Class scan_harga
                 qty2 = barangReader("qty2")
                 qty3 = barangReader("qty3")
                 qty4 = barangReader("qty4")
-
-                barangReader.Close()
                 lblStok.Text = "Sisa Stok : " & stokTotal
                 lblNamaBarang.Text = namaBarang
                 lblCaption1.Text = "1 ="

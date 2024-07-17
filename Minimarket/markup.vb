@@ -8,14 +8,14 @@ Public Class markup
         End If
     End Sub
     Private Sub loadPembelian(ByVal noFaktur As String)
-        Dim pembelianCmd As MySqlCommand = New MySqlCommand("SELECT id_pembelian,no_faktur,tgl_faktur,supplier.id_suplier as id_supplier,supplier.kode_suplier as kode_supplier,supplier.nama_suplier as nama_suplier FROM `pembelian` JOIN supplier on pembelian.id_supplier=supplier.id_suplier where no_faktur='" & noFaktur & "'", konek)
-        Dim pembelianReader As MySqlDataReader = pembelianCmd.ExecuteReader()
-        If pembelianReader.Read Then
+
+        Dim pembelianReaders = newConnect.ExecuteReader("SELECT id_pembelian,no_faktur,tgl_faktur,supplier.id_suplier as id_supplier,supplier.kode_suplier as kode_supplier,supplier.nama_suplier as nama_suplier FROM `pembelian` JOIN supplier on pembelian.id_supplier=supplier.id_suplier where no_faktur='" & noFaktur & "'")
+        If pembelianReaders.Rows.Count > 0 Then
+            Dim pembelianReader = pembelianReaders.Rows(0)
             textKodeSuplier.Text = pembelianReader("kode_supplier").ToString
             textNamaSuplier.Text = pembelianReader("nama_suplier").ToString
             textTanggal.Text = pembelianReader("tgl_faktur").ToString
         End If
-        pembelianReader.Close()
     End Sub
     Public Sub loadTable(ByVal noFaktur As String)
         If noFaktur = "" And dataGridView1.DataBindings IsNot Nothing Then
@@ -23,10 +23,8 @@ Public Class markup
             Return
         End If
 
-        Dim mySqlAdapter = New MySqlDataAdapter("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto` from ds_markup  where no_faktur=" & noFaktur, konek)
-        Dim ds = New DataTable()
-        mySqlAdapter.Fill(ds)
-
+        Dim ds = newConnect.ExecuteReader("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto` from ds_markup  where no_faktur=" & noFaktur)
+      
         dataGridView1.AutoGenerateColumns = True
         dataGridView1.DataSource = ds
         dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
@@ -253,11 +251,9 @@ Public Class markup
             Dim discount = rows(i).Cells(19).Value.ToString
             Dim price = rows(i).Cells(20).Value.ToString
             Dim priceNetto = rows(i).Cells(21).Value.ToString
-            Dim updateItemPembelian As MySqlCommand = New MySqlCommand("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "', harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',ppn = '" & ppn & "',discount = '" & discount & "',stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "',qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang, konek)
-            updateItemPembelian.ExecuteNonQuery()
+            newConnect.ExecuteNonQuery("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "', harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',ppn = '" & ppn & "',discount = '" & discount & "',stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "',qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang)
         Next
-        Dim updatePembelian As MySqlCommand = New MySqlCommand("Update pembelian Set status = 'mark_up' WHERE no_faktur = " & noFaktur, konek)
-        updatePembelian.ExecuteNonQuery()
+        newConnect.ExecuteNonQuery("Update pembelian Set status = 'mark_up' WHERE no_faktur = " & noFaktur)
         textNoFaktur.Text = ""
         dataGridView1.DataSource = Nothing
     End Sub

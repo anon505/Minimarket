@@ -10,9 +10,7 @@ Public Class main
                 Dim koneksi As String
                 koneksi = TW.ReadToEnd + ";database=" + cpanel.txtdb.Text
                 TW.Close()
-                konek = New MySqlConnection
-                konek.ConnectionString = koneksi
-                konek.Open()
+                newConnect = New Connection(koneksi)
 
             ElseIf File.Exists("koneksi.txt") = False Then
                 MenuStrip1.Enabled = False

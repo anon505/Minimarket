@@ -1,21 +1,18 @@
 ﻿Imports MySql.Data.MySqlClient
 Public Class Login
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        Dim login As MySqlCommand = New MySqlCommand("SELECT id_kasir FROM KASIR where type='" + (jabatan.SelectedIndex + 1).ToString + "' and nama_kasir='" + txtusername.Text + "' and password='" + txtpassword.Text + "'", konek)
-        Dim i As String = login.ExecuteScalar
+        Dim i As String = newConnect.ExecuteScalar("SELECT id_kasir FROM KASIR where type='" + (jabatan.SelectedIndex + 1).ToString + "' and nama_kasir='" + txtusername.Text + "' and password='" + txtpassword.Text + "'")
         If (i = "") Then
             MsgBox("Username atau Password anda salah", MsgBoxStyle.OkOnly)
         Else
-            Dim cek As MySqlCommand = New MySqlCommand("SELECT status FROM kasir where id_kasir='" + i + "'", konek)
-            Dim status As String = cek.ExecuteScalar
+            Dim status As String = newConnect.ExecuteScalar("SELECT status FROM kasir where id_kasir='" + i + "'")
             If (status = "Aktif") Then
-                Dim tipe As MySqlCommand = New MySqlCommand("SELECT type FROM kasir where id_kasir='" + i + "'", konek)
-                Dim cektipe As String = tipe.ExecuteScalar
+                Dim cektipe As String = newConnect.ExecuteScalar("SELECT type FROM kasir where id_kasir='" + i + "'")
                 id_kasir = i
                 hak_akses = cektipe
                 If (cektipe = "1") Then
                     MsgBox("Login Sukses. Anda login sebagai SUPER ADMINISTRATOR", MsgBoxStyle.OkOnly)
-                    
+
                     main.MenuStrip1.Enabled = True
                     main.MarkupToolStripMenuItem.Enabled = True
                     main.LoginToolStripMenuItem.Enabled = True

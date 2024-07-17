@@ -586,7 +586,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=IIf( Fields!qty.Value&lt;0,0, (Fields!qty.Value * Fields!harga_jual.Value) - (Fields!qty.Value * Fields!harga_beli.Value))</Value>
+                              <Value>=(Fields!qty.Value * Fields!harga_jual.Value) - (Fields!qty.Value * Fields!harga_beli.Value)</Value>
                               <Style>
                                 <Format>'Rp' #,0;'Rp' -#,0</Format>
                               </Style>
@@ -662,7 +662,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Sum(IIf(Fields!qty.Value&lt;0,0,( Fields!qty.Value * Fields!harga_jual.Value)))</Value>
+                              <Value>= Sum(( Fields!qty.Value * Fields!harga_jual.Value))</Value>
                               <Style>
                                 <Format>'Rp' #,0;'Rp' -#,0</Format>
                               </Style>
@@ -687,6 +687,7 @@
                       </Style>
                     </Textbox>
                     <ColSpan>3</ColSpan>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
@@ -742,7 +743,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(IIf(Fields!qty.Value&lt;0,0,(Fields!qty.Value * Fields!harga_jual.Value) - (Fields!qty.Value * Fields!harga_beli.Value)))</Value>
+                              <Value>=Sum((Fields!qty.Value * Fields!harga_jual.Value) - (Fields!qty.Value * Fields!harga_beli.Value))</Value>
                               <Style>
                                 <Format>'Rp' #,0;'Rp' -#,0</Format>
                               </Style>
@@ -767,7 +768,6 @@
                       </Style>
                     </Textbox>
                     <ColSpan>3</ColSpan>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
