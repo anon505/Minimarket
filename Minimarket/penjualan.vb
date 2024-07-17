@@ -3,8 +3,10 @@ Imports System.Data
 
 Public Class penjualan
     Public previousIdTransaksi As String
+
+
     Private Function getIdTransaksi(ByVal idKasir As String) As String
-        Dim idTransaksi = newConnect.ExecuteScalar("SELECT id_transaksi from transaksi WHERE status='active' AND id_kasir=" & idKasir)
+        Dim idTransaksi = newConnect.ExecuteScalar("SELECT id_transaksi from transaksi WHERE status='active' AND id_kasir='" & idKasir & "'")
 
         If idTransaksi Is Nothing Then
             newConnect.ExecuteNonQuery("INSERT INTO `transaksi` (`id_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES (NULL, '" & idKasir & "', NOW(), '0', '0', '0', 'active');")
@@ -16,9 +18,8 @@ Public Class penjualan
     Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
         Try
-            Dim ds = newConnect.ExecuteReader("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi=" & lblIdTransaksi.Text)
+            Dim ds = newConnect.ExecuteReader("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at desc")
 
-            ds.DefaultView.Sort = "updated_at desc"
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
 

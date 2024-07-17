@@ -8,10 +8,10 @@ Public Class pembelian1
 
     Public Function getIdPembelian(ByVal idKasir As String) As String
         If noFaktorEdit IsNot Nothing Then
-            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE no_faktur=" & noFaktorEdit)
+            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE no_faktur='" & noFaktorEdit & "'")
             Return idPembelian.ToString
         Else
-            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir)
+            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir='" & idKasir & "'")
             If idPembelian Is Nothing Then
                 newConnect.ExecuteNonQuery("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', '', '0', 'temp');")
                 Return newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir).ToString
