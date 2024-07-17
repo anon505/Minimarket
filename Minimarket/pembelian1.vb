@@ -13,8 +13,8 @@ Public Class pembelian1
         Else
             Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir)
             If idPembelian Is Nothing Then
-                newConnect.ExecuteNonQuery("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', '', '0', 'temp');")
-                Return getIdPembelian(idKasir)
+                Return newConnect.InsertWithID("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', '', '0', 'temp');")
+
             Else
                 Return idPembelian.ToString
             End If
@@ -86,77 +86,77 @@ Public Class pembelian1
         Try
             Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
 
-            'dataGridView1.AutoGenerateColumns = True
+            dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
-            'dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
-            'dataGridView1.Columns(0).ReadOnly = True
-            'dataGridView1.Columns(1).ReadOnly = True
-            'dataGridView1.Columns(2).ReadOnly = True
-            'dataGridView1.Columns(3).ReadOnly = True
-            'dataGridView1.Columns(4).ReadOnly = True
-            'dataGridView1.Columns(5).ReadOnly = False
-            'dataGridView1.Columns(6).ReadOnly = Not (Module1.hak_akses = "1")
-            'dataGridView1.Columns(7).ReadOnly = False
-            'dataGridView1.Columns(8).ReadOnly = True
-            'dataGridView1.Columns(9).ReadOnly = False
-            'dataGridView1.Columns(10).ReadOnly = True
-            'dataGridView1.Columns(11).ReadOnly = False
-            'dataGridView1.Columns(12).ReadOnly = True
-            'dataGridView1.Columns(13).ReadOnly = True
-            'dataGridView1.Columns(14).ReadOnly = True
-            'dataGridView1.Columns(15).ReadOnly = True
-            'dataGridView1.Columns(16).ReadOnly = True
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
+            dataGridView1.Columns(0).ReadOnly = True
+            dataGridView1.Columns(1).ReadOnly = True
+            dataGridView1.Columns(2).ReadOnly = True
+            dataGridView1.Columns(3).ReadOnly = True
+            dataGridView1.Columns(4).ReadOnly = True
+            dataGridView1.Columns(5).ReadOnly = False
+            dataGridView1.Columns(6).ReadOnly = Not (Module1.hak_akses = "1")
+            dataGridView1.Columns(7).ReadOnly = False
+            dataGridView1.Columns(8).ReadOnly = True
+            dataGridView1.Columns(9).ReadOnly = False
+            dataGridView1.Columns(10).ReadOnly = True
+            dataGridView1.Columns(11).ReadOnly = False
+            dataGridView1.Columns(12).ReadOnly = True
+            dataGridView1.Columns(13).ReadOnly = True
+            dataGridView1.Columns(14).ReadOnly = True
+            dataGridView1.Columns(15).ReadOnly = True
+            dataGridView1.Columns(16).ReadOnly = True
 
-            'dataGridView1.Columns(0).Visible = False
-            'dataGridView1.Columns(1).Visible = False
-            'dataGridView1.Columns(2).Visible = False
+            dataGridView1.Columns(0).Visible = False
+            dataGridView1.Columns(1).Visible = False
+            dataGridView1.Columns(2).Visible = False
 
-            'dataGridView1.Columns(0).HeaderText = "id_pembelian_detail"
-            'dataGridView1.Columns(1).HeaderText = "no_faktur"
-            'dataGridView1.Columns(2).HeaderText = "id_barang"
-            'dataGridView1.Columns(3).HeaderText = "Barcode"
-            'dataGridView1.Columns(4).HeaderText = "Nama Barang"
-            'dataGridView1.Columns(5).HeaderText = "Qty"
-            'dataGridView1.Columns(6).HeaderText = "Stok"
-            'dataGridView1.Columns(7).HeaderText = "Harga"
-            'dataGridView1.Columns(8).HeaderText = "Harga Lama"
-            'dataGridView1.Columns(9).HeaderText = "PPn(%)"
-            'dataGridView1.Columns(10).HeaderText = "PPn Lama(%)"
-            'dataGridView1.Columns(10).DefaultCellStyle.Format = "N2"
-            'dataGridView1.Columns(11).HeaderText = "Discount(%)"
-            'dataGridView1.Columns(12).HeaderText = "Discount Lama(%)"
-            'dataGridView1.Columns(12).DefaultCellStyle.Format = "N2"
-            'dataGridView1.Columns(13).HeaderText = "Harga Netto"
-            'dataGridView1.Columns(14).HeaderText = "Harga Netto Lama"
-            'dataGridView1.Columns(15).HeaderText = "Total"
-            'dataGridView1.Columns(16).HeaderText = "Expired"
-            'dataGridView1.Columns(16).ValueType = GetType(Date)
-            'dataGridView1.Columns(16).DefaultCellStyle.Format = "dd/MM/yyyy"
+            dataGridView1.Columns(0).HeaderText = "id_pembelian_detail"
+            dataGridView1.Columns(1).HeaderText = "no_faktur"
+            dataGridView1.Columns(2).HeaderText = "id_barang"
+            dataGridView1.Columns(3).HeaderText = "Barcode"
+            dataGridView1.Columns(4).HeaderText = "Nama Barang"
+            dataGridView1.Columns(5).HeaderText = "Qty"
+            dataGridView1.Columns(6).HeaderText = "Stok"
+            dataGridView1.Columns(7).HeaderText = "Harga"
+            dataGridView1.Columns(8).HeaderText = "Harga Lama"
+            dataGridView1.Columns(9).HeaderText = "PPn(%)"
+            dataGridView1.Columns(10).HeaderText = "PPn Lama(%)"
+            dataGridView1.Columns(10).DefaultCellStyle.Format = "N2"
+            dataGridView1.Columns(11).HeaderText = "Discount(%)"
+            dataGridView1.Columns(12).HeaderText = "Discount Lama(%)"
+            dataGridView1.Columns(12).DefaultCellStyle.Format = "N2"
+            dataGridView1.Columns(13).HeaderText = "Harga Netto"
+            dataGridView1.Columns(14).HeaderText = "Harga Netto Lama"
+            dataGridView1.Columns(15).HeaderText = "Total"
+            dataGridView1.Columns(16).HeaderText = "Expired"
+            dataGridView1.Columns(16).ValueType = GetType(Date)
+            dataGridView1.Columns(16).DefaultCellStyle.Format = "dd/MM/yyyy"
 
 
 
-            'dataGridView1.Columns(3).Width = 108
-            'dataGridView1.Columns(4).Width = 208
-            'dataGridView1.Columns(5).Width = 108
-            'dataGridView1.Columns(6).Width = 108
-            'dataGridView1.Columns(7).Width = 108
-            'dataGridView1.Columns(8).Width = 108
-            'dataGridView1.Columns(9).Width = 108
-            'dataGridView1.Columns(10).Width = 108
-            'dataGridView1.Columns(11).Width = 108
-            'dataGridView1.Columns(12).Width = 138
-            'dataGridView1.Columns(13).Width = 108
-            'dataGridView1.Columns(14).Width = 158
-            'dataGridView1.Columns(15).Width = 158
-            'dataGridView1.Columns(16).Width = 158
-            'customizeCellsInColumn(5)
-            'If (Module1.hak_akses = "1") Then
-            '    customizeCellsInColumn(6)
-            'End If
-            'customizeCellsInColumn(7)
-            'customizeCellsInColumn(9)
-            'customizeCellsInColumn(11)
-            'dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter
+            dataGridView1.Columns(3).Width = 108
+            dataGridView1.Columns(4).Width = 208
+            dataGridView1.Columns(5).Width = 108
+            dataGridView1.Columns(6).Width = 108
+            dataGridView1.Columns(7).Width = 108
+            dataGridView1.Columns(8).Width = 108
+            dataGridView1.Columns(9).Width = 108
+            dataGridView1.Columns(10).Width = 108
+            dataGridView1.Columns(11).Width = 108
+            dataGridView1.Columns(12).Width = 138
+            dataGridView1.Columns(13).Width = 108
+            dataGridView1.Columns(14).Width = 158
+            dataGridView1.Columns(15).Width = 158
+            dataGridView1.Columns(16).Width = 158
+            customizeCellsInColumn(5)
+            If (Module1.hak_akses = "1") Then
+                customizeCellsInColumn(6)
+            End If
+            customizeCellsInColumn(7)
+            customizeCellsInColumn(9)
+            customizeCellsInColumn(11)
+            dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
                 grandTotal += Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
