@@ -28,7 +28,6 @@ Public Class popup_supplier
     End Sub
 
     Private Sub DataGridView1_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        newConnect.ExecuteNonQuery("UPDATE pembelian Set id_supplier = '" & DataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "' WHERE id_pembelian='" & frmPembelian.getIdPembelian(Module1.id_kasir) & "'")
         frmPembelian.textSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString
         frmPembelian.labelSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString
         frmPembelian.labelIdSuplier.Text = DataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString
