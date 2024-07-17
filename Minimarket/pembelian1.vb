@@ -286,27 +286,27 @@ Public Class pembelian1
     End Sub
     Private Sub pembelian_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
-        textTanggal.Text = DateTime.Now.ToString("dd MMMM yyyy")
+        'textTanggal.Text = DateTime.Now.ToString("dd MMMM yyyy")
 
-        If noFaktorEdit IsNot Nothing Then
-            textSupplier.Enabled = False
-            textNoFaktur.Enabled = False
-            btnEditFaktor.Text = "Kembali"
-            buttonNew.Enabled = False
-            If statusFaktorEdit = "mark_up" Then
-                buttonSave.Enabled = False
-                comboPembayaran.Enabled = False
-                textTempoHari.Enabled = False
-                buttonDelete.Enabled = False
-                textPpn.Enabled = False
-                textDiscount.Enabled = False
-            End If
-        Else
-            textTempoHari.Text = ""
-            textTempoHari.Enabled = False
-            textSupplier.Select()
-        End If
-        loadTable()
+        'If noFaktorEdit IsNot Nothing Then
+        '    textSupplier.Enabled = False
+        '    textNoFaktur.Enabled = False
+        '    btnEditFaktor.Text = "Kembali"
+        '    buttonNew.Enabled = False
+        '    If statusFaktorEdit = "mark_up" Then
+        '        buttonSave.Enabled = False
+        '        comboPembayaran.Enabled = False
+        '        textTempoHari.Enabled = False
+        '        buttonDelete.Enabled = False
+        '        textPpn.Enabled = False
+        '        textDiscount.Enabled = False
+        '    End If
+        'Else
+        '    textTempoHari.Text = ""
+        '    textTempoHari.Enabled = False
+        '    textSupplier.Select()
+        'End If
+        'loadTable()
     End Sub
 
 
