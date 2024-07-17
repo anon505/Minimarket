@@ -102,8 +102,9 @@ Public Class main
     End Sub
 
     Private Sub PembelianToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PembelianToolStripMenuItem.Click
-        pembelian.MdiParent = Me
-        pembelian.Show()
+        Dim newPembelian = New pembelian1
+        newPembelian.MdiParent = Me
+        newPembelian.Show()
     End Sub
 
     Private Sub MarkupToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MarkupToolStripMenuItem.Click

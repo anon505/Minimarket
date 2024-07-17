@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class popup_supplier
-    Public frmPembelian As pembelian
+    Public frmPembelian As pembelian1
     Private Sub popup_supplier_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtcari.Select(txtcari.Text.Length, 0)
         txtcari.Select(0, 0)

@@ -2,7 +2,7 @@
 Imports System.Threading.Tasks
 Imports Microsoft.VisualBasic.Logging
 Imports MySql.Data.MySqlClient
-Public Class pembelian
+Public Class pembelian1
     Dim noFaktorEdit As String
     Dim statusFaktorEdit As String
 
@@ -63,7 +63,7 @@ Public Class pembelian
     End Sub
 
 
-    Private Sub dataGridView1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
+    Private Sub dataGridView1_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
         'If (e.ColumnIndex = 5 Or e.ColumnIndex = 7 Or e.ColumnIndex = 9 Or e.ColumnIndex = 11 Or e.ColumnIndex = 13 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
         If (e.ColumnIndex = 5 Or e.ColumnIndex = 7 Or e.ColumnIndex = 13 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
             e.Value = Format(e.Value, "#,0;-#,0")
@@ -85,7 +85,7 @@ Public Class pembelian
     Private Sub loadTable()
         Try
             Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
-          
+
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
@@ -168,9 +168,9 @@ Public Class pembelian
         Catch ex As Exception
 
         End Try
-        
+
     End Sub
-    Private Sub textDiscount_KeyUp(sender As Object, e As KeyEventArgs) Handles textDiscount.KeyUp
+    Private Sub textDiscount_KeyUp(ByVal sender As Object, ByVal e As KeyEventArgs) Handles textDiscount.KeyUp
         If e.KeyCode = Keys.Enter Then
             For i = 0 To dataGridView1.RowCount - 1
                 dataGridView1.Rows(i).Cells(11).Value = textDiscount.Text.ToString
@@ -209,7 +209,7 @@ Public Class pembelian
         End If
     End Sub
 
-    Private Sub textPpn_KeyUp(sender As Object, e As KeyEventArgs) Handles textPpn.KeyUp
+    Private Sub textPpn_KeyUp(ByVal sender As Object, ByVal e As KeyEventArgs) Handles textPpn.KeyUp
         If e.KeyCode = Keys.Enter Then
             For i = 0 To dataGridView1.RowCount - 1
                 dataGridView1.Rows(i).Cells(9).Value = textPpn.Text.ToString
@@ -246,7 +246,7 @@ Public Class pembelian
             textPLU.Focus()
         End If
     End Sub
-    Private Sub textPpn_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textPpn.KeyPress
+    Private Sub textPpn_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles textPpn.KeyPress
         If Char.IsControl(e.KeyChar) Then
         ElseIf Char.IsDigit(e.KeyChar) OrElse e.KeyChar = ","c Then
             If textPpn.TextLength = 12 And textPpn.Text.Contains(",") = False Then
@@ -265,7 +265,7 @@ Public Class pembelian
             e.Handled = True
         End If
     End Sub
-    Private Sub textDiscount_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textDiscount.KeyPress
+    Private Sub textDiscount_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles textDiscount.KeyPress
         If Char.IsControl(e.KeyChar) Then
         ElseIf Char.IsDigit(e.KeyChar) OrElse e.KeyChar = ","c Then
             If textDiscount.TextLength = 12 And textDiscount.Text.Contains(",") = False Then
@@ -284,7 +284,7 @@ Public Class pembelian
             e.Handled = True
         End If
     End Sub
-    Private Sub pembelian_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub pembelian_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
         textTanggal.Text = DateTime.Now.ToString("dd MMMM yyyy")
 
@@ -310,7 +310,7 @@ Public Class pembelian
     End Sub
 
 
-    Private Sub textSupplier_TextChanged(sender As Object, e As EventArgs) Handles textSupplier.TextChanged
+    Private Sub textSupplier_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles textSupplier.TextChanged
         If textSupplier.Text IsNot "" And popup_supplier.Visible = False And noFaktorEdit Is Nothing Then
             popup_supplier.frmPembelian = Me
             popup_supplier.txtcari.Text = textSupplier.Text
@@ -318,7 +318,7 @@ Public Class pembelian
         End If
     End Sub
 
-    Private Sub comboPembayaran_SelectedIndexChanged(sender As Object, e As EventArgs) Handles comboPembayaran.SelectedIndexChanged
+    Private Sub comboPembayaran_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles comboPembayaran.SelectedIndexChanged
         Dim selectPembayaran = comboPembayaran.SelectedItem
         If selectPembayaran IsNot Nothing Then
             If selectPembayaran.ToLower = "tunai" Then
@@ -332,7 +332,7 @@ Public Class pembelian
 
     End Sub
 
-    Private Sub textTempoHari_TextChanged(sender As Object, e As EventArgs) Handles textTempoHari.TextChanged
+    Private Sub textTempoHari_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles textTempoHari.TextChanged
         If Integer.TryParse(textTempoHari.Text.ToString, Nothing) Then
             textJatuhTempo.Text = DateTime.Now.AddDays(Integer.Parse(textTempoHari.Text)).ToString("dd MMMM yyyy")
         End If
@@ -350,7 +350,7 @@ Public Class pembelian
 
     End Sub
 
-    Private Sub dataGridView1_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles dataGridView1.EditingControlShowing
+    Private Sub dataGridView1_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs) Handles dataGridView1.EditingControlShowing
         If TypeOf e.Control Is TextBox And (dataGridView1.CurrentCell.ColumnIndex = 5 Or dataGridView1.CurrentCell.ColumnIndex = 7) Then
             Dim tb As TextBox = TryCast(e.Control, TextBox)
 
@@ -359,7 +359,7 @@ Public Class pembelian
         End If
     End Sub
 
-    Private Sub dataGridView1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
+    Private Sub dataGridView1_CellEndEdit(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
         '5(qty), 7(harga), 9(ppn), 11(discount)
         Try
             If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
@@ -453,10 +453,10 @@ Public Class pembelian
         Catch ex As Exception
 
         End Try
-        
+
     End Sub
     Private Sub savePembelian()
-       
+
 
         Dim metodePembayaran = ""
         Dim minus = ""
@@ -541,7 +541,7 @@ Public Class pembelian
         End If
         Return idTransaksiDetail
     End Function
-    Private Sub pembelian_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub pembelian_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
 
         If e.KeyCode = Keys.Delete Then
             deleteTransaksiDetail()
@@ -556,7 +556,7 @@ Public Class pembelian
         End If
 
     End Sub
-    Private Sub buttonSave_Click(sender As Object, e As EventArgs) Handles buttonSave.Click
+    Private Sub buttonSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles buttonSave.Click
         If labelIdSuplier.Text = "" Then
             MsgBox("Silahkan pilih supplier", MsgBoxStyle.OkOnly)
         ElseIf textNoFaktur.Text = "" Then
@@ -579,7 +579,7 @@ Public Class pembelian
         End If
     End Sub
 
-    Private Sub buttonNew_Click(sender As Object, e As EventArgs) Handles buttonNew.Click
+    Private Sub buttonNew_Click(ByVal sender As Object, ByVal e As EventArgs) Handles buttonNew.Click
         If dataGridView1.RowCount > 0 Then
             Dim result As DialogResult = MessageBox.Show("DATA BELUM DISIMPAN, apakah anda yakin ingin menyimpannya?",
                               "Konfirmasi",
@@ -609,13 +609,13 @@ Public Class pembelian
         End If
     End Sub
 
-    Private Sub buttonDelete_Click(sender As Object, e As EventArgs) Handles buttonDelete.Click
+    Private Sub buttonDelete_Click(ByVal sender As Object, ByVal e As EventArgs) Handles buttonDelete.Click
         deleteTransaksiDetail()
     End Sub
 
-    Private Sub btnEditFaktor_Click(sender As Object, e As EventArgs) Handles btnEditFaktor.Click
+    Private Sub btnEditFaktor_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnEditFaktor.Click
         If btnEditFaktor.Text.ToLower = "kembali" Then
-            Dim newPembelian = New pembelian
+            Dim newPembelian = New pembelian1
 
             newPembelian.MdiParent = main
             newPembelian.Show()
@@ -633,7 +633,7 @@ Public Class pembelian
                     Dim pembelianReaders = newConnect.ExecuteReader("SELECT * from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'")
                     If pembelianReaders.Rows.Count > 0 Then
                         Dim pembelianReader = pembelianReaders.Rows(0)
-                        Dim newPembelian = New pembelian
+                        Dim newPembelian = New pembelian1
                         If pembelianReader("metode_pembayaran") IsNot Nothing And pembelianReader("metode_pembayaran") IsNot "" Then
                             If pembelianReader("metode_pembayaran").ToString = "tunai" Then
                                 newPembelian.comboPembayaran.SelectedIndex = 0
@@ -674,7 +674,7 @@ Public Class pembelian
 
     End Sub
     Dim oDateTimePicker As DateTimePicker
-    Private Sub dataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dataGridView1.CellClick
+    Private Sub dataGridView1_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellClick
         If e.ColumnIndex = 16 Then
 
 
