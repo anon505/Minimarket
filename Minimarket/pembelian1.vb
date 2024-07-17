@@ -27,7 +27,9 @@ Public Class pembelian1
             e.KeyChar = ""
             e.Handled = False
         End If
+        MsgBox(ascChar)
         If ascChar = 13 Then
+
             inputUpdateBarang(textPLU.Text)
         End If
     End Sub
