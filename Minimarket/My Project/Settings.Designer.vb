@@ -57,8 +57,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=root;database=minimarket;password=admin1234#;Persist Sec"& _ 
-            "urity Info=True")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=root;database=minimarket")>  _
         Public ReadOnly Property koneksi() As String
             Get
                 Return CType(Me("koneksi"),String)
