@@ -55,7 +55,6 @@ Public Class markup
         dataGridView1.Columns(0).Visible = False
         dataGridView1.Columns(1).Visible = False
         dataGridView1.Columns(2).Visible = False
-        dataGridView1.Columns(16).Visible = False
         dataGridView1.Columns(17).Visible = False
         dataGridView1.Columns(18).Visible = False
         dataGridView1.Columns(19).Visible = False
@@ -269,6 +268,10 @@ Public Class markup
                 End If
             End If
         End If
+
+    End Sub
+
+    Private Sub markup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

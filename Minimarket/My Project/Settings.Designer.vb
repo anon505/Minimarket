@@ -68,9 +68,9 @@ Namespace My
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Dsn=minimarket")>  _
-        Public ReadOnly Property ConnectionString() As String
+        Public ReadOnly Property koneksi_dsn() As String
             Get
-                Return CType(Me("ConnectionString"),String)
+                Return CType(Me("koneksi_dsn"),String)
             End Get
         End Property
     End Class

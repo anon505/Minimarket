@@ -13,7 +13,7 @@ Public Class pembelian1
         Else
             Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir='" & idKasir & "'")
             If idPembelian Is Nothing Then
-                Dim tes = newConnect.ExecuteNonQuery("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', NULL, '0', 'temp');")
+                Dim tes = newConnect.ExecuteNonQuery("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', 'tunai', '0', 'temp');")
                 Dim idPembelian1 = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir='" & idKasir & "'")
                 Return idPembelian1.ToString
             Else
@@ -342,13 +342,18 @@ Public Class pembelian1
     End Sub
 
     Private Sub Tb_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
-        Dim tb As TextBox = TryCast(sender, TextBox)
+        Try
+            Dim tb As TextBox = TryCast(sender, TextBox)
 
-        If tb.Text = "" OrElse tb.Text = "0" Then Return
-        Dim number As Decimal
-        number = Decimal.Parse(tb.Text, System.Globalization.NumberStyles.Currency)
-        tb.Text = number.ToString("#,#")
-        tb.SelectionStart = tb.Text.Length
+            If tb.Text = "" OrElse tb.Text = "0" Then Return
+            Dim number As Decimal
+            number = Decimal.Parse(tb.Text, System.Globalization.NumberStyles.Currency)
+            tb.Text = number.ToString("#,#")
+            tb.SelectionStart = tb.Text.Length
+        Catch ex As Exception
+
+        End Try
+       
 
     End Sub
 
@@ -364,6 +369,7 @@ Public Class pembelian1
     Private Sub dataGridView1_CellEndEdit(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
         '5(qty), 7(harga), 9(ppn), 11(discount)
         Try
+            
             If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
                 If e.ColumnIndex = 5 Then
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
@@ -371,12 +377,14 @@ Public Class pembelian1
                     loadTable()
                 ElseIf e.ColumnIndex = 7 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
+                    MsgBox(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
+
                     Dim price As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim ppn As Double
                     Dim discount As Double
                     Dim priceNetto As Integer
                     If pembelianDetailReaders.Rows.Count > 0 Then
-                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(1)
+                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
                         ppn = pembelianDetailReader("ppn")
                         discount = pembelianDetailReader("discount")
                         Dim priceAfterPpn = (price + ((ppn / 100) * price))
