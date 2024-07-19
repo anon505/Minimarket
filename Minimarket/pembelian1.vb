@@ -303,12 +303,40 @@ Public Class pembelian1
                 textPpn.Enabled = False
                 textDiscount.Enabled = False
             End If
+            loadTable()
         Else
             textTempoHari.Text = ""
             textTempoHari.Enabled = False
             textSupplier.Select()
+
+            loadTable()
+            Dim pembelianReaders = newConnect.ExecuteReader("Select * from pembelian where id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+            If pembelianReaders.Rows.Count > 0 Then
+                Dim pembelianReader = pembelianReaders.Rows(0)
+                textNoFaktur.Text = pembelianReader("no_faktur")
+                If pembelianReader("id_supplier").ToString = "0" Or pembelianReader("id_supplier") Is Nothing Then
+                    labelIdSuplier.Text = ""
+                Else
+                    labelIdSuplier.Text = pembelianReader("id_supplier")
+                    Dim kodeSupplier = newConnect.ExecuteScalar("select kode_suplier from supplier where id_suplier='" & labelIdSuplier.Text & "'").ToString
+                    textSupplier.Text = kodeSupplier
+                End If
+                Dim textInfo = New CultureInfo("id-ID", False).TextInfo
+                textTanggal.Text = DateTime.Parse(pembelianReader("tgl_faktur")).ToString("dd MMMM yyyy")
+                comboPembayaran.SelectedItem = textInfo.ToTitleCase(pembelianReader("metode_pembayaran").ToString)
+                If comboPembayaran.SelectedItem = "Tunai" Then
+                    textTempoHari.Text = ""
+                    textJatuhTempo.Text = ""
+                Else
+                    textTempoHari.Text = pembelianReader("lama_jatuh_tempo").ToString
+                    If Integer.TryParse(textTempoHari.Text.ToString, Nothing) Then
+                        textJatuhTempo.Text = DateTime.Now.AddDays(Integer.Parse(textTempoHari.Text)).ToString("dd MMMM yyyy")
+                    End If
+                End If
+            End If
         End If
-        loadTable()
+
+
     End Sub
 
 
