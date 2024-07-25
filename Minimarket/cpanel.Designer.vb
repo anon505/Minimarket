@@ -38,10 +38,6 @@ Partial Class cpanel
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtdsn = New System.Windows.Forms.TextBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.txtpath = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtnamatoko = New System.Windows.Forms.TextBox()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
@@ -51,7 +47,6 @@ Partial Class cpanel
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'simpan
@@ -220,52 +215,11 @@ Partial Class cpanel
         Me.txtdsn.TabIndex = 13
         Me.txtdsn.Text = "minimarket"
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Location = New System.Drawing.Point(579, 214)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(299, 84)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 15
-        Me.PictureBox1.TabStop = False
-        '
-        'txtpath
-        '
-        Me.txtpath.BackColor = System.Drawing.Color.White
-        Me.txtpath.Location = New System.Drawing.Point(579, 298)
-        Me.txtpath.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtpath.Name = "txtpath"
-        Me.txtpath.ReadOnly = True
-        Me.txtpath.Size = New System.Drawing.Size(199, 22)
-        Me.txtpath.TabIndex = 16
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(573, 186)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(74, 25)
-        Me.Label7.TabIndex = 17
-        Me.Label7.Text = "LOGO"
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(777, 295)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(4)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(100, 27)
-        Me.Button3.TabIndex = 18
-        Me.Button3.Text = "Upload"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
         'Label8
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(573, 326)
+        Me.Label8.Location = New System.Drawing.Point(574, 193)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(144, 25)
@@ -275,7 +229,7 @@ Partial Class cpanel
         'txtnamatoko
         '
         Me.txtnamatoko.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtnamatoko.Location = New System.Drawing.Point(579, 354)
+        Me.txtnamatoko.Location = New System.Drawing.Point(580, 221)
         Me.txtnamatoko.Margin = New System.Windows.Forms.Padding(4)
         Me.txtnamatoko.Name = "txtnamatoko"
         Me.txtnamatoko.Size = New System.Drawing.Size(296, 30)
@@ -351,10 +305,6 @@ Partial Class cpanel
         Me.Controls.Add(Me.txtdesc)
         Me.Controls.Add(Me.txtnamatoko)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.Button3)
-        Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.txtpath)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtdsn)
         Me.Controls.Add(Me.Button2)
@@ -375,7 +325,6 @@ Partial Class cpanel
         Me.MaximizeBox = False
         Me.Name = "cpanel"
         Me.Text = "cpanel"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -395,10 +344,6 @@ Partial Class cpanel
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents txtdsn As System.Windows.Forms.TextBox
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents txtpath As System.Windows.Forms.TextBox
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtnamatoko As System.Windows.Forms.TextBox
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog

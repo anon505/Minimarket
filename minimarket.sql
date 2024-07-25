@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2024 at 07:00 AM
+-- Generation Time: Jul 25, 2024 at 01:44 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,23 +29,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `barang` (
   `id_barang` int(11) NOT NULL,
-  `id_suplier` int(11) NOT NULL,
-  `id_satuan` int(11) NOT NULL,
+  `id_suplier` int(11) DEFAULT NULL,
+  `id_satuan` int(11) DEFAULT NULL,
   `barcode` varchar(254) NOT NULL,
-  `nama_barang` varchar(50) NOT NULL,
-  `harga_beli` int(100) NOT NULL,
-  `ppn` float NOT NULL,
-  `discount` float NOT NULL,
-  `harga_beli_netto` int(11) NOT NULL,
-  `stok_display` int(30) NOT NULL,
-  `stok_gudang` int(30) NOT NULL,
-  `harga_jual1` int(11) NOT NULL,
-  `harga_jual2` int(11) NOT NULL,
-  `harga_jual3` int(11) NOT NULL,
-  `harga_jual4` int(11) NOT NULL,
-  `qty2` int(11) NOT NULL,
-  `qty3` int(11) NOT NULL,
-  `qty4` int(11) NOT NULL
+  `nama_barang` varchar(50) DEFAULT NULL,
+  `harga_beli` int(100) NOT NULL DEFAULT 0,
+  `ppn` float NOT NULL DEFAULT 0,
+  `discount` float NOT NULL DEFAULT 0,
+  `harga_beli_netto` int(11) NOT NULL DEFAULT 0,
+  `stok_display` int(30) NOT NULL DEFAULT 0,
+  `stok_gudang` int(30) NOT NULL DEFAULT 0,
+  `harga_jual1` int(11) NOT NULL DEFAULT 0,
+  `harga_jual2` int(11) NOT NULL DEFAULT 0,
+  `harga_jual3` int(11) NOT NULL DEFAULT 0,
+  `harga_jual4` int(11) NOT NULL DEFAULT 0,
+  `qty2` int(11) NOT NULL DEFAULT 0,
+  `qty3` int(11) NOT NULL DEFAULT 0,
+  `qty4` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -57,7 +57,8 @@ INSERT INTO `barang` (`id_barang`, `id_suplier`, `id_satuan`, `barcode`, `nama_b
 (2, 2, 1, '896867700326', 'Le Minerale', 2000, 11, 0, 2220, 28, 61, 2600, 2300, 2270, 2264, 3, 8, 12),
 (3, 3, 1, '7237844127560', 'Pempers Sensi', 3000, 0, 0, 3000, 27, 50, 3550, 3530, 3520, 3510, 5, 10, 15),
 (4, 2, 3, '8992112011017', 'Cerebrovot1', 4000, 0, 0, 0, 12, 80, 4500, 4400, 4300, 4200, 2, 6, 10),
-(5, 4, 4, '1234', 'Aqua Sedang1', 5000, 0, 0, 0, 0, 45, 5900, 5700, 5600, 5500, 10, 20, 30);
+(5, 4, 4, '1234', 'Aqua Sedang1', 7000, 0, 0, 7000, 0, 47, 9100, 8400, 7700, 7350, 10, 20, 30),
+(12, NULL, NULL, '445566', 'barang baru dateng', 1000, 0, 0, 1000, 0, 102, 5000, 4000, 3000, 2000, 3, 4, 3);
 
 -- --------------------------------------------------------
 
@@ -224,7 +225,12 @@ CREATE TABLE `mutasi` (
 
 INSERT INTO `mutasi` (`id_mutasi`, `id_reff`, `type`, `deskripsi`, `nominal`, `created_at`) VALUES
 (23, 72, 'penjualan', 'PENJUALAN pada waktu: 17/07/2024 11:51:40', 11800, '2024-07-17 11:54:05'),
-(24, 73, 'penjualan', 'RETUR PENJUALAN pada waktu: 17/07/2024 11:54:05', -5900, '2024-07-17 11:54:41');
+(24, 73, 'penjualan', 'RETUR PENJUALAN pada waktu: 17/07/2024 11:54:05', -5900, '2024-07-17 11:54:41'),
+(25, 21, 'pembelian', 'PEMBELIAN secara KREDIT dengan faktur: 112233', 0, '2024-07-18 16:08:25'),
+(26, 20, 'pembelian', 'update PEMBELIAN secara TUNAI dengan faktur: 112233', 7000, '2024-07-18 16:25:27'),
+(27, 22, 'pembelian', 'PEMBELIAN secara KREDIT dengan faktur: 112233', -7000, '2024-07-19 16:59:57'),
+(28, 23, 'pembelian', 'PEMBELIAN secara KREDIT dengan faktur: 334433', -7000, '2024-07-19 17:01:26'),
+(29, 24, 'pembelian', 'PEMBELIAN secara TUNAI dengan faktur: 4545454545', 100000, '2024-07-25 06:38:40');
 
 -- --------------------------------------------------------
 
@@ -249,7 +255,7 @@ CREATE TABLE `pembelian` (
   `id_supplier` int(11) NOT NULL,
   `id_kasir` int(11) NOT NULL,
   `grand_total` int(30) NOT NULL,
-  `metode_pembayaran` enum('tunai','konsinyasi','kredit') NOT NULL,
+  `metode_pembayaran` enum('tunai','konsinyasi','kredit') NOT NULL DEFAULT 'tunai',
   `lama_jatuh_tempo` int(11) NOT NULL COMMENT 'lama jatuh tempo(hari) berdasarkan tgl faktur',
   `status` enum('temp','saved','mark_up') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -259,10 +265,10 @@ CREATE TABLE `pembelian` (
 --
 
 INSERT INTO `pembelian` (`id_pembelian`, `no_faktur`, `tgl_faktur`, `id_supplier`, `id_kasir`, `grand_total`, `metode_pembayaran`, `lama_jatuh_tempo`, `status`) VALUES
-(14, '112233', '2024-06-04 05:55:34', 1, 1, 2775, 'tunai', 0, 'saved'),
-(15, '223344', '2024-06-05 20:55:32', 1, 1, 8325, 'tunai', 0, 'saved'),
-(16, '7788999', '2024-06-05 20:59:01', 4, 1, 2775, 'kredit', 4, 'saved'),
-(17, '', '2024-06-07 16:01:23', 0, 1, 0, '', 0, 'temp');
+(20, '112233', '2024-07-18 16:07:35', 1, 1, 7000, 'kredit', 1, 'saved'),
+(22, '334433', '2024-07-19 16:59:57', 4, 1, 7000, 'kredit', 2, 'saved'),
+(23, '4545454545', '2024-07-19 17:01:26', 1, 1, 100000, 'tunai', 0, 'mark_up'),
+(24, '', '2024-07-25 06:38:40', 0, 1, 0, 'tunai', 0, 'temp');
 
 -- --------------------------------------------------------
 
@@ -289,10 +295,9 @@ CREATE TABLE `pembelian_detail` (
 --
 
 INSERT INTO `pembelian_detail` (`id_pembelian_detail`, `id_pembelian`, `id_barang`, `qty`, `price`, `ppn`, `discount`, `price_netto`, `expiry`, `qty_return`, `status_return`) VALUES
-(18, 14, 1, 1, 2500, 11, 0, 2775, NULL, 0, 'active'),
-(19, 15, 1, 3, 2500, 11, 0, 2775, NULL, 0, 'active'),
-(20, 16, 1, 1, 2500, 11, 0, 2775, NULL, 0, 'active'),
-(21, 17, 5, 1, 5000, 0, 0, 0, NULL, 0, 'active');
+(22, 20, 5, 1, 7000, 0, 0, 7000, NULL, 0, 'active'),
+(23, 22, 5, 1, 7000, 0, 0, 7000, NULL, 0, 'active'),
+(24, 23, 12, 100, 1000, 0, 0, 1000, NULL, 0, 'active');
 
 -- --------------------------------------------------------
 
@@ -502,7 +507,7 @@ ALTER TABLE `transaksi_detail`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `kasir`
@@ -514,19 +519,19 @@ ALTER TABLE `kasir`
 -- AUTO_INCREMENT for table `mutasi`
 --
 ALTER TABLE `mutasi`
-  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_mutasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `pembelian_detail`
 --
 ALTER TABLE `pembelian_detail`
-  MODIFY `id_pembelian_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pembelian_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `satuan`

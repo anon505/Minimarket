@@ -15,9 +15,7 @@ Public Class satuan
     End Sub
 
     Private Sub lihat_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lihat.Click
-        If File.Exists(pathlogo) = True Then
-            PictureBox1.Image = Bitmap.FromFile(pathlogo)
-        End If
+       
         Call view()
     End Sub
 
@@ -51,9 +49,7 @@ Public Class satuan
     End Sub
 
     Private Sub satuan_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If File.Exists(pathlogo) = True Then
-            PictureBox1.Image = Bitmap.FromFile(pathlogo)
-        End If
+       
         Call reload()
     End Sub
 

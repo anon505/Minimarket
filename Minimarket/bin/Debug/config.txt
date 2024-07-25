@@ -1,2 +1,1 @@
-logo=D:\Minimarket\logoku.jpg;
 toko=Tes Toko

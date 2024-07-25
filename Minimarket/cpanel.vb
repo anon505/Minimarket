@@ -58,14 +58,10 @@ Public Class cpanel
         Try
             If File.Exists("config.txt") = True Then
                 Dim baca As New StreamReader("config.txt")
-                txtpath.Text = baca.ReadLine.Replace("logo=", "").Replace(";", "")
-                PictureBox1.Image = Bitmap.FromFile(txtpath.Text)
                 txtnamatoko.Text = baca.ReadLine.Replace("toko=", "")
                 baca.Close()
             End If
         Catch ex As Exception
-            txtpath.Text = ""
-            PictureBox1.Image.Dispose()
             txtnamatoko.Text = ""
         End Try
     End Sub
@@ -218,37 +214,16 @@ Public Class cpanel
     End Function
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
-        If txtpath.Text = "" Then
-            MsgBox("Lokasi logo anda masih kosong", MsgBoxStyle.OkOnly)
-            txtpath.Focus()
-        ElseIf txtnamatoko.Text = "" Then
+        If txtnamatoko.Text = "" Then
             MsgBox("Nama perusahaan anda masih kosong", MsgBoxStyle.OkOnly)
-            txtnamatoko.Focus()
-        ElseIf File.Exists(txtpath.Text) = False Then
-            MsgBox("File yang anda maksud tidak ada", MsgBoxStyle.OkOnly)
             txtnamatoko.Focus()
         Else
             Dim tulis As New StreamWriter("config.txt")
-            tulis.WriteLine("logo=" + Me.txtpath.Text + ";")
             tulis.WriteLine("toko=" + Me.txtnamatoko.Text)
             tulis.Close()
-            pathlogo = txtpath.Text
             namatoko = txtnamatoko.Text
             MsgBox("Konfigurasi berhasil disimpan", MsgBoxStyle.OkOnly)
         End If
     End Sub
 
-    Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        Dim filename As String
-        With Me.OpenFileDialog2
-            .Filter = "JPG|*.jpg|BMP|*.bmp"
-            .Multiselect = False
-            .DefaultExt = "jpg"
-            If .ShowDialog = Windows.Forms.DialogResult.OK Then
-                filename = .FileName
-                txtpath.Text = filename
-                PictureBox1.Image = Bitmap.FromFile(filename)
-            End If
-        End With
-    End Sub
 End Class

@@ -41,9 +41,7 @@ Partial Class kasir
         Me.edit = New System.Windows.Forms.Button()
         Me.hapus = New System.Windows.Forms.Button()
         Me.tambah = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DataGridView1
@@ -56,7 +54,7 @@ Partial Class kasir
         Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.MenuBar
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(16, 43)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(928, 322)
         Me.DataGridView1.TabIndex = 0
@@ -78,7 +76,7 @@ Partial Class kasir
         Me.txtnama.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.txtnama.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtnama.Location = New System.Drawing.Point(141, 434)
-        Me.txtnama.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtnama.Margin = New System.Windows.Forms.Padding(4)
         Me.txtnama.Name = "txtnama"
         Me.txtnama.Size = New System.Drawing.Size(243, 30)
         Me.txtnama.TabIndex = 3
@@ -100,7 +98,7 @@ Partial Class kasir
         Me.txtalamat.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.txtalamat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtalamat.Location = New System.Drawing.Point(141, 529)
-        Me.txtalamat.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtalamat.Margin = New System.Windows.Forms.Padding(4)
         Me.txtalamat.Name = "txtalamat"
         Me.txtalamat.Size = New System.Drawing.Size(243, 30)
         Me.txtalamat.TabIndex = 6
@@ -135,7 +133,7 @@ Partial Class kasir
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtcari.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtcari.Location = New System.Drawing.Point(493, 6)
-        Me.txtcari.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtcari.Margin = New System.Windows.Forms.Padding(4)
         Me.txtcari.Name = "txtcari"
         Me.txtcari.Size = New System.Drawing.Size(449, 30)
         Me.txtcari.TabIndex = 15
@@ -148,7 +146,7 @@ Partial Class kasir
         Me.berdasarkan.FormattingEnabled = True
         Me.berdasarkan.Items.AddRange(New Object() {"ID Kasir", "Nama Kasir", "Alamat Kasir"})
         Me.berdasarkan.Location = New System.Drawing.Point(307, 6)
-        Me.berdasarkan.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.berdasarkan.Margin = New System.Windows.Forms.Padding(4)
         Me.berdasarkan.Name = "berdasarkan"
         Me.berdasarkan.Size = New System.Drawing.Size(177, 33)
         Me.berdasarkan.TabIndex = 16
@@ -173,7 +171,7 @@ Partial Class kasir
         Me.hak_akses.FormattingEnabled = True
         Me.hak_akses.Items.AddRange(New Object() {"1. Super Administrator", "2. Administrator", "3. Kasir"})
         Me.hak_akses.Location = New System.Drawing.Point(141, 386)
-        Me.hak_akses.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.hak_akses.Margin = New System.Windows.Forms.Padding(4)
         Me.hak_akses.Name = "hak_akses"
         Me.hak_akses.Size = New System.Drawing.Size(243, 33)
         Me.hak_akses.TabIndex = 18
@@ -183,7 +181,7 @@ Partial Class kasir
         Me.Button1.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.Location = New System.Drawing.Point(16, 587)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(244, 59)
         Me.Button1.TabIndex = 19
@@ -195,7 +193,7 @@ Partial Class kasir
         Me.txtpassword.Anchor = System.Windows.Forms.AnchorStyles.Left
         Me.txtpassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtpassword.Location = New System.Drawing.Point(141, 481)
-        Me.txtpassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtpassword.Margin = New System.Windows.Forms.Padding(4)
         Me.txtpassword.Name = "txtpassword"
         Me.txtpassword.Size = New System.Drawing.Size(243, 30)
         Me.txtpassword.TabIndex = 21
@@ -219,7 +217,7 @@ Partial Class kasir
         Me.lihat.Image = CType(resources.GetObject("lihat.Image"), System.Drawing.Image)
         Me.lihat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lihat.Location = New System.Drawing.Point(783, 587)
-        Me.lihat.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lihat.Margin = New System.Windows.Forms.Padding(4)
         Me.lihat.Name = "lihat"
         Me.lihat.Size = New System.Drawing.Size(164, 59)
         Me.lihat.TabIndex = 25
@@ -234,7 +232,7 @@ Partial Class kasir
         Me.edit.Image = CType(resources.GetObject("edit.Image"), System.Drawing.Image)
         Me.edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.edit.Location = New System.Drawing.Point(447, 587)
-        Me.edit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.edit.Margin = New System.Windows.Forms.Padding(4)
         Me.edit.Name = "edit"
         Me.edit.Size = New System.Drawing.Size(153, 59)
         Me.edit.TabIndex = 24
@@ -249,7 +247,7 @@ Partial Class kasir
         Me.hapus.Image = CType(resources.GetObject("hapus.Image"), System.Drawing.Image)
         Me.hapus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.hapus.Location = New System.Drawing.Point(616, 587)
-        Me.hapus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.hapus.Margin = New System.Windows.Forms.Padding(4)
         Me.hapus.Name = "hapus"
         Me.hapus.Size = New System.Drawing.Size(153, 59)
         Me.hapus.TabIndex = 23
@@ -264,7 +262,7 @@ Partial Class kasir
         Me.tambah.Image = CType(resources.GetObject("tambah.Image"), System.Drawing.Image)
         Me.tambah.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.tambah.Location = New System.Drawing.Point(273, 587)
-        Me.tambah.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tambah.Margin = New System.Windows.Forms.Padding(4)
         Me.tambah.Name = "tambah"
         Me.tambah.Size = New System.Drawing.Size(156, 59)
         Me.tambah.TabIndex = 22
@@ -272,23 +270,11 @@ Partial Class kasir
         Me.tambah.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.tambah.UseVisualStyleBackColor = True
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox1.Location = New System.Drawing.Point(407, 386)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(539, 174)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 26
-        Me.PictureBox1.TabStop = False
-        '
         'kasir
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(960, 665)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.lihat)
         Me.Controls.Add(Me.edit)
         Me.Controls.Add(Me.hapus)
@@ -308,11 +294,10 @@ Partial Class kasir
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridView1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "kasir"
         Me.Text = "Manajemen Kasir"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -335,6 +320,5 @@ Partial Class kasir
     Friend WithEvents edit As System.Windows.Forms.Button
     Friend WithEvents hapus As System.Windows.Forms.Button
     Friend WithEvents tambah As System.Windows.Forms.Button
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 
 End Class

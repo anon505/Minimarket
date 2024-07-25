@@ -124,12 +124,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DebounceDispatcher.vb" />
-    <Compile Include="formnota.Designer.vb">
-      <DependentUpon>formnota.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formnota.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="kasir.Designer.vb">
       <DependentUpon>kasir.vb</DependentUpon>
     </Compile>
@@ -256,9 +250,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cpanel.resx">
       <DependentUpon>cpanel.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formnota.resx">
-      <DependentUpon>formnota.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="kasir.resx">
       <DependentUpon>kasir.vb</DependentUpon>

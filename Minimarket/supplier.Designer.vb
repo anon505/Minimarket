@@ -38,9 +38,7 @@ Partial Class supplier
         Me.edit = New System.Windows.Forms.Button()
         Me.hapus = New System.Windows.Forms.Button()
         Me.tambah = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label6
@@ -60,7 +58,7 @@ Partial Class supplier
         Me.berdasarkan.FormattingEnabled = True
         Me.berdasarkan.Items.AddRange(New Object() {"ID Supplier", "Nama Supplier", "Alamat Supplier"})
         Me.berdasarkan.Location = New System.Drawing.Point(337, 7)
-        Me.berdasarkan.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.berdasarkan.Margin = New System.Windows.Forms.Padding(4)
         Me.berdasarkan.Name = "berdasarkan"
         Me.berdasarkan.Size = New System.Drawing.Size(177, 33)
         Me.berdasarkan.TabIndex = 34
@@ -69,7 +67,7 @@ Partial Class supplier
         '
         Me.txtcari.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtcari.Location = New System.Drawing.Point(524, 7)
-        Me.txtcari.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtcari.Margin = New System.Windows.Forms.Padding(4)
         Me.txtcari.Name = "txtcari"
         Me.txtcari.Size = New System.Drawing.Size(235, 30)
         Me.txtcari.TabIndex = 33
@@ -80,7 +78,7 @@ Partial Class supplier
         Me.Label4.Location = New System.Drawing.Point(324, 513)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(48, 16)
+        Me.Label4.Size = New System.Drawing.Size(51, 17)
         Me.Label4.TabIndex = 31
         Me.Label4.Text = "Label4"
         Me.Label4.Visible = False
@@ -89,7 +87,7 @@ Partial Class supplier
         '
         Me.txtstok.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtstok.Location = New System.Drawing.Point(176, 475)
-        Me.txtstok.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtstok.Margin = New System.Windows.Forms.Padding(4)
         Me.txtstok.Name = "txtstok"
         Me.txtstok.Size = New System.Drawing.Size(223, 30)
         Me.txtstok.TabIndex = 26
@@ -109,7 +107,7 @@ Partial Class supplier
         '
         Me.txtharga.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtharga.Location = New System.Drawing.Point(176, 415)
-        Me.txtharga.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtharga.Margin = New System.Windows.Forms.Padding(4)
         Me.txtharga.Name = "txtharga"
         Me.txtharga.Size = New System.Drawing.Size(223, 30)
         Me.txtharga.TabIndex = 24
@@ -118,7 +116,7 @@ Partial Class supplier
         '
         Me.txtnama.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtnama.Location = New System.Drawing.Point(176, 353)
-        Me.txtnama.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtnama.Margin = New System.Windows.Forms.Padding(4)
         Me.txtnama.Name = "txtnama"
         Me.txtnama.Size = New System.Drawing.Size(223, 30)
         Me.txtnama.TabIndex = 23
@@ -153,7 +151,7 @@ Partial Class supplier
         Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.MenuBar
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(16, 53)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.Size = New System.Drawing.Size(744, 287)
@@ -166,7 +164,7 @@ Partial Class supplier
         Me.lihat.Image = CType(resources.GetObject("lihat.Image"), System.Drawing.Image)
         Me.lihat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.lihat.Location = New System.Drawing.Point(596, 533)
-        Me.lihat.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lihat.Margin = New System.Windows.Forms.Padding(4)
         Me.lihat.Name = "lihat"
         Me.lihat.Size = New System.Drawing.Size(164, 59)
         Me.lihat.TabIndex = 39
@@ -181,7 +179,7 @@ Partial Class supplier
         Me.edit.Image = CType(resources.GetObject("edit.Image"), System.Drawing.Image)
         Me.edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.edit.Location = New System.Drawing.Point(209, 533)
-        Me.edit.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.edit.Margin = New System.Windows.Forms.Padding(4)
         Me.edit.Name = "edit"
         Me.edit.Size = New System.Drawing.Size(153, 59)
         Me.edit.TabIndex = 38
@@ -196,7 +194,7 @@ Partial Class supplier
         Me.hapus.Image = CType(resources.GetObject("hapus.Image"), System.Drawing.Image)
         Me.hapus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.hapus.Location = New System.Drawing.Point(403, 533)
-        Me.hapus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.hapus.Margin = New System.Windows.Forms.Padding(4)
         Me.hapus.Name = "hapus"
         Me.hapus.Size = New System.Drawing.Size(153, 59)
         Me.hapus.TabIndex = 37
@@ -211,7 +209,7 @@ Partial Class supplier
         Me.tambah.Image = CType(resources.GetObject("tambah.Image"), System.Drawing.Image)
         Me.tambah.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.tambah.Location = New System.Drawing.Point(13, 533)
-        Me.tambah.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tambah.Margin = New System.Windows.Forms.Padding(4)
         Me.tambah.Name = "tambah"
         Me.tambah.Size = New System.Drawing.Size(156, 59)
         Me.tambah.TabIndex = 36
@@ -219,23 +217,11 @@ Partial Class supplier
         Me.tambah.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.tambah.UseVisualStyleBackColor = True
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox1.Location = New System.Drawing.Point(408, 353)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(351, 153)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 40
-        Me.PictureBox1.TabStop = False
-        '
         'supplier
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(776, 601)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.lihat)
         Me.Controls.Add(Me.edit)
         Me.Controls.Add(Me.hapus)
@@ -252,12 +238,11 @@ Partial Class supplier
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.DataGridView1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "supplier"
         Me.Text = "Manajemen Supplier"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -277,5 +262,4 @@ Partial Class supplier
     Friend WithEvents edit As System.Windows.Forms.Button
     Friend WithEvents hapus As System.Windows.Forms.Button
     Friend WithEvents tambah As System.Windows.Forms.Button
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

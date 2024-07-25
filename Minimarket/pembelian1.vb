@@ -58,9 +58,22 @@ Public Class pembelian1
                 newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & currentQty.ToString & "' WHERE id_barang = '" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
             End If
             loadTable()
+            textPLU.Text = ""
+            textPLU.Focus()
+        Else
+            If Module1.hak_akses = "1" Then
+                newConnect.ExecuteNonQuery("INSERT INTO barang (barcode) VALUES ('" & barcode & "')")
+                textPLU.Text = ""
+                textPLU.Focus()
+                inputUpdateBarang(barcode)
+            Else
+                MsgBox("Barang baru hanya bisa ditambahkan oleh SUPER ADMIN")
+                textPLU.Text = ""
+                textPLU.Focus()
+            End If
+            
         End If
-        textPLU.Text = ""
-        textPLU.Focus()
+        
 
     End Sub
 
@@ -79,7 +92,7 @@ Public Class pembelian1
 
         If columnIndex = 9 Or columnIndex = 11 Then
             cell.Style.Format = "N2"
-        ElseIf columnIndex = 6 And Module1.hak_akses = "1" Then
+        ElseIf (columnIndex = 6 And Module1.hak_akses = "1") Or (columnIndex = 5 And Module1.hak_akses = "1") Then
             cell.Style.ForeColor = Color.DarkRed
         End If
         column.CellTemplate = cell
@@ -95,7 +108,7 @@ Public Class pembelian1
             dataGridView1.Columns(1).ReadOnly = True
             dataGridView1.Columns(2).ReadOnly = True
             dataGridView1.Columns(3).ReadOnly = True
-            dataGridView1.Columns(4).ReadOnly = True
+            dataGridView1.Columns(4).ReadOnly = False
             dataGridView1.Columns(5).ReadOnly = False
             dataGridView1.Columns(6).ReadOnly = Not (Module1.hak_akses = "1")
             dataGridView1.Columns(7).ReadOnly = False
@@ -151,6 +164,7 @@ Public Class pembelian1
             dataGridView1.Columns(14).Width = 158
             dataGridView1.Columns(15).Width = 158
             dataGridView1.Columns(16).Width = 158
+            customizeCellsInColumn(4)
             customizeCellsInColumn(5)
             If (Module1.hak_akses = "1") Then
                 customizeCellsInColumn(6)
@@ -345,6 +359,7 @@ Public Class pembelian1
             popup_supplier.frmPembelian = Me
             popup_supplier.txtcari.Text = textSupplier.Text
             popup_supplier.Show()
+            
         End If
     End Sub
 
@@ -399,14 +414,17 @@ Public Class pembelian1
         Try
             
             If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
-                If e.ColumnIndex = 5 Then
+                If e.ColumnIndex = 4 Then
+                    newConnect.ExecuteNonQuery("UPDATE barang Set nama_barang = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "'")
+                    loadTable()
+                ElseIf e.ColumnIndex = 5 Then
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
                 ElseIf e.ColumnIndex = 7 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
-                    MsgBox(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
-
+                    
                     Dim price As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim ppn As Double
                     Dim discount As Double
@@ -739,5 +757,9 @@ Public Class pembelian1
     End Sub
     Private Sub oDateTimePicker_CloseUp(ByVal sender As Object, ByVal e As EventArgs)
         oDateTimePicker.Visible = False
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        supplier.Show()
     End Sub
 End Class

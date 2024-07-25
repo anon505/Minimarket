@@ -55,7 +55,6 @@ Public Class main
         Try
             If File.Exists("config.txt") = True Then
                 Dim bc As New StreamReader("config.txt")
-                pathlogo = (bc.ReadLine).Replace("logo=", "").Replace(";", "")
                 namatoko = (bc.ReadLine).Replace("toko=", "")
                 bc.Close()
             ElseIf File.Exists("config.txt") = False Then

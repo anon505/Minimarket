@@ -2,26 +2,22 @@
 Imports System.IO
 Public Class supplier
     Public Sub view()
-        Dim ds = newConnect.ExecuteReader("select * from supplier")
-        DataGridView1.DataSource = ds
-        DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
-        DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
-        DataGridView1.AutoResizeColumns()
         txtharga.Text = ""
         txtnama.Text = ""
         txtstok.Text = ""
         Label4.Text = ""
         berdasarkan.SelectedIndex = 0
+        Dim ds = newConnect.ExecuteReader("select * from supplier")
+        DataGridView1.DataSource = ds
+        DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
+        DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
+        DataGridView1.AutoResizeColumns()
+
     End Sub
    
-    Public Sub reload()
-        Call view()
-    End Sub
 
     Public Sub lihat_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles lihat.Click
-        If File.Exists(pathlogo) = True Then
-            PictureBox1.Image = Bitmap.FromFile(pathlogo)
-        End If
+       
         Call view()
     End Sub
 
@@ -58,10 +54,8 @@ Public Class supplier
     End Sub
 
     Private Sub barang_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If File.Exists(pathlogo) = True Then
-            PictureBox1.Image = Bitmap.FromFile(pathlogo)
-        End If
-        Call reload()
+       
+        Call view()
     End Sub
 
     Private Sub edit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles edit.Click
