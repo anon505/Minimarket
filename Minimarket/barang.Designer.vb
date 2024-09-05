@@ -84,7 +84,8 @@ Partial Class barang
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.Size = New System.Drawing.Size(1117, 295)
-        Me.DataGridView1.TabIndex = 0
+        Me.DataGridView1.TabIndex = 24
+        Me.DataGridView1.TabStop = False
         '
         'Label1
         '
@@ -95,7 +96,7 @@ Partial Class barang
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(132, 25)
-        Me.Label1.TabIndex = 1
+        Me.Label1.TabIndex = 24
         Me.Label1.Text = "Nama Barang"
         '
         'Label2
@@ -107,7 +108,7 @@ Partial Class barang
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(102, 25)
-        Me.Label2.TabIndex = 2
+        Me.Label2.TabIndex = 24
         Me.Label2.Text = "Harga Beli"
         '
         'txtNama
@@ -118,7 +119,7 @@ Partial Class barang
         Me.txtNama.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNama.Name = "txtNama"
         Me.txtNama.Size = New System.Drawing.Size(183, 30)
-        Me.txtNama.TabIndex = 3
+        Me.txtNama.TabIndex = 6
         '
         'txtHargaBeli
         '
@@ -128,7 +129,7 @@ Partial Class barang
         Me.txtHargaBeli.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaBeli.Name = "txtHargaBeli"
         Me.txtHargaBeli.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaBeli.TabIndex = 4
+        Me.txtHargaBeli.TabIndex = 9
         '
         'Label3
         '
@@ -139,7 +140,7 @@ Partial Class barang
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 25)
-        Me.Label3.TabIndex = 5
+        Me.Label3.TabIndex = 24
         Me.Label3.Text = "Stok Gudang"
         '
         'txtStokGudang
@@ -150,7 +151,7 @@ Partial Class barang
         Me.txtStokGudang.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokGudang.Name = "txtStokGudang"
         Me.txtStokGudang.Size = New System.Drawing.Size(183, 30)
-        Me.txtStokGudang.TabIndex = 6
+        Me.txtStokGudang.TabIndex = 16
         '
         'tambah
         '
@@ -162,7 +163,7 @@ Partial Class barang
         Me.tambah.Margin = New System.Windows.Forms.Padding(4)
         Me.tambah.Name = "tambah"
         Me.tambah.Size = New System.Drawing.Size(156, 59)
-        Me.tambah.TabIndex = 7
+        Me.tambah.TabIndex = 20
         Me.tambah.Text = "Tambah"
         Me.tambah.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.tambah.UseVisualStyleBackColor = True
@@ -177,7 +178,7 @@ Partial Class barang
         Me.hapus.Margin = New System.Windows.Forms.Padding(4)
         Me.hapus.Name = "hapus"
         Me.hapus.Size = New System.Drawing.Size(153, 59)
-        Me.hapus.TabIndex = 8
+        Me.hapus.TabIndex = 22
         Me.hapus.Text = "Hapus"
         Me.hapus.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.hapus.UseVisualStyleBackColor = True
@@ -192,7 +193,7 @@ Partial Class barang
         Me.edit.Margin = New System.Windows.Forms.Padding(4)
         Me.edit.Name = "edit"
         Me.edit.Size = New System.Drawing.Size(153, 59)
-        Me.edit.TabIndex = 9
+        Me.edit.TabIndex = 21
         Me.edit.Text = "Update"
         Me.edit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.edit.UseVisualStyleBackColor = True
@@ -207,7 +208,7 @@ Partial Class barang
         Me.lihat.Margin = New System.Windows.Forms.Padding(4)
         Me.lihat.Name = "lihat"
         Me.lihat.Size = New System.Drawing.Size(164, 59)
-        Me.lihat.TabIndex = 10
+        Me.lihat.TabIndex = 23
         Me.lihat.Text = "Refresh"
         Me.lihat.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.lihat.UseVisualStyleBackColor = True
@@ -221,7 +222,7 @@ Partial Class barang
         Me.lblIdBarang.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblIdBarang.Name = "lblIdBarang"
         Me.lblIdBarang.Size = New System.Drawing.Size(19, 25)
-        Me.lblIdBarang.TabIndex = 11
+        Me.lblIdBarang.TabIndex = 24
         Me.lblIdBarang.Text = "-"
         '
         'Label5
@@ -233,7 +234,7 @@ Partial Class barang
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(130, 25)
-        Me.Label5.TabIndex = 13
+        Me.Label5.TabIndex = 24
         Me.Label5.Text = "Nama Suplier"
         '
         'txtcari
@@ -245,7 +246,7 @@ Partial Class barang
         Me.txtcari.Margin = New System.Windows.Forms.Padding(4)
         Me.txtcari.Name = "txtcari"
         Me.txtcari.Size = New System.Drawing.Size(576, 30)
-        Me.txtcari.TabIndex = 15
+        Me.txtcari.TabIndex = 2
         '
         'berdasarkan
         '
@@ -256,7 +257,7 @@ Partial Class barang
         Me.berdasarkan.Margin = New System.Windows.Forms.Padding(4)
         Me.berdasarkan.Name = "berdasarkan"
         Me.berdasarkan.Size = New System.Drawing.Size(163, 33)
-        Me.berdasarkan.TabIndex = 16
+        Me.berdasarkan.TabIndex = 0
         '
         'Label6
         '
@@ -266,7 +267,7 @@ Partial Class barang
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(282, 25)
-        Me.Label6.TabIndex = 17
+        Me.Label6.TabIndex = 24
         Me.Label6.Text = "Pencarian Barang berdasarkan"
         '
         'nm_suplier
@@ -279,7 +280,7 @@ Partial Class barang
         Me.nm_suplier.Margin = New System.Windows.Forms.Padding(4)
         Me.nm_suplier.Name = "nm_suplier"
         Me.nm_suplier.Size = New System.Drawing.Size(183, 33)
-        Me.nm_suplier.TabIndex = 18
+        Me.nm_suplier.TabIndex = 3
         '
         'syarat
         '
@@ -290,7 +291,7 @@ Partial Class barang
         Me.syarat.Margin = New System.Windows.Forms.Padding(4)
         Me.syarat.Name = "syarat"
         Me.syarat.Size = New System.Drawing.Size(47, 33)
-        Me.syarat.TabIndex = 19
+        Me.syarat.TabIndex = 1
         '
         'txtHargaJual1
         '
@@ -300,7 +301,7 @@ Partial Class barang
         Me.txtHargaJual1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual1.Name = "txtHargaJual1"
         Me.txtHargaJual1.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaJual1.TabIndex = 21
+        Me.txtHargaJual1.TabIndex = 10
         '
         'Label8
         '
@@ -311,7 +312,7 @@ Partial Class barang
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(133, 25)
-        Me.Label8.TabIndex = 20
+        Me.Label8.TabIndex = 24
         Me.Label8.Text = "Harga Satuan"
         '
         'satuanbox
@@ -324,7 +325,7 @@ Partial Class barang
         Me.satuanbox.Margin = New System.Windows.Forms.Padding(4)
         Me.satuanbox.Name = "satuanbox"
         Me.satuanbox.Size = New System.Drawing.Size(183, 33)
-        Me.satuanbox.TabIndex = 23
+        Me.satuanbox.TabIndex = 4
         '
         'Label7
         '
@@ -335,7 +336,7 @@ Partial Class barang
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(75, 25)
-        Me.Label7.TabIndex = 22
+        Me.Label7.TabIndex = 24
         Me.Label7.Text = "Satuan"
         '
         'txtDiskon
@@ -346,7 +347,7 @@ Partial Class barang
         Me.txtDiskon.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDiskon.Name = "txtDiskon"
         Me.txtDiskon.Size = New System.Drawing.Size(183, 30)
-        Me.txtDiskon.TabIndex = 25
+        Me.txtDiskon.TabIndex = 8
         '
         'Label9
         '
@@ -368,7 +369,7 @@ Partial Class barang
         Me.txtPajak.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPajak.Name = "txtPajak"
         Me.txtPajak.Size = New System.Drawing.Size(183, 30)
-        Me.txtPajak.TabIndex = 27
+        Me.txtPajak.TabIndex = 5
         '
         'Label10
         '
@@ -390,7 +391,7 @@ Partial Class barang
         Me.txtBarcode.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBarcode.Name = "txtBarcode"
         Me.txtBarcode.Size = New System.Drawing.Size(183, 30)
-        Me.txtBarcode.TabIndex = 29
+        Me.txtBarcode.TabIndex = 7
         '
         'Label11
         '
@@ -401,7 +402,7 @@ Partial Class barang
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(85, 25)
-        Me.Label11.TabIndex = 28
+        Me.Label11.TabIndex = 24
         Me.Label11.Text = "Barcode"
         '
         'txtHargaJual2
@@ -412,7 +413,7 @@ Partial Class barang
         Me.txtHargaJual2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual2.Name = "txtHargaJual2"
         Me.txtHargaJual2.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaJual2.TabIndex = 31
+        Me.txtHargaJual2.TabIndex = 11
         '
         'Label12
         '
@@ -434,7 +435,7 @@ Partial Class barang
         Me.txtHargaJual4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual4.Name = "txtHargaJual4"
         Me.txtHargaJual4.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaJual4.TabIndex = 35
+        Me.txtHargaJual4.TabIndex = 14
         '
         'Label13
         '
@@ -456,7 +457,7 @@ Partial Class barang
         Me.txtHargaJual3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual3.Name = "txtHargaJual3"
         Me.txtHargaJual3.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaJual3.TabIndex = 33
+        Me.txtHargaJual3.TabIndex = 13
         '
         'Label14
         '
@@ -467,7 +468,7 @@ Partial Class barang
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(123, 25)
-        Me.Label14.TabIndex = 32
+        Me.Label14.TabIndex = 24
         Me.Label14.Text = "Harga Jual 3"
         '
         'txtStokDisplay
@@ -478,7 +479,7 @@ Partial Class barang
         Me.txtStokDisplay.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokDisplay.Name = "txtStokDisplay"
         Me.txtStokDisplay.Size = New System.Drawing.Size(183, 30)
-        Me.txtStokDisplay.TabIndex = 37
+        Me.txtStokDisplay.TabIndex = 15
         '
         'Label15
         '
@@ -489,7 +490,7 @@ Partial Class barang
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(121, 25)
-        Me.Label15.TabIndex = 36
+        Me.Label15.TabIndex = 24
         Me.Label15.Text = "Stok Display"
         '
         'txtQty4
@@ -500,7 +501,7 @@ Partial Class barang
         Me.txtQty4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty4.Name = "txtQty4"
         Me.txtQty4.Size = New System.Drawing.Size(183, 30)
-        Me.txtQty4.TabIndex = 45
+        Me.txtQty4.TabIndex = 19
         '
         'Label16
         '
@@ -522,7 +523,7 @@ Partial Class barang
         Me.txtQty3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty3.Name = "txtQty3"
         Me.txtQty3.Size = New System.Drawing.Size(183, 30)
-        Me.txtQty3.TabIndex = 43
+        Me.txtQty3.TabIndex = 18
         '
         'Label17
         '
@@ -544,7 +545,7 @@ Partial Class barang
         Me.txtQty2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty2.Name = "txtQty2"
         Me.txtQty2.Size = New System.Drawing.Size(183, 30)
-        Me.txtQty2.TabIndex = 41
+        Me.txtQty2.TabIndex = 17
         '
         'Label18
         '
@@ -567,7 +568,7 @@ Partial Class barang
         Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(99, 25)
-        Me.Label20.TabIndex = 46
+        Me.Label20.TabIndex = 24
         Me.Label20.Text = "ID Barang"
         '
         'txtHargaBeliNetto
@@ -578,7 +579,7 @@ Partial Class barang
         Me.txtHargaBeliNetto.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaBeliNetto.Name = "txtHargaBeliNetto"
         Me.txtHargaBeliNetto.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaBeliNetto.TabIndex = 48
+        Me.txtHargaBeliNetto.TabIndex = 12
         '
         'Label4
         '
@@ -589,7 +590,7 @@ Partial Class barang
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(153, 25)
-        Me.Label4.TabIndex = 47
+        Me.Label4.TabIndex = 24
         Me.Label4.Text = "Harga Beli Netto"
         '
         'barang

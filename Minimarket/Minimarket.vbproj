@@ -111,6 +111,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConnectionClass.vb" />
+    <Compile Include="ConnectionClass1.vb" />
     <Compile Include="mutasi.Designer.vb">
       <DependentUpon>mutasi.vb</DependentUpon>
     </Compile>

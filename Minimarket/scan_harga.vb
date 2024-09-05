@@ -1,5 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
-
+﻿
 Public Class scan_harga
 
     Private Sub Label1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)

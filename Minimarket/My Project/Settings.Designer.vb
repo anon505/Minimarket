@@ -73,6 +73,16 @@ Namespace My
                 Return CType(Me("koneksi_dsn"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Dsn=minimarket_access;uid=Admin;pwd=12345678")>  _
+        Public ReadOnly Property koneksi_access_dsn() As String
+            Get
+                Return CType(Me("koneksi_access_dsn"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

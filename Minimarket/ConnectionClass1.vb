@@ -1,11 +1,11 @@
 ﻿Imports System.Windows.Forms
 
-Public Enum DataBaseTypeEnum As Integer
+Public Enum DataBaseTypeEnum1 As Integer
     mySQL = 0
     MSSQL
 End Enum
 
-Public Class Connection
+Public Class ConnectionAccess
     Implements IDisposable
 
 #Region "Events"
@@ -21,7 +21,7 @@ Public Class Connection
 #End Region
 #Region "Declarations"
 
-    Private conn As MySql.Data.MySqlClient.MySqlConnection
+    Private conn As Odbc.OdbcConnection
 
 #End Region
 
@@ -131,7 +131,7 @@ Public Class Connection
 
         '  _connString &= ";Connection Timeout=5;default command timeout=5;"
         _connectionString = _connString
-        conn = New MySql.Data.MySqlClient.MySqlConnection(connectionString)
+        conn = New Odbc.OdbcConnection(connectionString)
 
     End Sub
 
@@ -151,10 +151,10 @@ Public Class Connection
     ''' <returns>True is the query suceeds, otherwise False</returns>
     ''' <remarks></remarks>
     Public Overloads Function ExecuteNonQuery(ByVal cmdString As String) As Boolean
-
+        Console.WriteLine(cmdString)
         Dim ret As Boolean = True
         'create a connection and a command the execute the command
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
             ret = ExecuteNonQuery(cmd)
 
@@ -174,7 +174,7 @@ Public Class Connection
 
         Dim ret As Boolean
         'create a connection and a command the execute the command
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
             For i As Integer = 0 To parameters.Keys.Count - 1
                 cmd.Parameters.AddWithValue(parameters.Keys(i), parameters.Values(i))
@@ -187,7 +187,7 @@ Public Class Connection
         Return ret
 
     End Function
-    Private Overloads Function ExecuteNonQuery(ByVal cmd As MySql.Data.MySqlClient.MySqlCommand) As Boolean
+    Private Overloads Function ExecuteNonQuery(ByVal cmd As Odbc.OdbcCommand) As Boolean
 
         Dim ret As Boolean
         ' Using conn As New MySql.Data.MySqlClient.MySqlConnection(connectionString)
@@ -228,9 +228,9 @@ Public Class Connection
     ''' <returns>Returns a data table with the query results. If the query fails, nothing will be returned.</returns>
     ''' <remarks></remarks>
     Public Overloads Function ExecuteReader(ByVal cmdString As String) As DataTable
-
+        Console.WriteLine(cmdString)
         Dim ret As DataTable
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
             ret = ExecuteReader(cmd)
 
@@ -249,7 +249,7 @@ Public Class Connection
     Public Overloads Function ExecuteReader(ByVal cmdString As String, ByVal parameters As System.Collections.Generic.Dictionary(Of String, Object)) As DataTable
 
         Dim ret As DataTable
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
             For i As Integer = 0 To parameters.Keys.Count - 1
                 cmd.Parameters.AddWithValue(parameters.Keys(i), parameters.Values(i))
@@ -264,7 +264,7 @@ Public Class Connection
 
 
     End Function
-    Private Overloads Function ExecuteReader(ByVal cmd As MySql.Data.MySqlClient.MySqlCommand) As DataTable
+    Private Overloads Function ExecuteReader(ByVal cmd As Odbc.OdbcCommand) As DataTable
 
         Dim ret As DataTable = Nothing
 
@@ -307,7 +307,7 @@ Public Class Connection
     Public Overloads Function ExecuteScalar(ByVal cmdString As String) As Object
 
         Dim ret As Object
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
             ret = ExecuteScalar(cmd)
 
@@ -328,7 +328,7 @@ Public Class Connection
         Dim ret As Object
         'create a connection and a command the execute the command
         ' Using conn As New MySql.Data.MySqlClient.MySqlConnection(_connectionString)
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
 
             For i As Integer = 0 To parameters.Keys.Count - 1
@@ -342,7 +342,7 @@ Public Class Connection
         Return ret
 
     End Function
-    Private Overloads Function ExecuteScalar(ByVal cmd As MySql.Data.MySqlClient.MySqlCommand) As Object
+    Private Overloads Function ExecuteScalar(ByVal cmd As Odbc.OdbcCommand) As Object
 
         Dim ret As Object
 
@@ -379,7 +379,7 @@ Public Class Connection
 
         Dim ret As Integer = -1
         'create a connection and a command the execute the command
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
             If ExecuteNonQuery(cmd) Then
                 ret = getLastID(cmd)
@@ -393,7 +393,7 @@ Public Class Connection
 
         Dim ret As Integer = -1
         'create a connection and a command the execute the command
-        Using cmd As New MySql.Data.MySqlClient.MySqlCommand(cmdString)
+        Using cmd As New Odbc.OdbcCommand(cmdString)
 
 
             For i As Integer = 0 To parameters.Keys.Count - 1
@@ -410,7 +410,7 @@ Public Class Connection
 
 
     End Function
-    Private Function getLastID(ByVal cmd As MySql.Data.MySqlClient.MySqlCommand) As Integer
+    Private Function getLastID(ByVal cmd As Odbc.OdbcCommand) As Integer
 
         Dim ret As Integer = -1
         cmd.CommandText = "SELECT LAST_INSERT_ID()"
@@ -605,9 +605,9 @@ Public Class Connection
     Public Shared Function getConnection(ByRef dbServer As String, _
                                          ByRef dbUser As String, _
                                          ByRef dbPassword As String, _
-                                         ByRef dbName As String) As Connection
+                                         ByRef dbName As String) As ConnectionAccess
 
-        Dim _conn As Connection = EstablishDBConnection(dbServer, dbUser, dbPassword, dbName)
+        Dim _conn As ConnectionAccess = EstablishDBConnection(dbServer, dbUser, dbPassword, dbName)
         Do Until _conn IsNot Nothing
             Dim s As String = String.Format("A connection to {0}/{1} with user {2} could not be established.", dbServer, dbName, dbUser)
 
@@ -631,11 +631,11 @@ Public Class Connection
     ''' <param name="connString"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Shared Function getConnection(ByVal connString As String) As Connection
+    Public Shared Function getConnection(ByVal connString As String) As ConnectionAccess
 
-        Dim conn As Connection = Nothing
-        If CBool(Connection.TestConnection(connString, DataBaseTypeEnum.mySQL)) Then
-            conn = New Connection(connString)
+        Dim conn As ConnectionAccess = Nothing
+        If CBool(ConnectionAccess.TestConnection(connString, DataBaseTypeEnum.mySQL)) Then
+            conn = New ConnectionAccess(connString)
         End If
         Return conn
 
@@ -645,9 +645,9 @@ Public Class Connection
     Private Shared Function EstablishDBConnection(ByVal dbServer As String, _
                                                   ByVal dbUser As String, _
                                                   ByVal dbPassword As String, _
-                                                  ByVal dbName As String) As Connection
+                                                  ByVal dbName As String) As ConnectionAccess
 
-        Dim conn As Connection = Nothing
+        Dim conn As ConnectionAccess = Nothing
 
         Dim server As String = dbServer
         Dim user As String = dbUser
@@ -655,9 +655,9 @@ Public Class Connection
         Dim db As String = dbName
 
         Dim _connString As String = String.Format("Server={0};Uid={1};Pwd={2};Database={3}", server, user, pw, db)
-        If CBool(Connection.TestConnection(_connString, DataBaseTypeEnum.mySQL)) Then
+        If CBool(ConnectionAccess.TestConnection(_connString, DataBaseTypeEnum.mySQL)) Then
 
-            conn = New Connection(_connString)
+            conn = New ConnectionAccess(_connString)
 
         End If
         Return conn
@@ -682,7 +682,7 @@ Public Class Connection
 
                 connString &= ";Connection Timeout=5;default command timeout=5;"
 
-                Using conn As New MySql.Data.MySqlClient.MySqlConnection(connString)
+                Using conn As New Odbc.OdbcConnection(connString)
                     Try
 
                         conn.Open()
@@ -697,7 +697,7 @@ Public Class Connection
 
             Case DataBaseTypeEnum.MSSQL
 
-                Using conn As New System.Data.SqlClient.SqlConnection(connString)
+                Using conn As New Odbc.OdbcConnection(connString)
                     Try
                         conn.Open()
                         ret = True

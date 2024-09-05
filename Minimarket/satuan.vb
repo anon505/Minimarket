@@ -58,7 +58,7 @@ Public Class satuan
         If (txtnama.Text = "") Then
             MsgBox("Data tentang barang, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "UPDATE  satuan SET nama_satuan='" + txtnama.Text + "' WHERE  id_satuan ='" + Label4.Text + "'"
+            Query = "UPDATE  satuan SET nama_satuan='" + txtnama.Text + "' WHERE  id_satuan =" + Label4.Text + ""
             Dim i = newConnect.ExecuteNonQuery(Query)
             If (i) Then
                 MsgBox("Data Satuan berhasil diubah", MsgBoxStyle.OkOnly)
@@ -74,15 +74,15 @@ Public Class satuan
         If (txtnama.Text = "") Then
             MsgBox("Harap pilih satuan yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Dim rdr As Integer = newConnect.ExecuteScalar("select count(*) from barang where satuan='" + Label4.Text + "'")
+            Dim rdr As Integer = newConnect.ExecuteScalar("select count(*) from barang where satuan=" + Label4.Text + "")
             If (rdr > 0) Then
                 Dim buton As DialogResult = MsgBox("Satuan masih di pakai di Tabel Barang!!!. Jika anda klik Yes maka Barang juga akan terhapus.", MsgBoxStyle.YesNo)
                 If buton = 6 Then
 
-                    hapus = "delete from barang WHERE  satuan ='" + Label4.Text + "'"
+                    hapus = "delete from barang WHERE  satuan =" + Label4.Text + ""
                     Dim j = newConnect.ExecuteNonQuery(hapus)
 
-                    Query = "delete from satuan WHERE  id_satuan ='" + Label4.Text + "'"
+                    Query = "delete from satuan WHERE  id_satuan =" + Label4.Text + ""
                     Dim i = newConnect.ExecuteNonQuery(Query)
 
                     If i And j Then
@@ -93,7 +93,7 @@ Public Class satuan
                     End If
                 End If
             Else
-                Query = "delete from satuan WHERE  id_satuan ='" + Label4.Text + "'"
+                Query = "delete from satuan WHERE  id_satuan =" + Label4.Text + ""
                 Dim i = newConnect.ExecuteNonQuery(Query)
                 If i Then
                     MsgBox("Satu Data Satuan berhasil dihapus", MsgBoxStyle.OkOnly)

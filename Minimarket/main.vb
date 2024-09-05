@@ -10,7 +10,8 @@ Public Class main
                 Dim koneksi As String
                 koneksi = TW.ReadToEnd + ";database=" + cpanel.txtdb.Text
                 TW.Close()
-                newConnect = New Connection(koneksi)
+                newConnect1 = New Connection(koneksi)
+                newConnect = New ConnectionAccess("Dsn=minimarket_access;uid=Admin;pwd=12345678")
 
             ElseIf File.Exists("koneksi.txt") = False Then
                 MenuStrip1.Enabled = False

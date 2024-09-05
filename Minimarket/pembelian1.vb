@@ -11,10 +11,10 @@ Public Class pembelian1
             Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE no_faktur='" & noFaktorEdit & "'")
             Return idPembelian.ToString
         Else
-            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir='" & idKasir & "'")
+            Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir & "")
             If idPembelian Is Nothing Then
-                Dim tes = newConnect.ExecuteNonQuery("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', 'tunai', '0', 'temp');")
-                Dim idPembelian1 = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir='" & idKasir & "'")
+                Dim tes = newConnect.ExecuteNonQuery("INSERT INTO pembelian(no_faktur, tgl_faktur, id_suplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES ( '', NOW(), 0, " & idKasir & ", 0, 'tunai', 0, 'temp');")
+                Dim idPembelian1 = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir=" & idKasir & "")
                 Return idPembelian1.ToString
             Else
                 Return idPembelian.ToString
@@ -49,13 +49,13 @@ Public Class pembelian1
             discount = barangReader("discount")
             hargaBeliNetto = barangReader("harga_beli_netto")
 
-            Dim currentQty = newConnect.ExecuteScalar("SELECT qty from pembelian_detail WHERE id_barang='" & idBarang.ToString & "' AND id_pembelian=" & getIdPembelian(Module1.id_kasir))
+            Dim currentQty = newConnect.ExecuteScalar("SELECT qty from pembelian_detail WHERE id_barang=" & idBarang.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir))
             If currentQty Is Nothing Then
                 currentQty = "1"
-                newConnect.ExecuteNonQuery("INSERT INTO pembelian_detail (id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')")
+                newConnect.ExecuteNonQuery("INSERT INTO pembelian_detail (id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (" & getIdPembelian(Module1.id_kasir) & ", " & idBarang & ", " & currentQty.ToString & ", " & hargaBeli.ToString & ", " & ppn.ToString.Replace(",", ".") & ", " & discount.ToString.Replace(",", ".") & ", " & hargaBeliNetto.ToString & ")")
             Else
                 currentQty = (Integer.Parse(currentQty.ToString) + 1).ToString
-                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & currentQty.ToString & "' WHERE id_barang = '" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = " & currentQty.ToString & " WHERE id_barang = " & idBarang.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
             End If
             loadTable()
             textPLU.Text = ""
@@ -99,8 +99,27 @@ Public Class pembelian1
     End Sub
     Private Sub loadTable()
         Try
-            Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
-
+            Dim query = "SELECT `pembelian_detail`.`id_pembelian_detail` AS `id_pembelian_detail`," &
+                                               " `pembelian`.`no_faktur` AS `no_faktur`, " &
+                                               "`pembelian_detail`.`id_barang` AS `id_barang`, " &
+                                               "`barang`.`barcode` AS `barcode`," &
+                                               " `barang`.`nama_barang` AS `nama_barang`," &
+                                              " `pembelian_detail`.`qty` AS `qty`," &
+                                               " `barang`.`stok_display`+ `barang`.`stok_gudang` AS `stok`, " &
+                                               " `pembelian_detail`.`price` AS `harga`, " &
+                                               "`barang`.`harga_beli` AS `harga_lama`, " &
+                                               "`pembelian_detail`.`ppn` AS `ppn`," &
+                                               "`barang`.`ppn` AS `ppn_lama`, " &
+                                               "`pembelian_detail`.`discount` AS `discount`," &
+                                               "`barang`.`discount` AS `discount_lama`," &
+                                               " `pembelian_detail`.`price_netto` AS `harga_netto`, " &
+                                               "`barang`.`harga_beli_netto` AS `harga_netto_lama`," &
+                                               " `pembelian_detail`.`qty`* `pembelian_detail`.`price_netto` AS `total`," &
+                                               "`pembelian_detail`.`expiry` AS `expiry` " &
+                                               "FROM (`pembelian` left join `pembelian_detail` on (`pembelian`.`id_pembelian` = `pembelian_detail`.`id_pembelian`)) left join `barang` on(`pembelian_detail`.`id_barang` = `barang`.`id_barang`) where pembelian.id_pembelian=" & getIdPembelian(Module1.id_kasir)
+            Console.WriteLine(query)
+            'Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
+            Dim ds = newConnect.ExecuteReader(query)
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
@@ -191,7 +210,7 @@ Public Class pembelian1
             For i = 0 To dataGridView1.RowCount - 1
                 dataGridView1.Rows(i).Cells(11).Value = textDiscount.Text.ToString
 
-                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
+                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail=" & dataGridView1.Rows(i).Cells(0).Value.ToString & "")
                 Dim price As Integer
                 Dim ppn As Double
                 Dim discount As Double = Double.Parse(dataGridView1.Rows(i).Cells(11).Value.ToString)
@@ -208,8 +227,8 @@ Public Class pembelian1
                                         ToString.Replace(".", "").
                                         Replace(",", "")) * priceNetto).ToString
 
-                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = " & discount.ToString.Replace(",", ".") & ",price_netto = " & priceNetto.ToString & " WHERE id_barang = " &
+                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "' AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
             Next
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
@@ -230,7 +249,7 @@ Public Class pembelian1
             For i = 0 To dataGridView1.RowCount - 1
                 dataGridView1.Rows(i).Cells(9).Value = textPpn.Text.ToString
 
-                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
+                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail=" & dataGridView1.Rows(i).Cells(0).Value.ToString & "")
                 Dim price As Integer
                 Dim ppn As Double = Double.Parse(dataGridView1.Rows(i).Cells(9).Value.ToString)
                 Dim discount As Double
@@ -247,8 +266,8 @@ Public Class pembelian1
                                         ToString.Replace(".", "").
                                         Replace(",", "")) * priceNetto).ToString
 
-                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = " & ppn.ToString.Replace(",", ".") & ",price_netto = " & priceNetto.ToString & " WHERE id_barang = " &
+                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
             Next
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
@@ -324,15 +343,15 @@ Public Class pembelian1
             textSupplier.Select()
 
             loadTable()
-            Dim pembelianReaders = newConnect.ExecuteReader("Select * from pembelian where id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+            Dim pembelianReaders = newConnect.ExecuteReader("Select * from pembelian where id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
             If pembelianReaders.Rows.Count > 0 Then
                 Dim pembelianReader = pembelianReaders.Rows(0)
                 textNoFaktur.Text = pembelianReader("no_faktur")
-                If pembelianReader("id_supplier").ToString = "0" Or pembelianReader("id_supplier") Is Nothing Then
+                If pembelianReader("id_suplier").ToString = "0" Or pembelianReader("id_suplier") Is Nothing Then
                     labelIdSuplier.Text = ""
                 Else
-                    labelIdSuplier.Text = pembelianReader("id_supplier")
-                    Dim kodeSupplier = newConnect.ExecuteScalar("select kode_suplier from supplier where id_suplier='" & labelIdSuplier.Text & "'").ToString
+                    labelIdSuplier.Text = pembelianReader("id_suplier")
+                    Dim kodeSupplier = newConnect.ExecuteScalar("select kode_suplier from suplier where id_suplier=" & labelIdSuplier.Text & "'").ToString
                     textSupplier.Text = kodeSupplier
                 End If
                 Dim textInfo = New CultureInfo("id-ID", False).TextInfo
@@ -415,15 +434,15 @@ Public Class pembelian1
             
             If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
                 If e.ColumnIndex = 4 Then
-                    newConnect.ExecuteNonQuery("UPDATE barang Set nama_barang = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "'")
+                    newConnect.ExecuteNonQuery("UPDATE barang Set nama_barang = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = " &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "'\")
                     loadTable()
                 ElseIf e.ColumnIndex = 5 Then
-                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = " & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & " WHERE id_barang = " &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
                     loadTable()
                 ElseIf e.ColumnIndex = 7 Then
-                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail=" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "")
                     
                     Dim price As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim ppn As Double
@@ -436,16 +455,16 @@ Public Class pembelian1
                         Dim priceAfterPpn = (price + ((ppn / 100) * price))
                         priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
                     End If
-                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set price = " & price.ToString & ",price_netto = " & priceNetto.ToString & " WHERE id_barang = " &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
                     loadTable()
                 ElseIf e.ColumnIndex = 6 Then
-                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail=" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "")
                     Dim newStok As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     If pembelianDetailReaders.Rows.Count > 0 Then
                         Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
                         Dim idBarang = pembelianDetailReader("id_barang")
-                        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
+                        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang=" & idBarang & "")
                         If barangReaders.Rows.Count > 0 Then
                             Dim barangReader = barangReaders.Rows(0)
                             Dim stokDisplay = Integer.Parse(barangReader("stok_display").ToString)
@@ -453,7 +472,7 @@ Public Class pembelian1
                             If newStok > (stokDisplay + stokGudang) Then
                                 Dim sisa = newStok - (stokDisplay + stokGudang)
                                 stokGudang = stokGudang + sisa
-                                newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
+                                newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = " & stokGudang.ToString & " WHERE id_barang = " & idBarang & "")
                             End If
                             If (stokDisplay + stokGudang) > newStok Then
                                 Dim sisa = (stokDisplay + stokGudang) - newStok
@@ -461,17 +480,17 @@ Public Class pembelian1
                                     stokGudang = 0
                                     Dim sisaDisplay = sisa - stokGudang
                                     stokDisplay = stokDisplay - sisaDisplay
-                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "', stok_display='" & stokDisplay.ToString & "' WHERE id_barang = '" & idBarang & "'")
+                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = " & stokGudang.ToString & ", stok_display=" & stokDisplay.ToString & " WHERE id_barang = " & idBarang & "")
                                 Else
                                     stokGudang = stokGudang - sisa
-                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
+                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = " & stokGudang.ToString & " WHERE id_barang = " & idBarang & "")
                                 End If
                             End If
                         End If
                     End If
                     loadTable()
                 ElseIf e.ColumnIndex = 9 Then
-                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail=" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "")
                     Dim price As Integer
                     Dim ppn As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim discount As Double
@@ -483,11 +502,11 @@ Public Class pembelian1
                         Dim priceAfterPpn = (price + ((ppn / 100) * price))
                         priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
                     End If
-                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = " & ppn.ToString.Replace(",", ".") & ",price_netto = " & priceNetto.ToString & " WHERE id_barang = " &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
                     loadTable()
                 ElseIf e.ColumnIndex = 11 Then
-                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail=" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "")
                     Dim price As Integer
                     Dim ppn As Double
                     Dim discount As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
@@ -499,8 +518,8 @@ Public Class pembelian1
                         Dim priceAfterPpn = (price + ((ppn / 100) * price))
                         priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
                     End If
-                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = " & discount.ToString.Replace(",", ".") & ",price_netto = " & priceNetto.ToString & " WHERE id_barang = " &
+                                                                       dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
                     loadTable()
                 End If
                 textPLU.Text = ""
@@ -529,24 +548,29 @@ Public Class pembelian1
             minus = "-"
         End If
 
-        newConnect.ExecuteNonQuery("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & textTempoHari.Text & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir))
+        Dim tempoHari = "0"
+        If Not (textTempoHari.Text = "") Then
+            tempoHari = textTempoHari.Text
 
-        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'")
+        End If
+        newConnect.ExecuteNonQuery("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = " & textTotal.Text.Replace(",", "").Replace(".", "") & ", metode_pembayaran = '" & metodePembayaran & "',id_suplier=" & labelIdSuplier.Text & ", lama_jatuh_tempo = " & tempoHari & ",status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir))
+
+        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff=" & getIdPembelian(Module1.id_kasir) & "")
         If idMutasi Is Nothing Then
-            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
+            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_reff,type,deskripsi,nominal,created_at) VALUES (" &
                                                                 getIdPembelian(Module1.id_kasir) &
-                                                                "','pembelian','PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
-                                                                textNoFaktur.Text & "', '" & minus & "" & textTotal.
+                                                                ",'pembelian','PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
+                                                                textNoFaktur.Text & "', " & minus & "" & textTotal.
                                                                 Text.
                                                                 Replace(",", "").
-                                                                Replace(".", "") & "', now());")
+                                                                Replace(".", "") & ", now());")
         Else
             newConnect.ExecuteNonQuery("UPDATE mutasi SET deskripsi = 'update PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
-                                                                textNoFaktur.Text & "',nominal = '" & minus & "" &
+                                                                textNoFaktur.Text & "',nominal = " & minus & "" &
                                                                 textTotal.
                                                                 Text.
                                                                 Replace(",", "").
-                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
+                                                                Replace(".", "") & ",created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
         End If
         If noFaktorEdit IsNot Nothing Then
             MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
@@ -569,8 +593,8 @@ Public Class pembelian1
 
     End Sub
     Private Sub fakturBaru()
-        newConnect.ExecuteNonQuery("DELETE from pembelian_detail WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-        newConnect.ExecuteNonQuery("DELETE from pembelian WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+        newConnect.ExecuteNonQuery("DELETE from pembelian_detail WHERE id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
+        newConnect.ExecuteNonQuery("DELETE from pembelian WHERE id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
 
         loadTable()
         textNoFaktur.Text = ""
@@ -682,11 +706,11 @@ Public Class pembelian1
             ElseIf textSupplier.Text = "" Or labelIdSuplier.Text = "" Or labelSupplier.Text = "" Then
                 MsgBox("Harap PILIH suplier terlebih dahulu")
             Else
-                Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'")
+                Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_suplier=" & labelIdSuplier.Text & "")
                 If idPembelian Is Nothing Then
                     MsgBox("Faktur tidak ditemukan")
                 Else
-                    Dim pembelianReaders = newConnect.ExecuteReader("SELECT * from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'")
+                    Dim pembelianReaders = newConnect.ExecuteReader("SELECT * from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_suplier=" & labelIdSuplier.Text & "")
                     If pembelianReaders.Rows.Count > 0 Then
                         Dim pembelianReader = pembelianReaders.Rows(0)
                         Dim newPembelian = New pembelian1
@@ -709,7 +733,7 @@ Public Class pembelian1
                                 End If
                             End If
                         End If
-                        newPembelian.statusFaktorEdit = newConnect.ExecuteScalar("SELECT status from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_supplier='" & labelIdSuplier.Text & "'")
+                        newPembelian.statusFaktorEdit = newConnect.ExecuteScalar("SELECT status from pembelian WHERE  no_faktur='" & textNoFaktur.Text & "' and id_suplier=" & labelIdSuplier.Text & "")
                         newPembelian.noFaktorEdit = Me.textNoFaktur.Text
                         newPembelian.textNoFaktur.Text = Me.textNoFaktur.Text
                         newPembelian.textSupplier.Text = Me.textSupplier.Text
@@ -752,8 +776,8 @@ Public Class pembelian1
         System.Globalization.DateTimeFormatInfo.InvariantInfo)
         dataGridView1.Rows(cell.RowIndex).Cells(16).Value = newDate
 
-        newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set expiry = '" & newDate.ToString("yyyy-MM-dd") & "' WHERE id_barang = '" &
-                                                                   dataGridView1.Rows(cell.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+        newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set expiry = '" & newDate.ToString("yyyy-MM-dd") & "' WHERE id_barang = " &
+                                                                   dataGridView1.Rows(cell.RowIndex).Cells(2).Value.ToString & " AND id_pembelian=" & getIdPembelian(Module1.id_kasir) & "")
     End Sub
     Private Sub oDateTimePicker_CloseUp(ByVal sender As Object, ByVal e As EventArgs)
         oDateTimePicker.Visible = False

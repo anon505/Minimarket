@@ -9,10 +9,10 @@ Public Class markup
     End Sub
     Private Sub loadPembelian(ByVal noFaktur As String)
 
-        Dim pembelianReaders = newConnect.ExecuteReader("SELECT id_pembelian,no_faktur,tgl_faktur,supplier.id_suplier as id_supplier,supplier.kode_suplier as kode_supplier,supplier.nama_suplier as nama_suplier FROM `pembelian` JOIN supplier on pembelian.id_supplier=supplier.id_suplier where no_faktur='" & noFaktur & "'")
+        Dim pembelianReaders = newConnect.ExecuteReader("SELECT id_pembelian,no_faktur,tgl_faktur,suplier.id_suplier as id_suplier,suplier.kode_suplier as kode_suplier,suplier.nama_suplier as nama_suplier FROM `pembelian` left JOIN suplier on pembelian.id_suplier=suplier.id_suplier where no_faktur='" & noFaktur & "'")
         If pembelianReaders.Rows.Count > 0 Then
             Dim pembelianReader = pembelianReaders.Rows(0)
-            textKodeSuplier.Text = pembelianReader("kode_supplier").ToString
+            textKodeSuplier.Text = pembelianReader("kode_suplier").ToString
             textNamaSuplier.Text = pembelianReader("nama_suplier").ToString
             textTanggal.Text = pembelianReader("tgl_faktur").ToString
         End If
@@ -23,8 +23,18 @@ Public Class markup
             Return
         End If
 
-        Dim ds = newConnect.ExecuteReader("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto` from ds_markup  where no_faktur=" & noFaktur)
-      
+        'Dim ds1 = newConnect.ExecuteReader("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto, harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`, `pembelian_detail.price_netto` from ds_markup  where no_faktur='" & noFaktur & "'")
+        Dim ds = newConnect.ExecuteReader("SELECT `pembelian`.`id_pembelian` AS `id_pembelian`, `pembelian`.`no_faktur` AS `no_faktur`," &
+                                          " `barang`.`id_barang` AS `id_barang`, `barang`.`barcode` AS `barcode`, `barang`.`nama_barang` AS `nama_barang`," &
+                                          " `pembelian_detail`.`price_netto` AS `harga_beli_netto`," &
+                                          " `barang`.`harga_jual1` AS `harga_satuan`, round((`barang`.`harga_jual1` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto` * 100,2) AS `profit1`," &
+                                          " `barang`.`qty2` AS `qty2`, `barang`.`harga_jual2` AS `harga_qty2`, round((`barang`.`harga_jual2` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto` * 100,2) AS `profit2`," &
+                                          " `barang`.`qty3` AS `qty3`, `barang`.`harga_jual3` AS `harga_qty3`, round((`barang`.`harga_jual3` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto` * 100,2) AS `profit3`, " &
+                                          " `barang`.`qty4` AS `qty4`, `barang`.`harga_jual4` AS `harga_qty4`, round((`barang`.`harga_jual4` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto` * 100,2) AS `profit4`," &
+                                          "  `pembelian_detail`.`qty` AS `pembelian_detail_qty`, `pembelian_detail`.`ppn` AS `pembelian_detail_ppn`, `pembelian_detail`.`discount` AS `pembelian_detail_discount`," &
+                                          "  `pembelian_detail`.`price` AS `pembelian_detail_price`,`pembelian_detail`.`price_netto` AS `pembelian_detail_price_netto`" &
+                                          " FROM ((`pembelian` left join `pembelian_detail` on(`pembelian`.`id_pembelian` = `pembelian_detail`.`id_pembelian`)) left join `barang` on(`pembelian_detail`.`id_barang` = `barang`.`id_barang`)) WHERE `pembelian`.`status` = 'saved' and no_faktur='" & noFaktur & "'")
+
         dataGridView1.AutoGenerateColumns = True
         dataGridView1.DataSource = ds
         dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
@@ -250,9 +260,9 @@ Public Class markup
             Dim discount = rows(i).Cells(19).Value.ToString
             Dim price = rows(i).Cells(20).Value.ToString
             Dim priceNetto = rows(i).Cells(21).Value.ToString
-            newConnect.ExecuteNonQuery("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "', harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',ppn = '" & ppn & "',discount = '" & discount & "',stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "',qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang)
+            newConnect.ExecuteNonQuery("Update barang Set harga_jual1 = " & hargaSatuan & ",harga_jual2 = " & hargaJual2 & ", harga_jual3 = " & hargaJual3 & ",harga_jual4 = " & hargaJual4 & ",ppn = " & ppn & ",discount = " & discount & ",stok_gudang = stok_gudang+" & qty & ",harga_beli=" & price & ",harga_beli_netto=" & priceNetto & ",qty2 = " & qty2 & ",qty3=" & qty3 & ",qty4=" & qty4 & " WHERE id_barang = " & idBarang)
         Next
-        newConnect.ExecuteNonQuery("Update pembelian Set status = 'mark_up' WHERE no_faktur = " & noFaktur)
+        newConnect.ExecuteNonQuery("Update pembelian Set status = 'mark_up' WHERE no_faktur = '" & noFaktur & "'")
         textNoFaktur.Text = ""
         dataGridView1.DataSource = Nothing
     End Sub

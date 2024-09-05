@@ -5,9 +5,9 @@ Public Class Login
         If (i = "") Then
             MsgBox("Username atau Password anda salah", MsgBoxStyle.OkOnly)
         Else
-            Dim status As String = newConnect.ExecuteScalar("SELECT status FROM kasir where id_kasir='" + i + "'")
+            Dim status As String = newConnect.ExecuteScalar("SELECT status FROM kasir where id_kasir=" + i + "")
             If (status = "Aktif") Then
-                Dim cektipe As String = newConnect.ExecuteScalar("SELECT type FROM kasir where id_kasir='" + i + "'")
+                Dim cektipe As String = newConnect.ExecuteScalar("SELECT type FROM kasir where id_kasir=" + i + "")
                 id_kasir = i
                 hak_akses = cektipe
                 If (cektipe = "1") Then

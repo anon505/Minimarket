@@ -13,7 +13,7 @@ Public Class popup_supplier
     End Sub
 
     Private Sub bacaData(ByVal keyword As String)
-        Dim ds = newConnect.ExecuteReader("SELECT *  FROM supplier WHERE kode_suplier LIKE '%" & keyword & "%' or nama_suplier LIKE '%" & keyword & "%'")
+        Dim ds = newConnect.ExecuteReader("SELECT *  FROM suplier WHERE kode_suplier LIKE '%" & keyword & "%' or nama_suplier LIKE '%" & keyword & "%'")
         DataGridView1.AutoGenerateColumns = True
         DataGridView1.DataSource = ds
         DataGridView1.Columns(0).ReadOnly = True

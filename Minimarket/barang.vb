@@ -36,7 +36,7 @@ Public Class barang
         Call binding()
     End Sub
     Public Sub binding()
-        Dim ds = newConnect.ExecuteReader("select id_suplier,nama_suplier from supplier")
+        Dim ds = newConnect.ExecuteReader("select id_suplier,nama_suplier from suplier")
         nm_suplier.Items.Clear()
         For i = 0 To ds.Rows.Count - 1
             nm_suplier.Items.Add(ds.Rows(i).ItemArray.GetValue(1))
@@ -62,32 +62,32 @@ Public Class barang
         If nm_suplier.Text = "" Or satuanbox.Text = "" Or txtBarcode.Text = "" Or txtNama.Text = "" Or txtHargaBeli.Text = "" Or
             txtPajak.Text = "" Or txtDiskon.Text = "" Or txtHargaBeliNetto.Text = "" Or txtStokDisplay.Text = "" Or
             txtStokGudang.Text = "" Or txtHargaJual1.Text = "" Or txtHargaJual2.Text = "" Or txtHargaJual3.Text = "" Or
-            txtHargaJual4.Text = "" Or txtQty2.Text = "" Or txtQty3.Text = "" Or txtQty4.Text = "" Or
-            lblIdBarang.Text = "" Then
+            txtHargaJual4.Text = "" Or txtQty2.Text = "" Or txtQty3.Text = "" Or txtQty4.Text = "" Then
             MsgBox("Data tentang barang, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Query = "INSERT INTO barang(id_suplier,id_satuan,barcode,nama_barang,harga_beli,ppn,discount,harga_beli_netto," +
                 "stok_display,stok_gudang,harga_jual1,harga_jual2,harga_jual3,harga_jual4,qty2,qty3,qty4)" +
                 "VALUES(" +
-                "'" + (nm_suplier.SelectedIndex + 1).ToString + "'," +
-                "'" + (satuanbox.SelectedIndex + 1).ToString + "'," +
+                "" + (nm_suplier.SelectedIndex + 1).ToString + "," +
+                "" + (satuanbox.SelectedIndex + 1).ToString + "," +
                 "'" + txtBarcode.Text.ToString + "'," +
                 "'" + txtNama.Text.ToString + "'," +
-                "'" + txtHargaBeli.Tag.ToString + "'," +
-                "'" + txtPajak.Text.ToString + "'," +
-                "'" + txtDiskon.Text.ToString + "'," +
-                "'" + txtHargaBeliNetto.Tag.ToString + "'," +
-                "'" + txtStokDisplay.Text.ToString + "'," +
-                "'" + txtStokGudang.Text.ToString + "'," +
-                "'" + txtHargaJual1.Tag.ToString + "'," +
-                "'" + txtHargaJual2.Tag.ToString + "'," +
-                "'" + txtHargaJual3.Tag.ToString + "'," +
-                "'" + txtHargaJual4.Tag.ToString + "'," +
-                "'" + txtQty2.Text.ToString + "'," +
-                "'" + txtQty3.Text.ToString + "'," +
-                "'" + txtQty4.Text.ToString + "'" +
+                "" + txtHargaBeli.Tag.ToString + "," +
+                "" + txtPajak.Text.ToString + "," +
+                "" + txtDiskon.Text.ToString + "," +
+                "" + txtHargaBeliNetto.Tag.ToString + "," +
+                "" + txtStokDisplay.Text.ToString + "," +
+                "" + txtStokGudang.Text.ToString + "," +
+                "" + txtHargaJual1.Tag.ToString + "," +
+                "" + txtHargaJual2.Tag.ToString + "," +
+                "" + txtHargaJual3.Tag.ToString + "," +
+                "" + txtHargaJual4.Tag.ToString + "," +
+                "" + txtQty2.Text.ToString + "," +
+                "" + txtQty3.Text.ToString + "," +
+                "" + txtQty4.Text.ToString + "" +
                 ")"
-            If ( newConnect.ExecuteNonQuery(Query)) Then
+            Console.WriteLine(Query)
+            If (newConnect.ExecuteNonQuery(Query)) Then
                 MsgBox("Barang berhasil ditambahkan", MsgBoxStyle.OkOnly)
                 Call view()
             Else
@@ -156,24 +156,24 @@ Public Class barang
             MsgBox("Data tentang barang, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Dim isExecute = newConnect.ExecuteNonQuery("UPDATE  barang SET " &
-            "id_suplier='" & (nm_suplier.SelectedIndex + 1).ToString & "'," &
-            "id_satuan='" & (satuanbox.SelectedIndex + 1).ToString & "'," &
+            "id_suplier=" & (nm_suplier.SelectedIndex + 1).ToString & "," &
+            "id_satuan=" & (satuanbox.SelectedIndex + 1).ToString & "," &
             "barcode='" & txtBarcode.Text.ToString & "'," &
                 "nama_barang='" & txtNama.Text.ToString & "'," &
-                "harga_beli='" & txtHargaBeli.Tag.ToString & "'," &
-                "ppn='" & txtPajak.Text.ToString & "'," &
-                "discount='" & txtDiskon.Text.ToString & "'," &
-                "harga_beli_netto='" & txtHargaBeliNetto.Tag.ToString & "'," &
-                "stok_display='" & txtStokDisplay.Text.ToString & "'," &
-                "stok_gudang='" & txtStokGudang.Text.ToString & "'," &
-                "harga_jual1='" & txtHargaJual1.Tag.ToString & "'," &
-                "harga_jual2='" & txtHargaJual2.Tag.ToString & "'," &
-                "harga_jual3='" & txtHargaJual3.Tag.ToString & "'," &
-                "harga_jual4='" & txtHargaJual4.Tag.ToString & "'," &
-                "qty2='" & txtQty2.Text.ToString & "'," &
-                "qty3='" & txtQty3.Text.ToString & "'," &
-                "qty4='" & txtQty4.Text.ToString & "'" &
-                " WHERE  id_barang ='" & lblIdBarang.Text & "'")
+                "harga_beli=" & txtHargaBeli.Tag.ToString & "," &
+                "ppn=" & txtPajak.Text.ToString & "," &
+                "discount=" & txtDiskon.Text.ToString & "," &
+                "harga_beli_netto=" & txtHargaBeliNetto.Tag.ToString & "," &
+                "stok_display=" & txtStokDisplay.Text.ToString & "," &
+                "stok_gudang=" & txtStokGudang.Text.ToString & "," &
+                "harga_jual1=" & txtHargaJual1.Tag.ToString & "," &
+                "harga_jual2=" & txtHargaJual2.Tag.ToString & "," &
+                "harga_jual3=" & txtHargaJual3.Tag.ToString & "," &
+                "harga_jual4=" & txtHargaJual4.Tag.ToString & "," &
+                "qty2=" & txtQty2.Text.ToString & "," &
+                "qty3=" & txtQty3.Text.ToString & "," &
+                "qty4=" & txtQty4.Text.ToString & "" &
+                " WHERE  id_barang =" & lblIdBarang.Text & "")
             If (isExecute) Then
                 MsgBox("Data Barang berhasil diubah", MsgBoxStyle.OkOnly)
                 Call view()
@@ -192,7 +192,7 @@ Public Class barang
             lblIdBarang.Text = "" Then
             MsgBox("Harap pilih data yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Query = "delete from barang WHERE  id_barang ='" + lblIdBarang.Text + "'"
+            Query = "delete from barang WHERE  id_barang =" + lblIdBarang.Text + ""
             If ( newConnect.ExecuteNonQuery(Query)) Then
                 MsgBox("Satu Data Barang berhasil dihapus", MsgBoxStyle.OkOnly)
                 Call view()
@@ -262,7 +262,7 @@ Public Class barang
     End Sub
 
     Private Sub nm_suplier_DropDown(ByVal sender As Object, ByVal e As System.EventArgs) Handles nm_suplier.DropDown
-        Dim ds = newConnect.ExecuteReader("select id_suplier,nama_suplier from supplier")
+        Dim ds = newConnect.ExecuteReader("select id_suplier,nama_suplier from suplier")
         Dim i As Integer
         nm_suplier.Items.Clear()
         For i = 0 To ds.Rows.Count - 1
@@ -292,6 +292,20 @@ Public Class barang
     Private Sub txthargabeli_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaBeli.LostFocus
         txtHargaBeli.Tag = txtHargaBeli.Text
         txtHargaBeli.Text = Format(Val(txtHargaBeli.Tag), "'Rp' #,0;'Rp' -#,0")
+    End Sub
+
+    Private Sub txthargabeliNetto_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaBeliNetto.GotFocus
+        If (lblIdBarang.Text = "") Then
+            txtHargaBeliNetto.Tag = ""
+        End If
+        txtHargaBeliNetto.Text = txtHargaBeliNetto.Tag
+    End Sub
+    Private Sub txthargabeliNetto_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtHargaBeliNetto.KeyPress
+        Call hanyaangka(e)
+    End Sub
+    Private Sub txthargabeliNetto_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaBeliNetto.LostFocus
+        txtHargaBeliNetto.Tag = txtHargaBeliNetto.Text
+        txtHargaBeliNetto.Text = Format(Val(txtHargaBeliNetto.Tag), "'Rp' #,0;'Rp' -#,0")
     End Sub
 
     Private Sub txtHargaJual1_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual1.GotFocus

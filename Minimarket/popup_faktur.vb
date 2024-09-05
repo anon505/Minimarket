@@ -12,7 +12,7 @@ Public Class popup_faktur
     End Sub
 
     Private Sub bacaData(ByVal keyword As String)
-        Dim ds = newConnect.ExecuteReader("SELECT id_pembelian,no_faktur,tgl_faktur,supplier.id_suplier as id_supplier,supplier.kode_suplier as kode_supplier,supplier.nama_suplier as nama_suplier,pembelian.status as status FROM `pembelian` JOIN supplier on pembelian.id_supplier=supplier.id_suplier where no_faktur like '%" & keyword & "%' or nama_suplier LIKE '%" & keyword & "%'")
+        Dim ds = newConnect.ExecuteReader("SELECT id_pembelian,no_faktur,tgl_faktur,suplier.id_suplier as id_suplier,suplier.kode_suplier as kode_suplier,suplier.nama_suplier as nama_suplier,pembelian.status as status FROM `pembelian` JOIN suplier on pembelian.id_suplier=suplier.id_suplier where no_faktur like '%" & keyword & "%' or nama_suplier LIKE '%" & keyword & "%'")
 
         DataGridView1.AutoGenerateColumns = True
         DataGridView1.DataSource = ds

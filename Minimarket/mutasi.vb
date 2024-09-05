@@ -99,8 +99,8 @@ Public Class mutasi
         textDeskripsi.Text = "") Then
             MsgBox("Data tentang mutasi, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "INSERT INTO mutasi(id_reff,type,deskripsi,nominal,created_at)VALUES('" +
-                textIdReff.Text + "','" + comboTipe.Text + "','" + textDeskripsi.Text + "','" + textNominal.Text.Replace(",", "").Replace(".", "") + "',now())"
+            Query = "INSERT INTO mutasi(id_reff,type,deskripsi,nominal,created_at)VALUES(" +
+                textIdReff.Text + ",'" + comboTipe.Text + "','" + textDeskripsi.Text + "'," + textNominal.Text.Replace(",", "").Replace(".", "") + ",now())"
 
             Dim i = newConnect.ExecuteNonQuery(Query)
             If i Then
@@ -148,8 +148,8 @@ Public Class mutasi
         textDeskripsi.Text = "") Then
             MsgBox("Data tentang mutasi, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "UPDATE  mutasi SET id_reff= '" + textIdReff.Text + "',type ='" + comboTipe.Text +
-                "',deskripsi ='" + textDeskripsi.Text + "',nominal ='" + textNominal.Text.Replace(",", "").Replace(".", "") + "' WHERE  id_mutasi ='" + Label4.Text + "'"
+            Query = "UPDATE  mutasi SET id_reff= " + textIdReff.Text + ",type ='" + comboTipe.Text +
+                "',deskripsi ='" + textDeskripsi.Text + "',nominal =" + textNominal.Text.Replace(",", "").Replace(".", "") + " WHERE  id_mutasi =" + Label4.Text + ""
 
             Dim i = newConnect.ExecuteNonQuery(Query)
             If (i) Then
@@ -168,7 +168,7 @@ Public Class mutasi
         textDeskripsi.Text = "") Then
             MsgBox("Harap pilih mutasi yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Dim i = newConnect.ExecuteNonQuery("delete from mutasi WHERE  id_mutasi ='" + Label4.Text + "'")
+            Dim i = newConnect.ExecuteNonQuery("delete from mutasi WHERE  id_mutasi =" + Label4.Text + "")
             If (i) Then
                 MsgBox("Satu Data Mutasi berhasil dihapus", MsgBoxStyle.OkOnly)
                 Call reload()

@@ -79,7 +79,7 @@ Public Class kasir
         If (hak_akses.Text = "" Or txtnama.Text = "" Or txtalamat.Text = "") Then
             MsgBox("Data tentang kasir, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "UPDATE  kasir SET type='" + (hak_akses.SelectedIndex + 1).ToString + "',  nama_kasir= '" + txtnama.Text + "',  password= '" + txtpassword.Text + "',alamat ='" + txtalamat.Text + "' WHERE  id_kasir ='" + Label4.Text + "'"
+            Query = "UPDATE  kasir SET type='" + (hak_akses.SelectedIndex + 1).ToString + "',  nama_kasir= '" + txtnama.Text + "',  password= '" + txtpassword.Text + "',alamat ='" + txtalamat.Text + "' WHERE  id_kasir =" + Label4.Text + ""
 
             Dim i = newConnect.ExecuteNonQuery(Query)
             If (i) Then
@@ -96,7 +96,7 @@ Public Class kasir
         If (hak_akses.Text = "" Or txtnama.Text = "" Or txtalamat.Text = "") Then
             MsgBox("Harap pilih data yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Query = "delete from kasir WHERE  id_kasir ='" + Label4.Text + "'"
+            Query = "delete from kasir WHERE  id_kasir =" + Label4.Text + ""
             Dim i = newConnect.ExecuteNonQuery(Query)
             If (i) Then
                 MsgBox("Satu Kasir berhasil dihapus", MsgBoxStyle.OkOnly)
@@ -113,7 +113,7 @@ Public Class kasir
         txtalamat.Text = ""
         If berdasarkan.SelectedIndex = 0 Then
             Try
-                Dim ds = newConnect.ExecuteReader("select * from kasir where id_kasir=" + txtcari.Text + "'")
+                Dim ds = newConnect.ExecuteReader("select * from kasir where id_kasir=" + txtcari.Text + "")
                 DataGridView1.DataSource = ds
             Catch e As Exception
                 txtcari.Text = ""
@@ -152,12 +152,12 @@ Public Class kasir
             MsgBox("Kasir belum dipilih", MsgBoxStyle.OkOnly)
         ElseIf (Button1.Text = "Aktifkan Kasir") Then
            
-            newConnect.ExecuteNonQuery("update kasir set status='Aktif' where id_kasir='" + Label4.Text + "'")
+            newConnect.ExecuteNonQuery("update kasir set status='Aktif' where id_kasir=" + Label4.Text + "")
             MsgBox("Kasir No" + Label4.Text + " telah Aktif", MsgBoxStyle.OkOnly)
             Call view()
         ElseIf (Button1.Text = "Nonaktifkan Kasir") Then
            
-            newConnect.ExecuteNonQuery("update kasir set status='Tidak Aktif' where id_kasir='" + Label4.Text + "'")
+            newConnect.ExecuteNonQuery("update kasir set status='Tidak Aktif' where id_kasir=" + Label4.Text + "")
             MsgBox("Kasir No" + Label4.Text + " di Nonaktifkan", MsgBoxStyle.OkOnly)
             Call view()
         End If

@@ -6,10 +6,10 @@ Public Class penjualan
 
 
     Private Function getIdTransaksi(ByVal idKasir As String) As String
-        Dim idTransaksi = newConnect.ExecuteScalar("SELECT id_transaksi from transaksi WHERE status='active' AND id_kasir='" & idKasir & "'")
+        Dim idTransaksi = newConnect.ExecuteScalar("SELECT id_transaksi from transaksi WHERE status='active' AND id_kasir=" & idKasir & "")
 
         If idTransaksi Is Nothing Then
-            newConnect.ExecuteNonQuery("INSERT INTO `transaksi` (`id_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES (NULL, '" & idKasir & "', NOW(), '0', '0', '0', 'active');")
+            newConnect.ExecuteNonQuery("INSERT INTO `transaksi` (`id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES ('" & idKasir & "', NOW(), 0, 0, 0, 'active');")
             Return getIdTransaksi(idKasir)
         Else
             Return idTransaksi.ToString
@@ -18,7 +18,7 @@ Public Class penjualan
     Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
         Try
-            Dim ds = newConnect.ExecuteReader("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at desc")
+            Dim ds = newConnect.ExecuteReader("SELECT `transaksi_detail`.`id_transaksi_detail` AS `id_transaksi_detail`, `barang`.`barcode` AS `barcode`, `barang`.`nama_barang` AS `nama_barang`, `transaksi_detail`.`harga_jual` AS `harga`, `transaksi_detail`.`qty` AS `qty`, `transaksi_detail`.`harga_jual`* `transaksi_detail`.`qty` AS `jumlah`, `barang`.`stok_display`+ `barang`.`stok_gudang` AS `stok` FROM (`transaksi_detail` left join `barang` on(`transaksi_detail`.`id_barang` = `barang`.`id_barang`))  where id_transaksi = " & lblIdTransaksi.Text & " ORDER BY `transaksi_detail`.`updated_at` DESC")
 
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
@@ -70,7 +70,7 @@ Public Class penjualan
 
             textPLU.Focus()
         Catch ex As Exception
-
+            Console.WriteLine(ex.ToString)
         End Try
         
     End Sub
@@ -109,7 +109,7 @@ Public Class penjualan
                 qty3 = barangReader("qty3")
                 qty4 = barangReader("qty4")
 
-                Dim currentQty = newConnect.ExecuteScalar("SELECT qty from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text)
+                Dim currentQty = newConnect.ExecuteScalar("SELECT qty from transaksi_detail WHERE id_barang=" & idBarang.ToString & " AND id_transaksi=" & lblIdTransaksi.Text)
                 If currentQty Is Nothing Then
                     currentQty = "1"
                 End If
@@ -129,22 +129,22 @@ Public Class penjualan
                 If qty <= (stokDisplay + stokGudang) Then
                    
 
-                    Dim idTransaksiDetail = newConnect.ExecuteScalar("SELECT id_transaksi_detail from transaksi_detail WHERE id_barang='" & idBarang.ToString & "' AND id_transaksi=" & lblIdTransaksi.Text)
+                    Dim idTransaksiDetail = newConnect.ExecuteScalar("SELECT id_transaksi_detail from transaksi_detail WHERE id_barang=" & idBarang.ToString & " AND id_transaksi=" & lblIdTransaksi.Text)
 
 
 
                     If idTransaksiDetail Is Nothing Then
 
-                        newConnect.ExecuteNonQuery("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (NULL, '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())")
+                        newConnect.ExecuteNonQuery("INSERT INTO transaksi_detail (id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idBarang & "," & lblIdTransaksi.Text & ", " & qty.ToString & ", " & hargaBeliNetto.ToString & "," & hargaJualTerpilih.ToString & ",now())")
                     Else
 
 
                         If typeSet = "increment" Then
-                            newConnect.ExecuteNonQuery("UPDATE transaksi_detail Set qty = '" & (Integer.Parse(currentQty.ToString) + qty).ToString & "',harga_jual = '" & hargaJualTerpilih.ToString & "',updated_at=now() WHERE id_transaksi_detail = " & idTransaksiDetail.ToString)
+                            newConnect.ExecuteNonQuery("UPDATE transaksi_detail Set qty = " & (Integer.Parse(currentQty.ToString) + qty).ToString & ",harga_jual = " & hargaJualTerpilih.ToString & ",updated_at=now() WHERE id_transaksi_detail = " & idTransaksiDetail.ToString)
                         Else
                             newConnect.ExecuteNonQuery("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idTransaksiDetail.ToString)
                             'restok otomatis akan kembali ke tabel barang di kolom stok display via trigger mysql
-                            newConnect.ExecuteNonQuery("INSERT INTO transaksi_detail (id_transaksi_detail,id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idTransaksiDetail.ToString & ", '" & idBarang & "', '" & lblIdTransaksi.Text & "', '" & qty.ToString & "', '" & hargaBeliNetto.ToString & "','" & hargaJualTerpilih.ToString & "',now())")
+                            newConnect.ExecuteNonQuery("INSERT INTO transaksi_detail (id_barang, id_transaksi, qty, harga_beli, harga_jual,updated_at) VALUES (" & idTransaksiDetail.ToString & ", " & idBarang & ", " & lblIdTransaksi.Text & ", " & qty.ToString & ", " & hargaBeliNetto.ToString & "," & hargaJualTerpilih.ToString & ",now())")
                         End If
                     End If
                     loadTable()
@@ -288,44 +288,44 @@ Public Class penjualan
     End Sub
     Private Sub doneTransaksi(ByVal nominalKembalian As Integer)
         Dim waktuTransaksi = newConnect.ExecuteScalar("SELECT waktu from transaksi WHERE id_transaksi = " & lblIdTransaksi.Text)
-        Dim transaksiDetails = newConnect.ExecuteReader("select * from ds_transaksi_penjualan where id_transaksi = " & lblIdTransaksi.Text)
+        Dim transaksiDetails = newConnect.ExecuteReader("SELECT `transaksi_detail`.`id_transaksi_detail` AS `id_transaksi_detail`, `transaksi_detail`.`id_transaksi` AS `id_transaksi`, `barang`.`barcode` AS `barcode`, `barang`.`nama_barang` AS `nama_barang`, `transaksi_detail`.`harga_jual` AS `harga`, `transaksi_detail`.`qty` AS `qty`, `transaksi_detail`.`harga_jual`* `transaksi_detail`.`qty` AS `jumlah`, `barang`.`stok_display`+ `barang`.`stok_gudang` AS `stok`, `transaksi_detail`.`updated_at` AS `updated_at` FROM (`transaksi_detail` left join `barang` on(`transaksi_detail`.`id_barang` = `barang`.`id_barang`))  where id_transaksi = " & lblIdTransaksi.Text & " ORDER BY `transaksi_detail`.`updated_at` DESC")
         For i = 0 To transaksiDetails.Rows.Count - 1
             Dim transaksiDetail = transaksiDetails.Rows(i)
             Dim qty As Integer = transaksiDetail("qty")
             Dim stokDisplay As Integer = newConnect.ExecuteScalar("select stok_display from barang where barcode='" & transaksiDetail("barcode").ToString & "'")
             Dim stokGudang As Integer = newConnect.ExecuteScalar("select stok_gudang from barang where barcode='" & transaksiDetail("barcode").ToString & "'")
             If qty <= stokDisplay Then
-                newConnect.ExecuteNonQuery("UPDATE barang Set stok_display = '" & (stokDisplay - qty).ToString & "' WHERE barcode = '" & transaksiDetail("barcode") & "'")
+                newConnect.ExecuteNonQuery("UPDATE barang Set stok_display = " & (stokDisplay - qty).ToString & " WHERE barcode = '" & transaksiDetail("barcode") & "'")
             Else
                 Dim stokYgHarusDariGudang = qty - stokDisplay
-                newConnect.ExecuteNonQuery("UPDATE barang Set stok_display = '0' WHERE barcode='" & transaksiDetail("barcode").ToString & "'")
-                newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & (stokGudang - stokYgHarusDariGudang).ToString & "' WHERE barcode='" & transaksiDetail("barcode") & "'")
+                newConnect.ExecuteNonQuery("UPDATE barang Set stok_display = 0 WHERE barcode='" & transaksiDetail("barcode").ToString & "'")
+                newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = " & (stokGudang - stokYgHarusDariGudang).ToString & " WHERE barcode='" & transaksiDetail("barcode") & "'")
             End If
         Next
-        newConnect.ExecuteNonQuery("UPDATE transaksi Set bayar = '" & textBayar.
+        newConnect.ExecuteNonQuery("UPDATE transaksi Set bayar = " & textBayar.
                                                                Text.
                                                                Replace(",", "").
                                                                Replace(".", "") &
-                                                               "', grand_total = '" &
+                                                               ", grand_total = " &
                                                                textGrandTotal.Text.Replace(",", "").Replace(".", "") &
-                                                               "', kembalian = '" & nominalKembalian.ToString &
-                                                               "', status = 'done' WHERE id_transaksi = " & lblIdTransaksi.Text)
-        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff='" & lblIdTransaksi.Text & "'")
+                                                               ", kembalian = " & nominalKembalian.ToString &
+                                                               ", status = 'done' WHERE id_transaksi = " & lblIdTransaksi.Text)
+        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff=" & lblIdTransaksi.Text & "")
         If idMutasi Is Nothing Then
-            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
+            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_reff,type,deskripsi,nominal,created_at) VALUES (" &
                                                                  lblIdTransaksi.Text &
-                                                                "','penjualan','PENJUALAN pada waktu: " &
-                                                                waktuTransaksi & "', '" & textTotal.
+                                                                ",'penjualan','PENJUALAN pada waktu: " &
+                                                                waktuTransaksi & "', " & textTotal.
                                                                 Text.
                                                                 Replace(",", "").
-                                                                Replace(".", "") & "', now());")
+                                                                Replace(".", "") & ", now());")
         Else
 
             newConnect.ExecuteNonQuery("UPDATE mutasi SET deskripsi = 'update PENJUALAN pada waktu: " &
-                                                                waktuTransaksi & "',nominal = '" & textTotal.
+                                                                waktuTransaksi & "',nominal = " & textTotal.
                                                                 Text.
                                                                 Replace(",", "").
-                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
+                                                                Replace(".", "") & ",created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
         End If
         initializeForm()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
@@ -334,20 +334,20 @@ Public Class penjualan
 
     Private Sub returTransaksi(ByVal nominalKembalian As Integer)
         Dim waktuTransaksi = newConnect.ExecuteScalar("SELECT waktu from transaksi WHERE id_transaksi = " & lblIdTransaksi.Text)
-        newConnect.ExecuteNonQuery("UPDATE transaksi Set bayar = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', grand_total = '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', kembalian = '0', status = 'retur' WHERE id_transaksi = " & lblIdTransaksi.Text)
-        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff='" & lblIdTransaksi.Text & "'")
+        newConnect.ExecuteNonQuery("UPDATE transaksi Set bayar = " & textGrandTotal.Text.Replace(",", "").Replace(".", "") & ", grand_total = " & textGrandTotal.Text.Replace(",", "").Replace(".", "") & ", kembalian = 0, status = 'retur' WHERE id_transaksi = " & lblIdTransaksi.Text)
+        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='penjualan' and id_reff=" & lblIdTransaksi.Text & "")
         If idMutasi Is Nothing Then
-            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
+            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_reff,type,deskripsi,nominal,created_at) VALUES (" &
                                                                  lblIdTransaksi.Text &
-                                                                "','penjualan','RETUR PENJUALAN pada waktu: " &
-                                                                waktuTransaksi & "', '" & textGrandTotal.Text.Replace(",", "").Replace(".", "") & "', now());")
+                                                                ",'penjualan','RETUR PENJUALAN pada waktu: " &
+                                                                waktuTransaksi & "', " & textGrandTotal.Text.Replace(",", "").Replace(".", "") & ", now());")
 
         Else
             newConnect.ExecuteNonQuery("UPDATE mutasi SET deskripsi = 'update RETUR PENJUALAN pada waktu: " &
-                                                                waktuTransaksi & "',nominal = '" & textGrandTotal.
+                                                                waktuTransaksi & "',nominal = " & textGrandTotal.
                                                                 Text.
                                                                 Replace(",", "").
-                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
+                                                                Replace(".", "") & ",created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
         End If
         initializeForm()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
@@ -380,6 +380,7 @@ Public Class penjualan
         initializeForm()
         initializeDebounce()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
+
         loadTable()
 
     End Sub
@@ -487,6 +488,10 @@ Public Class penjualan
     End Sub
 
     Private Sub Panel4_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel4.Paint
+
+    End Sub
+
+    Private Sub labelTotalBig_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles labelTotalBig.Click
 
     End Sub
 End Class
