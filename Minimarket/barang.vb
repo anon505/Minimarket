@@ -62,8 +62,7 @@ Public Class barang
         If nm_suplier.Text = "" Or satuanbox.Text = "" Or txtBarcode.Text = "" Or txtNama.Text = "" Or txtHargaBeli.Text = "" Or
             txtPajak.Text = "" Or txtDiskon.Text = "" Or txtHargaBeliNetto.Text = "" Or txtStokDisplay.Text = "" Or
             txtStokGudang.Text = "" Or txtHargaJual1.Text = "" Or txtHargaJual2.Text = "" Or txtHargaJual3.Text = "" Or
-            txtHargaJual4.Text = "" Or txtQty2.Text = "" Or txtQty3.Text = "" Or txtQty4.Text = "" Or
-            lblIdBarang.Text = "" Then
+            txtHargaJual4.Text = "" Or txtQty2.Text = "" Or txtQty3.Text = "" Or txtQty4.Text = ""  Then
             MsgBox("Data tentang barang, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
             Query = "INSERT INTO barang(id_suplier,id_satuan,barcode,nama_barang,harga_beli,ppn,discount,harga_beli_netto," +
