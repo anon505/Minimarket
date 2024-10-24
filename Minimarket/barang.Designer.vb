@@ -83,14 +83,14 @@ Partial Class barang
         Me.DataGridView1.Location = New System.Drawing.Point(16, 50)
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1117, 295)
+        Me.DataGridView1.Size = New System.Drawing.Size(1123, 295)
         Me.DataGridView1.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(10, 430)
+        Me.Label1.Location = New System.Drawing.Point(10, 484)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(132, 25)
@@ -101,7 +101,7 @@ Partial Class barang
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(10, 488)
+        Me.Label2.Location = New System.Drawing.Point(13, 546)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(102, 25)
@@ -111,7 +111,7 @@ Partial Class barang
         'txtNama
         '
         Me.txtNama.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtNama.Location = New System.Drawing.Point(177, 427)
+        Me.txtNama.Location = New System.Drawing.Point(177, 481)
         Me.txtNama.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNama.Name = "txtNama"
         Me.txtNama.Size = New System.Drawing.Size(183, 30)
@@ -120,17 +120,17 @@ Partial Class barang
         'txtHargaBeli
         '
         Me.txtHargaBeli.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaBeli.Location = New System.Drawing.Point(177, 485)
+        Me.txtHargaBeli.Location = New System.Drawing.Point(177, 541)
         Me.txtHargaBeli.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaBeli.Name = "txtHargaBeli"
         Me.txtHargaBeli.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaBeli.TabIndex = 4
+        Me.txtHargaBeli.TabIndex = 3
         '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(418, 601)
+        Me.Label3.Location = New System.Drawing.Point(808, 539)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 25)
@@ -140,20 +140,19 @@ Partial Class barang
         'txtStokGudang
         '
         Me.txtStokGudang.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStokGudang.Location = New System.Drawing.Point(560, 598)
+        Me.txtStokGudang.Location = New System.Drawing.Point(950, 536)
         Me.txtStokGudang.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokGudang.Name = "txtStokGudang"
-        Me.txtStokGudang.Size = New System.Drawing.Size(183, 30)
+        Me.txtStokGudang.Size = New System.Drawing.Size(191, 30)
         Me.txtStokGudang.TabIndex = 6
         '
         'tambah
         '
-        Me.tambah.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.tambah.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tambah.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tambah.Image = CType(resources.GetObject("tambah.Image"), System.Drawing.Image)
         Me.tambah.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.tambah.Location = New System.Drawing.Point(460, 705)
+        Me.tambah.Location = New System.Drawing.Point(466, 712)
         Me.tambah.Margin = New System.Windows.Forms.Padding(4)
         Me.tambah.Name = "tambah"
         Me.tambah.Size = New System.Drawing.Size(156, 65)
@@ -164,12 +163,11 @@ Partial Class barang
         '
         'hapus
         '
-        Me.hapus.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.hapus.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.hapus.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.hapus.Image = CType(resources.GetObject("hapus.Image"), System.Drawing.Image)
         Me.hapus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.hapus.Location = New System.Drawing.Point(802, 705)
+        Me.hapus.Location = New System.Drawing.Point(808, 712)
         Me.hapus.Margin = New System.Windows.Forms.Padding(4)
         Me.hapus.Name = "hapus"
         Me.hapus.Size = New System.Drawing.Size(153, 65)
@@ -180,12 +178,11 @@ Partial Class barang
         '
         'edit
         '
-        Me.edit.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.edit.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.edit.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.edit.Image = CType(resources.GetObject("edit.Image"), System.Drawing.Image)
         Me.edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.edit.Location = New System.Drawing.Point(633, 705)
+        Me.edit.Location = New System.Drawing.Point(639, 712)
         Me.edit.Margin = New System.Windows.Forms.Padding(4)
         Me.edit.Name = "edit"
         Me.edit.Size = New System.Drawing.Size(153, 65)
@@ -196,12 +193,11 @@ Partial Class barang
         '
         'lihat
         '
-        Me.lihat.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lihat.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lihat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lihat.Image = CType(resources.GetObject("lihat.Image"), System.Drawing.Image)
         Me.lihat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lihat.Location = New System.Drawing.Point(969, 705)
+        Me.lihat.Location = New System.Drawing.Point(975, 712)
         Me.lihat.Margin = New System.Windows.Forms.Padding(4)
         Me.lihat.Name = "lihat"
         Me.lihat.Size = New System.Drawing.Size(164, 65)
@@ -240,7 +236,7 @@ Partial Class barang
         Me.txtcari.Location = New System.Drawing.Point(557, 11)
         Me.txtcari.Margin = New System.Windows.Forms.Padding(4)
         Me.txtcari.Name = "txtcari"
-        Me.txtcari.Size = New System.Drawing.Size(576, 30)
+        Me.txtcari.Size = New System.Drawing.Size(582, 30)
         Me.txtcari.TabIndex = 15
         '
         'berdasarkan
@@ -274,7 +270,7 @@ Partial Class barang
         Me.nm_suplier.Margin = New System.Windows.Forms.Padding(4)
         Me.nm_suplier.Name = "nm_suplier"
         Me.nm_suplier.Size = New System.Drawing.Size(183, 33)
-        Me.nm_suplier.TabIndex = 18
+        Me.nm_suplier.TabIndex = 1
         '
         'syarat
         '
@@ -290,7 +286,7 @@ Partial Class barang
         'txtHargaJual1
         '
         Me.txtHargaJual1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual1.Location = New System.Drawing.Point(560, 483)
+        Me.txtHargaJual1.Location = New System.Drawing.Point(566, 427)
         Me.txtHargaJual1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual1.Name = "txtHargaJual1"
         Me.txtHargaJual1.Size = New System.Drawing.Size(183, 30)
@@ -300,7 +296,7 @@ Partial Class barang
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(419, 486)
+        Me.Label8.Location = New System.Drawing.Point(416, 430)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(133, 25)
@@ -312,11 +308,11 @@ Partial Class barang
         Me.satuanbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
         Me.satuanbox.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.satuanbox.FormattingEnabled = True
-        Me.satuanbox.Location = New System.Drawing.Point(560, 364)
+        Me.satuanbox.Location = New System.Drawing.Point(565, 364)
         Me.satuanbox.Margin = New System.Windows.Forms.Padding(4)
         Me.satuanbox.Name = "satuanbox"
         Me.satuanbox.Size = New System.Drawing.Size(183, 33)
-        Me.satuanbox.TabIndex = 23
+        Me.satuanbox.TabIndex = 2
         '
         'Label7
         '
@@ -331,20 +327,18 @@ Partial Class barang
         '
         'txtDiskon
         '
-        Me.txtDiskon.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtDiskon.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDiskon.Location = New System.Drawing.Point(951, 423)
+        Me.txtDiskon.Location = New System.Drawing.Point(950, 661)
         Me.txtDiskon.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDiskon.Name = "txtDiskon"
-        Me.txtDiskon.Size = New System.Drawing.Size(183, 30)
-        Me.txtDiskon.TabIndex = 25
+        Me.txtDiskon.Size = New System.Drawing.Size(189, 30)
+        Me.txtDiskon.TabIndex = 6
         '
         'Label9
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(797, 426)
+        Me.Label9.Location = New System.Drawing.Point(810, 664)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(72, 25)
@@ -353,20 +347,18 @@ Partial Class barang
         '
         'txtPajak
         '
-        Me.txtPajak.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtPajak.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPajak.Location = New System.Drawing.Point(950, 369)
+        Me.txtPajak.Location = New System.Drawing.Point(566, 661)
         Me.txtPajak.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPajak.Name = "txtPajak"
-        Me.txtPajak.Size = New System.Drawing.Size(183, 30)
-        Me.txtPajak.TabIndex = 27
+        Me.txtPajak.Size = New System.Drawing.Size(189, 30)
+        Me.txtPajak.TabIndex = 3
         '
         'Label10
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(797, 372)
+        Me.Label10.Location = New System.Drawing.Point(414, 666)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(61, 25)
@@ -376,17 +368,17 @@ Partial Class barang
         'txtBarcode
         '
         Me.txtBarcode.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBarcode.Location = New System.Drawing.Point(560, 425)
+        Me.txtBarcode.Location = New System.Drawing.Point(177, 427)
         Me.txtBarcode.Margin = New System.Windows.Forms.Padding(4)
         Me.txtBarcode.Name = "txtBarcode"
         Me.txtBarcode.Size = New System.Drawing.Size(183, 30)
-        Me.txtBarcode.TabIndex = 29
+        Me.txtBarcode.TabIndex = 5
         '
         'Label11
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(419, 428)
+        Me.Label11.Location = New System.Drawing.Point(10, 430)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(85, 25)
@@ -395,20 +387,18 @@ Partial Class barang
         '
         'txtHargaJual2
         '
-        Me.txtHargaJual2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtHargaJual2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual2.Location = New System.Drawing.Point(953, 485)
+        Me.txtHargaJual2.Location = New System.Drawing.Point(566, 481)
         Me.txtHargaJual2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual2.Name = "txtHargaJual2"
-        Me.txtHargaJual2.Size = New System.Drawing.Size(183, 30)
+        Me.txtHargaJual2.Size = New System.Drawing.Size(185, 30)
         Me.txtHargaJual2.TabIndex = 31
         '
         'Label12
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(797, 488)
+        Me.Label12.Location = New System.Drawing.Point(416, 484)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(123, 25)
@@ -417,20 +407,18 @@ Partial Class barang
         '
         'txtHargaJual4
         '
-        Me.txtHargaJual4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtHargaJual4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual4.Location = New System.Drawing.Point(953, 543)
+        Me.txtHargaJual4.Location = New System.Drawing.Point(565, 597)
         Me.txtHargaJual4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual4.Name = "txtHargaJual4"
-        Me.txtHargaJual4.Size = New System.Drawing.Size(183, 30)
+        Me.txtHargaJual4.Size = New System.Drawing.Size(184, 30)
         Me.txtHargaJual4.TabIndex = 35
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(797, 546)
+        Me.Label13.Location = New System.Drawing.Point(414, 599)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(123, 25)
@@ -440,7 +428,7 @@ Partial Class barang
         'txtHargaJual3
         '
         Me.txtHargaJual3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual3.Location = New System.Drawing.Point(560, 541)
+        Me.txtHargaJual3.Location = New System.Drawing.Point(566, 540)
         Me.txtHargaJual3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual3.Name = "txtHargaJual3"
         Me.txtHargaJual3.Size = New System.Drawing.Size(183, 30)
@@ -450,7 +438,7 @@ Partial Class barang
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(419, 544)
+        Me.Label14.Location = New System.Drawing.Point(414, 541)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(123, 25)
@@ -460,17 +448,17 @@ Partial Class barang
         'txtStokDisplay
         '
         Me.txtStokDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStokDisplay.Location = New System.Drawing.Point(177, 598)
+        Me.txtStokDisplay.Location = New System.Drawing.Point(950, 593)
         Me.txtStokDisplay.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokDisplay.Name = "txtStokDisplay"
-        Me.txtStokDisplay.Size = New System.Drawing.Size(183, 30)
+        Me.txtStokDisplay.Size = New System.Drawing.Size(189, 30)
         Me.txtStokDisplay.TabIndex = 37
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(10, 601)
+        Me.Label15.Location = New System.Drawing.Point(810, 596)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(121, 25)
@@ -479,20 +467,18 @@ Partial Class barang
         '
         'txtQty4
         '
-        Me.txtQty4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtQty4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQty4.Location = New System.Drawing.Point(952, 658)
+        Me.txtQty4.Location = New System.Drawing.Point(950, 481)
         Me.txtQty4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty4.Name = "txtQty4"
-        Me.txtQty4.Size = New System.Drawing.Size(183, 30)
+        Me.txtQty4.Size = New System.Drawing.Size(189, 30)
         Me.txtQty4.TabIndex = 45
         '
         'Label16
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(794, 661)
+        Me.Label16.Location = New System.Drawing.Point(810, 486)
         Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(59, 25)
@@ -502,17 +488,17 @@ Partial Class barang
         'txtQty3
         '
         Me.txtQty3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQty3.Location = New System.Drawing.Point(560, 656)
+        Me.txtQty3.Location = New System.Drawing.Point(950, 425)
         Me.txtQty3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty3.Name = "txtQty3"
-        Me.txtQty3.Size = New System.Drawing.Size(183, 30)
+        Me.txtQty3.Size = New System.Drawing.Size(189, 30)
         Me.txtQty3.TabIndex = 43
         '
         'Label17
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(419, 659)
+        Me.Label17.Location = New System.Drawing.Point(810, 428)
         Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(59, 25)
@@ -521,20 +507,18 @@ Partial Class barang
         '
         'txtQty2
         '
-        Me.txtQty2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtQty2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQty2.Location = New System.Drawing.Point(953, 601)
+        Me.txtQty2.Location = New System.Drawing.Point(950, 367)
         Me.txtQty2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty2.Name = "txtQty2"
-        Me.txtQty2.Size = New System.Drawing.Size(183, 30)
+        Me.txtQty2.Size = New System.Drawing.Size(189, 30)
         Me.txtQty2.TabIndex = 41
         '
         'Label18
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(797, 604)
+        Me.Label18.Location = New System.Drawing.Point(810, 372)
         Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(59, 25)
@@ -555,17 +539,17 @@ Partial Class barang
         'txtHargaBeliNetto
         '
         Me.txtHargaBeliNetto.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaBeliNetto.Location = New System.Drawing.Point(176, 539)
+        Me.txtHargaBeliNetto.Location = New System.Drawing.Point(177, 595)
         Me.txtHargaBeliNetto.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaBeliNetto.Name = "txtHargaBeliNetto"
         Me.txtHargaBeliNetto.Size = New System.Drawing.Size(183, 30)
-        Me.txtHargaBeliNetto.TabIndex = 48
+        Me.txtHargaBeliNetto.TabIndex = 4
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(9, 542)
+        Me.Label4.Location = New System.Drawing.Point(10, 598)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(153, 25)
@@ -576,7 +560,7 @@ Partial Class barang
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1148, 783)
+        Me.ClientSize = New System.Drawing.Size(1154, 790)
         Me.Controls.Add(Me.txtHargaBeliNetto)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label20)
@@ -624,7 +608,9 @@ Partial Class barang
         Me.Controls.Add(Me.DataGridView1)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "barang"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds
         Me.Text = "Manajemen Barang"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

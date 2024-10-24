@@ -71,12 +71,10 @@ Public Class main
     Private Sub BarangToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BarangSubMenuItem.Click
         barang.MdiParent = Me
         barang.Show()
-        barang.MaximizeBox = False
     End Sub
     Private Sub KasirToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KasirSubMenuItem.Click
         kasir.MdiParent = Me
         kasir.Show()
-        kasir.MaximizeBox = False
     End Sub
     Private Sub SupplierToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SupplierSubMenuItem.Click
         supplier.MdiParent = Me
@@ -97,7 +95,6 @@ Public Class main
     Private Sub SatuanToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SatuanSubMenuItem.Click
         satuan.MdiParent = Me
         satuan.Show()
-        satuan.MaximizeBox = False
     End Sub
 
     Private Sub PembelianToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PembelianToolStripMenuItem.Click
@@ -115,7 +112,6 @@ Public Class main
     Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem1.Click
         cpanel.MdiParent = Me
         cpanel.Show()
-        cpanel.MaximizeBox = False
     End Sub
 
     Private Sub KeuntunganToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles KeuntunganToolStripMenuItem.Click

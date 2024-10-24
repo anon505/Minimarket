@@ -62,6 +62,9 @@ Partial Class markup
         'dataGridView1
         '
         Me.dataGridView1.AllowUserToAddRows = False
+        Me.dataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
@@ -109,6 +112,7 @@ Partial Class markup
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(935, 14)
@@ -119,6 +123,7 @@ Partial Class markup
         '
         'textNamaSuplier
         '
+        Me.textNamaSuplier.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textNamaSuplier.Enabled = False
         Me.textNamaSuplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textNamaSuplier.Location = New System.Drawing.Point(1216, 12)
@@ -129,6 +134,7 @@ Partial Class markup
         '
         'buttonSave
         '
+        Me.buttonSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.buttonSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.buttonSave.Location = New System.Drawing.Point(18, 682)
         Me.buttonSave.Name = "buttonSave"
@@ -139,6 +145,7 @@ Partial Class markup
         '
         'buttonDelete
         '
+        Me.buttonDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.buttonDelete.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.buttonDelete.Location = New System.Drawing.Point(494, 682)
         Me.buttonDelete.Name = "buttonDelete"
@@ -149,6 +156,7 @@ Partial Class markup
         '
         'buttonFind
         '
+        Me.buttonFind.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.buttonFind.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.buttonFind.Location = New System.Drawing.Point(970, 682)
         Me.buttonFind.Name = "buttonFind"
@@ -159,6 +167,7 @@ Partial Class markup
         '
         'textKodeSuplier
         '
+        Me.textKodeSuplier.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textKodeSuplier.Enabled = False
         Me.textKodeSuplier.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textKodeSuplier.Location = New System.Drawing.Point(1066, 14)
@@ -186,7 +195,6 @@ Partial Class markup
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(4)
-        Me.MaximizeBox = False
         Me.Name = "markup"
         Me.Text = "markup"
         CType(Me.dataGridView1, System.ComponentModel.ISupportInitialize).EndInit()

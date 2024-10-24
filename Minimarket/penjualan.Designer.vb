@@ -138,6 +138,7 @@ Partial Class penjualan
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.Transparent
         Me.Label2.ForeColor = System.Drawing.Color.White
@@ -149,8 +150,7 @@ Partial Class penjualan
         '
         'textCountItem
         '
-        Me.textCountItem.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textCountItem.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textCountItem.BackColor = System.Drawing.Color.Black
         Me.textCountItem.ForeColor = System.Drawing.Color.White
@@ -212,6 +212,9 @@ Partial Class penjualan
         'dataGridView1
         '
         Me.dataGridView1.AllowUserToAddRows = False
+        Me.dataGridView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke
         DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
         DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
@@ -262,6 +265,7 @@ Partial Class penjualan
         '
         'textQty
         '
+        Me.textQty.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.textQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textQty.Location = New System.Drawing.Point(394, 10)
         Me.textQty.Name = "textQty"
@@ -280,6 +284,7 @@ Partial Class penjualan
         '
         'textKembalian
         '
+        Me.textKembalian.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.textKembalian.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textKembalian.Location = New System.Drawing.Point(589, 139)
         Me.textKembalian.Name = "textKembalian"
@@ -289,6 +294,7 @@ Partial Class penjualan
         '
         'labelKembalian
         '
+        Me.labelKembalian.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.labelKembalian.AutoSize = True
         Me.labelKembalian.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelKembalian.Location = New System.Drawing.Point(584, 107)
@@ -299,6 +305,7 @@ Partial Class penjualan
         '
         'textBayar
         '
+        Me.textBayar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.textBayar.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textBayar.Location = New System.Drawing.Point(310, 139)
         Me.textBayar.Name = "textBayar"
@@ -307,6 +314,7 @@ Partial Class penjualan
         '
         'labelBayar
         '
+        Me.labelBayar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.labelBayar.AutoSize = True
         Me.labelBayar.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelBayar.Location = New System.Drawing.Point(305, 107)
@@ -317,6 +325,7 @@ Partial Class penjualan
         '
         'textGrandTotal
         '
+        Me.textGrandTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.textGrandTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textGrandTotal.Location = New System.Drawing.Point(32, 139)
         Me.textGrandTotal.Name = "textGrandTotal"
@@ -326,6 +335,7 @@ Partial Class penjualan
         '
         'textTotal
         '
+        Me.textTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.textTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textTotal.Location = New System.Drawing.Point(98, 56)
         Me.textTotal.Name = "textTotal"
@@ -335,6 +345,7 @@ Partial Class penjualan
         '
         'textPLU
         '
+        Me.textPLU.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.textPLU.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.textPLU.Location = New System.Drawing.Point(97, 8)
         Me.textPLU.Name = "textPLU"
@@ -343,6 +354,7 @@ Partial Class penjualan
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(27, 107)
@@ -353,6 +365,7 @@ Partial Class penjualan
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(28, 58)
@@ -363,6 +376,7 @@ Partial Class penjualan
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(30, 8)
@@ -373,7 +387,8 @@ Partial Class penjualan
         '
         'Button1
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Button1.BackColor = System.Drawing.Color.Transparent
         Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -415,6 +430,8 @@ Partial Class penjualan
         '
         'Panel5
         '
+        Me.Panel5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Panel5.BackColor = System.Drawing.Color.White
         Me.Panel5.Location = New System.Drawing.Point(0, 101)
         Me.Panel5.Name = "Panel5"

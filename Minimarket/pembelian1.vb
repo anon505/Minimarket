@@ -9,14 +9,17 @@ Public Class pembelian1
     Public Function getIdPembelian(ByVal idKasir As String) As String
         If noFaktorEdit IsNot Nothing Then
             Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE no_faktur='" & noFaktorEdit & "'")
+            Console.WriteLine("id pembelian noFaktorEdit" & idPembelian)
             Return idPembelian.ToString
         Else
             Dim idPembelian = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir='" & idKasir & "'")
             If idPembelian Is Nothing Then
                 Dim tes = newConnect.ExecuteNonQuery("INSERT INTO pembelian(id_pembelian, no_faktur, tgl_faktur, id_supplier, id_kasir, grand_total, metode_pembayaran, lama_jatuh_tempo, status) VALUES (NULL, '', NOW(), '0', '" & idKasir & "', '0', 'tunai', '0', 'temp');")
                 Dim idPembelian1 = newConnect.ExecuteScalar("SELECT id_pembelian from pembelian WHERE status='temp' AND id_kasir='" & idKasir & "'")
+                Console.WriteLine("id pembelian1" & idPembelian)
                 Return idPembelian1.ToString
             Else
+                Console.WriteLine("id pembelian" & idPembelian)
                 Return idPembelian.ToString
             End If
         End If
@@ -29,7 +32,7 @@ Public Class pembelian1
             e.Handled = False
         End If
         If ascChar = 13 Then
-
+            Console.WriteLine("tes")
             inputUpdateBarang(textPLU.Text)
         End If
     End Sub
@@ -41,6 +44,7 @@ Public Class pembelian1
         Dim ppn As Double
         Dim discount As Double
         Dim hargaBeliNetto As Integer
+        Console.WriteLine(barangReaders.Rows.Count)
         If barangReaders.Rows.Count > 0 Then
             Dim barangReader = barangReaders.Rows(0)
             idBarang = barangReader("id_barang")
@@ -48,14 +52,19 @@ Public Class pembelian1
             ppn = barangReader("ppn")
             discount = barangReader("discount")
             hargaBeliNetto = barangReader("harga_beli_netto")
+            Console.WriteLine("" & idBarang & "-" & hargaBeli & "-" & ppn & "-" & discount)
 
-            Dim currentQty = newConnect.ExecuteScalar("SELECT qty from pembelian_detail WHERE id_barang='" & idBarang.ToString & "' AND id_pembelian=" & getIdPembelian(Module1.id_kasir))
+            Dim currentQty = newConnect.ExecuteScalar("SELECT qty from pembelian_detail WHERE id_barang='" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
             If currentQty Is Nothing Then
                 currentQty = "1"
-                newConnect.ExecuteNonQuery("INSERT INTO pembelian_detail (id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')")
+                Dim query = "INSERT INTO pembelian_detail (id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')"
+                Console.WriteLine(query)
+                newConnect.ExecuteNonQuery(query)
             Else
                 currentQty = (Integer.Parse(currentQty.ToString) + 1).ToString
-                newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & currentQty.ToString & "' WHERE id_barang = '" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                Dim query = "UPDATE pembelian_detail Set qty = '" & currentQty.ToString & "' WHERE id_barang = '" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'"
+
+                newConnect.ExecuteNonQuery(query)
             End If
             loadTable()
             textPLU.Text = ""
@@ -516,6 +525,7 @@ Public Class pembelian1
 
         Dim metodePembayaran = ""
         Dim minus = ""
+        Dim jatuhTempo = "0"
         If comboPembayaran.SelectedIndex = 0 Then
             metodePembayaran = "tunai"
             minus = ""
@@ -523,13 +533,16 @@ Public Class pembelian1
         If comboPembayaran.SelectedIndex = 1 Then
             metodePembayaran = "kredit"
             minus = "-"
+            jatuhTempo = textTempoHari.Text
         End If
         If comboPembayaran.SelectedIndex = 2 Then
             metodePembayaran = "konsinyasi"
             minus = "-"
+            jatuhTempo = textTempoHari.Text
         End If
-
-        newConnect.ExecuteNonQuery("UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & textTempoHari.Text & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir))
+        Dim query = "UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & jatuhTempo & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir)
+        Console.WriteLine(query)
+        newConnect.ExecuteNonQuery(query)
 
         Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'")
         If idMutasi Is Nothing Then
@@ -761,5 +774,9 @@ Public Class pembelian1
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         supplier.Show()
+    End Sub
+
+    Private Sub textPLU_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles textPLU.TextChanged
+
     End Sub
 End Class

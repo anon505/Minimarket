@@ -101,26 +101,30 @@ Public Class barang
             i = DataGridView1.CurrentRow.Index
             With DataGridView1
                 lblIdBarang.Text = .Item(0, i).Value
-                nm_suplier.SelectedIndex = .Item(1, i).Value - 1
-                satuanbox.SelectedIndex = .Item(2, i).Value - 1
+                If Not (IsDBNull(.Item(1, i).Value)) Then
+                    nm_suplier.SelectedIndex = .Item(1, i).Value - 1
+                End If
+                If Not (IsDBNull(.Item(2, i).Value)) Then
+                    satuanbox.SelectedIndex = .Item(2, i).Value - 1
+                End If
                 txtBarcode.Text = .Item(3, i).Value
                 txtNama.Text = .Item(4, i).Value
-                txtHargaBeli.Tag = .Item(5, i).Value
+                txtHargaBeli.Tag = If(Not (IsDBNull(.Item(5, i).Value)), .Item(5, i).Value, "0")
                 txtHargaBeli.Text = Format(Val(txtHargaBeli.Tag), "'Rp' #,0;'Rp' -#,0")
                 txtPajak.Text = .Item(6, i).Value
                 txtDiskon.Text = .Item(7, i).Value
-                txtHargaBeliNetto.Tag = .Item(8, i).Value
+                txtHargaBeliNetto.Tag = If(Not (IsDBNull(.Item(8, i).Value)), .Item(8, i).Value, "0")
                 txtHargaBeliNetto.Text = Format(Val(txtHargaBeli.Tag), "'Rp' #,0;'Rp' -#,0")
                 txtStokDisplay.Text = .Item(9, i).Value
                 txtStokGudang.Text = .Item(10, i).Value
 
-                txtHargaJual1.Tag = .Item(11, i).Value
+                txtHargaJual1.Tag = If(Not (IsDBNull(.Item(11, i).Value)), .Item(11, i).Value, "0")
                 txtHargaJual1.Text = Format(Val(txtHargaJual1.Tag), "'Rp' #,0;'Rp' -#,0")
-                txtHargaJual2.Tag = .Item(12, i).Value
+                txtHargaJual2.Tag = If(Not (IsDBNull(.Item(12, i).Value)), .Item(12, i).Value, "0")
                 txtHargaJual2.Text = Format(Val(txtHargaJual2.Tag), "'Rp' #,0;'Rp' -#,0")
-                txtHargaJual3.Tag = .Item(13, i).Value
+                txtHargaJual3.Tag = If(Not (IsDBNull(.Item(13, i).Value)), .Item(13, i).Value, "0")
                 txtHargaJual3.Text = Format(Val(txtHargaJual3.Tag), "'Rp' #,0;'Rp' -#,0")
-                txtHargaJual4.Tag = .Item(14, i).Value
+                txtHargaJual4.Tag = If(Not (IsDBNull(.Item(14, i).Value)), .Item(14, i).Value, "0")
                 txtHargaJual4.Text = Format(Val(txtHargaJual4.Tag), "'Rp' #,0;'Rp' -#,0")
 
                 txtQty2.Text = .Item(15, i).Value
@@ -129,7 +133,7 @@ Public Class barang
 
             End With
         Catch ex As Exception
-            MsgBox("Data yang anda cari tidak ada", MsgBoxStyle.OkOnly)
+            MsgBox("Data yang anda cari tidak ada" & ex.Message, MsgBoxStyle.OkOnly)
         End Try
     End Sub
 
