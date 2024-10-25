@@ -38,6 +38,8 @@ Partial Class supplier
         Me.edit = New System.Windows.Forms.Button()
         Me.hapus = New System.Windows.Forms.Button()
         Me.tambah = New System.Windows.Forms.Button()
+        Me.txtkode = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -86,7 +88,7 @@ Partial Class supplier
         'txtstok
         '
         Me.txtstok.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtstok.Location = New System.Drawing.Point(176, 475)
+        Me.txtstok.Location = New System.Drawing.Point(182, 549)
         Me.txtstok.Margin = New System.Windows.Forms.Padding(4)
         Me.txtstok.Name = "txtstok"
         Me.txtstok.Size = New System.Drawing.Size(223, 30)
@@ -96,7 +98,7 @@ Partial Class supplier
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(11, 482)
+        Me.Label3.Location = New System.Drawing.Point(17, 556)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(147, 25)
@@ -106,7 +108,7 @@ Partial Class supplier
         'txtharga
         '
         Me.txtharga.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtharga.Location = New System.Drawing.Point(176, 415)
+        Me.txtharga.Location = New System.Drawing.Point(182, 489)
         Me.txtharga.Margin = New System.Windows.Forms.Padding(4)
         Me.txtharga.Name = "txtharga"
         Me.txtharga.Size = New System.Drawing.Size(223, 30)
@@ -115,7 +117,7 @@ Partial Class supplier
         'txtnama
         '
         Me.txtnama.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtnama.Location = New System.Drawing.Point(176, 353)
+        Me.txtnama.Location = New System.Drawing.Point(182, 427)
         Me.txtnama.Margin = New System.Windows.Forms.Padding(4)
         Me.txtnama.Name = "txtnama"
         Me.txtnama.Size = New System.Drawing.Size(223, 30)
@@ -125,7 +127,7 @@ Partial Class supplier
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(11, 420)
+        Me.Label2.Location = New System.Drawing.Point(17, 494)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(150, 25)
@@ -136,7 +138,7 @@ Partial Class supplier
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(11, 361)
+        Me.Label1.Location = New System.Drawing.Point(17, 435)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(141, 25)
@@ -163,7 +165,7 @@ Partial Class supplier
         Me.lihat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lihat.Image = CType(resources.GetObject("lihat.Image"), System.Drawing.Image)
         Me.lihat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lihat.Location = New System.Drawing.Point(596, 533)
+        Me.lihat.Location = New System.Drawing.Point(596, 624)
         Me.lihat.Margin = New System.Windows.Forms.Padding(4)
         Me.lihat.Name = "lihat"
         Me.lihat.Size = New System.Drawing.Size(164, 59)
@@ -178,7 +180,7 @@ Partial Class supplier
         Me.edit.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.edit.Image = CType(resources.GetObject("edit.Image"), System.Drawing.Image)
         Me.edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.edit.Location = New System.Drawing.Point(209, 533)
+        Me.edit.Location = New System.Drawing.Point(209, 624)
         Me.edit.Margin = New System.Windows.Forms.Padding(4)
         Me.edit.Name = "edit"
         Me.edit.Size = New System.Drawing.Size(153, 59)
@@ -193,7 +195,7 @@ Partial Class supplier
         Me.hapus.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.hapus.Image = CType(resources.GetObject("hapus.Image"), System.Drawing.Image)
         Me.hapus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.hapus.Location = New System.Drawing.Point(403, 533)
+        Me.hapus.Location = New System.Drawing.Point(403, 624)
         Me.hapus.Margin = New System.Windows.Forms.Padding(4)
         Me.hapus.Name = "hapus"
         Me.hapus.Size = New System.Drawing.Size(153, 59)
@@ -208,7 +210,7 @@ Partial Class supplier
         Me.tambah.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tambah.Image = CType(resources.GetObject("tambah.Image"), System.Drawing.Image)
         Me.tambah.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.tambah.Location = New System.Drawing.Point(13, 533)
+        Me.tambah.Location = New System.Drawing.Point(13, 624)
         Me.tambah.Margin = New System.Windows.Forms.Padding(4)
         Me.tambah.Name = "tambah"
         Me.tambah.Size = New System.Drawing.Size(156, 59)
@@ -217,11 +219,33 @@ Partial Class supplier
         Me.tambah.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.tambah.UseVisualStyleBackColor = True
         '
+        'txtkode
+        '
+        Me.txtkode.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtkode.Location = New System.Drawing.Point(182, 372)
+        Me.txtkode.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtkode.Name = "txtkode"
+        Me.txtkode.Size = New System.Drawing.Size(223, 30)
+        Me.txtkode.TabIndex = 41
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(17, 380)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(136, 25)
+        Me.Label5.TabIndex = 40
+        Me.Label5.Text = "Kode Supplier"
+        '
         'supplier
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(776, 601)
+        Me.ClientSize = New System.Drawing.Size(776, 696)
+        Me.Controls.Add(Me.txtkode)
+        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.lihat)
         Me.Controls.Add(Me.edit)
         Me.Controls.Add(Me.hapus)
@@ -262,4 +286,6 @@ Partial Class supplier
     Friend WithEvents edit As System.Windows.Forms.Button
     Friend WithEvents hapus As System.Windows.Forms.Button
     Friend WithEvents tambah As System.Windows.Forms.Button
+    Friend WithEvents txtkode As System.Windows.Forms.TextBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
 End Class

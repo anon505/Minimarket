@@ -23,10 +23,10 @@ Public Class supplier
 
     Private Sub tambah_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tambah.Click
         Dim Query As String
-        If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "") Then
+        If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "" Or txtkode.Text = "") Then
             MsgBox("Data tentang supplier, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "INSERT INTO supplier(nama_suplier,alamat_suplier,contact_person)VALUES('" + txtnama.Text + "','" + txtharga.Text + "','" + txtstok.Text + "')"
+            Query = "INSERT INTO supplier(nama_suplier,alamat_suplier,contact_person,kode_suplier)VALUES('" + txtnama.Text + "','" + txtharga.Text + "','" + txtstok.Text + "','" + txtkode.Text.ToUpper + "')"
 
             Dim i = newConnect.ExecuteNonQuery(Query)
             If i Then
@@ -44,9 +44,10 @@ Public Class supplier
             i = DataGridView1.CurrentRow.Index
             With DataGridView1
                 Label4.Text = .Item(0, i).Value
-                txtnama.Text = .Item(1, i).Value
-                txtharga.Text = .Item(2, i).Value
-                txtstok.Text = .Item(3, i).Value
+                txtkode.Text = .Item(1, i).Value
+                txtnama.Text = .Item(2, i).Value
+                txtharga.Text = .Item(3, i).Value
+                txtstok.Text = .Item(4, i).Value
             End With
         Catch ex As Exception
             MsgBox("Supplier yang anda cari tidak ada", MsgBoxStyle.OkOnly)
@@ -60,10 +61,10 @@ Public Class supplier
 
     Private Sub edit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles edit.Click
         Dim Query As String
-        If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "") Then
+        If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "" Or txtkode.Text = "") Then
             MsgBox("Data tentang supplier, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "UPDATE  supplier SET nama_suplier= '" + txtnama.Text + "',alamat_suplier ='" + txtharga.Text + "',contact_person ='" + txtstok.Text + "' WHERE  id_suplier ='" + Label4.Text + "'"
+            Query = "UPDATE  supplier SET nama_suplier= '" + txtnama.Text + "',alamat_suplier ='" + txtharga.Text + "',contact_person ='" + txtstok.Text + "',kode_suplier ='" + txtkode.Text.ToUpper + "' WHERE  id_suplier ='" + Label4.Text + "'"
 
             Dim i = newConnect.ExecuteNonQuery(Query)
             If (i) Then
