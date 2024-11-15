@@ -28,6 +28,10 @@ Public Class cetak_keuntungan
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        If (kasirbox.SelectedIndex < 0) Then
+            MsgBox("Pilih kasir terlebih dahulu")
+            Return
+        End If
 
         Dim rptDataSource As ReportDataSource
         Ds_report_penjualanTableAdapter1.FillByKasir(Minimarket_ds.ds_report_penjualan, kasirIds(kasirbox.SelectedIndex), DateTime.ParseExact(txtStartDateTime.Text & " 00:00:00", "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture), DateTime.ParseExact(txtEndDateTime.Text & " 23:59:59", "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture))

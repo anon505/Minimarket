@@ -39,6 +39,11 @@ Partial Class main
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReturMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReturCustomerMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReturPembelianMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataReturCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DataReturSuplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -47,7 +52,7 @@ Partial Class main
         Me.MenuStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasterMenuItem, Me.MarkupToolStripMenuItem, Me.PembelianToolStripMenuItem, Me.PenjualanToolStripMenuItem, Me.LaporanHarianToolStripMenuItem, Me.ToolStripMenuItem1, Me.LoginToolStripMenuItem, Me.ToolStripMenuItem2})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasterMenuItem, Me.MarkupToolStripMenuItem, Me.PembelianToolStripMenuItem, Me.PenjualanToolStripMenuItem, Me.LaporanHarianToolStripMenuItem, Me.ToolStripMenuItem1, Me.LoginToolStripMenuItem, Me.ToolStripMenuItem2, Me.ReturMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1341, 31)
@@ -169,6 +174,40 @@ Partial Class main
         Me.ToolStripMenuItem2.Size = New System.Drawing.Size(136, 27)
         Me.ToolStripMenuItem2.Text = "Cek Harga"
         '
+        'ReturMenuItem
+        '
+        Me.ReturMenuItem.BackColor = System.Drawing.SystemColors.Control
+        Me.ReturMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ReturCustomerMenu, Me.ReturPembelianMenu, Me.DataReturCustomerToolStripMenuItem, Me.DataReturSuplierToolStripMenuItem})
+        Me.ReturMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ReturMenuItem.Image = CType(resources.GetObject("ReturMenuItem.Image"), System.Drawing.Image)
+        Me.ReturMenuItem.Name = "ReturMenuItem"
+        Me.ReturMenuItem.Size = New System.Drawing.Size(90, 27)
+        Me.ReturMenuItem.Text = "Retur"
+        '
+        'ReturCustomerMenu
+        '
+        Me.ReturCustomerMenu.Name = "ReturCustomerMenu"
+        Me.ReturCustomerMenu.Size = New System.Drawing.Size(267, 28)
+        Me.ReturCustomerMenu.Text = "Ke Customer"
+        '
+        'ReturPembelianMenu
+        '
+        Me.ReturPembelianMenu.Name = "ReturPembelianMenu"
+        Me.ReturPembelianMenu.Size = New System.Drawing.Size(267, 28)
+        Me.ReturPembelianMenu.Text = "Ke Suplier"
+        '
+        'DataReturCustomerToolStripMenuItem
+        '
+        Me.DataReturCustomerToolStripMenuItem.Name = "DataReturCustomerToolStripMenuItem"
+        Me.DataReturCustomerToolStripMenuItem.Size = New System.Drawing.Size(267, 28)
+        Me.DataReturCustomerToolStripMenuItem.Text = "Data Retur Customer"
+        '
+        'DataReturSuplierToolStripMenuItem
+        '
+        Me.DataReturSuplierToolStripMenuItem.Name = "DataReturSuplierToolStripMenuItem"
+        Me.DataReturSuplierToolStripMenuItem.Size = New System.Drawing.Size(267, 28)
+        Me.DataReturSuplierToolStripMenuItem.Text = "Data Retur Suplier"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -205,4 +244,9 @@ Partial Class main
     Friend WithEvents SupplierSubMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MutasiSubMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ReturMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ReturCustomerMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ReturPembelianMenu As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DataReturCustomerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DataReturSuplierToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

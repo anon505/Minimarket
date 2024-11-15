@@ -9,7 +9,8 @@ Public Class penjualan
         Dim idTransaksi = newConnect.ExecuteScalar("SELECT id_transaksi from transaksi WHERE status='active' AND id_kasir='" & idKasir & "'")
 
         If idTransaksi Is Nothing Then
-            newConnect.ExecuteNonQuery("INSERT INTO `transaksi` (`id_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES (NULL, '" & idKasir & "', NOW(), '0', '0', '0', 'active');")
+            Dim noTransaksi = DateTime.Now.ToString("yyyyMMddHHmmss") & idKasir
+            newConnect.ExecuteNonQuery("INSERT INTO `transaksi` (`id_transaksi`,`no_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES (NULL,'" & noTransaksi & "', '" & idKasir & "', NOW(), '0', '0', '0', 'active');")
             Return getIdTransaksi(idKasir)
         Else
             Return idTransaksi.ToString
@@ -259,19 +260,124 @@ Public Class penjualan
         Else
             'proses transaksi normal
             Dim nominalKembalian = Integer.Parse(textBayar.Text.Replace(",", "").Replace(".", "")) - grandTotal
-            If nominalKembalian > 0 Then
+            If nominalKembalian >= 0 Then
                 textKembalian.Text = Format(nominalKembalian, "#,0;-#,0")
                 labelTotalBig.Text = textKembalian.Text
 
                 Dim buton As DialogResult = MsgBox("Ingin CETAK NOTA?", MsgBoxStyle.YesNo)
                 If (buton = 6) Then
-                    doneTransaksi(nominalKembalian)
-                Else
-                    doneTransaksi(nominalKembalian)
+                    cetakTransaksi(nominalKembalian, Integer.Parse(textBayar.Text.Replace(",", "").Replace(".", "")), grandTotal)
                 End If
+                doneTransaksi(nominalKembalian)
             End If
         End If
         
+    End Sub
+
+    Dim dtItem As DataTable
+    Dim arrWidth() As Integer
+    Dim arrFormat() As StringFormat
+    Dim c As New PrintingFormat
+    Private Sub Data_Load()
+        Try
+            Dim ds = newConnect.ExecuteReader("select nama_barang,qty,nama_satuan,harga from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at desc")
+
+            If dtItem Is Nothing Then
+                dtItem = New DataTable
+                With dtItem.Columns
+                    .Add("itemname", Type.GetType("System.String"))
+                    .Add("qty", Type.GetType("System.String"))
+                    .Add("satuan", Type.GetType("System.String"))
+                    .Add("price", Type.GetType("System.String"))
+                End With
+            Else
+                dtItem.Rows.Clear()
+                
+            End If
+            For r = 0 To ds.Rows.Count - 1
+                Dim ItemRow As DataRow
+
+                ItemRow = dtItem.NewRow()
+                ItemRow("itemname") = ds.Rows(r).Item(0)
+                ItemRow("qty") = ds.Rows(r).Item(1)
+                ItemRow("satuan") = ds.Rows(r).Item(2)
+                ItemRow("price") = ds.Rows(r).Item(3)
+                dtItem.Rows.Add(ItemRow)
+
+            Next
+        Catch ex As Exception
+
+        End Try
+        
+
+
+
+    End Sub
+    Private Sub cetakTransaksi(ByVal nominalKembalian As Integer, ByVal nominalBayar As Integer, ByVal nominalTotal As Integer)
+
+        Data_Load()
+
+        Printer.NewPrint()
+        arrWidth = {180} 'array for column width | array untuk lebar kolom
+        arrFormat = {c.MidCenter} 'array alignment 
+        'Setting Font
+        Printer.SetFont("Monospace", 11, FontStyle.Bold)
+        Printer.Print("Wildan Barokah", arrWidth, arrFormat) 'Store Name | Nama Toko
+
+        Printer.SetFont("Monospace", 9, FontStyle.Bold)
+        Printer.Print("Retail & Grosir", arrWidth, arrFormat) 'Store Name | Nama Toko
+
+        'Setting Font
+        Printer.SetFont("Monospace", 8, FontStyle.Regular)
+        Printer.Print("Lenteng Proppo Pamekasan", arrWidth, arrFormat) 'Store Address | Alamat Toko
+        Printer.Print("087 800 596 667", arrWidth, arrFormat) 'Store Address | Alamat Toko
+
+        Printer.SetFont("Monospace", 8, FontStyle.Regular)
+        Printer.Print("------------------------------------------------") 'line
+        Dim waktuTransaksi = newConnect.ExecuteScalar("SELECT waktu from transaksi WHERE id_transaksi = " & lblIdTransaksi.Text)
+        Printer.Print(waktuTransaksi) ' Trans Date | Tanggal transaksi
+
+        Dim transNo = newConnect.ExecuteScalar("select no_transaksi from transaksi where id_transaksi='" & lblIdTransaksi.Text & "'")
+        Printer.Print(transNo & " " & "Kasir : " & Module1.id_kasir) ' Transaction No | Nomor transaksi
+
+        Printer.SetFont("Monospace", 8, FontStyle.Regular) 'Setting Font
+        Printer.Print("------------------------------------------------") 'line
+
+        'looping item sales | loop item penjualan
+        For r = 0 To dtItem.Rows.Count - 1
+            arrWidth = {130, 50} 'array for column width | array untuk lebar kolom
+            arrFormat = {c.MidLeft, c.MidRight} 'array alignment 
+            Printer.SetFont("Monospace", 8, FontStyle.Regular)
+            Printer.Print(dtItem.Rows(r).Item("itemname"), arrWidth, arrFormat)
+
+            arrWidth = {60, 60, 60} 'array for column width | array untuk lebar kolom
+            arrFormat = {c.MidLeft, c.MidRight, c.MidRight} 'array alignment 
+            Printer.SetFont("Monospace", 6.5, FontStyle.Regular)
+            Dim subtotal = Integer.Parse(dtItem.Rows(r).Item("qty")) * Integer.Parse(dtItem.Rows(r).Item("price"))
+            Printer.Print(Format(dtItem.Rows(r).Item("qty"), "##,##0") & " " & dtItem.Rows(r).Item("satuan") & ";" &
+                          Format(dtItem.Rows(r).Item("price"), "##,##0") & ";" &
+                          Format(subtotal.ToString, "##,##0"), arrWidth, arrFormat)
+        Next
+
+
+        arrWidth = {80, 100} 'array for column width | array untuk lebar kolom
+        arrFormat = {c.MidLeft, c.MidRight} 'array alignment 
+        Printer.SetFont("Monospace", 8, FontStyle.Regular) 'Setting Font
+        Printer.Print("------------------------------------------------")
+        Printer.Print("Total;" & Format(nominalTotal.ToString, "##,##0"), arrWidth, arrFormat)
+        Printer.Print("Bayar;" & Format(nominalBayar.ToString, "##,##0"), arrWidth, arrFormat)
+        Printer.Print("Kembalian;" & Format(nominalKembalian.ToString, "##,##0"), arrWidth, arrFormat)
+        Printer.Print("------------------------------------------------")
+        arrWidth = {180} 'array for column width | array untuk lebar kolom
+        arrFormat = {c.MidCenter} 'array alignment 
+        Printer.SetFont("Monospace", 8, FontStyle.Regular) 'Setting 
+        Printer.Print("Barang yang sudah dibeli tidak dapat dikembalikan. Apabila terjadi masalah, nota harap dibawa kembali.", arrWidth, arrFormat)
+        Printer.Print("Terima Kasih Atas Kunjungan Anda.", arrWidth, arrFormat)
+        Printer.Print("------------------------------------------------")
+        Printer.Print(" ")
+
+        'Release the job for actual printing
+        Printer.DoPrint()
     End Sub
     Private Sub voidTransaksi()
         newConnect.ExecuteNonQuery("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & lblIdTransaksi.Text)

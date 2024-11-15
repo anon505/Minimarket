@@ -47,6 +47,7 @@ Public Class main
         SupplierSubMenuItem.Enabled = False
         MutasiSubMenuItem.Enabled = False
         ToolStripMenuItem1.Enabled = False
+        ReturMenuItem.Enabled = False
         LaporanHarianToolStripMenuItem.Enabled = False
         KeuntunganToolStripMenuItem.Enabled = False
         KadaluarsaToolStripMenuItem.Enabled = False
@@ -134,5 +135,32 @@ Public Class main
         AddHandler form2.Shown, AddressOf Me.Hide
         AddHandler form2.FormClosed, AddressOf Me.Close
         form2.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReturCustomerMenu.Click
+        Dim noTransaksi = InputBox("Masukkan No Transaksi yang ada di PRINT OUT NOTA", "No Transaksi", "")
+        If Not (noTransaksi = "") Then
+            Dim returCustomer = New retur_customer
+            returCustomer.lblNoTransaksi.Text = noTransaksi
+            returCustomer.MdiParent = Me
+            returCustomer.Show()
+        End If
+       
+    End Sub
+
+    Private Sub ToolStripMenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReturPembelianMenu.Click
+        Dim returSuplier = New retur_suplier
+        returSuplier.MdiParent = Me
+        returSuplier.Show()
+    End Sub
+
+    Private Sub DataReturCustomerToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataReturCustomerToolStripMenuItem.Click
+        retur_customer_report.MdiParent = Me
+        retur_customer_report.Show()
+    End Sub
+
+    Private Sub DataReturSuplierToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataReturSuplierToolStripMenuItem.Click
+        retur_suplier_report.MdiParent = Me
+        retur_suplier_report.Show()
     End Sub
 End Class

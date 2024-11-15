@@ -30,6 +30,7 @@ Public Class Login
                     main.LaporanHarianToolStripMenuItem.Enabled = True
                     main.KeuntunganToolStripMenuItem.Enabled = True
                     main.KadaluarsaToolStripMenuItem.Enabled = True
+                    main.ReturMenuItem.Enabled = True
                     Me.Close()
                 ElseIf (cektipe = "2") Then
                     MsgBox("Login Sukses. Anda login sebagai ADMINISTRATOR", MsgBoxStyle.OkOnly)
