@@ -22,29 +22,67 @@ Public Class popup_supplier
         DataGridView1.Columns(2).ReadOnly = True
         DataGridView1.Columns(3).ReadOnly = True
         DataGridView1.Columns(4).ReadOnly = True
+        DataGridView1.ReadOnly = True
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         txtcari.Select()
         txtcari.Focus()
         txtcari.SelectionStart = txtcari.TextLength
     End Sub
+    Private Sub penjualan_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
 
-    Private Sub DataGridView1_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+        If e.KeyCode = Keys.Enter Then
+            If Not (frmPembelian Is Nothing) Then
+                Dim cellsSelect = DataGridView1.SelectedCells
+                If (cellsSelect.Count > 0) Then
+                    frmPembelian.textSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(1).Value.ToString
+                    frmPembelian.labelSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(2).Value.ToString
+                    frmPembelian.labelIdSuplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(0).Value.ToString
+
+                    frmPembelian.textPLU.Focus()
+                End If
+
+            End If
+
+            If Not (frmReturSuplier Is Nothing) Then
+                Dim cellsSelect = DataGridView1.SelectedCells
+                If (cellsSelect.Count > 0) Then
+                    frmReturSuplier.textSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(1).Value.ToString
+                    frmReturSuplier.labelSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(2).Value.ToString
+                    frmReturSuplier.labelIdSuplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(0).Value.ToString
+
+                    frmReturSuplier.textPLU.Focus()
+                End If
+            End If
+
+            Close()
+        End If
+        e.Handled = False
+        'End If
+    End Sub
+    Private Sub DataGridView1_CellDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
         If Not (frmPembelian Is Nothing) Then
-            frmPembelian.textSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString
-            frmPembelian.labelSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString
-            frmPembelian.labelIdSuplier.Text = DataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString
+            Dim cellsSelect = DataGridView1.SelectedCells
+            If (cellsSelect.Count > 0) Then
+                frmPembelian.textSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(1).Value.ToString
+                frmPembelian.labelSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(2).Value.ToString
+                frmPembelian.labelIdSuplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(0).Value.ToString
 
-            frmPembelian.textPLU.Focus()
+                frmPembelian.textPLU.Focus()
+            End If
+
         End If
 
         If Not (frmReturSuplier Is Nothing) Then
-            frmReturSuplier.textSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString
-            frmReturSuplier.labelSupplier.Text = DataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString
-            frmReturSuplier.labelIdSuplier.Text = DataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString
+            Dim cellsSelect = DataGridView1.SelectedCells
+            If (cellsSelect.Count > 0) Then
+                frmReturSuplier.textSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(1).Value.ToString
+                frmReturSuplier.labelSupplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(2).Value.ToString
+                frmReturSuplier.labelIdSuplier.Text = DataGridView1.Rows(cellsSelect(0).RowIndex).Cells(0).Value.ToString
 
-            frmReturSuplier.textPLU.Focus()
+                frmReturSuplier.textPLU.Focus()
+            End If
         End If
-        
+
         Close()
     End Sub
 End Class

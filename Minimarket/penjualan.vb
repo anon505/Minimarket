@@ -266,7 +266,11 @@ Public Class penjualan
 
                 Dim buton As DialogResult = MsgBox("Ingin CETAK NOTA?", MsgBoxStyle.YesNo)
                 If (buton = 6) Then
-                    cetakTransaksi(nominalKembalian, Integer.Parse(textBayar.Text.Replace(",", "").Replace(".", "")), grandTotal)
+                    cetakTransaksi(
+                        lblIdTransaksi.Text,
+                        nominalKembalian,
+                        Integer.Parse(textBayar.Text.Replace(",", "").Replace(".", "")),
+                        grandTotal)
                 End If
                 doneTransaksi(nominalKembalian)
             End If
@@ -278,9 +282,9 @@ Public Class penjualan
     Dim arrWidth() As Integer
     Dim arrFormat() As StringFormat
     Dim c As New PrintingFormat
-    Private Sub Data_Load()
+    Private Sub loadDataNota(ByVal idTransaksi As String)
         Try
-            Dim ds = newConnect.ExecuteReader("select nama_barang,qty,nama_satuan,harga from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at desc")
+            Dim ds = newConnect.ExecuteReader("select nama_barang,qty,nama_satuan,harga from ds_transaksi_penjualan where id_transaksi='" & idTransaksi  & "' order by updated_at desc")
 
             If dtItem Is Nothing Then
                 dtItem = New DataTable
@@ -292,7 +296,7 @@ Public Class penjualan
                 End With
             Else
                 dtItem.Rows.Clear()
-                
+
             End If
             For r = 0 To ds.Rows.Count - 1
                 Dim ItemRow As DataRow
@@ -308,14 +312,14 @@ Public Class penjualan
         Catch ex As Exception
 
         End Try
-        
+
 
 
 
     End Sub
-    Private Sub cetakTransaksi(ByVal nominalKembalian As Integer, ByVal nominalBayar As Integer, ByVal nominalTotal As Integer)
+    Sub cetakTransaksi(ByVal idTransaksi As String, ByVal nominalKembalian As Integer, ByVal nominalBayar As Integer, ByVal nominalTotal As Integer)
 
-        Data_Load()
+        loadDataNota(idTransaksi)
 
         Printer.NewPrint()
         arrWidth = {180} 'array for column width | array untuk lebar kolom
@@ -334,10 +338,10 @@ Public Class penjualan
 
         Printer.SetFont("Monospace", 8, FontStyle.Regular)
         Printer.Print("------------------------------------------------") 'line
-        Dim waktuTransaksi = newConnect.ExecuteScalar("SELECT waktu from transaksi WHERE id_transaksi = " & lblIdTransaksi.Text)
+        Dim waktuTransaksi = newConnect.ExecuteScalar("SELECT waktu from transaksi WHERE id_transaksi = " & idTransaksi)
         Printer.Print(waktuTransaksi) ' Trans Date | Tanggal transaksi
 
-        Dim transNo = newConnect.ExecuteScalar("select no_transaksi from transaksi where id_transaksi='" & lblIdTransaksi.Text & "'")
+        Dim transNo = newConnect.ExecuteScalar("select no_transaksi from transaksi where id_transaksi='" & idTransaksi & "'")
         Printer.Print(transNo & " " & "Kasir : " & Module1.id_kasir) ' Transaction No | Nomor transaksi
 
         Printer.SetFont("Monospace", 8, FontStyle.Regular) 'Setting Font
@@ -592,7 +596,11 @@ Public Class penjualan
         End If
     End Sub
 
-    Private Sub Panel4_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel4.Paint
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim varListNota = New list_nota
+        varListNota.frmPenjualan = Me
+        varListNota.Show()
 
     End Sub
+
 End Class

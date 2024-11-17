@@ -71,6 +71,7 @@ Partial Class popup_supplier
         Me.Controls.Add(Me.txtcari)
         Me.Controls.Add(Me.DataGridView1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.KeyPreview = True
         Me.Name = "popup_supplier"
         Me.Text = "Pilih Supplier"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
