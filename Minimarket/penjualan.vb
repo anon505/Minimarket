@@ -510,8 +510,11 @@ Public Class penjualan
             pendingTransaksi()
         End If
         If e.KeyCode = Keys.F11 Then
-            newConnect.ExecuteNonQuery("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text)
-            loadTable()
+            list_barang.frmPenjualan = Me
+            list_barang.txtcari.Text = ""
+            list_barang.Show()
+            'newConnect.ExecuteNonQuery("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text)
+            'loadTable()
 
         End If
         If e.KeyCode = Keys.End Then
@@ -543,7 +546,12 @@ Public Class penjualan
             End If
         End If
     End Sub
+    Sub setPLU(ByVal barcode As String)
+        inputUpdateBarang("increment", barcode, 1)
+        textPLU.Select()
+        textPLU.Focus()
 
+    End Sub
     Private Sub textPLU_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textPLU.KeyPress
         Dim ascChar As Integer = Asc(e.KeyChar)
         If Not IsNumeric(e.KeyChar) And Not (ascChar = 8) And Not (ascChar = 32) And Not (ascChar = 13) Then
@@ -603,4 +611,7 @@ Public Class penjualan
 
     End Sub
 
+    Private Sub Panel4_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel4.Paint
+
+    End Sub
 End Class

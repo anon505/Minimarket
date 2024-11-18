@@ -67,3 +67,4 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer_report.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier_report.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_nota.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_barang.resources
