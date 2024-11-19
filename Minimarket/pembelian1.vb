@@ -71,7 +71,7 @@ Public Class pembelian1
             textPLU.Focus()
         Else
             If Module1.hak_akses = "1" Then
-                newConnect.ExecuteNonQuery("INSERT INTO barang (barcode) VALUES ('" & barcode & "')")
+                newConnect.ExecuteNonQuery("INSERT INTO barang (barcode,is_new) VALUES ('" & barcode & "','1')")
                 textPLU.Text = ""
                 textPLU.Focus()
                 inputUpdateBarang(barcode)
@@ -89,7 +89,8 @@ Public Class pembelian1
 
     Private Sub dataGridView1_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
         'If (e.ColumnIndex = 5 Or e.ColumnIndex = 7 Or e.ColumnIndex = 9 Or e.ColumnIndex = 11 Or e.ColumnIndex = 13 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
-        If (e.ColumnIndex = 5 Or e.ColumnIndex = 7 Or e.ColumnIndex = 13 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
+        If (e.ColumnIndex = 5 Or e.ColumnIndex = 6 Or
+            e.ColumnIndex = 7 Or e.ColumnIndex = 8 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15 Or e.ColumnIndex = 16) AndAlso IsNumeric(e.Value) Then
             e.Value = Format(e.Value, "#,0;-#,0")
         End If
     End Sub
@@ -99,37 +100,40 @@ Public Class pembelian1
         Dim cell = New DataGridViewTextBoxCell()
         cell.Style.BackColor = Color.Wheat
 
-        If columnIndex = 9 Or columnIndex = 11 Then
+        If columnIndex = 10 Or columnIndex = 12 Then
             cell.Style.Format = "N2"
-        ElseIf (columnIndex = 6 And Module1.hak_akses = "1") Or (columnIndex = 5 And Module1.hak_akses = "1") Then
-            cell.Style.ForeColor = Color.DarkRed
+      
         End If
         column.CellTemplate = cell
     End Sub
     Private Sub loadTable()
         Try
-            Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang,qty,stok, harga,harga_lama,ppn,ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama,total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
+            Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang," &
+                                              "qty,stok_display,stok_gudang, harga,harga_lama,ppn," &
+                                              "ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama," &
+                                              "total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
 
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
-            dataGridView1.Columns(0).ReadOnly = True
-            dataGridView1.Columns(1).ReadOnly = True
-            dataGridView1.Columns(2).ReadOnly = True
-            dataGridView1.Columns(3).ReadOnly = True
-            dataGridView1.Columns(4).ReadOnly = False
-            dataGridView1.Columns(5).ReadOnly = False
-            dataGridView1.Columns(6).ReadOnly = Not (Module1.hak_akses = "1")
-            dataGridView1.Columns(7).ReadOnly = False
-            dataGridView1.Columns(8).ReadOnly = True
-            dataGridView1.Columns(9).ReadOnly = False
-            dataGridView1.Columns(10).ReadOnly = True
-            dataGridView1.Columns(11).ReadOnly = False
-            dataGridView1.Columns(12).ReadOnly = True
+            dataGridView1.Columns("id_pembelian_detail").ReadOnly = True
+            dataGridView1.Columns("no_faktur").ReadOnly = True
+            dataGridView1.Columns("id_barang").ReadOnly = True
+            dataGridView1.Columns("barcode").ReadOnly = True
+            dataGridView1.Columns("nama_barang").ReadOnly = False
+            dataGridView1.Columns("qty").ReadOnly = False
+            dataGridView1.Columns("stok_display").ReadOnly = True
+            dataGridView1.Columns("stok_gudang").ReadOnly = True
+            dataGridView1.Columns(8).ReadOnly = False 'harga
+            dataGridView1.Columns(9).ReadOnly = True
+            dataGridView1.Columns(10).ReadOnly = False 'ppn
+            dataGridView1.Columns(11).ReadOnly = True
+            dataGridView1.Columns(12).ReadOnly = False 'discount
             dataGridView1.Columns(13).ReadOnly = True
             dataGridView1.Columns(14).ReadOnly = True
             dataGridView1.Columns(15).ReadOnly = True
             dataGridView1.Columns(16).ReadOnly = True
+            dataGridView1.Columns(17).ReadOnly = True
 
             dataGridView1.Columns(0).Visible = False
             dataGridView1.Columns(1).Visible = False
@@ -141,21 +145,22 @@ Public Class pembelian1
             dataGridView1.Columns(3).HeaderText = "Barcode"
             dataGridView1.Columns(4).HeaderText = "Nama Barang"
             dataGridView1.Columns(5).HeaderText = "Qty"
-            dataGridView1.Columns(6).HeaderText = "Stok"
-            dataGridView1.Columns(7).HeaderText = "Harga"
-            dataGridView1.Columns(8).HeaderText = "Harga Lama"
-            dataGridView1.Columns(9).HeaderText = "PPn(%)"
-            dataGridView1.Columns(10).HeaderText = "PPn Lama(%)"
-            dataGridView1.Columns(10).DefaultCellStyle.Format = "N2"
-            dataGridView1.Columns(11).HeaderText = "Discount(%)"
-            dataGridView1.Columns(12).HeaderText = "Discount Lama(%)"
-            dataGridView1.Columns(12).DefaultCellStyle.Format = "N2"
-            dataGridView1.Columns(13).HeaderText = "Harga Netto"
-            dataGridView1.Columns(14).HeaderText = "Harga Netto Lama"
-            dataGridView1.Columns(15).HeaderText = "Total"
-            dataGridView1.Columns(16).HeaderText = "Expired"
-            dataGridView1.Columns(16).ValueType = GetType(Date)
-            dataGridView1.Columns(16).DefaultCellStyle.Format = "dd/MM/yyyy"
+            dataGridView1.Columns(6).HeaderText = "Stok Display"
+            dataGridView1.Columns(7).HeaderText = "Stok Gudang"
+            dataGridView1.Columns(8).HeaderText = "Harga"
+            dataGridView1.Columns(9).HeaderText = "Harga Lama"
+            dataGridView1.Columns(10).HeaderText = "PPn(%)"
+            dataGridView1.Columns(11).HeaderText = "PPn Lama(%)"
+            dataGridView1.Columns(11).DefaultCellStyle.Format = "N2"
+            dataGridView1.Columns(12).HeaderText = "Discount(%)"
+            dataGridView1.Columns(13).HeaderText = "Discount Lama(%)"
+            dataGridView1.Columns(13).DefaultCellStyle.Format = "N2"
+            dataGridView1.Columns(14).HeaderText = "Harga Netto"
+            dataGridView1.Columns(15).HeaderText = "Harga Netto Lama"
+            dataGridView1.Columns(16).HeaderText = "Total"
+            dataGridView1.Columns(17).HeaderText = "Expired"
+            dataGridView1.Columns(17).ValueType = GetType(Date)
+            dataGridView1.Columns(17).DefaultCellStyle.Format = "dd/MM/yyyy"
 
 
 
@@ -173,21 +178,21 @@ Public Class pembelian1
             dataGridView1.Columns(14).Width = 158
             dataGridView1.Columns(15).Width = 158
             dataGridView1.Columns(16).Width = 158
+            dataGridView1.Columns(17).Width = 158
+
             customizeCellsInColumn(4)
             customizeCellsInColumn(5)
-            If (Module1.hak_akses = "1") Then
-                customizeCellsInColumn(6)
-            End If
-            customizeCellsInColumn(7)
-            customizeCellsInColumn(9)
-            customizeCellsInColumn(11)
+         
+            customizeCellsInColumn(8)
+            customizeCellsInColumn(10)
+            customizeCellsInColumn(12)
             dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
                 grandTotal += Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
                                             ToString.Replace(".", "").
                                             Replace(",", "")) * Integer.
-                                            Parse(dataGridView1.Rows(i).Cells(13).Value.ToString)
+                                            Parse(dataGridView1.Rows(i).Cells(14).Value.ToString)
             Next
             textTotal.Text = Format(grandTotal, "#,0;-#,0")
         Catch ex As Exception
@@ -198,12 +203,12 @@ Public Class pembelian1
     Private Sub textDiscount_KeyUp(ByVal sender As Object, ByVal e As KeyEventArgs) Handles textDiscount.KeyUp
         If e.KeyCode = Keys.Enter Then
             For i = 0 To dataGridView1.RowCount - 1
-                dataGridView1.Rows(i).Cells(11).Value = textDiscount.Text.ToString
+                dataGridView1.Rows(i).Cells(12).Value = textDiscount.Text.ToString
 
                 Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
                 Dim price As Integer
                 Dim ppn As Double
-                Dim discount As Double = Double.Parse(dataGridView1.Rows(i).Cells(11).Value.ToString)
+                Dim discount As Double = Double.Parse(dataGridView1.Rows(i).Cells(12).Value.ToString)
                 Dim priceNetto As Integer
                 If pembelianDetailReaders.Rows.Count > 0 Then
                     Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
@@ -212,8 +217,8 @@ Public Class pembelian1
                     Dim priceAfterPpn = (price + ((ppn / 100) * price))
                     priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
                 End If
-                dataGridView1.Rows(i).Cells(13).Value = priceNetto.ToString
-                dataGridView1.Rows(i).Cells(15).Value = (Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
+                dataGridView1.Rows(i).Cells(14).Value = priceNetto.ToString
+                dataGridView1.Rows(i).Cells(16).Value = (Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
                                         ToString.Replace(".", "").
                                         Replace(",", "")) * priceNetto).ToString
 
@@ -222,7 +227,7 @@ Public Class pembelian1
             Next
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
-                Dim subTotal = Integer.Parse(dataGridView1.Rows(i).Cells(15).Value.
+                Dim subTotal = Integer.Parse(dataGridView1.Rows(i).Cells(16).Value.
                                     ToString.Replace(".", "").
                                     Replace(",", ""))
                 grandTotal += subTotal
@@ -237,11 +242,11 @@ Public Class pembelian1
     Private Sub textPpn_KeyUp(ByVal sender As Object, ByVal e As KeyEventArgs) Handles textPpn.KeyUp
         If e.KeyCode = Keys.Enter Then
             For i = 0 To dataGridView1.RowCount - 1
-                dataGridView1.Rows(i).Cells(9).Value = textPpn.Text.ToString
+                dataGridView1.Rows(i).Cells(10).Value = textPpn.Text.ToString
 
                 Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
                 Dim price As Integer
-                Dim ppn As Double = Double.Parse(dataGridView1.Rows(i).Cells(9).Value.ToString)
+                Dim ppn As Double = Double.Parse(dataGridView1.Rows(i).Cells(10).Value.ToString)
                 Dim discount As Double
                 Dim priceNetto As Integer
                 If pembelianDetailReaders.Rows.Count > 0 Then
@@ -251,8 +256,8 @@ Public Class pembelian1
                     Dim priceAfterPpn = (price + ((ppn / 100) * price))
                     priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
                 End If
-                dataGridView1.Rows(i).Cells(13).Value = priceNetto.ToString
-                dataGridView1.Rows(i).Cells(15).Value = (Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
+                dataGridView1.Rows(i).Cells(14).Value = priceNetto.ToString
+                dataGridView1.Rows(i).Cells(16).Value = (Integer.Parse(dataGridView1.Rows(i).Cells(5).Value.
                                         ToString.Replace(".", "").
                                         Replace(",", "")) * priceNetto).ToString
 
@@ -261,7 +266,7 @@ Public Class pembelian1
             Next
             Dim grandTotal = 0
             For i = 0 To dataGridView1.RowCount - 1
-                Dim subTotal = Integer.Parse(dataGridView1.Rows(i).Cells(15).Value.
+                Dim subTotal = Integer.Parse(dataGridView1.Rows(i).Cells(16).Value.
                                     ToString.Replace(".", "").
                                     Replace(",", ""))
                 grandTotal += subTotal
@@ -410,7 +415,7 @@ Public Class pembelian1
     End Sub
 
     Private Sub dataGridView1_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs) Handles dataGridView1.EditingControlShowing
-        If TypeOf e.Control Is TextBox And (dataGridView1.CurrentCell.ColumnIndex = 5 Or dataGridView1.CurrentCell.ColumnIndex = 7) Then
+        If TypeOf e.Control Is TextBox And (dataGridView1.CurrentCell.ColumnIndex = 5 Or dataGridView1.CurrentCell.ColumnIndex = 8) Then
             Dim tb As TextBox = TryCast(e.Control, TextBox)
 
             RemoveHandler tb.TextChanged, AddressOf Tb_TextChanged
@@ -419,7 +424,7 @@ Public Class pembelian1
     End Sub
 
     Private Sub dataGridView1_CellEndEdit(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
-        '5(qty), 7(harga), 9(ppn), 11(discount)
+        '5(qty), 8(harga), 10(ppn), 12(discount)
         Try
             
             If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
@@ -428,12 +433,14 @@ Public Class pembelian1
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "'")
                     loadTable()
                 ElseIf e.ColumnIndex = 5 Then
-                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
+                    Dim qty = dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString
+                   
+                    newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & qty & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
-                ElseIf e.ColumnIndex = 7 Then
+                ElseIf e.ColumnIndex = 8 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
-                    
+
                     Dim price As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
                     Dim ppn As Double
                     Dim discount As Double
@@ -448,38 +455,7 @@ Public Class pembelian1
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
-                ElseIf e.ColumnIndex = 6 Then
-                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
-                    Dim newStok As Integer = Integer.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
-                    If pembelianDetailReaders.Rows.Count > 0 Then
-                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
-                        Dim idBarang = pembelianDetailReader("id_barang")
-                        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
-                        If barangReaders.Rows.Count > 0 Then
-                            Dim barangReader = barangReaders.Rows(0)
-                            Dim stokDisplay = Integer.Parse(barangReader("stok_display").ToString)
-                            Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
-                            If newStok > (stokDisplay + stokGudang) Then
-                                Dim sisa = newStok - (stokDisplay + stokGudang)
-                                stokGudang = stokGudang + sisa
-                                newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
-                            End If
-                            If (stokDisplay + stokGudang) > newStok Then
-                                Dim sisa = (stokDisplay + stokGudang) - newStok
-                                If sisa > stokGudang Then
-                                    stokGudang = 0
-                                    Dim sisaDisplay = sisa - stokGudang
-                                    stokDisplay = stokDisplay - sisaDisplay
-                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "', stok_display='" & stokDisplay.ToString & "' WHERE id_barang = '" & idBarang & "'")
-                                Else
-                                    stokGudang = stokGudang - sisa
-                                    newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
-                                End If
-                            End If
-                        End If
-                    End If
-                    loadTable()
-                ElseIf e.ColumnIndex = 9 Then
+                ElseIf e.ColumnIndex = 10 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim price As Integer
                     Dim ppn As Double = Double.Parse(dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString)
@@ -495,7 +471,7 @@ Public Class pembelian1
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
                     loadTable()
-                ElseIf e.ColumnIndex = 11 Then
+                ElseIf e.ColumnIndex = 12 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim price As Integer
                     Dim ppn As Double
@@ -543,6 +519,32 @@ Public Class pembelian1
         Dim query = "UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & jatuhTempo & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir)
         Console.WriteLine(query)
         newConnect.ExecuteNonQuery(query)
+
+        For i = 0 To dataGridView1.RowCount - 1
+            Dim qty = dataGridView1.Rows(i).Cells(5).Value.ToString
+            Dim hargaBeli = dataGridView1.Rows(i).Cells(8).Value.ToString.Replace(",", "").Replace(".", "")
+            Dim isNew = newConnect.ExecuteScalar("select is_new from barang WHERE id_barang = '" &
+                                                                       dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
+            If isNew = "1" Then
+                newConnect.ExecuteNonQuery("UPDATE barang Set is_new = '0',stok_gudang='" & qty & "',id_suplier='" & labelIdSuplier.Text & "',harga_beli='" & hargaBeli & "' WHERE id_barang = '" &
+                                                               dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
+            Else
+                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
+                If pembelianDetailReaders.Rows.Count > 0 Then
+                    Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
+                    Dim idBarang = pembelianDetailReader("id_barang")
+                    Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
+                    If barangReaders.Rows.Count > 0 Then
+                        Dim barangReader = barangReaders.Rows(0)
+                        Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
+                        stokGudang = stokGudang + qty
+                        newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
+
+                    End If
+                End If
+            End If
+        Next
+        
 
         Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'")
         If idMutasi Is Nothing Then
@@ -744,7 +746,7 @@ Public Class pembelian1
     End Sub
     Dim oDateTimePicker As DateTimePicker
     Private Sub dataGridView1_CellClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellClick
-        If e.ColumnIndex = 16 Then
+        If e.ColumnIndex = 17 Then
 
 
             oDateTimePicker = New DateTimePicker()
@@ -776,7 +778,5 @@ Public Class pembelian1
         supplier.Show()
     End Sub
 
-    Private Sub textPLU_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles textPLU.TextChanged
-
-    End Sub
+  
 End Class

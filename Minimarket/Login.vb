@@ -44,7 +44,7 @@ Public Class Login
 
                     main.BarangSubMenuItem.Enabled = False
                     main.SatuanSubMenuItem.Enabled = True
-                    main.KasirSubMenuItem.Enabled = True
+                    main.KasirSubMenuItem.Enabled = False
                     main.SupplierSubMenuItem.Enabled = True
                     main.MutasiSubMenuItem.Enabled = False
 
@@ -60,7 +60,7 @@ Public Class Login
                     main.MarkupToolStripMenuItem.Enabled = False
                     main.LoginToolStripMenuItem.Enabled = True
                     main.MasterMenuItem.Enabled = False
-                    main.PembelianToolStripMenuItem.Enabled = True
+                    main.PembelianToolStripMenuItem.Enabled = False
                     main.PenjualanToolStripMenuItem.Enabled = True
                     main.BarangSubMenuItem.Enabled = False
                     main.SatuanSubMenuItem.Enabled = False
