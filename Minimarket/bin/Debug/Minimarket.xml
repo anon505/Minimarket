@@ -150,6 +150,10 @@ Represents the strongly named DataTable class.
 	<summary>
 Represents the strongly named DataTable class.
 </summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_pembelianDataTable">
+	<summary>
+Represents the strongly named DataTable class.
+</summary>
 </member><member name="T:Minimarket.minimarket_ds.ds_report_penjualanRow">
 	<summary>
 Represents strongly named DataRow class.
@@ -158,11 +162,19 @@ Represents strongly named DataRow class.
 	<summary>
 Represents strongly named DataRow class.
 </summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_pembelianRow">
+	<summary>
+Represents strongly named DataRow class.
+</summary>
 </member><member name="T:Minimarket.minimarket_ds.ds_report_penjualanRowChangeEvent">
 	<summary>
 Row event argument class
 </summary>
 </member><member name="T:Minimarket.minimarket_ds.ds_report_expiryRowChangeEvent">
+	<summary>
+Row event argument class
+</summary>
+</member><member name="T:Minimarket.minimarket_ds.ds_report_pembelianRowChangeEvent">
 	<summary>
 Row event argument class
 </summary>
@@ -175,6 +187,10 @@ Represents a strongly typed in-memory cache of data.
 Represents the connection and commands used to retrieve and save data.
 </summary>
 </member><member name="T:Minimarket.minimarket_dsTableAdapters.ds_report_expiryTableAdapter">
+	<summary>
+Represents the connection and commands used to retrieve and save data.
+</summary>
+</member><member name="T:Minimarket.minimarket_dsTableAdapters.ds_report_pembelianTableAdapter">
 	<summary>
 Represents the connection and commands used to retrieve and save data.
 </summary>

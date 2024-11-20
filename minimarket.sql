@@ -43,16 +43,17 @@ CREATE TABLE IF NOT EXISTS `barang` (
   `qty4` int NOT NULL DEFAULT '0',
   `is_new` int NOT NULL DEFAULT '0' COMMENT '0(old), 1(new from pembelian barcode)',
   PRIMARY KEY (`id_barang`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
--- Dumping data for table minimarket.barang: ~5 rows (approximately)
+-- Dumping data for table minimarket.barang: ~8 rows (approximately)
 INSERT IGNORE INTO `barang` (`id_barang`, `id_suplier`, `id_satuan`, `barcode`, `nama_barang`, `harga_beli`, `ppn`, `discount`, `harga_beli_netto`, `stok_display`, `stok_gudang`, `harga_jual1`, `harga_jual2`, `harga_jual3`, `harga_jual4`, `qty2`, `qty3`, `qty4`, `is_new`) VALUES
 	(1, 2, 1, '8992696407688', 'Nestle 700g', 2500, 11, 0.5, 0, 58, 57, 3386, 3372, 3316, 3191, 3, 6, 9, 0),
 	(2, 2, 1, '896867700326', 'Le Minerale', 2000, 11, 0, 2220, 28, 61, 2600, 2300, 2270, 2264, 3, 8, 12, 0),
 	(3, 3, 1, '7237844127560', 'Pempers Sensi', 3000, 0, 0, 3000, 27, 50, 3550, 3530, 3520, 3510, 5, 10, 15, 0),
 	(4, 2, 3, '8992112011017', 'Cerebrovot1', 4000, 0, 0, 0, 12, 80, 4500, 4400, 4300, 4200, 2, 6, 10, 0),
-	(5, 4, 4, '1234', 'Aqua Sedang1', 7000, 0, 0, 7000, 0, 337, 9100, 8400, 7700, 7350, 10, 20, 30, 0),
-	(23, 1, NULL, '878787', 'hhjhj', 8000, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+	(5, 4, 4, '1234', 'Aqua Sedang1', 7000, 0, 0, 7000, 0, 338, 9100, 8400, 7700, 7350, 10, 20, 30, 0),
+	(23, 1, NULL, '878787', 'hhjhj', 8000, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0),
+	(24, NULL, NULL, '445566', NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 
 -- Dumping structure for view minimarket.ds_markup
 DROP VIEW IF EXISTS `ds_markup`;
@@ -98,6 +99,25 @@ CREATE TABLE `ds_report_expiry` (
 	`nama_barang` VARCHAR(1) NULL COLLATE 'latin1_swedish_ci',
 	`qty` INT NOT NULL,
 	`expire_in` INT NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for view minimarket.ds_report_pembelian_detail
+DROP VIEW IF EXISTS `ds_report_pembelian_detail`;
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `ds_report_pembelian_detail` (
+	`no_faktur` VARCHAR(1) NULL COLLATE 'latin1_swedish_ci',
+	`tgl_faktur` DATETIME NULL,
+	`status` ENUM('temp','saved','mark_up') NULL COLLATE 'latin1_swedish_ci',
+	`id_kasir` INT NULL,
+	`nama_kasir` VARCHAR(1) NULL COLLATE 'latin1_swedish_ci',
+	`barcode` VARCHAR(1) NULL COLLATE 'latin1_swedish_ci',
+	`nama_barang` VARCHAR(1) NULL COLLATE 'latin1_swedish_ci',
+	`qty` INT NOT NULL,
+	`price` INT NOT NULL,
+	`ppn` FLOAT NOT NULL,
+	`discount` FLOAT NOT NULL,
+	`price_netto` INT NOT NULL,
+	`expiry` DATE NULL
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view minimarket.ds_report_penjualan
@@ -224,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `mutasi` (
   `nominal` int NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id_mutasi`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table minimarket.mutasi: ~2 rows (approximately)
 INSERT IGNORE INTO `mutasi` (`id_mutasi`, `id_reff`, `type`, `deskripsi`, `nominal`, `created_at`) VALUES
@@ -235,7 +255,8 @@ INSERT IGNORE INTO `mutasi` (`id_mutasi`, `id_reff`, `type`, `deskripsi`, `nomin
 	(38, 29, 'pembelian', 'PEMBELIAN secara TUNAI dengan faktur: 7776767', 5000, '2024-11-19 19:22:20'),
 	(39, 30, 'pembelian', 'PEMBELIAN secara TUNAI dengan faktur: 666766767676', 108000, '2024-11-19 19:24:12'),
 	(40, 33, 'pembelian', 'PEMBELIAN secara TUNAI dengan faktur: 43434353', 50000, '2024-11-19 21:57:56'),
-	(41, 35, 'pembelian', 'PEMBELIAN secara TUNAI dengan faktur: 7776767', 8000, '2024-11-19 22:04:36');
+	(41, 35, 'pembelian', 'PEMBELIAN secara TUNAI dengan faktur: 7776767', 8000, '2024-11-19 22:04:36'),
+	(42, 34, 'pembelian', 'PEMBELIAN secara TUNAI dengan faktur: 7776767', 15000, '2024-11-20 12:52:00');
 
 -- Dumping structure for table minimarket.obrolan
 DROP TABLE IF EXISTS `obrolan`;
@@ -258,12 +279,13 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   `lama_jatuh_tempo` int NOT NULL COMMENT 'lama jatuh tempo(hari) berdasarkan tgl faktur',
   `status` enum('temp','saved','mark_up') NOT NULL,
   PRIMARY KEY (`id_pembelian`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table minimarket.pembelian: ~0 rows (approximately)
 INSERT IGNORE INTO `pembelian` (`id_pembelian`, `no_faktur`, `tgl_faktur`, `id_supplier`, `id_kasir`, `grand_total`, `metode_pembayaran`, `lama_jatuh_tempo`, `status`) VALUES
-	(34, '7776767', '2024-11-19 22:04:00', 1, 1, 8000, 'tunai', 0, 'saved'),
-	(35, '', '2024-11-19 22:04:36', 0, 1, 0, 'tunai', 0, 'temp');
+	(34, '7776767', '2024-11-19 22:04:00', 1, 1, 15000, 'tunai', 0, 'saved'),
+	(35, '', '2024-11-19 22:04:36', 0, 1, 0, 'tunai', 0, 'temp'),
+	(36, '', '2024-11-20 12:25:32', 0, 2, 0, 'tunai', 0, 'temp');
 
 -- Dumping structure for table minimarket.pembelian_detail
 DROP TABLE IF EXISTS `pembelian_detail`;
@@ -280,11 +302,12 @@ CREATE TABLE IF NOT EXISTS `pembelian_detail` (
   `qty_return` int NOT NULL DEFAULT '0',
   `status_return` enum('return','active') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'active',
   PRIMARY KEY (`id_pembelian_detail`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table minimarket.pembelian_detail: ~0 rows (approximately)
+-- Dumping data for table minimarket.pembelian_detail: ~1 rows (approximately)
 INSERT IGNORE INTO `pembelian_detail` (`id_pembelian_detail`, `id_pembelian`, `id_barang`, `qty`, `price`, `ppn`, `discount`, `price_netto`, `expiry`, `qty_return`, `status_return`) VALUES
-	(41, 34, 23, 1, 8000, 0, 0, 8000, NULL, 0, 'active');
+	(41, 34, 23, 1, 8000, 0, 0, 8000, NULL, 0, 'active'),
+	(43, 34, 5, 1, 7000, 0, 0, 7000, NULL, 0, 'active');
 
 -- Dumping structure for table minimarket.retur_customer
 DROP TABLE IF EXISTS `retur_customer`;
@@ -371,7 +394,7 @@ CREATE TABLE IF NOT EXISTS `transaksi` (
   `kembalian` bigint NOT NULL,
   `status` enum('pending','active','void','done','retur') COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id_transaksi`)
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Dumping data for table minimarket.transaksi: ~14 rows (approximately)
 INSERT IGNORE INTO `transaksi` (`id_transaksi`, `no_transaksi`, `id_kasir`, `waktu`, `bayar`, `grand_total`, `kembalian`, `status`) VALUES
@@ -389,7 +412,8 @@ INSERT IGNORE INTO `transaksi` (`id_transaksi`, `no_transaksi`, `id_kasir`, `wak
 	(100, '202411170758391', 1, '2024-11-17 07:58:39', 0, 0, 0, 'void'),
 	(101, '202411181406251', 1, '2024-11-18 14:06:25', 0, 0, 0, 'void'),
 	(102, '202411181407241', 1, '2024-11-18 14:07:24', 0, 0, 0, 'void'),
-	(103, '202411181547521', 1, '2024-11-18 15:47:52', 0, 0, 0, 'void');
+	(103, '202411181547521', 1, '2024-11-18 15:47:52', 0, 0, 0, 'void'),
+	(104, '202411201649511', 1, '2024-11-20 16:49:51', 0, 0, 0, 'active');
 
 -- Dumping structure for table minimarket.transaksi_detail
 DROP TABLE IF EXISTS `transaksi_detail`;
@@ -418,6 +442,10 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `ds_markup` AS select `pemb
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `ds_report_expiry`;
 CREATE ALGORITHM=TEMPTABLE SQL SECURITY DEFINER VIEW `ds_report_expiry` AS select `pembelian_detail`.`id_barang` AS `id_barang`,`pembelian`.`no_faktur` AS `no_faktur`,`pembelian`.`tgl_faktur` AS `tgl_faktur`,`pembelian_detail`.`expiry` AS `expiry`,`pembelian`.`lama_jatuh_tempo` AS `lama_jatuh_tempo`,`supplier`.`kode_suplier` AS `kode_suplier`,`supplier`.`nama_suplier` AS `nama_suplier`,`barang`.`barcode` AS `barcode`,`barang`.`nama_barang` AS `nama_barang`,`pembelian_detail`.`qty` AS `qty`,(to_days(`pembelian_detail`.`expiry`) - to_days(now())) AS `expire_in` from (((`pembelian_detail` left join `barang` on((`pembelian_detail`.`id_barang` = `barang`.`id_barang`))) join `pembelian` on((`pembelian`.`id_pembelian` = `pembelian_detail`.`id_pembelian`))) join `supplier` on((`supplier`.`id_suplier` = `pembelian`.`id_supplier`))) where (`pembelian_detail`.`status_return` = 'active') order by (to_days(`pembelian_detail`.`expiry`) - to_days(now()));
+
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `ds_report_pembelian_detail`;
+CREATE ALGORITHM=TEMPTABLE SQL SECURITY DEFINER VIEW `ds_report_pembelian_detail` AS select `pembelian`.`no_faktur` AS `no_faktur`,`pembelian`.`tgl_faktur` AS `tgl_faktur`,`pembelian`.`status` AS `status`,`kasir`.`id_kasir` AS `id_kasir`,`kasir`.`nama_kasir` AS `nama_kasir`,`barang`.`barcode` AS `barcode`,`barang`.`nama_barang` AS `nama_barang`,`pembelian_detail`.`qty` AS `qty`,`pembelian_detail`.`price` AS `price`,`pembelian_detail`.`ppn` AS `ppn`,`pembelian_detail`.`discount` AS `discount`,`pembelian_detail`.`price_netto` AS `price_netto`,`pembelian_detail`.`expiry` AS `expiry` from (((`pembelian_detail` left join `barang` on((`barang`.`id_barang` = `pembelian_detail`.`id_barang`))) left join `pembelian` on((`pembelian`.`id_pembelian` = `pembelian_detail`.`id_pembelian`))) left join `kasir` on((`kasir`.`id_kasir` = `pembelian`.`id_kasir`)));
 
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `ds_report_penjualan`;

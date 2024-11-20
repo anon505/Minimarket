@@ -51,7 +51,7 @@ Public Class main
         LaporanHarianToolStripMenuItem.Enabled = False
         KeuntunganToolStripMenuItem.Enabled = False
         KadaluarsaToolStripMenuItem.Enabled = False
-
+        PembelianToolStripMenuItem1.Enabled = False
         Call konekbuka()
         Try
             If File.Exists("config.txt") = True Then
@@ -162,5 +162,10 @@ Public Class main
     Private Sub DataReturSuplierToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DataReturSuplierToolStripMenuItem.Click
         retur_suplier_report.MdiParent = Me
         retur_suplier_report.Show()
+    End Sub
+
+    Private Sub PembelianToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PembelianToolStripMenuItem1.Click
+        cetak_pembelian.MdiParent = Me
+        cetak_pembelian.Show()
     End Sub
 End Class

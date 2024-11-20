@@ -44,6 +44,7 @@ Partial Class main
         Me.ReturPembelianMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataReturCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataReturSuplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PembelianToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -128,7 +129,7 @@ Partial Class main
         'LaporanHarianToolStripMenuItem
         '
         Me.LaporanHarianToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control
-        Me.LaporanHarianToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KeuntunganToolStripMenuItem, Me.KadaluarsaToolStripMenuItem})
+        Me.LaporanHarianToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KeuntunganToolStripMenuItem, Me.KadaluarsaToolStripMenuItem, Me.PembelianToolStripMenuItem1})
         Me.LaporanHarianToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LaporanHarianToolStripMenuItem.Image = CType(resources.GetObject("LaporanHarianToolStripMenuItem.Image"), System.Drawing.Image)
         Me.LaporanHarianToolStripMenuItem.Name = "LaporanHarianToolStripMenuItem"
@@ -208,6 +209,12 @@ Partial Class main
         Me.DataReturSuplierToolStripMenuItem.Size = New System.Drawing.Size(267, 28)
         Me.DataReturSuplierToolStripMenuItem.Text = "Data Retur Suplier"
         '
+        'PembelianToolStripMenuItem1
+        '
+        Me.PembelianToolStripMenuItem1.Name = "PembelianToolStripMenuItem1"
+        Me.PembelianToolStripMenuItem1.Size = New System.Drawing.Size(182, 28)
+        Me.PembelianToolStripMenuItem1.Text = "Pembelian"
+        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -249,4 +256,5 @@ Partial Class main
     Friend WithEvents ReturPembelianMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DataReturCustomerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DataReturSuplierToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PembelianToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 End Class

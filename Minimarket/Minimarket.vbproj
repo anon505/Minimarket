@@ -111,6 +111,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConnectionClass.vb" />
+    <Compile Include="cetak_pembelian.Designer.vb">
+      <DependentUpon>cetak_pembelian.vb</DependentUpon>
+    </Compile>
+    <Compile Include="cetak_pembelian.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="list_barang.Designer.vb">
       <DependentUpon>list_barang.vb</DependentUpon>
     </Compile>
@@ -275,6 +281,13 @@
       <DependentUpon>cetak_expiry.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="cetak_pembelian.resx">
+      <DependentUpon>cetak_pembelian.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpt_pembelian.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="list_barang.resx">
       <DependentUpon>list_barang.vb</DependentUpon>
     </EmbeddedResource>
@@ -350,7 +363,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="minimarket_ds.xsc">
       <DependentUpon>minimarket_ds.xsd</DependentUpon>
     </None>

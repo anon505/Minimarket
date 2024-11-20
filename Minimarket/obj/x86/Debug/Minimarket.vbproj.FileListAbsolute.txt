@@ -40,6 +40,13 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.barang.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.cetak_keuntungan.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.chat.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.cetak_expiry.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.cetak_pembelian.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_barang.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_nota.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer_report.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier_report.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.mutasi.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.print.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.cpanel.resources
@@ -61,10 +68,3 @@ D:\Minimarket\Minimarket\obj\x86\Debug\RdlCompile.compiled
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.exe
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.xml
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.pdb
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.vbprojResolveAssemblyReference.cache
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer.resources
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier.resources
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer_report.resources
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier_report.resources
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_nota.resources
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_barang.resources

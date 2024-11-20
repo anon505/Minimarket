@@ -19,6 +19,7 @@ Public Class Login
                     main.MasterMenuItem.Enabled = True
                     main.PembelianToolStripMenuItem.Enabled = True
                     main.PenjualanToolStripMenuItem.Enabled = True
+                    main.PembelianToolStripMenuItem1.Enabled = True
 
                     main.BarangSubMenuItem.Enabled = True
                     main.SatuanSubMenuItem.Enabled = True
@@ -41,7 +42,7 @@ Public Class Login
                     main.MasterMenuItem.Enabled = True
                     main.PembelianToolStripMenuItem.Enabled = True
                     main.PenjualanToolStripMenuItem.Enabled = True
-
+                    main.PembelianToolStripMenuItem1.Enabled = True
                     main.BarangSubMenuItem.Enabled = False
                     main.SatuanSubMenuItem.Enabled = True
                     main.KasirSubMenuItem.Enabled = False
@@ -62,6 +63,7 @@ Public Class Login
                     main.MasterMenuItem.Enabled = False
                     main.PembelianToolStripMenuItem.Enabled = False
                     main.PenjualanToolStripMenuItem.Enabled = True
+                    main.PembelianToolStripMenuItem1.Enabled = False
                     main.BarangSubMenuItem.Enabled = False
                     main.SatuanSubMenuItem.Enabled = False
                     main.KasirSubMenuItem.Enabled = False

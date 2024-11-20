@@ -70,17 +70,10 @@ Public Class pembelian1
             textPLU.Text = ""
             textPLU.Focus()
         Else
-            If Module1.hak_akses = "1" Then
-                newConnect.ExecuteNonQuery("INSERT INTO barang (barcode,is_new) VALUES ('" & barcode & "','1')")
-                textPLU.Text = ""
-                textPLU.Focus()
-                inputUpdateBarang(barcode)
-            Else
-                MsgBox("Barang baru hanya bisa ditambahkan oleh SUPER ADMIN")
-                textPLU.Text = ""
-                textPLU.Focus()
-            End If
-            
+            newConnect.ExecuteNonQuery("INSERT INTO barang (barcode,is_new) VALUES ('" & barcode & "','1')")
+            textPLU.Text = ""
+            textPLU.Focus()
+            inputUpdateBarang(barcode)
         End If
         
 
@@ -778,5 +771,5 @@ Public Class pembelian1
         supplier.Show()
     End Sub
 
-  
+ 
 End Class
