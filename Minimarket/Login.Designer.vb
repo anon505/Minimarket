@@ -83,7 +83,6 @@ Partial Class Login
         Me.txtusername.Name = "txtusername"
         Me.txtusername.Size = New System.Drawing.Size(292, 30)
         Me.txtusername.TabIndex = 1
-        Me.txtusername.Text = "umam"
         '
         'txtpassword
         '
@@ -94,7 +93,6 @@ Partial Class Login
         Me.txtpassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtpassword.Size = New System.Drawing.Size(292, 30)
         Me.txtpassword.TabIndex = 3
-        Me.txtpassword.Text = "1"
         '
         'OK
         '
