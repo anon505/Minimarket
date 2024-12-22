@@ -69,3 +69,4 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.exe
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.xml
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.pdb
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.vbprojResolveAssemblyReference.cache
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.barang_view.resources

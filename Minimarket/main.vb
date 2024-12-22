@@ -168,4 +168,9 @@ Public Class main
         cetak_pembelian.MdiParent = Me
         cetak_pembelian.Show()
     End Sub
+
+    Private Sub CekStokToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CekStokToolStripMenuItem.Click
+        barang_view.MdiParent = Me
+        barang_view.Show()
+    End Sub
 End Class

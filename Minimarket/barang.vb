@@ -101,12 +101,16 @@ Public Class barang
             i = DataGridView1.CurrentRow.Index
             With DataGridView1
                 lblIdBarang.Text = .Item(0, i).Value
-                If Not (IsDBNull(.Item(1, i).Value)) Then
+                Try
                     nm_suplier.SelectedIndex = .Item(1, i).Value - 1
-                End If
-                If Not (IsDBNull(.Item(2, i).Value)) Then
+                Catch ex As Exception
+
+                End Try
+                Try
                     satuanbox.SelectedIndex = .Item(2, i).Value - 1
-                End If
+                Catch ex As Exception
+
+                End Try
                 txtBarcode.Text = .Item(3, i).Value
                 txtNama.Text = .Item(4, i).Value
                 txtHargaBeli.Tag = If(Not (IsDBNull(.Item(5, i).Value)), .Item(5, i).Value, "0")
@@ -389,4 +393,5 @@ Public Class barang
     Private Sub txtQty4_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtQty4.KeyPress
         Call hanyaangka(e)
     End Sub
+
 End Class

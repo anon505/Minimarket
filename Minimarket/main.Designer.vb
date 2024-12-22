@@ -36,6 +36,7 @@ Partial Class main
         Me.LaporanHarianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KeuntunganToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KadaluarsaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PembelianToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
@@ -44,7 +45,7 @@ Partial Class main
         Me.ReturPembelianMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataReturCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataReturSuplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PembelianToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CekStokToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -63,7 +64,7 @@ Partial Class main
         'MasterMenuItem
         '
         Me.MasterMenuItem.BackColor = System.Drawing.SystemColors.Control
-        Me.MasterMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BarangSubMenuItem, Me.SatuanSubMenuItem, Me.KasirSubMenuItem, Me.SupplierSubMenuItem, Me.MutasiSubMenuItem})
+        Me.MasterMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BarangSubMenuItem, Me.SatuanSubMenuItem, Me.KasirSubMenuItem, Me.SupplierSubMenuItem, Me.MutasiSubMenuItem, Me.CekStokToolStripMenuItem})
         Me.MasterMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MasterMenuItem.Image = CType(resources.GetObject("MasterMenuItem.Image"), System.Drawing.Image)
         Me.MasterMenuItem.Name = "MasterMenuItem"
@@ -73,31 +74,31 @@ Partial Class main
         'BarangSubMenuItem
         '
         Me.BarangSubMenuItem.Name = "BarangSubMenuItem"
-        Me.BarangSubMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.BarangSubMenuItem.Size = New System.Drawing.Size(161, 28)
         Me.BarangSubMenuItem.Text = "Barang"
         '
         'SatuanSubMenuItem
         '
         Me.SatuanSubMenuItem.Name = "SatuanSubMenuItem"
-        Me.SatuanSubMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.SatuanSubMenuItem.Size = New System.Drawing.Size(161, 28)
         Me.SatuanSubMenuItem.Text = "Satuan"
         '
         'KasirSubMenuItem
         '
         Me.KasirSubMenuItem.Name = "KasirSubMenuItem"
-        Me.KasirSubMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.KasirSubMenuItem.Size = New System.Drawing.Size(161, 28)
         Me.KasirSubMenuItem.Text = "Kasir"
         '
         'SupplierSubMenuItem
         '
         Me.SupplierSubMenuItem.Name = "SupplierSubMenuItem"
-        Me.SupplierSubMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.SupplierSubMenuItem.Size = New System.Drawing.Size(161, 28)
         Me.SupplierSubMenuItem.Text = "Supplier"
         '
         'MutasiSubMenuItem
         '
         Me.MutasiSubMenuItem.Name = "MutasiSubMenuItem"
-        Me.MutasiSubMenuItem.Size = New System.Drawing.Size(151, 28)
+        Me.MutasiSubMenuItem.Size = New System.Drawing.Size(161, 28)
         Me.MutasiSubMenuItem.Text = "Mutasi"
         '
         'MarkupToolStripMenuItem
@@ -147,6 +148,12 @@ Partial Class main
         Me.KadaluarsaToolStripMenuItem.Name = "KadaluarsaToolStripMenuItem"
         Me.KadaluarsaToolStripMenuItem.Size = New System.Drawing.Size(182, 28)
         Me.KadaluarsaToolStripMenuItem.Text = "Kadaluarsa"
+        '
+        'PembelianToolStripMenuItem1
+        '
+        Me.PembelianToolStripMenuItem1.Name = "PembelianToolStripMenuItem1"
+        Me.PembelianToolStripMenuItem1.Size = New System.Drawing.Size(182, 28)
+        Me.PembelianToolStripMenuItem1.Text = "Pembelian"
         '
         'ToolStripMenuItem1
         '
@@ -209,11 +216,11 @@ Partial Class main
         Me.DataReturSuplierToolStripMenuItem.Size = New System.Drawing.Size(267, 28)
         Me.DataReturSuplierToolStripMenuItem.Text = "Data Retur Suplier"
         '
-        'PembelianToolStripMenuItem1
+        'CekStokToolStripMenuItem
         '
-        Me.PembelianToolStripMenuItem1.Name = "PembelianToolStripMenuItem1"
-        Me.PembelianToolStripMenuItem1.Size = New System.Drawing.Size(182, 28)
-        Me.PembelianToolStripMenuItem1.Text = "Pembelian"
+        Me.CekStokToolStripMenuItem.Name = "CekStokToolStripMenuItem"
+        Me.CekStokToolStripMenuItem.Size = New System.Drawing.Size(161, 28)
+        Me.CekStokToolStripMenuItem.Text = "Cek Stok"
         '
         'main
         '
@@ -257,4 +264,5 @@ Partial Class main
     Friend WithEvents DataReturCustomerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DataReturSuplierToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PembelianToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CekStokToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
