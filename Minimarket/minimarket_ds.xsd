@@ -114,7 +114,7 @@ ORDER BY tgl_faktur</CommandText>
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="minimarket_ds" msdata:IsDataSet="true" msdata:Locale="en-CY" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="minimarket_ds" msprop:Generator_UserDSName="minimarket_ds">
+  <xs:element name="minimarket_ds" msdata:IsDataSet="true" msdata:Locale="en-US" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="minimarket_ds" msprop:Generator_UserDSName="minimarket_ds">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="ds_report_penjualan" msprop:Generator_TableClassName="ds_report_penjualanDataTable" msprop:Generator_TableVarName="tableds_report_penjualan" msprop:Generator_RowChangedName="ds_report_penjualanRowChanged" msprop:Generator_TablePropName="ds_report_penjualan" msprop:Generator_RowDeletingName="ds_report_penjualanRowDeleting" msprop:Generator_RowChangingName="ds_report_penjualanRowChanging" msprop:Generator_RowEvHandlerName="ds_report_penjualanRowChangeEventHandler" msprop:Generator_RowDeletedName="ds_report_penjualanRowDeleted" msprop:Generator_RowClassName="ds_report_penjualanRow" msprop:Generator_UserTableName="ds_report_penjualan" msprop:Generator_RowEvArgName="ds_report_penjualanRowChangeEvent">
