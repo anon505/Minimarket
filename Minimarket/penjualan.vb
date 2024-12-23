@@ -511,6 +511,7 @@ Public Class penjualan
         End If
         If e.KeyCode = Keys.F11 Then
             list_barang.frmPenjualan = Me
+            list_barang.frmPembelian = Nothing
             list_barang.txtcari.Text = ""
             list_barang.Show()
             'newConnect.ExecuteNonQuery("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text)
@@ -611,7 +612,4 @@ Public Class penjualan
 
     End Sub
 
-    Private Sub Panel4_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel4.Paint
-
-    End Sub
 End Class

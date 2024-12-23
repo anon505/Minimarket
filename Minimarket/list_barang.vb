@@ -5,6 +5,7 @@ Imports System.Globalization
 Public Class list_barang
 
     Public frmPenjualan As penjualan
+    Public frmPembelian As pembelian1
     Public Sub view()
         Dim ds = newConnect.ExecuteReader("select barcode,nama_barang from barang order by nama_barang asc")
         DataGridView1.DataSource = ds
@@ -48,6 +49,16 @@ Public Class list_barang
                 End If
             End If
             Close()
+            If Not (frmPembelian Is Nothing) Then
+                Dim cellSelect = DataGridView1.SelectedCells
+                Console.WriteLine(cellSelect.Count)
+                If (cellSelect.Count > 0) Then
+
+                    Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
+                    frmPembelian.setPLU(barcode)
+                End If
+            End If
+            Close()
         End If
         e.Handled = False
         'End If
@@ -63,6 +74,16 @@ Public Class list_barang
                 frmPenjualan.setPLU(barcode)
             End If
         End If
+        If Not (frmPembelian Is Nothing) Then
+            Dim cellSelect = DataGridView1.SelectedCells
+            Console.WriteLine(cellSelect.Count)
+            If (cellSelect.Count > 0) Then
+
+                Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
+                frmPembelian.setPLU(barcode)
+            End If
+        End If
+
         Close()
     End Sub
 End Class

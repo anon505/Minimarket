@@ -25,6 +25,13 @@ Public Class pembelian1
         End If
 
     End Function
+    Sub setPLU(ByVal barcode As String)
+        Console.WriteLine("jancuk" & barcode)
+        inputUpdateBarang(barcode)
+        textPLU.Select()
+        textPLU.Focus()
+
+    End Sub
     Private Sub textPLU_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles textPLU.KeyPress
         Dim ascChar As Integer = Asc(e.KeyChar)
         If Not IsNumeric(e.KeyChar) And Not (ascChar = 8) And Not (ascChar = 32) And Not (ascChar = 13) Then
@@ -616,6 +623,15 @@ Public Class pembelian1
         If e.KeyCode = Keys.Delete Then
             deleteTransaksiDetail()
         End If
+        If e.KeyCode = Keys.F11 Then
+            list_barang.frmPembelian = Me
+            list_barang.frmPenjualan = Nothing
+            list_barang.txtcari.Text = ""
+            list_barang.Show()
+            'newConnect.ExecuteNonQuery("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text)
+            'loadTable()
+
+        End If
     End Sub
     Private Sub deleteTransaksiDetail()
         Console.WriteLine(dataGridView1.SelectedRows.Count)
@@ -777,5 +793,4 @@ Public Class pembelian1
         supplier.Show()
     End Sub
 
- 
 End Class
