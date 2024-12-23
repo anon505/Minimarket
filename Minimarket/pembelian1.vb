@@ -509,71 +509,77 @@ Public Class pembelian1
             minus = "-"
             jatuhTempo = textTempoHari.Text
         End If
-        Dim query = "UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & jatuhTempo & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir)
-        Console.WriteLine(query)
-        newConnect.ExecuteNonQuery(query)
+        Dim cekFakturExist = newConnect.ExecuteReader("SELECT * from pembelian WHERE no_faktur='" & textNoFaktur.Text & "'")
+        If cekFakturExist.Rows.Count > 0 And noFaktorEdit Is Nothing Then
+            MsgBox("No faktur SUDAH ADA. silahkan gunakan nomor yang lain", MsgBoxStyle.OkOnly)
+        Else
+            Dim query = "UPDATE pembelian SET no_faktur = '" & textNoFaktur.Text & "',grand_total = '" & textTotal.Text.Replace(",", "").Replace(".", "") & "', metode_pembayaran = '" & metodePembayaran & "',id_supplier='" & labelIdSuplier.Text & "', lama_jatuh_tempo = '" & jatuhTempo & "',status = 'saved' WHERE id_pembelian = " & getIdPembelian(Module1.id_kasir)
+            Console.WriteLine(query)
+            newConnect.ExecuteNonQuery(query)
 
-        For i = 0 To dataGridView1.RowCount - 1
-            Dim qty = dataGridView1.Rows(i).Cells(5).Value.ToString
-            Dim hargaBeli = dataGridView1.Rows(i).Cells(8).Value.ToString.Replace(",", "").Replace(".", "")
-            Dim isNew = newConnect.ExecuteScalar("select is_new from barang WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
-            If isNew = "1" Then
-                newConnect.ExecuteNonQuery("UPDATE barang Set is_new = '0',stok_gudang='" & qty & "',id_suplier='" & labelIdSuplier.Text & "',harga_beli='" & hargaBeli & "' WHERE id_barang = '" &
-                                                               dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
-            Else
-                Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
-                If pembelianDetailReaders.Rows.Count > 0 Then
-                    Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
-                    Dim idBarang = pembelianDetailReader("id_barang")
-                    Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
-                    If barangReaders.Rows.Count > 0 Then
-                        Dim barangReader = barangReaders.Rows(0)
-                        Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
-                        stokGudang = stokGudang + qty
-                        newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
+            For i = 0 To dataGridView1.RowCount - 1
+                Dim qty = dataGridView1.Rows(i).Cells(5).Value.ToString
+                Dim hargaBeli = dataGridView1.Rows(i).Cells(8).Value.ToString.Replace(",", "").Replace(".", "")
+                Dim isNew = newConnect.ExecuteScalar("select is_new from barang WHERE id_barang = '" &
+                                                                           dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
+                If isNew = "1" Then
+                    newConnect.ExecuteNonQuery("UPDATE barang Set is_new = '0',stok_gudang='" & qty & "',id_suplier='" & labelIdSuplier.Text & "',harga_beli='" & hargaBeli & "' WHERE id_barang = '" &
+                                                                   dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
+                Else
+                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
+                    If pembelianDetailReaders.Rows.Count > 0 Then
+                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
+                        Dim idBarang = pembelianDetailReader("id_barang")
+                        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
+                        If barangReaders.Rows.Count > 0 Then
+                            Dim barangReader = barangReaders.Rows(0)
+                            Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
+                            stokGudang = stokGudang + qty
+                            newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
 
+                        End If
                     End If
                 End If
+            Next
+
+
+            Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'")
+            If idMutasi Is Nothing Then
+                newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
+                                                                    getIdPembelian(Module1.id_kasir) &
+                                                                    "','pembelian','PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
+                                                                    textNoFaktur.Text & "', '" & minus & "" & textTotal.
+                                                                    Text.
+                                                                    Replace(",", "").
+                                                                    Replace(".", "") & "', now());")
+            Else
+                newConnect.ExecuteNonQuery("UPDATE mutasi SET deskripsi = 'update PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
+                                                                    textNoFaktur.Text & "',nominal = '" & minus & "" &
+                                                                    textTotal.
+                                                                    Text.
+                                                                    Replace(",", "").
+                                                                    Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
             End If
-        Next
-        
+            If noFaktorEdit IsNot Nothing Then
+                MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
+            Else
+                loadTable()
 
-        Dim idMutasi = newConnect.ExecuteScalar("SELECT id_mutasi from mutasi WHERE  type='pembelian' and id_reff='" & getIdPembelian(Module1.id_kasir) & "'")
-        If idMutasi Is Nothing Then
-            newConnect.ExecuteNonQuery("INSERT INTO mutasi(id_mutasi,id_reff,type,deskripsi,nominal,created_at) VALUES (NULL, '" &
-                                                                getIdPembelian(Module1.id_kasir) &
-                                                                "','pembelian','PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
-                                                                textNoFaktur.Text & "', '" & minus & "" & textTotal.
-                                                                Text.
-                                                                Replace(",", "").
-                                                                Replace(".", "") & "', now());")
-        Else
-            newConnect.ExecuteNonQuery("UPDATE mutasi SET deskripsi = 'update PEMBELIAN secara " & metodePembayaran.ToUpper & " dengan faktur: " &
-                                                                textNoFaktur.Text & "',nominal = '" & minus & "" &
-                                                                textTotal.
-                                                                Text.
-                                                                Replace(",", "").
-                                                                Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
+                textNoFaktur.Text = ""
+                textSupplier.Text = ""
+                labelSupplier.Text = ""
+                labelIdSuplier.Text = ""
+                comboPembayaran.SelectedIndex = -1
+                textTempoHari.Text = ""
+                textJatuhTempo.Text = ""
+                textDiscount.Text = ""
+                textPpn.Text = ""
+                textTotal.Text = ""
+                MsgBox("Faktur pembelian berhasil disimpan", MsgBoxStyle.OkOnly)
+            End If
+
         End If
-        If noFaktorEdit IsNot Nothing Then
-            MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
-        Else
-            loadTable()
-
-            textNoFaktur.Text = ""
-            textSupplier.Text = ""
-            labelSupplier.Text = ""
-            labelIdSuplier.Text = ""
-            comboPembayaran.SelectedIndex = -1
-            textTempoHari.Text = ""
-            textJatuhTempo.Text = ""
-            textDiscount.Text = ""
-            textPpn.Text = ""
-            textTotal.Text = ""
-            MsgBox("Faktur pembelian berhasil disimpan", MsgBoxStyle.OkOnly)
-        End If
-
+      
 
     End Sub
     Private Sub fakturBaru()

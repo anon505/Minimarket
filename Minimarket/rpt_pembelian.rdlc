@@ -28,6 +28,10 @@
           <DataField>nama_kasir</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="nama_supplier">
+          <DataField>nama_supplier</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="barcode">
           <DataField>barcode</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -118,7 +122,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.05243in</Width>
+              <Width>1.25243in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.03044in</Width>
@@ -130,7 +134,7 @@
               <Width>0.98425in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.51076in</Width>
+              <Width>1.31077in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.76076in</Width>
@@ -424,7 +428,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!no_faktur.Value</Value>
+                              <Value>=Fields!no_faktur.Value &amp; "-" &amp; Fields!nama_supplier.Value &amp; "-"  &amp; UCase(Fields!status.Value)</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -445,6 +449,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -671,7 +676,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -787,7 +791,7 @@
         <DataSetName>minimarket_ds</DataSetName>
         <Top>2.2352cm</Top>
         <Height>2.58315cm</Height>
-        <Width>20.99998cm</Width>
+        <Width>21.00001cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>

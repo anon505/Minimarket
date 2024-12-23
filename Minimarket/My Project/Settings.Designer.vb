@@ -57,20 +57,20 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=root;database=minimarket")>  _
-        Public ReadOnly Property koneksi() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("Dsn=minimarket")>  _
+        Public ReadOnly Property koneksi_dsn() As String
             Get
-                Return CType(Me("koneksi"),String)
+                Return CType(Me("koneksi_dsn"),String)
             End Get
         End Property
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Dsn=minimarket")>  _
-        Public ReadOnly Property koneksi_dsn() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=root;password=12345678;database=minimarket")>  _
+        Public ReadOnly Property koneksi() As String
             Get
-                Return CType(Me("koneksi_dsn"),String)
+                Return CType(Me("koneksi"),String)
             End Get
         End Property
     End Class

@@ -1190,6 +1190,8 @@ Partial Public Class minimarket_ds
         
         Private columnnama_kasir As Global.System.Data.DataColumn
         
+        Private columnnama_supplier As Global.System.Data.DataColumn
+        
         Private columnbarcode As Global.System.Data.DataColumn
         
         Private columnnama_barang As Global.System.Data.DataColumn
@@ -1272,6 +1274,14 @@ Partial Public Class minimarket_ds
         Public ReadOnly Property nama_kasirColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnnama_kasir
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property nama_supplierColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnnama_supplier
             End Get
         End Property
         
@@ -1384,9 +1394,9 @@ Partial Public Class minimarket_ds
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addds_report_pembelianRow(ByVal no_faktur As String, ByVal tgl_faktur As Date, ByVal status As String, ByVal nama_kasir As String, ByVal barcode As String, ByVal nama_barang As String, ByVal qty As Integer, ByVal price As Integer, ByVal ppn As Single, ByVal discount As Single, ByVal price_netto As Integer, ByVal expiry As Date, ByVal id_kasir As Integer) As ds_report_pembelianRow
+        Public Overloads Function Addds_report_pembelianRow(ByVal no_faktur As String, ByVal tgl_faktur As Date, ByVal status As String, ByVal nama_kasir As String, ByVal nama_supplier As String, ByVal barcode As String, ByVal nama_barang As String, ByVal qty As Integer, ByVal price As Integer, ByVal ppn As Single, ByVal discount As Single, ByVal price_netto As Integer, ByVal expiry As Date, ByVal id_kasir As Integer) As ds_report_pembelianRow
             Dim rowds_report_pembelianRow As ds_report_pembelianRow = CType(Me.NewRow,ds_report_pembelianRow)
-            Dim columnValuesArray() As Object = New Object() {no_faktur, tgl_faktur, status, nama_kasir, barcode, nama_barang, qty, price, ppn, discount, price_netto, expiry, id_kasir}
+            Dim columnValuesArray() As Object = New Object() {no_faktur, tgl_faktur, status, nama_kasir, nama_supplier, barcode, nama_barang, qty, price, ppn, discount, price_netto, expiry, id_kasir}
             rowds_report_pembelianRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowds_report_pembelianRow)
             Return rowds_report_pembelianRow
@@ -1413,6 +1423,7 @@ Partial Public Class minimarket_ds
             Me.columntgl_faktur = MyBase.Columns("tgl_faktur")
             Me.columnstatus = MyBase.Columns("status")
             Me.columnnama_kasir = MyBase.Columns("nama_kasir")
+            Me.columnnama_supplier = MyBase.Columns("nama_supplier")
             Me.columnbarcode = MyBase.Columns("barcode")
             Me.columnnama_barang = MyBase.Columns("nama_barang")
             Me.columnqty = MyBase.Columns("qty")
@@ -1435,6 +1446,8 @@ Partial Public Class minimarket_ds
             MyBase.Columns.Add(Me.columnstatus)
             Me.columnnama_kasir = New Global.System.Data.DataColumn("nama_kasir", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnnama_kasir)
+            Me.columnnama_supplier = New Global.System.Data.DataColumn("nama_supplier", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnnama_supplier)
             Me.columnbarcode = New Global.System.Data.DataColumn("barcode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnbarcode)
             Me.columnnama_barang = New Global.System.Data.DataColumn("nama_barang", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -1456,6 +1469,7 @@ Partial Public Class minimarket_ds
             Me.columnno_faktur.MaxLength = 254
             Me.columnstatus.MaxLength = 7
             Me.columnnama_kasir.MaxLength = 30
+            Me.columnnama_supplier.MaxLength = 254
             Me.columnbarcode.MaxLength = 254
             Me.columnnama_barang.MaxLength = 50
             Me.columnqty.AllowDBNull = false
@@ -2121,6 +2135,21 @@ Partial Public Class minimarket_ds
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property nama_supplier() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableds_report_pembelian.nama_supplierColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'nama_supplier' in table 'ds_report_pembelian' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableds_report_pembelian.nama_supplierColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property barcode() As String
             Get
                 Try 
@@ -2280,6 +2309,18 @@ Partial Public Class minimarket_ds
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub Setnama_kasirNull()
             Me(Me.tableds_report_pembelian.nama_kasirColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Isnama_supplierNull() As Boolean
+            Return Me.IsNull(Me.tableds_report_pembelian.nama_supplierColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Setnama_supplierNull()
+            Me(Me.tableds_report_pembelian.nama_supplierColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2983,6 +3024,7 @@ Namespace minimarket_dsTableAdapters
             tableMapping.ColumnMappings.Add("no_faktur", "no_faktur")
             tableMapping.ColumnMappings.Add("tgl_faktur", "tgl_faktur")
             tableMapping.ColumnMappings.Add("status", "status")
+            tableMapping.ColumnMappings.Add("nama_supplier", "nama_supplier")
             tableMapping.ColumnMappings.Add("nama_kasir", "nama_kasir")
             tableMapping.ColumnMappings.Add("barcode", "barcode")
             tableMapping.ColumnMappings.Add("nama_barang", "nama_barang")
@@ -3009,14 +3051,13 @@ Namespace minimarket_dsTableAdapters
             Me._commandCollection = New Global.MySql.Data.MySqlClient.MySqlCommand(0) {}
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT *"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM     ds_report_pembelian_detail"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE  (status <> 'temp') AND (id_"& _ 
-                "kasir = @id_kasir) AND (tgl_faktur >= @waktu1) AND (tgl_faktur <= @waktu2)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDE"& _ 
-                "R BY tgl_faktur"
+            Me._commandCollection(0).CommandText = "SELECT ds_report_pembelian_detail.*"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM     ds_report_pembelian_detail"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE  "& _ 
+                "(status <> 'temp') AND (id_kasir = @id_kasir) AND (tgl_faktur >= @waktu1) AND (t"& _ 
+                "gl_faktur <= @waktu2)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"ORDER BY tgl_faktur"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@id_kasir"
             param.DbType = Global.System.Data.DbType.Int32
-            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
             param.Size = 1024
             param.IsNullable = true
             param.SourceColumn = ""
@@ -3024,7 +3065,6 @@ Namespace minimarket_dsTableAdapters
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@waktu1"
             param.DbType = Global.System.Data.DbType.DateTime
-            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.DateTime
             param.Size = 1024
             param.IsNullable = true
             param.SourceColumn = ""
@@ -3032,7 +3072,6 @@ Namespace minimarket_dsTableAdapters
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@waktu2"
             param.DbType = Global.System.Data.DbType.DateTime
-            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.DateTime
             param.Size = 1024
             param.IsNullable = true
             param.SourceColumn = ""
@@ -3043,11 +3082,23 @@ Namespace minimarket_dsTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function FillByKasir(ByVal dataTable As minimarket_ds.ds_report_pembelianDataTable, ByVal id_kasir As Integer, ByVal waktu1 As Date, ByVal waktu2 As Date) As Integer
+        Public Overloads Overridable Function FillByKasir(ByVal dataTable As minimarket_ds.ds_report_pembelianDataTable, ByVal id_kasir As Object, ByVal waktu1 As Object, ByVal waktu2 As Object) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_kasir,Integer)
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(waktu1,Date)
-            Me.Adapter.SelectCommand.Parameters(2).Value = CType(waktu2,Date)
+            If (id_kasir Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("id_kasir")
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_kasir,Object)
+            End If
+            If (waktu1 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("waktu1")
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(waktu1,Object)
+            End If
+            If (waktu2 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("waktu2")
+            Else
+                Me.Adapter.SelectCommand.Parameters(2).Value = CType(waktu2,Object)
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -3059,11 +3110,23 @@ Namespace minimarket_dsTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetDataByKasir(ByVal id_kasir As Integer, ByVal waktu1 As Date, ByVal waktu2 As Date) As minimarket_ds.ds_report_pembelianDataTable
+        Public Overloads Overridable Function GetDataByKasir(ByVal id_kasir As Object, ByVal waktu1 As Object, ByVal waktu2 As Object) As minimarket_ds.ds_report_pembelianDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_kasir,Integer)
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(waktu1,Date)
-            Me.Adapter.SelectCommand.Parameters(2).Value = CType(waktu2,Date)
+            If (id_kasir Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("id_kasir")
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_kasir,Object)
+            End If
+            If (waktu1 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("waktu1")
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(waktu1,Object)
+            End If
+            If (waktu2 Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("waktu2")
+            Else
+                Me.Adapter.SelectCommand.Parameters(2).Value = CType(waktu2,Object)
+            End If
             Dim dataTable As minimarket_ds.ds_report_pembelianDataTable = New minimarket_ds.ds_report_pembelianDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
