@@ -35,7 +35,9 @@ Public Class cetak_pembelian
         End If
 
         Dim rptDataSource As ReportDataSource
-        Ds_report_pembelianTableAdapter1.FillByKasir(Minimarket_ds.ds_report_pembelian, kasirIds(kasirbox.SelectedIndex), DateTime.ParseExact(txtStartDateTime.Text & " 00:00:00", "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture), DateTime.ParseExact(txtEndDateTime.Text & " 23:59:59", "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture))
+        Dim startDate = DateTime.ParseExact(txtStartDateTime.Text & " 00:00:00", "dd/MM/yyyy HH:mm:ss", New Global.System.Globalization.CultureInfo("id-ID"))
+        Console.WriteLine(startDate)
+        Ds_report_pembelianTableAdapter1.FillByKasir(Minimarket_ds.ds_report_pembelian, kasirIds(kasirbox.SelectedIndex), startDate, DateTime.ParseExact(txtEndDateTime.Text & " 23:59:59", "dd/MM/yyyy HH:mm:ss", New Global.System.Globalization.CultureInfo("id-ID")))
         If (Minimarket_ds.ds_report_pembelian.Rows.Count = 0) Then
             MsgBox("Tidak ada transaksi pembelian yang dilakukan oleh " & kasirbox.Text & " dari tanggal " & txtStartDateTime.Text & " sampai tanggal " & txtEndDateTime.Text, MsgBoxStyle.OkOnly)
         Else

@@ -250,7 +250,7 @@ Partial Public Class minimarket_ds
         Me.DataSetName = "minimarket_ds"
         Me.Prefix = ""
         Me.Namespace = "http://tempuri.org/minimarket_ds.xsd"
-        Me.Locale = New Global.System.Globalization.CultureInfo("en-US")
+        Me.Locale = New Global.System.Globalization.CultureInfo("id-ID")
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tableds_report_penjualan = New ds_report_penjualanDataTable()
@@ -3057,21 +3057,21 @@ Namespace minimarket_dsTableAdapters
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@id_kasir"
-            param.DbType = Global.System.Data.DbType.[Object]
+            param.DbType = Global.System.Data.DbType.Int32
             param.Size = 1024
             param.IsNullable = true
             param.SourceColumn = ""
             Me._commandCollection(0).Parameters.Add(param)
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@waktu1"
-            param.DbType = Global.System.Data.DbType.[Object]
+            param.DbType = Global.System.Data.DbType.DateTime
             param.Size = 1024
             param.IsNullable = true
             param.SourceColumn = ""
             Me._commandCollection(0).Parameters.Add(param)
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@waktu2"
-            param.DbType = Global.System.Data.DbType.[Object]
+            param.DbType = Global.System.Data.DbType.DateTime
             param.Size = 1024
             param.IsNullable = true
             param.SourceColumn = ""
