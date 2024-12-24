@@ -63,7 +63,7 @@ Public Class pembelian1
 
             Dim currentQty = newConnect.ExecuteScalar("SELECT qty from pembelian_detail WHERE id_barang='" & idBarang.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
             If currentQty Is Nothing Then
-                currentQty = "1"
+                currentQty = "0"
                 Dim query = "INSERT INTO pembelian_detail (id_pembelian_detail,id_pembelian,id_barang,qty,price,ppn,discount,price_netto) VALUES (NULL,'" & getIdPembelian(Module1.id_kasir) & "', '" & idBarang & "', '" & currentQty.ToString & "', '" & hargaBeli.ToString & "', '" & ppn.ToString.Replace(",", ".") & "', '" & discount.ToString.Replace(",", ".") & "', '" & hargaBeliNetto.ToString & "')"
                 Console.WriteLine(query)
                 newConnect.ExecuteNonQuery(query)
@@ -127,15 +127,28 @@ Public Class pembelian1
             dataGridView1.Columns("no_faktur").ReadOnly = True
             dataGridView1.Columns("id_barang").ReadOnly = True
             dataGridView1.Columns("barcode").ReadOnly = True
-            dataGridView1.Columns("nama_barang").ReadOnly = False
-            dataGridView1.Columns("qty").ReadOnly = False
+            If statusFaktorEdit = "mark_up" Then
+                dataGridView1.Columns("nama_barang").ReadOnly = True
+                dataGridView1.Columns("qty").ReadOnly = True
+                dataGridView1.Columns(8).ReadOnly = True 'harga
+                dataGridView1.Columns(10).ReadOnly = True 'ppn
+                dataGridView1.Columns(12).ReadOnly = True 'discount
+            Else
+                dataGridView1.Columns("nama_barang").ReadOnly = False
+                dataGridView1.Columns("qty").ReadOnly = False
+                dataGridView1.Columns(8).ReadOnly = False 'harga
+                dataGridView1.Columns(10).ReadOnly = False 'ppn
+                dataGridView1.Columns(12).ReadOnly = False 'discount
+            End If
+
+
             dataGridView1.Columns("stok_display").ReadOnly = True
             dataGridView1.Columns("stok_gudang").ReadOnly = True
-            dataGridView1.Columns(8).ReadOnly = False 'harga
+
             dataGridView1.Columns(9).ReadOnly = True
-            dataGridView1.Columns(10).ReadOnly = False 'ppn
+
             dataGridView1.Columns(11).ReadOnly = True
-            dataGridView1.Columns(12).ReadOnly = False 'discount
+
             dataGridView1.Columns(13).ReadOnly = True
             dataGridView1.Columns(14).ReadOnly = True
             dataGridView1.Columns(15).ReadOnly = True
@@ -541,22 +554,23 @@ Public Class pembelian1
                 Dim isNew = newConnect.ExecuteScalar("select is_new from barang WHERE id_barang = '" &
                                                                            dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
                 If isNew = "1" Then
-                    newConnect.ExecuteNonQuery("UPDATE barang Set is_new = '0',stok_gudang='" & qty & "',id_suplier='" & labelIdSuplier.Text & "',harga_beli='" & hargaBeli & "' WHERE id_barang = '" &
+                    newConnect.ExecuteNonQuery("UPDATE barang Set is_new = '0',stok_gudang='0',id_suplier='" & labelIdSuplier.Text & "',harga_beli='" & hargaBeli & "' WHERE id_barang = '" &
                                                                    dataGridView1.Rows(i).Cells(2).Value.ToString & "'")
-                Else
-                    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
-                    If pembelianDetailReaders.Rows.Count > 0 Then
-                        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
-                        Dim idBarang = pembelianDetailReader("id_barang")
-                        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
-                        If barangReaders.Rows.Count > 0 Then
-                            Dim barangReader = barangReaders.Rows(0)
-                            Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
-                            stokGudang = stokGudang + qty
-                            newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
+                    'Else
 
-                        End If
-                    End If
+                    '    Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(i).Cells(0).Value.ToString & "'")
+                    '    If pembelianDetailReaders.Rows.Count > 0 Then
+                    '        Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
+                    '        Dim idBarang = pembelianDetailReader("id_barang")
+                    '        Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE id_barang='" & idBarang & "'")
+                    '        If barangReaders.Rows.Count > 0 Then
+                    '            Dim barangReader = barangReaders.Rows(0)
+                    '            Dim stokGudang = Integer.Parse(barangReader("stok_gudang").ToString)
+                    '            stokGudang = stokGudang + qty
+                    '            newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & stokGudang.ToString & "' WHERE id_barang = '" & idBarang & "'")
+
+                    '        End If
+                    '    End If
                 End If
             Next
 
@@ -707,7 +721,15 @@ Public Class pembelian1
     Private Sub buttonDelete_Click(ByVal sender As Object, ByVal e As EventArgs) Handles buttonDelete.Click
         deleteTransaksiDetail()
     End Sub
+    Sub showDetailFaktur(ByVal noFaktur As String, ByVal kodeSupp As String, ByVal idSupp As String, ByVal namaSupp As String)
+        textNoFaktur.Text = noFaktur
+        textSupplier.Text = kodeSupp
+        labelIdSuplier.Text = idSupp
+        labelSupplier.Text = namaSupp
 
+        btnEditFaktor.PerformClick()
+
+    End Sub
     Private Sub btnEditFaktor_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnEditFaktor.Click
         If btnEditFaktor.Text.ToLower = "kembali" Then
             Dim newPembelian = New pembelian1
@@ -802,4 +824,9 @@ Public Class pembelian1
         supplier.Show()
     End Sub
 
+    Private Sub buttonFind_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles buttonFind.Click
+        Dim varListNota = New list_faktur
+        varListNota.frmPembelian = Me
+        varListNota.Show()
+    End Sub
 End Class

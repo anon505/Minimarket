@@ -118,7 +118,7 @@ Public Class barang
                 txtPajak.Text = .Item(6, i).Value
                 txtDiskon.Text = .Item(7, i).Value
                 txtHargaBeliNetto.Tag = If(Not (IsDBNull(.Item(8, i).Value)), .Item(8, i).Value, "0")
-                txtHargaBeliNetto.Text = Format(Val(txtHargaBeli.Tag), "'Rp' #,0;'Rp' -#,0")
+                txtHargaBeliNetto.Text = Format(Val(txtHargaBeliNetto.Tag), "'Rp' #,0;'Rp' -#,0")
                 txtStokDisplay.Text = .Item(9, i).Value
                 txtStokGudang.Text = .Item(10, i).Value
 
@@ -192,11 +192,7 @@ Public Class barang
 
     Private Sub hapus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles hapus.Click
         Dim Query As String
-        If nm_suplier.Text = "" Or satuanbox.Text = "" Or txtBarcode.Text = "" Or txtNama.Text = "" Or txtHargaBeli.Text = "" Or
-            txtPajak.Text = "" Or txtDiskon.Text = "" Or txtHargaBeliNetto.Text = "" Or txtStokDisplay.Text = "" Or
-            txtStokGudang.Text = "" Or txtHargaJual1.Text = "" Or txtHargaJual2.Text = "" Or txtHargaJual3.Text = "" Or
-            txtHargaJual4.Text = "" Or txtQty2.Text = "" Or txtQty3.Text = "" Or txtQty4.Text = "" Or
-            lblIdBarang.Text = "" Then
+        If lblIdBarang.Text = "" Then
             MsgBox("Harap pilih data yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
             Query = "delete from barang WHERE  id_barang ='" + lblIdBarang.Text + "'"
@@ -299,6 +295,20 @@ Public Class barang
     Private Sub txthargabeli_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaBeli.LostFocus
         txtHargaBeli.Tag = txtHargaBeli.Text
         txtHargaBeli.Text = Format(Val(txtHargaBeli.Tag), "'Rp' #,0;'Rp' -#,0")
+    End Sub
+
+    Private Sub txthargabelinetto_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaBeliNetto.GotFocus
+        If (lblIdBarang.Text = "") Then
+            txtHargaBeliNetto.Tag = ""
+        End If
+        txtHargaBeliNetto.Text = txtHargaBeliNetto.Tag
+    End Sub
+    Private Sub txthargabelinetto_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtHargaBeliNetto.KeyPress
+        Call hanyaangka(e)
+    End Sub
+    Private Sub txthargabelinetto_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaBeliNetto.LostFocus
+        txtHargaBeliNetto.Tag = txtHargaBeliNetto.Text
+        txtHargaBeliNetto.Text = Format(Val(txtHargaBeliNetto.Tag), "'Rp' #,0;'Rp' -#,0")
     End Sub
 
     Private Sub txtHargaJual1_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual1.GotFocus

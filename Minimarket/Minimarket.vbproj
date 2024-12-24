@@ -123,6 +123,12 @@
     <Compile Include="barang_view.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="list_faktur.Designer.vb">
+      <DependentUpon>list_faktur.vb</DependentUpon>
+    </Compile>
+    <Compile Include="list_faktur.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="list_barang.Designer.vb">
       <DependentUpon>list_barang.vb</DependentUpon>
     </Compile>
@@ -294,6 +300,9 @@
     <EmbeddedResource Include="barang_view.resx">
       <DependentUpon>barang_view.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="list_faktur.resx">
+      <DependentUpon>list_faktur.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="rpt_pembelian.rdlc">
       <SubType>Designer</SubType>
