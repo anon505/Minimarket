@@ -73,7 +73,7 @@ Public Class pembelian1
 
                 newConnect.ExecuteNonQuery(query)
             End If
-            loadTable()
+            refreshData()
             textPLU.Text = ""
             textPLU.Focus()
         Else
@@ -106,15 +106,22 @@ Public Class pembelian1
         End If
         column.CellTemplate = cell
     End Sub
+
+    Private bindingSource1 As New BindingSource()
+    Private dataAdapter As New MySqlDataAdapter()
     Private Sub loadTable()
         Try
-            Dim ds = newConnect.ExecuteReader("select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang," &
+            Dim sqlLoadPembelianDetail = "select id_pembelian_detail,no_faktur,id_barang,barcode, nama_barang," &
                                               "qty,stok_display,stok_gudang, harga,harga_lama,ppn," &
                                               "ppn_lama,discount,discount_lama,harga_netto,harga_netto_lama," &
-                                              "total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir))
+                                              "total,expiry from ds_transaksi_pembelian  where id_pembelian=" & getIdPembelian(Module1.id_kasir)
+            dataAdapter = New MySqlDataAdapter(sqlLoadPembelianDetail, newConnect.connectionString)
+            Dim ds = newConnect.ExecuteReader(sqlLoadPembelianDetail)
+            dataAdapter.Fill(ds)
+            bindingSource1.DataSource = ds
 
             dataGridView1.AutoGenerateColumns = True
-            dataGridView1.DataSource = ds
+            'dataGridView1.DataSource = ds
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
             dataGridView1.Columns("id_pembelian_detail").ReadOnly = True
             dataGridView1.Columns("no_faktur").ReadOnly = True
@@ -182,7 +189,7 @@ Public Class pembelian1
 
             customizeCellsInColumn(4)
             customizeCellsInColumn(5)
-         
+
             customizeCellsInColumn(8)
             customizeCellsInColumn(10)
             customizeCellsInColumn(12)
@@ -315,9 +322,9 @@ Public Class pembelian1
         End If
     End Sub
     Private Sub pembelian_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-
+        dataGridView1.DataSource = bindingSource1
         textTanggal.Text = DateTime.Now.ToString("dd MMMM yyyy")
-
+        loadTable()
         If noFaktorEdit IsNot Nothing Then
             textSupplier.Enabled = False
             textNoFaktur.Enabled = False
@@ -331,13 +338,12 @@ Public Class pembelian1
                 textPpn.Enabled = False
                 textDiscount.Enabled = False
             End If
-            loadTable()
+
         Else
             textTempoHari.Text = ""
             textTempoHari.Enabled = False
             textSupplier.Select()
 
-            loadTable()
             Dim pembelianReaders = newConnect.ExecuteReader("Select * from pembelian where id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
             If pembelianReaders.Rows.Count > 0 Then
                 Dim pembelianReader = pembelianReaders.Rows(0)
@@ -422,7 +428,11 @@ Public Class pembelian1
             AddHandler tb.TextChanged, AddressOf Tb_TextChanged
         End If
     End Sub
-
+    Private Sub refreshData()
+        dataGridView1.SuspendLayout()
+        loadTable()
+        dataGridView1.ResumeLayout(False)
+    End Sub
     Private Sub dataGridView1_CellEndEdit(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
         '5(qty), 8(harga), 10(ppn), 12(discount)
         Try
@@ -431,13 +441,13 @@ Public Class pembelian1
                 If e.ColumnIndex = 4 Then
                     newConnect.ExecuteNonQuery("UPDATE barang Set nama_barang = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "'")
-                    loadTable()
+                    refreshData()
                 ElseIf e.ColumnIndex = 5 Then
                     Dim qty = dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString
                    
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & qty & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    loadTable()
+                    refreshData()
                 ElseIf e.ColumnIndex = 8 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
 
@@ -454,7 +464,8 @@ Public Class pembelian1
                     End If
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    loadTable()
+                    refreshData()
+
                 ElseIf e.ColumnIndex = 10 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim price As Integer
@@ -470,7 +481,7 @@ Public Class pembelian1
                     End If
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    loadTable()
+                    refreshData()
                 ElseIf e.ColumnIndex = 12 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString & "'")
                     Dim price As Integer
@@ -486,7 +497,7 @@ Public Class pembelian1
                     End If
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    loadTable()
+                    refreshData()
                 End If
                 textPLU.Text = ""
                 textPLU.Focus()
@@ -570,7 +581,7 @@ Public Class pembelian1
             If noFaktorEdit IsNot Nothing Then
                 MsgBox("Faktur pembelian berhasil diedit", MsgBoxStyle.OkOnly)
             Else
-                loadTable()
+                refreshData()
 
                 textNoFaktur.Text = ""
                 textSupplier.Text = ""
@@ -593,7 +604,7 @@ Public Class pembelian1
         newConnect.ExecuteNonQuery("DELETE from pembelian_detail WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
         newConnect.ExecuteNonQuery("DELETE from pembelian WHERE id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
 
-        loadTable()
+        refreshData()
         textNoFaktur.Text = ""
         textSupplier.Text = ""
         labelSupplier.Text = ""
@@ -628,8 +639,6 @@ Public Class pembelian1
             list_barang.frmPenjualan = Nothing
             list_barang.txtcari.Text = ""
             list_barang.Show()
-            'newConnect.ExecuteNonQuery("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text)
-            'loadTable()
 
         End If
     End Sub
@@ -638,7 +647,7 @@ Public Class pembelian1
 
         If getIdDariTabel() IsNot "" Then
             newConnect.ExecuteNonQuery("DELETE from pembelian_detail WHERE id_pembelian_detail = " & getIdDariTabel())
-            loadTable()
+            refreshData()
         End If
 
     End Sub
