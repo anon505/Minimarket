@@ -42,14 +42,14 @@ Partial Class list_faktur
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.Size = New System.Drawing.Size(1264, 630)
+        Me.DataGridView1.Size = New System.Drawing.Size(1382, 630)
         Me.DataGridView1.TabIndex = 20
         '
         'txtEndDateTime
         '
         Me.txtEndDateTime.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtEndDateTime.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtEndDateTime.Location = New System.Drawing.Point(1087, 13)
+        Me.txtEndDateTime.Location = New System.Drawing.Point(1205, 13)
         Me.txtEndDateTime.Margin = New System.Windows.Forms.Padding(4)
         Me.txtEndDateTime.Name = "txtEndDateTime"
         Me.txtEndDateTime.Size = New System.Drawing.Size(164, 30)
@@ -59,7 +59,7 @@ Partial Class list_faktur
         '
         Me.DateTimePicker1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DateTimePicker1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DateTimePicker1.Location = New System.Drawing.Point(1253, 13)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(1371, 13)
         Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(4)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(23, 30)
@@ -69,7 +69,7 @@ Partial Class list_faktur
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1296, 696)
+        Me.ClientSize = New System.Drawing.Size(1414, 696)
         Me.Controls.Add(Me.txtEndDateTime)
         Me.Controls.Add(Me.DateTimePicker1)
         Me.Controls.Add(Me.DataGridView1)

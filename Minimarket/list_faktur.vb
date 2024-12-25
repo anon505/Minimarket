@@ -5,12 +5,13 @@ Imports System.Globalization
 Public Class list_faktur
     Public frmPembelian As pembelian1
     Public Sub view()
-        Dim ds = newConnect.ExecuteReader("SELECT no_faktur, tgl_faktur,id_suplier,kode_suplier,nama_suplier,nama_kasir,grand_total,pembelian.`status` AS status FROM pembelian LEFT JOIN supplier on supplier.id_suplier=pembelian.id_supplier LEFT JOIN kasir ON kasir.id_kasir=pembelian.id_kasir WHERE pembelian.`status`!='temp'  order by tgl_faktur desc")
+        Dim ds = newConnect.ExecuteReader("select * from ds_list_faktur_saved_mark_up")
         DataGridView1.DataSource = ds
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridView1.ReadOnly = True
         DataGridView1.ColumnHeadersDefaultCellStyle.Font = New Font("arial", 12, FontStyle.Bold)
         DataGridView1.DefaultCellStyle.Font = New Font("arial", 12)
+        DataGridView1.Columns(1).DefaultCellStyle.Format = "dd MMM yyyy HH:mm:ss"
         DataGridView1.AutoResizeColumns()
 
     End Sub
@@ -30,7 +31,7 @@ Public Class list_faktur
         txtEndDateTime.Text = DateTimePicker1.Value.Date
         Dim startTime = DateTime.ParseExact(txtEndDateTime.Text & " 00:00:00", "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture).ToString("yyyy-MM-dd HH:mm:ss")
         Dim endTime = DateTime.ParseExact(txtEndDateTime.Text & " 23:59:59", "dd/MM/yyyy HH:mm:ss", CultureInfo.CurrentCulture).ToString("yyyy-MM-dd HH:mm:ss")
-        Dim query = "SELECT no_faktur, tgl_faktur,id_suplier,kode_suplier,nama_suplier,nama_kasir,grand_total,pembelian.`status` AS status FROM pembelian LEFT JOIN supplier on supplier.id_suplier=pembelian.id_supplier LEFT JOIN kasir ON kasir.id_kasir=pembelian.id_kasir WHERE pembelian.`status`!='temp' and (tgl_faktur >= '" & startTime & "' AND tgl_faktur <= '" & endTime & "') order by tgl_faktur desc"
+        Dim query = "SELECT * FROM ds_list_faktur_saved_mark_up WHERE (tgl_faktur >= '" & startTime & "' AND tgl_faktur <= '" & endTime & "') order by tgl_faktur desc"
         Console.WriteLine(query)
         Dim ds = newConnect.ExecuteReader(query)
         DataGridView1.DataSource = ds
