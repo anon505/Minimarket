@@ -71,3 +71,4 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.xml
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.pdb
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.vbprojResolveAssemblyReference.cache
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_faktur.resources
+D:\Minimarket\Minimarket\bin\Debug\Microsoft.ReportViewer.Common.dll
