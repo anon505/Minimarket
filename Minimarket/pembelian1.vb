@@ -450,21 +450,53 @@ Public Class pembelian1
         loadTable()
         dataGridView1.ResumeLayout(False)
     End Sub
+    Private Sub updateRowIndex(ByVal rowIndex As Integer)
+        Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(rowIndex).Cells(1).Value.ToString & "'")
+        Dim price As Integer
+        Dim ppn As Double
+        Dim discount As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(13).Value.ToString)
+        Dim priceNetto As Integer
+        If pembelianDetailReaders.Rows.Count > 0 Then
+            Dim pembelianDetailReader = pembelianDetailReaders.Rows(0)
+            price = pembelianDetailReader("price")
+            ppn = pembelianDetailReader("ppn")
+            Dim priceAfterPpn = (price + ((ppn / 100) * price))
+            priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
+        End If
+        dataGridView1.Rows(rowIndex).Cells(15).Value = priceNetto.ToString
+        dataGridView1.Rows(rowIndex).Cells(17).Value = (Integer.Parse(dataGridView1.Rows(rowIndex).Cells(6).Value.
+                                ToString.Replace(".", "").
+                                Replace(",", "")) * priceNetto).ToString
+    End Sub
+    Private Sub refreshCalculate()
+       
+        Dim grandTotal = 0
+        For i = 0 To dataGridView1.Rows.Count - 1
+            Dim subTotal = Integer.Parse(dataGridView1.Rows(i).Cells(17).Value.
+                                ToString.Replace(".", "").
+                                Replace(",", ""))
+            grandTotal += subTotal
+        Next
+        textTotal.Text = Format(grandTotal, "#,0;-#,0")
+    End Sub
     Private Sub dataGridView1_CellEndEdit(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
         '6(qty), 9(harga), 11(ppn), 13(discount)
         Try
             
-            If e.RowIndex >= 1 And e.ColumnIndex >= 1 Then
+            If e.RowIndex >= 0 And e.ColumnIndex >= 1 Then
                 If e.ColumnIndex = 5 Then
                     newConnect.ExecuteNonQuery("UPDATE barang Set nama_barang = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(3).Value.ToString & "'")
-                    refreshData()
+
                 ElseIf e.ColumnIndex = 6 Then
                     Dim qty = dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString
 
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set qty = '" & qty & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(3).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    refreshData()
+
+                    updateRowIndex(e.RowIndex)
+                    refreshCalculate()
+
                 ElseIf e.ColumnIndex = 9 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString & "'")
 
@@ -480,8 +512,10 @@ Public Class pembelian1
                         priceNetto = priceAfterPpn - ((discount / 100) * priceAfterPpn)
                     End If
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set price = '" & price.ToString & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
-                                                                       dataGridView1.Rows(e.RowIndex).Cells(3).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    refreshData()
+                                                                 dataGridView1.Rows(e.RowIndex).Cells(3).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
+                    updateRowIndex(e.RowIndex)
+                    refreshCalculate()
+
 
                 ElseIf e.ColumnIndex = 11 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString & "'")
@@ -498,7 +532,8 @@ Public Class pembelian1
                     End If
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set ppn = '" & ppn.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(3).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    refreshData()
+                    updateRowIndex(e.RowIndex)
+                    refreshCalculate()
                 ElseIf e.ColumnIndex = 13 Then
                     Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(e.RowIndex).Cells(1).Value.ToString & "'")
                     Dim price As Integer
@@ -514,7 +549,8 @@ Public Class pembelian1
                     End If
                     newConnect.ExecuteNonQuery("UPDATE pembelian_detail Set discount = '" & discount.ToString.Replace(",", ".") & "',price_netto = '" & priceNetto.ToString & "' WHERE id_barang = '" &
                                                                        dataGridView1.Rows(e.RowIndex).Cells(3).Value.ToString & "' AND id_pembelian='" & getIdPembelian(Module1.id_kasir) & "'")
-                    refreshData()
+                    updateRowIndex(e.RowIndex)
+                    refreshCalculate()
                 End If
                 textPLU.Text = ""
                 textPLU.Focus()
@@ -730,7 +766,7 @@ Public Class pembelian1
         textSupplier.Text = kodeSupp
         labelIdSuplier.Text = idSupp
         labelSupplier.Text = namaSupp
-
+        btnEditFaktor.Text = "Edit Faktur"
         btnEditFaktor.PerformClick()
 
     End Sub

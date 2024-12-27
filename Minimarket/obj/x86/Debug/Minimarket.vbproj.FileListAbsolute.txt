@@ -31,6 +31,7 @@ D:\Minimarket\Minimarket\bin\Debug\Minimarket.exe.config
 D:\Minimarket\Minimarket\bin\Debug\Minimarket.exe
 D:\Minimarket\Minimarket\bin\Debug\Minimarket.pdb
 D:\Minimarket\Minimarket\bin\Debug\Minimarket.xml
+D:\Minimarket\Minimarket\bin\Debug\Microsoft.ReportViewer.Common.dll
 D:\Minimarket\Minimarket\bin\Debug\Microsoft.ReportViewer.WinForms.dll
 D:\Minimarket\Minimarket\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
 D:\Minimarket\Minimarket\bin\Debug\MySql.Data.dll
@@ -42,6 +43,7 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.chat.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.cetak_expiry.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.cetak_pembelian.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.barang_view.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_faktur.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_barang.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_nota.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer_report.resources
@@ -69,6 +71,3 @@ D:\Minimarket\Minimarket\obj\x86\Debug\RdlCompile.compiled
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.exe
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.xml
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.pdb
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.vbprojResolveAssemblyReference.cache
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.list_faktur.resources
-D:\Minimarket\Minimarket\bin\Debug\Microsoft.ReportViewer.Common.dll

@@ -66,18 +66,12 @@ Public Class list_faktur
 
     Private Sub DataGridView1_CellDoubleClick(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles DataGridView1.CellDoubleClick
          If Not (frmPembelian Is Nothing) Then
-            Dim cellSelect = DataGridView1.SelectedCells
-            Console.WriteLine(cellSelect.Count)
-            If (cellSelect.Count > 0) Then
-
-                Dim nofaktur = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
-                Dim idSupp = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(2).Value.ToString
-                Dim kodeSupp = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(3).Value.ToString
-                Dim namaSupp = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(4).Value.ToString
-                frmPembelian.showDetailFaktur(nofaktur, kodeSupp, idSupp, namaSupp)
-
-
-            End If
+          
+             Dim nofaktur = DataGridView1.Rows(e.RowIndex).Cells(0).Value.ToString
+            Dim idSupp = DataGridView1.Rows(e.RowIndex).Cells(2).Value.ToString
+            Dim kodeSupp = DataGridView1.Rows(e.RowIndex).Cells(3).Value.ToString
+            Dim namaSupp = DataGridView1.Rows(e.RowIndex).Cells(4).Value.ToString
+            frmPembelian.showDetailFaktur(nofaktur, kodeSupp, idSupp, namaSupp)
         End If
         Close()
     End Sub
