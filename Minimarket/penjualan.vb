@@ -358,9 +358,10 @@ Public Class penjualan
             arrFormat = {c.MidLeft, c.MidRight, c.MidRight} 'array alignment 
             Printer.SetFont("Monospace", 6.5, FontStyle.Regular)
             Dim subtotal = Integer.Parse(dtItem.Rows(r).Item("qty")) * Integer.Parse(dtItem.Rows(r).Item("price"))
-            Printer.Print(Format(dtItem.Rows(r).Item("qty"), "##,##0") & " " & dtItem.Rows(r).Item("satuan") & ";" &
-                          Format(dtItem.Rows(r).Item("price"), "##,##0") & ";" &
-                          Format(subtotal.ToString, "##,##0"), arrWidth, arrFormat)
+            Dim itemStr = Integer.Parse(dtItem.Rows(r).Item("qty")).ToString("n0") & " " & dtItem.Rows(r).Item("satuan") & ";" &
+                          Integer.Parse(dtItem.Rows(r).Item("price")).ToString("n0") & ";" & subtotal.ToString("n0")
+            Console.WriteLine(itemStr)
+            Printer.Print(itemStr, arrWidth, arrFormat)
         Next
 
 
@@ -368,9 +369,9 @@ Public Class penjualan
         arrFormat = {c.MidLeft, c.MidRight} 'array alignment 
         Printer.SetFont("Monospace", 8, FontStyle.Regular) 'Setting Font
         Printer.Print("------------------------------------------------")
-        Printer.Print("Total;" & Format(nominalTotal.ToString, "##,##0"), arrWidth, arrFormat)
-        Printer.Print("Bayar;" & Format(nominalBayar.ToString, "##,##0"), arrWidth, arrFormat)
-        Printer.Print("Kembalian;" & Format(nominalKembalian.ToString, "##,##0"), arrWidth, arrFormat)
+        Printer.Print("Total;" & nominalTotal.ToString("n0"), arrWidth, arrFormat)
+        Printer.Print("Bayar;" & nominalBayar.ToString("n0"), arrWidth, arrFormat)
+        Printer.Print("Kembalian;" & nominalKembalian.ToString("n0"), arrWidth, arrFormat)
         Printer.Print("------------------------------------------------")
         arrWidth = {180} 'array for column width | array untuk lebar kolom
         arrFormat = {c.MidCenter} 'array alignment 
