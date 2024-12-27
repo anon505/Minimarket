@@ -71,3 +71,5 @@ D:\Minimarket\Minimarket\obj\x86\Debug\RdlCompile.compiled
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.exe
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.xml
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.pdb
+D:\Minimarket\Minimarket\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.vbprojResolveAssemblyReference.cache
