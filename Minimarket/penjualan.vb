@@ -118,11 +118,11 @@ Public Class penjualan
                     currentQty = qty
                 End If
                 Dim hargaJualTerpilih = 0
-                If Integer.Parse(currentQty.ToString) < qty2 Then
+                If Integer.Parse(currentQty.ToString) < qty2 Or Integer.Parse(qty2) = 0 Then
                     hargaJualTerpilih = hargaJual1
-                ElseIf Integer.Parse(currentQty.ToString) >= qty2 And Integer.Parse(currentQty.ToString) < qty3 Then
+                ElseIf Integer.Parse(currentQty.ToString) >= qty2 And (Integer.Parse(currentQty.ToString) < qty3 Or Integer.Parse(qty3) = 0) Then
                     hargaJualTerpilih = hargaJual2
-                ElseIf Integer.Parse(currentQty.ToString) >= qty3 And Integer.Parse(currentQty.ToString) < qty4 Then
+                ElseIf Integer.Parse(currentQty.ToString) >= qty3 And (Integer.Parse(currentQty.ToString) < qty4 Or Integer.Parse(qty4) = 0) Then
                     hargaJualTerpilih = hargaJual3
                 ElseIf Integer.Parse(currentQty.ToString) >= qty4 Then
                     hargaJualTerpilih = hargaJual4
