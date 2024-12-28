@@ -34,10 +34,7 @@ Public Class pembelian1
     End Sub
     Private Sub textPLU_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles textPLU.KeyPress
         Dim ascChar As Integer = Asc(e.KeyChar)
-        If Not IsNumeric(e.KeyChar) And Not (ascChar = 8) And Not (ascChar = 32) And Not (ascChar = 13) Then
-            e.KeyChar = ""
-            e.Handled = False
-        End If
+    
         If ascChar = 13 Then
             Console.WriteLine("tes")
             inputUpdateBarang(textPLU.Text)
@@ -552,8 +549,6 @@ Public Class pembelian1
                     updateRowIndex(e.RowIndex)
                     refreshCalculate()
                 End If
-                textPLU.Text = ""
-                textPLU.Focus()
             End If
         Catch ex As Exception
 

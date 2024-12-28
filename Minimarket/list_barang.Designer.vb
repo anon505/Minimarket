@@ -42,7 +42,7 @@ Partial Class list_barang
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 51
-        Me.DataGridView1.Size = New System.Drawing.Size(498, 630)
+        Me.DataGridView1.Size = New System.Drawing.Size(782, 630)
         Me.DataGridView1.TabIndex = 20
         '
         'Label6
@@ -50,7 +50,7 @@ Partial Class list_barang
         Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(103, 16)
+        Me.Label6.Location = New System.Drawing.Point(387, 16)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(168, 25)
@@ -61,7 +61,7 @@ Partial Class list_barang
         '
         Me.txtcari.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtcari.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtcari.Location = New System.Drawing.Point(279, 13)
+        Me.txtcari.Location = New System.Drawing.Point(563, 13)
         Me.txtcari.Margin = New System.Windows.Forms.Padding(4)
         Me.txtcari.Name = "txtcari"
         Me.txtcari.Size = New System.Drawing.Size(235, 30)
@@ -71,7 +71,7 @@ Partial Class list_barang
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(530, 696)
+        Me.ClientSize = New System.Drawing.Size(814, 696)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtcari)
         Me.Controls.Add(Me.DataGridView1)

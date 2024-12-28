@@ -388,9 +388,6 @@ Public Class barang
         Call hanyaangka(e)
     End Sub
 
-    Private Sub txtBarcode_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtBarcode.KeyPress
-        Call hanyaangka(e)
-    End Sub
 
     Private Sub txtQty2_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtQty2.KeyPress
         Call hanyaangka(e)

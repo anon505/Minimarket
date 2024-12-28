@@ -282,6 +282,7 @@ Public Class Connection
 
             Catch ex As Exception
                 'the query failed, so log the exception and return nothing
+                Console.WriteLine(ex)
                 LogSQLError(ex)
                 ret = Nothing
             Finally

@@ -556,12 +556,7 @@ Public Class penjualan
     End Sub
     Private Sub textPLU_KeyPress(sender As Object, e As KeyPressEventArgs) Handles textPLU.KeyPress
         Dim ascChar As Integer = Asc(e.KeyChar)
-        If Not IsNumeric(e.KeyChar) And Not (ascChar = 8) And Not (ascChar = 32) And Not (ascChar = 13) Then
-            e.KeyChar = ""
-            e.Handled = False
-            'textPLU.Focus()
-
-        End If
+      
         If ascChar = 13 Then
             inputUpdateBarang("increment", textPLU.Text, 1)
         End If

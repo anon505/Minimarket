@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class markup
-    Private Sub dataGridView1_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
+    Private Sub dataGridView1_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
         'If (e.ColumnIndex = 5 Or e.ColumnIndex = 7 Or e.ColumnIndex = 9 Or e.ColumnIndex = 11 Or e.ColumnIndex = 13 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
         If (e.ColumnIndex = 5 Or e.ColumnIndex = 6 Or e.ColumnIndex = 9 Or e.ColumnIndex = 12 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
             e.Value = Format(e.Value, "#,0;-#,0")
@@ -24,7 +24,7 @@ Public Class markup
         End If
 
         Dim ds = newConnect.ExecuteReader("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto` from ds_markup  where no_faktur=" & noFaktur)
-      
+
         dataGridView1.AutoGenerateColumns = True
         dataGridView1.DataSource = ds
         dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None
@@ -139,12 +139,12 @@ Public Class markup
         column.CellTemplate = cell
     End Sub
 
-    Private Sub textNoFaktur_TextChanged(sender As Object, e As EventArgs) Handles textNoFaktur.TextChanged
+    Private Sub textNoFaktur_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles textNoFaktur.TextChanged
         loadPembelian(textNoFaktur.Text)
         loadTable(textNoFaktur.Text)
     End Sub
 
-    Private Sub pembelian_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub pembelian_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
 
         If e.KeyCode = Keys.Enter Then
             popup_faktur.txtcari.Text = textNoFaktur.Text
@@ -152,7 +152,7 @@ Public Class markup
         End If
     End Sub
     Dim tb As TextBox
-    Private Sub dataGridView1_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles dataGridView1.EditingControlShowing
+    Private Sub dataGridView1_EditingControlShowing(ByVal sender As Object, ByVal e As DataGridViewEditingControlShowingEventArgs) Handles dataGridView1.EditingControlShowing
         tb = TryCast(e.Control, TextBox)
 
         Console.WriteLine("EditingControlShowing" & currentCellColumnIndex.ToString)
@@ -167,7 +167,7 @@ Public Class markup
         AddHandler tb.TextChanged, AddressOf Tb_TextChanged
     End Sub
     Dim currentCellColumnIndex = 0
-    Private Sub dataGridView1_CurrentCellChanged(sender As Object, e As EventArgs) Handles dataGridView1.CurrentCellChanged
+    Private Sub dataGridView1_CurrentCellChanged(ByVal sender As Object, ByVal e As EventArgs) Handles dataGridView1.CurrentCellChanged
 
         If tb IsNot Nothing And dataGridView1.CurrentCell IsNot Nothing Then
             currentCellColumnIndex = dataGridView1.CurrentCell.ColumnIndex
@@ -176,7 +176,7 @@ Public Class markup
 
         Console.WriteLine("currentCellChanged" & currentCellColumnIndex.ToString)
     End Sub
-    Private Sub calculate(columnIndex As Integer, rowIndex As Integer)
+    Private Sub calculate(ByVal columnIndex As Integer, ByVal rowIndex As Integer)
         Dim priceNetto As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(5).Value.ToString)
         If columnIndex = 6 Or columnIndex = 7 Then
             If columnIndex = 6 Then
@@ -225,7 +225,7 @@ Public Class markup
         End If
 
     End Sub
-    Private Sub dataGridView1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dataGridView1.CellEndEdit
+    Private Sub dataGridView1_CellValueChanged(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellEndEdit
         If e.RowIndex >= 0 And e.ColumnIndex >= 0 Then
             calculate(e.ColumnIndex, e.RowIndex)
         End If
@@ -256,7 +256,7 @@ Public Class markup
         textNoFaktur.Text = ""
         dataGridView1.DataSource = Nothing
     End Sub
-    Private Sub buttonSave_Click(sender As Object, e As EventArgs) Handles buttonSave.Click
+    Private Sub buttonSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles buttonSave.Click
         If dataGridView1.DataSource IsNot Nothing Then
             If dataGridView1.RowCount > 0 Then
                 Dim result As DialogResult = MessageBox.Show("PASTIKAN DATA SUDAH BENAR, apakah anda yakin ingin menyimpannya?",
