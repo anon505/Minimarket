@@ -180,7 +180,7 @@ Public Class penjualan
             barcodeTransaksiDetail = dataGridView1.SelectedRows(0).Cells(1).Value.ToString
         Else
             Try
-                barcodeTransaksiDetail = dataGridView1.Rows(0).Cells(1).Value.ToString
+                barcodeTransaksiDetail = dataGridView1.Rows(dataGridView1.Rows.Count - 1).Cells(1).Value.ToString
             Catch ex As Exception
                 barcodeTransaksiDetail = ""
             End Try
