@@ -19,7 +19,7 @@ Public Class penjualan
     Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
         Try
-            Dim ds = newConnect.ExecuteReader("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at desc")
+            Dim ds = newConnect.ExecuteReader("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at asc")
 
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
@@ -70,6 +70,7 @@ Public Class penjualan
             textPLU.Select()
 
             textPLU.Focus()
+            dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1
         Catch ex As Exception
 
         End Try
@@ -284,7 +285,7 @@ Public Class penjualan
     Dim c As New PrintingFormat
     Private Sub loadDataNota(ByVal idTransaksi As String)
         Try
-            Dim ds = newConnect.ExecuteReader("select nama_barang,qty,nama_satuan,harga from ds_transaksi_penjualan where id_transaksi='" & idTransaksi  & "' order by updated_at desc")
+            Dim ds = newConnect.ExecuteReader("select nama_barang,qty,nama_satuan,harga from ds_transaksi_penjualan where id_transaksi='" & idTransaksi & "' order by updated_at asc")
 
             If dtItem Is Nothing Then
                 dtItem = New DataTable
