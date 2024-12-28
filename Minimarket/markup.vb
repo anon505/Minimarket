@@ -35,16 +35,16 @@ Public Class markup
         dataGridView1.Columns(4).ReadOnly = True
         dataGridView1.Columns(5).ReadOnly = True
         dataGridView1.Columns(6).ReadOnly = False
-        dataGridView1.Columns(7).ReadOnly = False
+        dataGridView1.Columns(7).ReadOnly = True
         dataGridView1.Columns(8).ReadOnly = False
         dataGridView1.Columns(9).ReadOnly = False
-        dataGridView1.Columns(10).ReadOnly = False
+        dataGridView1.Columns(10).ReadOnly = True
         dataGridView1.Columns(11).ReadOnly = False
         dataGridView1.Columns(12).ReadOnly = False
-        dataGridView1.Columns(13).ReadOnly = False
+        dataGridView1.Columns(13).ReadOnly = True
         dataGridView1.Columns(14).ReadOnly = False
         dataGridView1.Columns(15).ReadOnly = False
-        dataGridView1.Columns(16).ReadOnly = False
+        dataGridView1.Columns(16).ReadOnly = True
 
         dataGridView1.Columns(17).ReadOnly = False
         dataGridView1.Columns(18).ReadOnly = False
