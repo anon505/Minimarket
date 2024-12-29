@@ -8,18 +8,13 @@ Public Class scan_harga
 
     Private Sub scan_harga_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.WindowState = FormWindowState.Maximized
-        TextBox1.Focus()
+        textPLU.Focus()
 
-    End Sub
-    Private Declare Function HideCaret Lib "user32.dll" (ByVal hWnd As IntPtr) As Boolean
-
-    Private Sub TextBox1_GotFocus(ByVal sender As Object, ByVal e As EventArgs) Handles TextBox1.GotFocus
-        HideCaret(TextBox1.Handle)
     End Sub
 
     Private Sub inputUpdateBarang(ByVal barcode As String)
         Try
-            lblBarcode.Text = barcode
+            ' lblBarcode.Text = barcode
             Dim barangReaders = newConnect.ExecuteReader("SELECT * from barang WHERE barcode='" & barcode & "'")
             Dim stokDisplay As Integer
             Dim stokGudang As Integer
@@ -62,7 +57,7 @@ Public Class scan_harga
 
     End Sub
 
-    Private Sub TextBox1_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles TextBox1.KeyPress
+    Private Sub textPLU_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles textPLU.KeyPress
         Dim ascChar As Integer = Asc(e.KeyChar)
         If Not IsNumeric(e.KeyChar) And Not (ascChar = 8) And Not (ascChar = 32) And Not (ascChar = 13) Then
             e.KeyChar = ""
@@ -71,9 +66,12 @@ Public Class scan_harga
 
         End If
         If ascChar = 13 Then
-            inputUpdateBarang(TextBox1.Text)
-            TextBox1.Text=""
+            inputUpdateBarang(textPLU.Text)
+            textPLU.Text = ""
         End If
     End Sub
 
+    Private Sub TableLayoutPanel1_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles TableLayoutPanel1.Paint
+
+    End Sub
 End Class

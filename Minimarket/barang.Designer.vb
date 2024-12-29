@@ -68,6 +68,21 @@ Partial Class barang
         Me.Label20 = New System.Windows.Forms.Label()
         Me.txtHargaBeliNetto = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.lblLastDo = New System.Windows.Forms.Label()
+        Me.lblProfit4 = New System.Windows.Forms.Label()
+        Me.lblProfit3 = New System.Windows.Forms.Label()
+        Me.lblProfit2 = New System.Windows.Forms.Label()
+        Me.lblProfit1 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.lblNoFaktur = New System.Windows.Forms.Label()
+        Me.lblIdSupplierFaktur = New System.Windows.Forms.Label()
+        Me.lblKodeSupplierFaktur = New System.Windows.Forms.Label()
+        Me.lblNamaSupplierFaktur = New System.Windows.Forms.Label()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -83,7 +98,7 @@ Partial Class barang
         Me.DataGridView1.Location = New System.Drawing.Point(16, 50)
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1123, 295)
+        Me.DataGridView1.Size = New System.Drawing.Size(1421, 295)
         Me.DataGridView1.TabIndex = 0
         '
         'Label1
@@ -130,7 +145,7 @@ Partial Class barang
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(808, 539)
+        Me.Label3.Location = New System.Drawing.Point(751, 538)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(127, 25)
@@ -140,7 +155,7 @@ Partial Class barang
         'txtStokGudang
         '
         Me.txtStokGudang.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStokGudang.Location = New System.Drawing.Point(950, 536)
+        Me.txtStokGudang.Location = New System.Drawing.Point(893, 535)
         Me.txtStokGudang.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokGudang.Name = "txtStokGudang"
         Me.txtStokGudang.Size = New System.Drawing.Size(191, 30)
@@ -152,7 +167,7 @@ Partial Class barang
         Me.tambah.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tambah.Image = CType(resources.GetObject("tambah.Image"), System.Drawing.Image)
         Me.tambah.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.tambah.Location = New System.Drawing.Point(466, 712)
+        Me.tambah.Location = New System.Drawing.Point(764, 712)
         Me.tambah.Margin = New System.Windows.Forms.Padding(4)
         Me.tambah.Name = "tambah"
         Me.tambah.Size = New System.Drawing.Size(156, 65)
@@ -167,7 +182,7 @@ Partial Class barang
         Me.hapus.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.hapus.Image = CType(resources.GetObject("hapus.Image"), System.Drawing.Image)
         Me.hapus.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.hapus.Location = New System.Drawing.Point(808, 712)
+        Me.hapus.Location = New System.Drawing.Point(1106, 712)
         Me.hapus.Margin = New System.Windows.Forms.Padding(4)
         Me.hapus.Name = "hapus"
         Me.hapus.Size = New System.Drawing.Size(153, 65)
@@ -182,7 +197,7 @@ Partial Class barang
         Me.edit.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.edit.Image = CType(resources.GetObject("edit.Image"), System.Drawing.Image)
         Me.edit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.edit.Location = New System.Drawing.Point(639, 712)
+        Me.edit.Location = New System.Drawing.Point(937, 712)
         Me.edit.Margin = New System.Windows.Forms.Padding(4)
         Me.edit.Name = "edit"
         Me.edit.Size = New System.Drawing.Size(153, 65)
@@ -197,7 +212,7 @@ Partial Class barang
         Me.lihat.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lihat.Image = CType(resources.GetObject("lihat.Image"), System.Drawing.Image)
         Me.lihat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.lihat.Location = New System.Drawing.Point(975, 712)
+        Me.lihat.Location = New System.Drawing.Point(1273, 712)
         Me.lihat.Margin = New System.Windows.Forms.Padding(4)
         Me.lihat.Name = "lihat"
         Me.lihat.Size = New System.Drawing.Size(164, 65)
@@ -236,7 +251,7 @@ Partial Class barang
         Me.txtcari.Location = New System.Drawing.Point(557, 11)
         Me.txtcari.Margin = New System.Windows.Forms.Padding(4)
         Me.txtcari.Name = "txtcari"
-        Me.txtcari.Size = New System.Drawing.Size(582, 30)
+        Me.txtcari.Size = New System.Drawing.Size(880, 30)
         Me.txtcari.TabIndex = 15
         '
         'berdasarkan
@@ -286,7 +301,7 @@ Partial Class barang
         'txtHargaJual1
         '
         Me.txtHargaJual1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual1.Location = New System.Drawing.Point(566, 427)
+        Me.txtHargaJual1.Location = New System.Drawing.Point(536, 427)
         Me.txtHargaJual1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual1.Name = "txtHargaJual1"
         Me.txtHargaJual1.Size = New System.Drawing.Size(183, 30)
@@ -296,7 +311,7 @@ Partial Class barang
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(416, 430)
+        Me.Label8.Location = New System.Drawing.Point(386, 430)
         Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(133, 25)
@@ -308,7 +323,7 @@ Partial Class barang
         Me.satuanbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append
         Me.satuanbox.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.satuanbox.FormattingEnabled = True
-        Me.satuanbox.Location = New System.Drawing.Point(565, 364)
+        Me.satuanbox.Location = New System.Drawing.Point(535, 364)
         Me.satuanbox.Margin = New System.Windows.Forms.Padding(4)
         Me.satuanbox.Name = "satuanbox"
         Me.satuanbox.Size = New System.Drawing.Size(183, 33)
@@ -318,7 +333,7 @@ Partial Class barang
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(419, 369)
+        Me.Label7.Location = New System.Drawing.Point(389, 369)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(75, 25)
@@ -328,7 +343,7 @@ Partial Class barang
         'txtDiskon
         '
         Me.txtDiskon.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtDiskon.Location = New System.Drawing.Point(950, 661)
+        Me.txtDiskon.Location = New System.Drawing.Point(893, 660)
         Me.txtDiskon.Margin = New System.Windows.Forms.Padding(4)
         Me.txtDiskon.Name = "txtDiskon"
         Me.txtDiskon.Size = New System.Drawing.Size(189, 30)
@@ -338,7 +353,7 @@ Partial Class barang
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(810, 664)
+        Me.Label9.Location = New System.Drawing.Point(753, 663)
         Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(72, 25)
@@ -348,7 +363,7 @@ Partial Class barang
         'txtPajak
         '
         Me.txtPajak.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPajak.Location = New System.Drawing.Point(566, 661)
+        Me.txtPajak.Location = New System.Drawing.Point(536, 661)
         Me.txtPajak.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPajak.Name = "txtPajak"
         Me.txtPajak.Size = New System.Drawing.Size(189, 30)
@@ -358,7 +373,7 @@ Partial Class barang
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(414, 666)
+        Me.Label10.Location = New System.Drawing.Point(384, 666)
         Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(61, 25)
@@ -388,7 +403,7 @@ Partial Class barang
         'txtHargaJual2
         '
         Me.txtHargaJual2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual2.Location = New System.Drawing.Point(566, 481)
+        Me.txtHargaJual2.Location = New System.Drawing.Point(536, 481)
         Me.txtHargaJual2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual2.Name = "txtHargaJual2"
         Me.txtHargaJual2.Size = New System.Drawing.Size(185, 30)
@@ -398,7 +413,7 @@ Partial Class barang
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(416, 484)
+        Me.Label12.Location = New System.Drawing.Point(386, 484)
         Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(123, 25)
@@ -408,7 +423,7 @@ Partial Class barang
         'txtHargaJual4
         '
         Me.txtHargaJual4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual4.Location = New System.Drawing.Point(565, 597)
+        Me.txtHargaJual4.Location = New System.Drawing.Point(535, 597)
         Me.txtHargaJual4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual4.Name = "txtHargaJual4"
         Me.txtHargaJual4.Size = New System.Drawing.Size(184, 30)
@@ -418,7 +433,7 @@ Partial Class barang
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(414, 599)
+        Me.Label13.Location = New System.Drawing.Point(384, 599)
         Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(123, 25)
@@ -428,7 +443,7 @@ Partial Class barang
         'txtHargaJual3
         '
         Me.txtHargaJual3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtHargaJual3.Location = New System.Drawing.Point(566, 540)
+        Me.txtHargaJual3.Location = New System.Drawing.Point(536, 540)
         Me.txtHargaJual3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtHargaJual3.Name = "txtHargaJual3"
         Me.txtHargaJual3.Size = New System.Drawing.Size(183, 30)
@@ -438,7 +453,7 @@ Partial Class barang
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(414, 541)
+        Me.Label14.Location = New System.Drawing.Point(384, 541)
         Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(123, 25)
@@ -448,7 +463,7 @@ Partial Class barang
         'txtStokDisplay
         '
         Me.txtStokDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStokDisplay.Location = New System.Drawing.Point(950, 593)
+        Me.txtStokDisplay.Location = New System.Drawing.Point(893, 592)
         Me.txtStokDisplay.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokDisplay.Name = "txtStokDisplay"
         Me.txtStokDisplay.Size = New System.Drawing.Size(189, 30)
@@ -458,7 +473,7 @@ Partial Class barang
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(810, 596)
+        Me.Label15.Location = New System.Drawing.Point(753, 595)
         Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(121, 25)
@@ -468,7 +483,7 @@ Partial Class barang
         'txtQty4
         '
         Me.txtQty4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQty4.Location = New System.Drawing.Point(950, 481)
+        Me.txtQty4.Location = New System.Drawing.Point(893, 480)
         Me.txtQty4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty4.Name = "txtQty4"
         Me.txtQty4.Size = New System.Drawing.Size(189, 30)
@@ -478,7 +493,7 @@ Partial Class barang
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(810, 486)
+        Me.Label16.Location = New System.Drawing.Point(753, 485)
         Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(59, 25)
@@ -488,7 +503,7 @@ Partial Class barang
         'txtQty3
         '
         Me.txtQty3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQty3.Location = New System.Drawing.Point(950, 425)
+        Me.txtQty3.Location = New System.Drawing.Point(893, 424)
         Me.txtQty3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty3.Name = "txtQty3"
         Me.txtQty3.Size = New System.Drawing.Size(189, 30)
@@ -498,7 +513,7 @@ Partial Class barang
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(810, 428)
+        Me.Label17.Location = New System.Drawing.Point(753, 427)
         Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(59, 25)
@@ -508,7 +523,7 @@ Partial Class barang
         'txtQty2
         '
         Me.txtQty2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQty2.Location = New System.Drawing.Point(950, 367)
+        Me.txtQty2.Location = New System.Drawing.Point(893, 366)
         Me.txtQty2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQty2.Name = "txtQty2"
         Me.txtQty2.Size = New System.Drawing.Size(189, 30)
@@ -518,7 +533,7 @@ Partial Class barang
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(810, 372)
+        Me.Label18.Location = New System.Drawing.Point(753, 371)
         Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(59, 25)
@@ -556,11 +571,189 @@ Partial Class barang
         Me.Label4.TabIndex = 47
         Me.Label4.Text = "Harga Beli Netto"
         '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(1117, 372)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(67, 25)
+        Me.Label19.TabIndex = 48
+        Me.Label19.Text = "Profit1"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(1117, 427)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(67, 25)
+        Me.Label21.TabIndex = 49
+        Me.Label21.Text = "Profit2"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(1117, 483)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(67, 25)
+        Me.Label22.TabIndex = 50
+        Me.Label22.Text = "Profit3"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(1117, 541)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(67, 25)
+        Me.Label23.TabIndex = 51
+        Me.Label23.Text = "Profit4"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(1117, 621)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(119, 25)
+        Me.Label24.TabIndex = 52
+        Me.Label24.Text = "DO Terakhir"
+        '
+        'lblLastDo
+        '
+        Me.lblLastDo.AutoSize = True
+        Me.lblLastDo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLastDo.ForeColor = System.Drawing.Color.Blue
+        Me.lblLastDo.Location = New System.Drawing.Point(1251, 621)
+        Me.lblLastDo.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblLastDo.Name = "lblLastDo"
+        Me.lblLastDo.Size = New System.Drawing.Size(0, 25)
+        Me.lblLastDo.TabIndex = 57
+        '
+        'lblProfit4
+        '
+        Me.lblProfit4.AutoSize = True
+        Me.lblProfit4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProfit4.ForeColor = System.Drawing.Color.Red
+        Me.lblProfit4.Location = New System.Drawing.Point(1251, 541)
+        Me.lblProfit4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblProfit4.Name = "lblProfit4"
+        Me.lblProfit4.Size = New System.Drawing.Size(0, 25)
+        Me.lblProfit4.TabIndex = 56
+        '
+        'lblProfit3
+        '
+        Me.lblProfit3.AutoSize = True
+        Me.lblProfit3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProfit3.ForeColor = System.Drawing.Color.Red
+        Me.lblProfit3.Location = New System.Drawing.Point(1251, 483)
+        Me.lblProfit3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblProfit3.Name = "lblProfit3"
+        Me.lblProfit3.Size = New System.Drawing.Size(0, 25)
+        Me.lblProfit3.TabIndex = 55
+        '
+        'lblProfit2
+        '
+        Me.lblProfit2.AutoSize = True
+        Me.lblProfit2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProfit2.ForeColor = System.Drawing.Color.Red
+        Me.lblProfit2.Location = New System.Drawing.Point(1251, 427)
+        Me.lblProfit2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblProfit2.Name = "lblProfit2"
+        Me.lblProfit2.Size = New System.Drawing.Size(0, 25)
+        Me.lblProfit2.TabIndex = 54
+        '
+        'lblProfit1
+        '
+        Me.lblProfit1.AutoSize = True
+        Me.lblProfit1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProfit1.ForeColor = System.Drawing.Color.Red
+        Me.lblProfit1.Location = New System.Drawing.Point(1251, 372)
+        Me.lblProfit1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblProfit1.Name = "lblProfit1"
+        Me.lblProfit1.Size = New System.Drawing.Size(0, 25)
+        Me.lblProfit1.TabIndex = 53
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(1122, 659)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(171, 30)
+        Me.Button1.TabIndex = 58
+        Me.Button1.Text = "Lihat Faktur"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'lblNoFaktur
+        '
+        Me.lblNoFaktur.AutoSize = True
+        Me.lblNoFaktur.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNoFaktur.Location = New System.Drawing.Point(158, 732)
+        Me.lblNoFaktur.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblNoFaktur.Name = "lblNoFaktur"
+        Me.lblNoFaktur.Size = New System.Drawing.Size(0, 25)
+        Me.lblNoFaktur.TabIndex = 59
+        Me.lblNoFaktur.Visible = False
+        '
+        'lblIdSupplierFaktur
+        '
+        Me.lblIdSupplierFaktur.AutoSize = True
+        Me.lblIdSupplierFaktur.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIdSupplierFaktur.Location = New System.Drawing.Point(239, 732)
+        Me.lblIdSupplierFaktur.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblIdSupplierFaktur.Name = "lblIdSupplierFaktur"
+        Me.lblIdSupplierFaktur.Size = New System.Drawing.Size(0, 25)
+        Me.lblIdSupplierFaktur.TabIndex = 60
+        Me.lblIdSupplierFaktur.Visible = False
+        '
+        'lblKodeSupplierFaktur
+        '
+        Me.lblKodeSupplierFaktur.AutoSize = True
+        Me.lblKodeSupplierFaktur.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblKodeSupplierFaktur.Location = New System.Drawing.Point(341, 732)
+        Me.lblKodeSupplierFaktur.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblKodeSupplierFaktur.Name = "lblKodeSupplierFaktur"
+        Me.lblKodeSupplierFaktur.Size = New System.Drawing.Size(0, 25)
+        Me.lblKodeSupplierFaktur.TabIndex = 61
+        Me.lblKodeSupplierFaktur.Visible = False
+        '
+        'lblNamaSupplierFaktur
+        '
+        Me.lblNamaSupplierFaktur.AutoSize = True
+        Me.lblNamaSupplierFaktur.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNamaSupplierFaktur.Location = New System.Drawing.Point(488, 732)
+        Me.lblNamaSupplierFaktur.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblNamaSupplierFaktur.Name = "lblNamaSupplierFaktur"
+        Me.lblNamaSupplierFaktur.Size = New System.Drawing.Size(0, 25)
+        Me.lblNamaSupplierFaktur.TabIndex = 62
+        Me.lblNamaSupplierFaktur.Visible = False
+        '
         'barang
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1154, 790)
+        Me.ClientSize = New System.Drawing.Size(1452, 790)
+        Me.Controls.Add(Me.lblNamaSupplierFaktur)
+        Me.Controls.Add(Me.lblKodeSupplierFaktur)
+        Me.Controls.Add(Me.lblIdSupplierFaktur)
+        Me.Controls.Add(Me.lblNoFaktur)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.lblLastDo)
+        Me.Controls.Add(Me.lblProfit4)
+        Me.Controls.Add(Me.lblProfit3)
+        Me.Controls.Add(Me.lblProfit2)
+        Me.Controls.Add(Me.lblProfit1)
+        Me.Controls.Add(Me.Label24)
+        Me.Controls.Add(Me.Label23)
+        Me.Controls.Add(Me.Label22)
+        Me.Controls.Add(Me.Label21)
+        Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.txtHargaBeliNetto)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label20)
@@ -661,5 +854,20 @@ Partial Class barang
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents txtHargaBeliNetto As System.Windows.Forms.TextBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents lblLastDo As System.Windows.Forms.Label
+    Friend WithEvents lblProfit4 As System.Windows.Forms.Label
+    Friend WithEvents lblProfit3 As System.Windows.Forms.Label
+    Friend WithEvents lblProfit2 As System.Windows.Forms.Label
+    Friend WithEvents lblProfit1 As System.Windows.Forms.Label
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents lblNoFaktur As System.Windows.Forms.Label
+    Friend WithEvents lblIdSupplierFaktur As System.Windows.Forms.Label
+    Friend WithEvents lblKodeSupplierFaktur As System.Windows.Forms.Label
+    Friend WithEvents lblNamaSupplierFaktur As System.Windows.Forms.Label
 
 End Class

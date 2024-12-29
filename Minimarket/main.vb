@@ -148,6 +148,21 @@ Public Class main
        
     End Sub
 
+    Sub showDetailPembelian(ByVal noFaktur As String, ByVal kodeSupp As String, ByVal idSupp As String, ByVal namaSupp As String)
+        Dim pembelian = New pembelian1
+
+
+        'textSupplier.Text = kodeSupp
+        'labelIdSuplier.Text = idSupp
+        'labelSupplier.Text = namaSupp
+        'btnEditFaktor.Text = "Edit Faktur"
+        'btnEditFaktor.PerformClick()
+        ' 
+        pembelian.MdiParent = Me
+        pembelian.Show()
+        pembelian.showDetailFaktur(noFaktur, kodeSupp, idSupp, namaSupp)
+    End Sub
+
     Private Sub ToolStripMenuItem5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ReturPembelianMenu.Click
         Dim returSuplier = New retur_suplier
         returSuplier.MdiParent = Me

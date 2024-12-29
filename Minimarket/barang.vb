@@ -29,7 +29,15 @@ Public Class barang
         txtQty3.Text = ""
         txtQty4.Text = ""
         lblIdBarang.Text = ""
-
+        lblLastDo.Text = ""
+        lblProfit1.Text = ""
+        lblProfit2.Text = ""
+        lblProfit3.Text = ""
+        lblProfit4.Text = ""
+        lblNoFaktur.Text = ""
+        lblIdSupplierFaktur.Text = ""
+        lblKodeSupplierFaktur.Text = ""
+        lblNamaSupplierFaktur.Text = ""
        
         berdasarkan.SelectedIndex = 0
         syarat.SelectedIndex = 0
@@ -94,7 +102,12 @@ Public Class barang
             End If
         End If
     End Sub
-
+    Private Sub calculateProfit()
+        lblProfit1.Text = Math.Round(((Val(txtHargaJual1.Tag) - Val(txtHargaBeliNetto.Tag)) / Val(txtHargaBeliNetto.Tag)) * 100, 2).ToString & "%"
+        lblProfit2.Text = Math.Round(((Val(txtHargaJual2.Tag) - Val(txtHargaBeliNetto.Tag)) / Val(txtHargaBeliNetto.Tag)) * 100, 2).ToString & "%"
+        lblProfit3.Text = Math.Round(((Val(txtHargaJual3.Tag) - Val(txtHargaBeliNetto.Tag)) / Val(txtHargaBeliNetto.Tag)) * 100, 2).ToString & "%"
+        lblProfit4.Text = Math.Round(((Val(txtHargaJual4.Tag) - Val(txtHargaBeliNetto.Tag)) / Val(txtHargaBeliNetto.Tag)) * 100, 2).ToString & "%"
+    End Sub
     Private Sub DataGridView1_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         Try
             Dim i As Integer
@@ -135,6 +148,35 @@ Public Class barang
                 txtQty3.Text = .Item(16, i).Value
                 txtQty4.Text = .Item(17, i).Value
 
+                Dim lastDOQuery = newConnect.ExecuteReader("SELECT pembelian.no_faktur,pembelian.tgl_faktur,pembelian.id_supplier," &
+                                                           "supplier.kode_suplier,supplier.nama_suplier " &
+                                                           "from(pembelian_detail) " &
+                                                           "LEFT JOIN pembelian ON pembelian.id_pembelian=pembelian_detail.id_pembelian " &
+                                                           "LEFT JOIN supplier on supplier.id_suplier=pembelian.id_supplier WHERE pembelian_detail.id_barang=" & lblIdBarang.Text & " ORDER BY pembelian.tgl_faktur DESC LIMIT 0,1")
+                If lastDOQuery.Rows.Count > 0 Then
+                    lblLastDo.Text = lastDOQuery.Rows(0).Item(1).ToString
+                    calculateProfit()
+                    lblNoFaktur.Text = lastDOQuery.Rows(0).Item(0).ToString
+                    lblIdSupplierFaktur.Text = lastDOQuery.Rows(0).Item(2).ToString
+                    lblKodeSupplierFaktur.Text = lastDOQuery.Rows(0).Item(3).ToString
+                    lblNamaSupplierFaktur.Text = lastDOQuery.Rows(0).Item(4).ToString
+                    '                    Dim profitLastQueryString = "select `pembelian_detail`.`id_pembelian`," &
+                    '"round((((`barang`.`harga_jual1` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit1`," &
+                    '"round((((`barang`.`harga_jual2` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit2`," &
+                    '"round((((`barang`.`harga_jual3` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit3`," &
+                    '"round((((`barang`.`harga_jual4` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit4`," &
+                    '"`pembelian`.`status` AS `status_pembelian` " &
+                    '"from ((`pembelian` join `pembelian_detail` on((`pembelian`.`id_pembelian` = `pembelian_detail`.`id_pembelian`))) " &
+                    '"join `barang` on((`pembelian_detail`.`id_barang` = `barang`.`id_barang`))) where pembelian.no_faktur='" & lastDOQuery.Rows(0).Item(0).ToString & "' and pembelian_detail.id_barang=" & lblIdBarang.Text & ""
+                    '                    Console.WriteLine(profitLastQueryString)
+                    '                    Dim profitLastQuery = newConnect.ExecuteReader(profitLastQueryString)
+                    '                    If profitLastQuery.Rows.Count > 0 Then
+                    '                        lblProfit1.Text = If(Not (IsDBNull(profitLastQuery.Rows(0).Item(1))), profitLastQuery.Rows(0).Item(1), "0")
+                    '                        lblProfit2.Text = If(Not (IsDBNull(profitLastQuery.Rows(0).Item(2))), profitLastQuery.Rows(0).Item(2), "0")
+                    '                        lblProfit3.Text = If(Not (IsDBNull(profitLastQuery.Rows(0).Item(3))), profitLastQuery.Rows(0).Item(3), "0")
+                    '                        lblProfit4.Text = If(Not (IsDBNull(profitLastQuery.Rows(0).Item(4))), profitLastQuery.Rows(0).Item(4), "0")
+                    '                    End If
+                End If
             End With
         Catch ex As Exception
             MsgBox("Data yang anda cari tidak ada" & ex.Message, MsgBoxStyle.OkOnly)
@@ -309,6 +351,7 @@ Public Class barang
     Private Sub txthargabelinetto_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaBeliNetto.LostFocus
         txtHargaBeliNetto.Tag = txtHargaBeliNetto.Text
         txtHargaBeliNetto.Text = Format(Val(txtHargaBeliNetto.Tag), "'Rp' #,0;'Rp' -#,0")
+        calculateProfit()
     End Sub
 
     Private Sub txtHargaJual1_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual1.GotFocus
@@ -323,6 +366,7 @@ Public Class barang
     Private Sub txtHargaJual1_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual1.LostFocus
         txtHargaJual1.Tag = txtHargaJual1.Text
         txtHargaJual1.Text = Format(Val(txtHargaJual1.Tag), "'Rp' #,0;'Rp' -#,0")
+        calculateProfit()
     End Sub
 
     Private Sub txtHargaJual2_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual2.GotFocus
@@ -337,6 +381,7 @@ Public Class barang
     Private Sub txtHargaJual2_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual2.LostFocus
         txtHargaJual2.Tag = txtHargaJual2.Text
         txtHargaJual2.Text = Format(Val(txtHargaJual2.Tag), "'Rp' #,0;'Rp' -#,0")
+        calculateProfit()
     End Sub
 
     Private Sub txtHargaJual3_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual3.GotFocus
@@ -351,6 +396,7 @@ Public Class barang
     Private Sub txtHargaJual3_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual3.LostFocus
         txtHargaJual3.Tag = txtHargaJual3.Text
         txtHargaJual3.Text = Format(Val(txtHargaJual3.Tag), "'Rp' #,0;'Rp' -#,0")
+        calculateProfit()
     End Sub
 
     Private Sub txtHargaJual4_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual4.GotFocus
@@ -365,6 +411,7 @@ Public Class barang
     Private Sub txtHargaJual4_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtHargaJual4.LostFocus
         txtHargaJual4.Tag = txtHargaJual4.Text
         txtHargaJual4.Text = Format(Val(txtHargaJual4.Tag), "'Rp' #,0;'Rp' -#,0")
+        calculateProfit()
     End Sub
 
     Private Sub satuanbox_DropDown(ByVal sender As Object, ByVal e As System.EventArgs) Handles satuanbox.DropDown
@@ -401,7 +448,12 @@ Public Class barang
         Call hanyaangka(e)
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        If (lblNoFaktur.Text = "") Then
+            MsgBox("Belum ada faktur pembelian")
+        Else
+            main.showDetailPembelian(lblNoFaktur.Text, lblKodeSupplierFaktur.Text, lblIdSupplierFaktur.Text, lblNamaSupplierFaktur.Text)
+        End If
 
     End Sub
 End Class

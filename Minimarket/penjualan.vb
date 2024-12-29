@@ -66,6 +66,7 @@ Public Class penjualan
             End If
             labelTotalBig.Text = Format(grandTotal, "#,0;-#,0")
             textGrandTotal.Text = Format(grandTotal, "#,0;-#,0")
+            lblGrandTotal.Text = Format(grandTotal, "#,0;-#,0")
             textPLU.Text = ""
             textPLU.Select()
 
@@ -227,6 +228,7 @@ Public Class penjualan
         textPLU.Text = ""
         textTotal.Text = ""
         textGrandTotal.Text = ""
+        lblGrandTotal.Text = ""
         labelBayar.Hide()
         textBayar.Hide()
         textBayar.Text = ""
@@ -349,15 +351,18 @@ Public Class penjualan
         Printer.Print("------------------------------------------------") 'line
 
         'looping item sales | loop item penjualan
+        Dim jumlahItem = 0
         For r = 0 To dtItem.Rows.Count - 1
             arrWidth = {130, 50} 'array for column width | array untuk lebar kolom
             arrFormat = {c.MidLeft, c.MidRight} 'array alignment 
             Printer.SetFont("Monospace", 8, FontStyle.Regular)
-            Printer.Print(dtItem.Rows(r).Item("itemname"), arrWidth, arrFormat)
+            Printer.Print(dtItem.Rows(r).Item("itemname") & ";" & Integer.Parse(dtItem.Rows(r).Item("qty")).ToString("n0"), arrWidth, arrFormat)
 
             arrWidth = {60, 60, 60} 'array for column width | array untuk lebar kolom
             arrFormat = {c.MidLeft, c.MidRight, c.MidRight} 'array alignment 
             Printer.SetFont("Monospace", 6.5, FontStyle.Regular)
+            jumlahItem = jumlahItem + Integer.Parse(dtItem.Rows(r).Item("qty"))
+
             Dim subtotal = Integer.Parse(dtItem.Rows(r).Item("qty")) * Integer.Parse(dtItem.Rows(r).Item("price"))
             Dim itemStr = Integer.Parse(dtItem.Rows(r).Item("qty")).ToString("n0") & " " & dtItem.Rows(r).Item("satuan") & ";" &
                           Integer.Parse(dtItem.Rows(r).Item("price")).ToString("n0") & ";" & subtotal.ToString("n0")
@@ -370,9 +375,10 @@ Public Class penjualan
         arrFormat = {c.MidLeft, c.MidRight} 'array alignment 
         Printer.SetFont("Monospace", 8, FontStyle.Regular) 'Setting Font
         Printer.Print("------------------------------------------------")
-        Printer.Print("Total;" & nominalTotal.ToString("n0"), arrWidth, arrFormat)
-        Printer.Print("Bayar;" & nominalBayar.ToString("n0"), arrWidth, arrFormat)
-        Printer.Print("Kembalian;" & nominalKembalian.ToString("n0"), arrWidth, arrFormat)
+        Printer.Print("JUMLAH;" & jumlahItem.ToString("n0"), arrWidth, arrFormat)
+        Printer.Print("TOTAL;" & nominalTotal.ToString("n0"), arrWidth, arrFormat)
+        Printer.Print("BAYAR;" & nominalBayar.ToString("n0"), arrWidth, arrFormat)
+        Printer.Print("KEMBALI;" & nominalKembalian.ToString("n0"), arrWidth, arrFormat)
         Printer.Print("------------------------------------------------")
         arrWidth = {180} 'array for column width | array untuk lebar kolom
         arrFormat = {c.MidCenter} 'array alignment 
@@ -496,7 +502,7 @@ Public Class penjualan
 
     End Sub
 
-    Private Sub penjualan_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub penjualan_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
 
         If e.KeyCode = Keys.Delete Then
             deleteTransaksiDetail()
