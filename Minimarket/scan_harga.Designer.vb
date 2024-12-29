@@ -24,7 +24,6 @@ Partial Class scan_harga
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblBarcode = New System.Windows.Forms.Label()
         Me.lblNamaBarang = New System.Windows.Forms.Label()
         Me.lblStok = New System.Windows.Forms.Label()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
@@ -37,6 +36,7 @@ Partial Class scan_harga
         Me.lblPrice3 = New System.Windows.Forms.Label()
         Me.lblPrice4 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.lblBarcode = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
@@ -71,20 +71,8 @@ Partial Class scan_harga
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(1399, 91)
         Me.TableLayoutPanel1.TabIndex = 1
         '
-        'lblBarcode
-        '
-        Me.lblBarcode.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblBarcode.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBarcode.Location = New System.Drawing.Point(3, 0)
-        Me.lblBarcode.Name = "lblBarcode"
-        Me.lblBarcode.Size = New System.Drawing.Size(343, 91)
-        Me.lblBarcode.TabIndex = 0
-        Me.lblBarcode.Text = "###"
-        Me.lblBarcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
         'lblNamaBarang
         '
-        Me.lblNamaBarang.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblNamaBarang.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNamaBarang.Location = New System.Drawing.Point(352, 0)
         Me.lblNamaBarang.Name = "lblNamaBarang"
@@ -96,11 +84,10 @@ Partial Class scan_harga
         'lblStok
         '
         Me.lblStok.AutoSize = True
-        Me.lblStok.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblStok.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStok.Location = New System.Drawing.Point(1051, 0)
         Me.lblStok.Name = "lblStok"
-        Me.lblStok.Size = New System.Drawing.Size(345, 91)
+        Me.lblStok.Size = New System.Drawing.Size(52, 29)
         Me.lblStok.TabIndex = 2
         Me.lblStok.Text = "###"
         Me.lblStok.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -231,6 +218,16 @@ Partial Class scan_harga
         Me.TextBox1.Size = New System.Drawing.Size(100, 15)
         Me.TextBox1.TabIndex = 1
         '
+        'lblBarcode
+        '
+        Me.lblBarcode.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblBarcode.Location = New System.Drawing.Point(3, 0)
+        Me.lblBarcode.Name = "lblBarcode"
+        Me.lblBarcode.Size = New System.Drawing.Size(343, 91)
+        Me.lblBarcode.TabIndex = 0
+        Me.lblBarcode.Text = "###"
+        Me.lblBarcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'scan_harga
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -253,7 +250,6 @@ Partial Class scan_harga
     End Sub
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents lblBarcode As System.Windows.Forms.Label
     Friend WithEvents lblNamaBarang As System.Windows.Forms.Label
     Friend WithEvents lblStok As System.Windows.Forms.Label
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
@@ -266,4 +262,5 @@ Partial Class scan_harga
     Friend WithEvents lblPrice3 As System.Windows.Forms.Label
     Friend WithEvents lblPrice4 As System.Windows.Forms.Label
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents lblBarcode As System.Windows.Forms.Label
 End Class

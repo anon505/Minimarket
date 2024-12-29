@@ -506,7 +506,7 @@ Public Class penjualan
             toggleQty()
         End If
         If e.KeyCode = Keys.Escape Then
-            voidTransaksi()
+            'voidTransaksi()
         End If
         If e.KeyCode = Keys.F8 Then
             pendingTransaksi()
