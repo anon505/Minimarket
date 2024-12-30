@@ -229,14 +229,16 @@ Public Class penjualan
         textTotal.Text = ""
         textGrandTotal.Text = ""
         lblGrandTotal.Text = ""
+        lblBayar.Text = ""
+        lblKembalian.Text = ""
         labelBayar.Hide()
         textBayar.Hide()
-        textBayar.Text = ""
         labelKembalian.Hide()
         textKembalian.Hide()
         textKembalian.Text = ""
+        lblKembalian.Text = ""
         textBayar.Text = ""
-
+        isDone = False
     End Sub
 
     Private Sub initializeDebounce()
@@ -252,6 +254,7 @@ Public Class penjualan
             newConnect.ExecuteNonQuery("update barang INNER JOIN transaksi_detail on barang.id_barang=transaksi_detail.id_barang set barang.stok_gudang = barang.stok_gudang+ (transaksi_detail.qty*-1) WHERE transaksi_detail.id_transaksi=" & lblIdTransaksi.Text)
            
             textKembalian.Text = Format(0, "#,0;-#,0")
+            lblKembalian.Text = textKembalian.Text
             labelTotalBig.Text = textKembalian.Text
 
             Dim buton As DialogResult = MsgBox("Ingin CETAK NOTA?", MsgBoxStyle.YesNo)
@@ -265,6 +268,7 @@ Public Class penjualan
             Dim nominalKembalian = Integer.Parse(textBayar.Text.Replace(",", "").Replace(".", "")) - grandTotal
             If nominalKembalian >= 0 Then
                 textKembalian.Text = Format(nominalKembalian, "#,0;-#,0")
+                lblKembalian.Text = textKembalian.Text
                 labelTotalBig.Text = textKembalian.Text
 
                 Dim buton As DialogResult = MsgBox("Ingin CETAK NOTA?", MsgBoxStyle.YesNo)
@@ -392,7 +396,9 @@ Public Class penjualan
         Printer.DoPrint()
     End Sub
     Private Sub voidTransaksi()
-        newConnect.ExecuteNonQuery("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & lblIdTransaksi.Text)
+        'newConnect.ExecuteNonQuery("UPDATE transaksi Set  status = 'void' WHERE id_transaksi = " & lblIdTransaksi.Text)
+        textPLU.Enabled = True
+        textBayar.Enabled = True
         initializeForm()
         lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
         loadTable()
@@ -404,7 +410,11 @@ Public Class penjualan
         newPenjualan.MdiParent = main
         newPenjualan.Show()
     End Sub
+    Dim isDone As Boolean = False
     Private Sub doneTransaksi(ByVal nominalKembalian As Integer)
+        isDone = True
+        textPLU.Enabled = False
+        textBayar.Enabled = False
         Dim waktuTransaksi = newConnect.ExecuteScalar("SELECT waktu from transaksi WHERE id_transaksi = " & lblIdTransaksi.Text)
         Dim transaksiDetails = newConnect.ExecuteReader("select * from ds_transaksi_penjualan where id_transaksi = " & lblIdTransaksi.Text)
         For i = 0 To transaksiDetails.Rows.Count - 1
@@ -445,9 +455,9 @@ Public Class penjualan
                                                                 Replace(",", "").
                                                                 Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
         End If
-        initializeForm()
-        lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
-        loadTable()
+        'initializeForm()
+        'lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
+        'loadTable()
     End Sub
 
     Private Sub returTransaksi(ByVal nominalKembalian As Integer)
@@ -476,6 +486,7 @@ Public Class penjualan
     Private Sub debouncedTextBayarChanged(textBayarString As String)
         If Not textBayarString = "" Then
             textBayar.Text = Format(Integer.Parse(textBayarString.Replace(",", "").Replace(".", "")), "#,0;-#,0")
+            lblBayar.Text = textBayar.Text
             textBayar.SelectionStart = textBayar.Text.Length
             textBayar.SelectionLength = 0
         End If
@@ -511,8 +522,8 @@ Public Class penjualan
         If e.KeyCode = Keys.Multiply Then
             toggleQty()
         End If
-        If e.KeyCode = Keys.Escape Then
-            'voidTransaksi()
+        If e.KeyCode = Keys.Escape And isDone Then
+            voidTransaksi()
         End If
         If e.KeyCode = Keys.F8 Then
             pendingTransaksi()
@@ -533,7 +544,9 @@ Public Class penjualan
             textKembalian.Visible = True
             labelKembalianBig.Visible = True
             textBayar.Text = ""
+            lblBayar.Text = ""
             textKembalian.Text = "0"
+            lblKembalian.Text = "0"
             labelTotalBig.Text = textKembalian.Text
             textBayar.Focus()
         End If

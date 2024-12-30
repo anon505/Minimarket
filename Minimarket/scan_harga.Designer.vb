@@ -26,6 +26,7 @@ Partial Class scan_harga
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblNamaBarang = New System.Windows.Forms.Label()
         Me.lblStok = New System.Windows.Forms.Label()
+        Me.textPLU = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblCaption1 = New System.Windows.Forms.Label()
         Me.lblCaption2 = New System.Windows.Forms.Label()
@@ -35,7 +36,6 @@ Partial Class scan_harga
         Me.lblPrice2 = New System.Windows.Forms.Label()
         Me.lblPrice3 = New System.Windows.Forms.Label()
         Me.lblPrice4 = New System.Windows.Forms.Label()
-        Me.textPLU = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
@@ -90,6 +90,19 @@ Partial Class scan_harga
         Me.lblStok.TabIndex = 2
         Me.lblStok.Text = "###"
         Me.lblStok.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'textPLU
+        '
+        Me.textPLU.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textPLU.BackColor = System.Drawing.Color.Aqua
+        Me.textPLU.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textPLU.Location = New System.Drawing.Point(3, 3)
+        Me.textPLU.Name = "textPLU"
+        Me.textPLU.Size = New System.Drawing.Size(343, 34)
+        Me.textPLU.TabIndex = 3
+        Me.textPLU.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TableLayoutPanel2
         '
@@ -205,19 +218,6 @@ Partial Class scan_harga
         Me.lblPrice4.TabIndex = 7
         Me.lblPrice4.Text = "###"
         Me.lblPrice4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'textPLU
-        '
-        Me.textPLU.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.textPLU.BackColor = System.Drawing.Color.Aqua
-        Me.textPLU.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textPLU.Location = New System.Drawing.Point(3, 3)
-        Me.textPLU.Name = "textPLU"
-        Me.textPLU.Size = New System.Drawing.Size(343, 34)
-        Me.textPLU.TabIndex = 3
-        Me.textPLU.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'scan_harga
         '

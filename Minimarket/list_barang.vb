@@ -7,7 +7,7 @@ Public Class list_barang
     Public frmPenjualan As penjualan
     Public frmPembelian As pembelian1
     Public Sub view()
-        Dim ds = newConnect.ExecuteReader("select barcode,nama_barang from barang order by nama_barang asc")
+        Dim ds = newConnect.ExecuteReader("select barcode,nama_barang,(stok_display+stok_gudang) as stok from barang order by nama_barang asc")
         DataGridView1.DataSource = ds
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridView1.ReadOnly = True
@@ -24,7 +24,7 @@ Public Class list_barang
         Call view()
     End Sub
     Private Sub txtcari_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtcari.TextChanged
-        Dim ds = newConnect.ExecuteReader("select barcode,nama_barang from barang where nama_barang like '%" & txtcari.Text & "%' order by nama_barang asc")
+        Dim ds = newConnect.ExecuteReader("select barcode,nama_barang,(stok_display+stok_gudang) as stok from barang where nama_barang like '%" & txtcari.Text & "%' order by nama_barang asc")
         DataGridView1.DataSource = ds
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridView1.ReadOnly = True
