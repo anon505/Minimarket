@@ -98,7 +98,7 @@ Public Class retur_customer
                                       Replace(",", "")
             Dim hargaJual = row.Item(3).ToString.Replace(".", "").
                                       Replace(",", "")
-            Dim idBarang = newConnect.ExecuteScalar("SELECT id_barang from barang WHERE barcode = " & barcode)
+            Dim idBarang = newConnect.ExecuteScalar("SELECT id_barang from barang WHERE barcode = '" & barcode & "'")
             If Not (qtyRetur = "") Then
                 If qty = qtyRetur Then
                     newConnect.ExecuteNonQuery("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idTransaksiDetail.ToString)
@@ -108,14 +108,16 @@ Public Class retur_customer
                 Dim stokGudang As Integer = newConnect.ExecuteScalar("select stok_gudang from barang where barcode='" & barcode & "'")
                 newConnect.ExecuteNonQuery("UPDATE barang Set stok_gudang = '" & (stokGudang + Integer.Parse(qtyRetur)).ToString & "' WHERE barcode='" & barcode & "'")
             End If
-            newConnect.ExecuteNonQuery("INSERT INTO retur_customer(id_retur_customer,id_kasir,id_transaksi,id_barang,harga_jual,qty,created_at) " &
+            Dim returInsert = "INSERT INTO retur_customer(id_retur_customer,id_kasir,id_transaksi,id_barang,harga_jual,qty,created_at) " &
                                        "VALUES (NULL," &
                                        "'" & Module1.id_kasir & "'," &
                                         "'" & idTransaksi & "'," &
                                         "'" & idBarang & "'," &
                                         "'" & hargaJual & "'," &
                                         "'" & qtyRetur & "'," &
-                                        "now());")
+                                        "now());"
+            Console.WriteLine(returInsert)
+            newConnect.ExecuteNonQuery(returInsert)
         Next row
 
         If Not (labelTotalBig.Text = "0") Then
