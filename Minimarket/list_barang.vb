@@ -6,6 +6,8 @@ Public Class list_barang
 
     Public frmPenjualan As penjualan
     Public frmPembelian As pembelian1
+    Public frmReturSuplier As retur_suplier
+    Public koreksiStok As koreksi_stok
     Public Sub view()
         Dim ds = newConnect.ExecuteReader("select barcode,nama_barang,(stok_display+stok_gudang) as stok from barang order by nama_barang asc")
         DataGridView1.DataSource = ds
@@ -39,6 +41,16 @@ Public Class list_barang
     Private Sub penjualan_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
 
         If e.KeyCode = Keys.Enter Then
+            If Not (frmReturSuplier Is Nothing) Then
+                Dim cellSelect = DataGridView1.SelectedCells
+                Console.WriteLine(cellSelect.Count)
+                If (cellSelect.Count > 0) Then
+
+                    Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
+                    frmReturSuplier.setPLU(barcode)
+                End If
+                Close()
+            End If
             If Not (frmPenjualan Is Nothing) Then
                 Dim cellSelect = DataGridView1.SelectedCells
                 Console.WriteLine(cellSelect.Count)
@@ -47,8 +59,9 @@ Public Class list_barang
                     Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
                     frmPenjualan.setPLU(barcode)
                 End If
+                Close()
             End If
-            Close()
+
             If Not (frmPembelian Is Nothing) Then
                 Dim cellSelect = DataGridView1.SelectedCells
                 Console.WriteLine(cellSelect.Count)
@@ -57,8 +70,19 @@ Public Class list_barang
                     Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
                     frmPembelian.setPLU(barcode)
                 End If
+                Close()
             End If
-            Close()
+
+            If Not (koreksiStok Is Nothing) Then
+                Dim cellSelect = DataGridView1.SelectedCells
+                Console.WriteLine(cellSelect.Count)
+                If (cellSelect.Count > 0) Then
+
+                    Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
+                    koreksiStok.setPLU(barcode)
+                End If
+                Close()
+            End If
         End If
         e.Handled = False
         'End If
@@ -81,6 +105,26 @@ Public Class list_barang
 
                 Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
                 frmPembelian.setPLU(barcode)
+            End If
+        End If
+
+        If Not (koreksiStok Is Nothing) Then
+            Dim cellSelect = DataGridView1.SelectedCells
+            Console.WriteLine(cellSelect.Count)
+            If (cellSelect.Count > 0) Then
+
+                Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
+                koreksiStok.setPLU(barcode)
+            End If
+        End If
+
+        If Not (frmReturSuplier Is Nothing) Then
+            Dim cellSelect = DataGridView1.SelectedCells
+            Console.WriteLine(cellSelect.Count)
+            If (cellSelect.Count > 0) Then
+
+                Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
+                frmReturSuplier.setPLU(barcode)
             End If
         End If
 

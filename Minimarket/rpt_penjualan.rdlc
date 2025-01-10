@@ -793,6 +793,9 @@
             </TablixMember>
             <TablixMember>
               <Group Name="Details" />
+              <TablixMembers>
+                <TablixMember />
+              </TablixMembers>
             </TablixMember>
             <TablixMember>
               <KeepWithGroup>Before</KeepWithGroup>
@@ -860,7 +863,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>2.49155in</Height>
+    <Height>2.80822in</Height>
     <Style />
   </Body>
   <ReportParameters>

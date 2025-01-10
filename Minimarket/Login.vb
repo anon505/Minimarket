@@ -25,7 +25,7 @@ Public Class Login
                     main.SatuanSubMenuItem.Enabled = True
                     main.KasirSubMenuItem.Enabled = True
                     main.SupplierSubMenuItem.Enabled = True
-                    main.MutasiSubMenuItem.Enabled = True
+                    main.AlurKasSubMenuItem.Enabled = True
 
                     main.ToolStripMenuItem1.Enabled = True
                     main.LaporanHarianToolStripMenuItem.Enabled = True
@@ -47,7 +47,7 @@ Public Class Login
                     main.SatuanSubMenuItem.Enabled = True
                     main.KasirSubMenuItem.Enabled = False
                     main.SupplierSubMenuItem.Enabled = True
-                    main.MutasiSubMenuItem.Enabled = False
+                    main.AlurKasSubMenuItem.Enabled = False
 
 
                     main.ToolStripMenuItem1.Enabled = False
@@ -68,7 +68,7 @@ Public Class Login
                     main.SatuanSubMenuItem.Enabled = False
                     main.KasirSubMenuItem.Enabled = False
                     main.SupplierSubMenuItem.Enabled = False
-                    main.MutasiSubMenuItem.Enabled = False
+                    main.AlurKasSubMenuItem.Enabled = False
                     main.ToolStripMenuItem1.Enabled = False
                     main.LaporanHarianToolStripMenuItem.Enabled = False
                     main.KeuntunganToolStripMenuItem.Enabled = False

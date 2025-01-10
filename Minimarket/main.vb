@@ -45,7 +45,7 @@ Public Class main
         SatuanSubMenuItem.Enabled = False
         KasirSubMenuItem.Enabled = False
         SupplierSubMenuItem.Enabled = False
-        MutasiSubMenuItem.Enabled = False
+        AlurKasSubMenuItem.Enabled = False
         ToolStripMenuItem1.Enabled = False
         ReturMenuItem.Enabled = False
         LaporanHarianToolStripMenuItem.Enabled = False
@@ -125,9 +125,9 @@ Public Class main
         cetak_expiry.Show()
     End Sub
 
-    Private Sub MutasiSubMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MutasiSubMenuItem.Click
-        mutasi.MdiParent = Me
-        mutasi.Show()
+    Private Sub AlurKasSubMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AlurKasSubMenuItem.Click
+        alur_kas.MdiParent = Me
+        alur_kas.Show()
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem2.Click
@@ -188,4 +188,5 @@ Public Class main
         barang_view.MdiParent = Me
         barang_view.Show()
     End Sub
+
 End Class

@@ -2,7 +2,7 @@
 Imports System.IO
 Imports System.Globalization
 
-Public Class mutasi
+Public Class mutasi_dump
     Dim debounceSubject As DebounceDispatcher
     Private Sub initializeDebounce()
         debounceSubject = New DebounceDispatcher()

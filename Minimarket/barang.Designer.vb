@@ -158,6 +158,7 @@ Partial Class barang
         Me.txtStokGudang.Location = New System.Drawing.Point(893, 535)
         Me.txtStokGudang.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokGudang.Name = "txtStokGudang"
+        Me.txtStokGudang.ReadOnly = True
         Me.txtStokGudang.Size = New System.Drawing.Size(191, 30)
         Me.txtStokGudang.TabIndex = 6
         '
@@ -466,6 +467,7 @@ Partial Class barang
         Me.txtStokDisplay.Location = New System.Drawing.Point(893, 592)
         Me.txtStokDisplay.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStokDisplay.Name = "txtStokDisplay"
+        Me.txtStokDisplay.ReadOnly = True
         Me.txtStokDisplay.Size = New System.Drawing.Size(189, 30)
         Me.txtStokDisplay.TabIndex = 37
         '

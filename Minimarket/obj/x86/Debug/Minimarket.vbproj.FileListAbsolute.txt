@@ -50,7 +50,6 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer_report.resource
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier_report.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_suplier.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.retur_customer.resources
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.mutasi.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.print.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.cpanel.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.kasir.resources
@@ -73,3 +72,6 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.xml
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.pdb
 D:\Minimarket\Minimarket\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.vbprojResolveAssemblyReference.cache
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.mutasi_dump.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.alur_kas.resources
+D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.koreksi_stok.resources

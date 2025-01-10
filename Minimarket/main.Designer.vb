@@ -29,7 +29,8 @@ Partial Class main
         Me.SatuanSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.KasirSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SupplierSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.MutasiSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AlurKasSubMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CekStokToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MarkupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PembelianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PenjualanToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -45,7 +46,6 @@ Partial Class main
         Me.ReturPembelianMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataReturCustomerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataReturSuplierToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CekStokToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -64,7 +64,7 @@ Partial Class main
         'MasterMenuItem
         '
         Me.MasterMenuItem.BackColor = System.Drawing.SystemColors.Control
-        Me.MasterMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BarangSubMenuItem, Me.SatuanSubMenuItem, Me.KasirSubMenuItem, Me.SupplierSubMenuItem, Me.MutasiSubMenuItem, Me.CekStokToolStripMenuItem})
+        Me.MasterMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BarangSubMenuItem, Me.SatuanSubMenuItem, Me.KasirSubMenuItem, Me.SupplierSubMenuItem, Me.AlurKasSubMenuItem, Me.CekStokToolStripMenuItem})
         Me.MasterMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MasterMenuItem.Image = CType(resources.GetObject("MasterMenuItem.Image"), System.Drawing.Image)
         Me.MasterMenuItem.Name = "MasterMenuItem"
@@ -95,11 +95,17 @@ Partial Class main
         Me.SupplierSubMenuItem.Size = New System.Drawing.Size(161, 28)
         Me.SupplierSubMenuItem.Text = "Supplier"
         '
-        'MutasiSubMenuItem
+        'AlurKasSubMenuItem
         '
-        Me.MutasiSubMenuItem.Name = "MutasiSubMenuItem"
-        Me.MutasiSubMenuItem.Size = New System.Drawing.Size(161, 28)
-        Me.MutasiSubMenuItem.Text = "Mutasi"
+        Me.AlurKasSubMenuItem.Name = "AlurKasSubMenuItem"
+        Me.AlurKasSubMenuItem.Size = New System.Drawing.Size(161, 28)
+        Me.AlurKasSubMenuItem.Text = "Alur Kas"
+        '
+        'CekStokToolStripMenuItem
+        '
+        Me.CekStokToolStripMenuItem.Name = "CekStokToolStripMenuItem"
+        Me.CekStokToolStripMenuItem.Size = New System.Drawing.Size(161, 28)
+        Me.CekStokToolStripMenuItem.Text = "Cek Stok"
         '
         'MarkupToolStripMenuItem
         '
@@ -216,12 +222,6 @@ Partial Class main
         Me.DataReturSuplierToolStripMenuItem.Size = New System.Drawing.Size(267, 28)
         Me.DataReturSuplierToolStripMenuItem.Text = "Data Retur Suplier"
         '
-        'CekStokToolStripMenuItem
-        '
-        Me.CekStokToolStripMenuItem.Name = "CekStokToolStripMenuItem"
-        Me.CekStokToolStripMenuItem.Size = New System.Drawing.Size(161, 28)
-        Me.CekStokToolStripMenuItem.Text = "Cek Stok"
-        '
         'main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -256,7 +256,7 @@ Partial Class main
     Friend WithEvents SatuanSubMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents KasirSubMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SupplierSubMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents MutasiSubMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents AlurKasSubMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReturMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReturCustomerMenu As System.Windows.Forms.ToolStripMenuItem

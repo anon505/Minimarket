@@ -685,7 +685,9 @@ Public Class pembelian1
         End If
         If e.KeyCode = Keys.F11 Then
             list_barang.frmPembelian = Me
+            list_barang.frmReturSuplier = Nothing
             list_barang.frmPenjualan = Nothing
+            list_barang.koreksiStok = Nothing
             list_barang.txtcari.Text = ""
             list_barang.Show()
 
