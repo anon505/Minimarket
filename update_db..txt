@@ -1,0 +1,15 @@
+update ds_markup
+
+select `pembelian`.`id_pembelian` AS `id_pembelian`,`pembelian`.`no_faktur` AS `no_faktur`,`pembelian`.`tgl_faktur` AS `tgl_faktur`,`barang`.`id_barang` AS `id_barang`,`barang`.`barcode` AS `barcode`,`barang`.`nama_barang` AS `nama_barang`,`barang`.`harga_beli_netto` AS `barang.harga_beli_netto`,`pembelian_detail`.`qty` AS `pembelian_detail.qty`,`pembelian_detail`.`price` AS `pembelian_detail.price`,`pembelian_detail`.`ppn` AS `pembelian_detail.ppn`,`pembelian_detail`.`discount` AS `pembelian_detail.discount`,`pembelian_detail`.`price_netto` AS `pembelian_detail.price_netto`,`barang`.`harga_jual1` AS `harga_satuan`,round((((`barang`.`harga_jual1` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit1`,`barang`.`qty2` AS `qty2`,`barang`.`harga_jual2` AS `harga_qty2`,round((((`barang`.`harga_jual2` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit2`,`barang`.`qty3` AS `qty3`,`barang`.`harga_jual3` AS `harga_qty3`,round((((`barang`.`harga_jual3` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit3`,`barang`.`qty4` AS `qty4`,`barang`.`harga_jual4` AS `harga_qty4`,round((((`barang`.`harga_jual4` - `pembelian_detail`.`price_netto`) / `pembelian_detail`.`price_netto`) * 100),2) AS `profit4`,`pembelian`.`status` AS `status_pembelian` from ((`pembelian` join `pembelian_detail` on((`pembelian`.`id_pembelian` = `pembelian_detail`.`id_pembelian`))) join `barang` on((`pembelian_detail`.`id_barang` = `barang`.`id_barang`))) where (`pembelian`.`status` = 'saved')
+
+create koreksi_stok
+CREATE TABLE IF NOT EXISTS `koreksi_stok` (
+  `id_koreksi` int NOT NULL AUTO_INCREMENT,
+  `id_barang` int DEFAULT NULL,
+  `waktu` datetime DEFAULT NULL,
+  `deskripsi` varchar(254) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `type` enum('plus','minus') DEFAULT NULL,
+  `harga_beli` int DEFAULT NULL,
+  `qty` int DEFAULT NULL,
+  PRIMARY KEY (`id_koreksi`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

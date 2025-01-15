@@ -3,7 +3,7 @@
 Public Class markup
     Private Sub dataGridView1_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dataGridView1.CellFormatting
         'If (e.ColumnIndex = 5 Or e.ColumnIndex = 7 Or e.ColumnIndex = 9 Or e.ColumnIndex = 11 Or e.ColumnIndex = 13 Or e.ColumnIndex = 14 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
-        If (e.ColumnIndex = 5 Or e.ColumnIndex = 6 Or e.ColumnIndex = 9 Or e.ColumnIndex = 12 Or e.ColumnIndex = 15) AndAlso IsNumeric(e.Value) Then
+        If (e.ColumnIndex = 5 Or e.ColumnIndex = 6 Or e.ColumnIndex = 7 Or e.ColumnIndex = 10 Or e.ColumnIndex = 13 Or e.ColumnIndex = 16) AndAlso IsNumeric(e.Value) Then
             e.Value = Format(e.Value, "#,0;-#,0")
         End If
     End Sub
@@ -23,7 +23,9 @@ Public Class markup
             Return
         End If
 
-        Dim ds = newConnect.ExecuteReader("select id_pembelian,no_faktur,id_barang,barcode, nama_barang,`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto` from ds_markup  where no_faktur=" & noFaktur)
+        Dim ds = newConnect.ExecuteReader("select id_pembelian,no_faktur,id_barang,barcode, nama_barang," &
+                                           "`barang.harga_beli_netto` as harga_beli_netto_lama," &
+                                          "`pembelian_detail.price_netto` as harga_beli_netto,harga_satuan,profit1,qty2,harga_qty2,profit2,qty3,harga_qty3,profit3,qty4,harga_qty4,profit4,`pembelian_detail.qty`,`pembelian_detail.ppn`,`pembelian_detail.discount`,`pembelian_detail.price`,`pembelian_detail.price_netto` from ds_markup  where no_faktur=" & noFaktur)
 
         dataGridView1.AutoGenerateColumns = True
         dataGridView1.DataSource = ds
@@ -34,70 +36,72 @@ Public Class markup
         dataGridView1.Columns(3).ReadOnly = True
         dataGridView1.Columns(4).ReadOnly = True
         dataGridView1.Columns(5).ReadOnly = True
-        dataGridView1.Columns(6).ReadOnly = False
-        dataGridView1.Columns(7).ReadOnly = True
-        dataGridView1.Columns(8).ReadOnly = False
+        dataGridView1.Columns(6).ReadOnly = True
+        dataGridView1.Columns(7).ReadOnly = False
+        dataGridView1.Columns(8).ReadOnly = True
         dataGridView1.Columns(9).ReadOnly = False
-        dataGridView1.Columns(10).ReadOnly = True
-        dataGridView1.Columns(11).ReadOnly = False
+        dataGridView1.Columns(10).ReadOnly = False
+        dataGridView1.Columns(11).ReadOnly = True
         dataGridView1.Columns(12).ReadOnly = False
-        dataGridView1.Columns(13).ReadOnly = True
-        dataGridView1.Columns(14).ReadOnly = False
+        dataGridView1.Columns(13).ReadOnly = False
+        dataGridView1.Columns(14).ReadOnly = True
         dataGridView1.Columns(15).ReadOnly = False
-        dataGridView1.Columns(16).ReadOnly = True
+        dataGridView1.Columns(16).ReadOnly = False
+        dataGridView1.Columns(17).ReadOnly = True
 
-        dataGridView1.Columns(17).ReadOnly = False
         dataGridView1.Columns(18).ReadOnly = False
         dataGridView1.Columns(19).ReadOnly = False
         dataGridView1.Columns(20).ReadOnly = False
         dataGridView1.Columns(21).ReadOnly = False
+        dataGridView1.Columns(22).ReadOnly = False
 
         dataGridView1.Columns(0).Visible = False
         dataGridView1.Columns(1).Visible = False
         dataGridView1.Columns(2).Visible = False
-        dataGridView1.Columns(17).Visible = False
         dataGridView1.Columns(18).Visible = False
         dataGridView1.Columns(19).Visible = False
         dataGridView1.Columns(20).Visible = False
         dataGridView1.Columns(21).Visible = False
+        dataGridView1.Columns(22).Visible = False
 
         dataGridView1.Columns(0).HeaderText = "id_pembelian_detail"
         dataGridView1.Columns(1).HeaderText = "no_faktur"
         dataGridView1.Columns(2).HeaderText = "id_barang"
         dataGridView1.Columns(3).HeaderText = "Barcode"
         dataGridView1.Columns(4).HeaderText = "Nama Barang"
-        dataGridView1.Columns(5).HeaderText = "Harga Beli Netto"
-        dataGridView1.Columns(6).HeaderText = "Harga Satuan"
-        dataGridView1.Columns(7).HeaderText = "Profit1 (%)"
-        dataGridView1.Columns(8).HeaderText = "Q2"
-        dataGridView1.Columns(9).HeaderText = "Harga Q2"
-        dataGridView1.Columns(10).HeaderText = "Profit2 (%)"
-        dataGridView1.Columns(11).HeaderText = "Q3"
-        dataGridView1.Columns(12).HeaderText = "Harga Q3"
-        dataGridView1.Columns(13).HeaderText = "Profit3 (%)"
-        dataGridView1.Columns(14).HeaderText = "Q4"
-        dataGridView1.Columns(15).HeaderText = "Harga Q4"
-        dataGridView1.Columns(16).HeaderText = "Profit4 (%)"
+        dataGridView1.Columns(5).HeaderText = "Harga Beli Netto Lama"
+        dataGridView1.Columns(6).HeaderText = "Harga Beli Netto"
+        dataGridView1.Columns(7).HeaderText = "Harga Satuan"
+        dataGridView1.Columns(8).HeaderText = "Profit1 (%)"
+        dataGridView1.Columns(9).HeaderText = "Q2"
+        dataGridView1.Columns(10).HeaderText = "Harga Q2"
+        dataGridView1.Columns(11).HeaderText = "Profit2 (%)"
+        dataGridView1.Columns(12).HeaderText = "Q3"
+        dataGridView1.Columns(13).HeaderText = "Harga Q3"
+        dataGridView1.Columns(14).HeaderText = "Profit3 (%)"
+        dataGridView1.Columns(15).HeaderText = "Q4"
+        dataGridView1.Columns(16).HeaderText = "Harga Q4"
+        dataGridView1.Columns(17).HeaderText = "Profit4 (%)"
 
 
 
         dataGridView1.Columns(3).Width = 108
         dataGridView1.Columns(4).Width = 208
-        dataGridView1.Columns(5).Width = 108
-        dataGridView1.Columns(6).Width = 108
-        dataGridView1.Columns(7).Width = 88
-        dataGridView1.Columns(8).Width = 58
-        dataGridView1.Columns(9).Width = 108
-        dataGridView1.Columns(10).Width = 88
-        dataGridView1.Columns(11).Width = 58
-        dataGridView1.Columns(12).Width = 108
-        dataGridView1.Columns(13).Width = 88
-        dataGridView1.Columns(14).Width = 58
-        dataGridView1.Columns(15).Width = 108
-        dataGridView1.Columns(16).Width = 88
+        dataGridView1.Columns(5).Width = 158
+        dataGridView1.Columns(6).Width = 128
+        dataGridView1.Columns(7).Width = 108
+        dataGridView1.Columns(8).Width = 88
+        dataGridView1.Columns(9).Width = 58
+        dataGridView1.Columns(10).Width = 108
+        dataGridView1.Columns(11).Width = 88
+        dataGridView1.Columns(12).Width = 58
+        dataGridView1.Columns(13).Width = 108
+        dataGridView1.Columns(14).Width = 88
+        dataGridView1.Columns(15).Width = 58
+        dataGridView1.Columns(16).Width = 108
+        dataGridView1.Columns(17).Width = 88
 
 
-        customizeCellsInColumn(6)
         customizeCellsInColumn(7)
         customizeCellsInColumn(8)
         customizeCellsInColumn(9)
@@ -108,6 +112,7 @@ Public Class markup
         customizeCellsInColumn(14)
         customizeCellsInColumn(15)
         customizeCellsInColumn(16)
+        customizeCellsInColumn(17)
         dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter
     End Sub
     Private Sub Tb_TextChanged(ByVal sender As Object, ByVal e As EventArgs)
@@ -117,8 +122,8 @@ Public Class markup
         If tb.Text = "" OrElse tb.Text = "0" Then Return
         Dim columnIndex As Integer = tb.Tag
         Console.WriteLine(tb.Text)
-        If (columnIndex = 6 Or columnIndex = 8 Or columnIndex = 9 Or columnIndex = 11 Or
-            columnIndex = 12 Or columnIndex = 14 Or columnIndex = 15) Then
+        If (columnIndex = 7 Or columnIndex = 9 Or columnIndex = 10 Or columnIndex = 12 Or
+            columnIndex = 13 Or columnIndex = 15 Or columnIndex = 16) Then
             Dim number As Decimal
             number = Decimal.Parse(tb.Text, System.Globalization.NumberStyles.Currency)
             tb.Text = number.ToString("#,0;-#,0")
@@ -133,7 +138,7 @@ Public Class markup
         Dim column As DataGridViewColumn = dataGridView1.Columns(columnIndex)
         Dim cell = New DataGridViewTextBoxCell()
         cell.Style.BackColor = Color.Wheat
-        If columnIndex = 7 Or columnIndex = 10 Or columnIndex = 13 Or columnIndex = 16 Then
+        If columnIndex = 8 Or columnIndex = 11 Or columnIndex = 14 Or columnIndex = 17 Then
             cell.Style.Format = "N2"
         End If
         column.CellTemplate = cell
@@ -177,50 +182,50 @@ Public Class markup
         Console.WriteLine("currentCellChanged" & currentCellColumnIndex.ToString)
     End Sub
     Private Sub calculate(ByVal columnIndex As Integer, ByVal rowIndex As Integer)
-        Dim priceNetto As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(5).Value.ToString)
-        If columnIndex = 6 Or columnIndex = 7 Then
-            If columnIndex = 6 Then
-                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(6).Value.ToString)
+        Dim priceNetto As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(6).Value.ToString)
+        If columnIndex = 7 Or columnIndex = 8 Then
+            If columnIndex = 7 Then
+                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(7).Value.ToString)
 
                 Dim profit = ((hargaSatuan - priceNetto) / priceNetto) * 100
-                dataGridView1.Rows(rowIndex).Cells(7).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
-            ElseIf columnIndex = 7 Then
-                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(7).Value.ToString)
+                dataGridView1.Rows(rowIndex).Cells(8).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
+            ElseIf columnIndex = 8 Then
+                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(8).Value.ToString)
                 Dim hargaSatuan As Integer = priceNetto + (priceNetto * (profit / 100))
-                dataGridView1.Rows(rowIndex).Cells(6).Value = hargaSatuan
+                dataGridView1.Rows(rowIndex).Cells(7).Value = hargaSatuan
             End If
-        ElseIf columnIndex = 9 Or columnIndex = 10 Then
-            If columnIndex = 9 Then
-                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(9).Value.ToString)
+        ElseIf columnIndex = 10 Or columnIndex = 11 Then
+            If columnIndex = 10 Then
+                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(10).Value.ToString)
 
                 Dim profit = ((hargaSatuan - priceNetto) / priceNetto) * 100
-                dataGridView1.Rows(rowIndex).Cells(10).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
-            ElseIf columnIndex = 10 Then
-                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(10).Value.ToString)
+                dataGridView1.Rows(rowIndex).Cells(11).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
+            ElseIf columnIndex = 11 Then
+                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(11).Value.ToString)
                 Dim hargaSatuan As Integer = priceNetto + (priceNetto * (profit / 100))
-                dataGridView1.Rows(rowIndex).Cells(9).Value = hargaSatuan
+                dataGridView1.Rows(rowIndex).Cells(10).Value = hargaSatuan
             End If
-        ElseIf columnIndex = 12 Or columnIndex = 13 Then
-            If columnIndex = 12 Then
-                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(12).Value.ToString)
+        ElseIf columnIndex = 13 Or columnIndex = 14 Then
+            If columnIndex = 13 Then
+                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(13).Value.ToString)
 
                 Dim profit = ((hargaSatuan - priceNetto) / priceNetto) * 100
-                dataGridView1.Rows(rowIndex).Cells(13).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
-            ElseIf columnIndex = 13 Then
-                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(13).Value.ToString)
+                dataGridView1.Rows(rowIndex).Cells(14).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
+            ElseIf columnIndex = 14 Then
+                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(14).Value.ToString)
                 Dim hargaSatuan As Integer = priceNetto + (priceNetto * (profit / 100))
-                dataGridView1.Rows(rowIndex).Cells(12).Value = hargaSatuan
+                dataGridView1.Rows(rowIndex).Cells(13).Value = hargaSatuan
             End If
-        ElseIf columnIndex = 15 Or columnIndex = 16 Then
-            If columnIndex = 15 Then
-                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(15).Value.ToString)
+        ElseIf columnIndex = 16 Or columnIndex = 17 Then
+            If columnIndex = 16 Then
+                Dim hargaSatuan As Integer = Integer.Parse(dataGridView1.Rows(rowIndex).Cells(16).Value.ToString)
 
                 Dim profit = ((hargaSatuan - priceNetto) / priceNetto) * 100
-                dataGridView1.Rows(rowIndex).Cells(16).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
-            ElseIf columnIndex = 16 Then
-                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(16).Value.ToString)
+                dataGridView1.Rows(rowIndex).Cells(17).Value = Math.Round(profit, 2, MidpointRounding.AwayFromZero)
+            ElseIf columnIndex = 17 Then
+                Dim profit As Double = Double.Parse(dataGridView1.Rows(rowIndex).Cells(17).Value.ToString)
                 Dim hargaSatuan As Integer = priceNetto + (priceNetto * (profit / 100))
-                dataGridView1.Rows(rowIndex).Cells(15).Value = hargaSatuan
+                dataGridView1.Rows(rowIndex).Cells(16).Value = hargaSatuan
             End If
         End If
 
@@ -236,20 +241,20 @@ Public Class markup
         For i = 0 To rows.Count - 1
             noFaktur = rows(i).Cells(1).Value.ToString
             Dim idBarang = rows(i).Cells(2).Value.ToString
-            Dim hargaSatuan = rows(i).Cells(6).Value.ToString
-            Dim qty2 = rows(i).Cells(8).Value.ToString
-            Dim hargaJual2 = rows(i).Cells(9).Value.ToString
-            Dim qty3 = rows(i).Cells(11).Value.ToString
-            Dim hargaJual3 = rows(i).Cells(12).Value.ToString
-            Dim qty4 = rows(i).Cells(14).Value.ToString
-            Dim hargaJual4 = rows(i).Cells(15).Value.ToString
+            Dim hargaSatuan = rows(i).Cells(7).Value.ToString
+            Dim qty2 = rows(i).Cells(9).Value.ToString
+            Dim hargaJual2 = rows(i).Cells(10).Value.ToString
+            Dim qty3 = rows(i).Cells(12).Value.ToString
+            Dim hargaJual3 = rows(i).Cells(13).Value.ToString
+            Dim qty4 = rows(i).Cells(15).Value.ToString
+            Dim hargaJual4 = rows(i).Cells(16).Value.ToString
             'pembelian_detail.qty,pembelian_detail.ppn,pembelian_detail.discount,pembelian_detail.price,pembelian_detail_price_netto
 
-            Dim qty = rows(i).Cells(17).Value.ToString
-            Dim ppn = rows(i).Cells(18).Value.ToString
-            Dim discount = rows(i).Cells(19).Value.ToString
-            Dim price = rows(i).Cells(20).Value.ToString
-            Dim priceNetto = rows(i).Cells(21).Value.ToString
+            Dim qty = rows(i).Cells(18).Value.ToString
+            Dim ppn = rows(i).Cells(19).Value.ToString
+            Dim discount = rows(i).Cells(20).Value.ToString
+            Dim price = rows(i).Cells(21).Value.ToString
+            Dim priceNetto = rows(i).Cells(22).Value.ToString
             newConnect.ExecuteNonQuery("Update barang Set harga_jual1 = '" & hargaSatuan & "',harga_jual2 = '" & hargaJual2 & "', harga_jual3 = '" & hargaJual3 & "',harga_jual4 = '" & hargaJual4 & "',ppn = '" & ppn & "',discount = '" & discount & "',stok_gudang = stok_gudang+" & qty & ",harga_beli='" & price & "',harga_beli_netto='" & priceNetto & "',qty2 = '" & qty2 & "',qty3='" & qty3 & "',qty4='" & qty4 & "' WHERE id_barang = " & idBarang)
         Next
         newConnect.ExecuteNonQuery("Update pembelian Set status = 'mark_up' WHERE no_faktur = " & noFaktur)
@@ -271,7 +276,4 @@ Public Class markup
 
     End Sub
 
-    Private Sub markup_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class
