@@ -57,7 +57,6 @@ D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.Login.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.main.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.markup.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.Resources.resources
-D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.pembelian1.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.penjualan.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.popup_faktur.resources
 D:\Minimarket\Minimarket\obj\x86\Debug\Minimarket.popup_supplier.resources

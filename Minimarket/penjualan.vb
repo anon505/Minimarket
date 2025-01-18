@@ -19,7 +19,7 @@ Public Class penjualan
     Dim debounceSubject As DebounceDispatcher
     Private Sub loadTable()
         Try
-            Dim ds = newConnect.ExecuteReader("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at asc")
+            Dim ds = newConnect.ExecuteReader("select id_transaksi_detail,barcode,nama_barang,harga,qty,jumlah,stok,updated_at from ds_transaksi_penjualan where id_transaksi='" & lblIdTransaksi.Text & "' order by updated_at desc")
 
             dataGridView1.AutoGenerateColumns = True
             dataGridView1.DataSource = ds
@@ -71,7 +71,6 @@ Public Class penjualan
             textPLU.Select()
 
             textPLU.Focus()
-            dataGridView1.FirstDisplayedScrollingRowIndex = dataGridView1.Rows.Count - 1
         Catch ex As Exception
 
         End Try
@@ -162,14 +161,22 @@ Public Class penjualan
         End Try
         
     End Sub
-    Private Function getIdDariTabel() As String
+    Private Function getIdDariTabel(ByVal isNeedDelete As Boolean) As String
         Dim idTransaksiDetail = ""
         If dataGridView1.SelectedRows.Count > 0 Then
             idTransaksiDetail = dataGridView1.SelectedRows(0).Cells(0).Value.ToString
+            If (isNeedDelete) Then
+                dataGridView1.Rows.RemoveAt(0)
+            End If
+
         Else
             Dim lastRow = dataGridView1.Rows.Count - 1
             If lastRow >= 0 Then
                 idTransaksiDetail = dataGridView1.Rows(lastRow).Cells(0).Value.ToString
+                If isNeedDelete Then
+                    dataGridView1.Rows.RemoveAt(lastRow)
+                End If
+
             End If
 
         End If
@@ -190,10 +197,10 @@ Public Class penjualan
         Return barcodeTransaksiDetail
     End Function
     Private Sub deleteTransaksiDetail()
-
-        If getIdDariTabel() IsNot "" Then
-            newConnect.ExecuteNonQuery("DELETE from transaksi_detail WHERE id_transaksi_detail = " & getIdDariTabel())
-            loadTable()
+        Dim idDariTable = getIdDariTabel(True)
+        If idDariTable IsNot "" Then
+            newConnect.ExecuteNonQuery("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idDariTable)
+            
         End If
 
     End Sub
@@ -455,9 +462,6 @@ Public Class penjualan
                                                                 Replace(",", "").
                                                                 Replace(".", "") & "',created_at = now() WHERE id_mutasi = " & idMutasi.ToString)
         End If
-        'initializeForm()
-        'lblIdTransaksi.Text = getIdTransaksi(Module1.id_kasir)
-        'loadTable()
     End Sub
 
     Private Sub returTransaksi(ByVal nominalKembalian As Integer)
@@ -535,8 +539,6 @@ Public Class penjualan
             list_barang.koreksiStok = Nothing
             list_barang.txtcari.Text = ""
             list_barang.Show()
-            'newConnect.ExecuteNonQuery("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text)
-            'loadTable()
 
         End If
         If e.KeyCode = Keys.End Then
@@ -562,7 +564,8 @@ Public Class penjualan
             e.Handled = True
         End If
         If e.KeyCode = Keys.Enter Then
-            If getIdDariTabel() IsNot "" Then
+            Dim idDariTabel = getIdDariTabel(False)
+            If idDariTabel.ToString IsNot "" Then
                 inputUpdateBarang("setvalue", getBarcodeDariTabel, Integer.Parse(textQty.Text))
                 toggleQty()
 

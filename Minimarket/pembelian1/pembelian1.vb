@@ -34,7 +34,7 @@ Public Class pembelian1
     End Sub
     Private Sub textPLU_KeyPress(ByVal sender As Object, ByVal e As KeyPressEventArgs) Handles textPLU.KeyPress
         Dim ascChar As Integer = Asc(e.KeyChar)
-
+    
         If ascChar = 13 Then
             Console.WriteLine("tes")
             inputUpdateBarang(textPLU.Text)
@@ -79,7 +79,7 @@ Public Class pembelian1
             textPLU.Focus()
             inputUpdateBarang(barcode)
         End If
-
+        
 
     End Sub
 
@@ -430,7 +430,7 @@ Public Class pembelian1
         Catch ex As Exception
 
         End Try
-
+       
 
     End Sub
 
@@ -466,7 +466,7 @@ Public Class pembelian1
                                 Replace(",", "")) * priceNetto).ToString
     End Sub
     Private Sub refreshCalculate()
-
+       
         Dim grandTotal = 0
         For i = 0 To dataGridView1.Rows.Count - 1
             Dim subTotal = Integer.Parse(dataGridView1.Rows(i).Cells(17).Value.
@@ -479,7 +479,7 @@ Public Class pembelian1
     Private Sub dataGridView1_CellEndEdit(ByVal sender As Object, ByVal e As DataGridViewCellEventArgs) Handles dataGridView1.CellValueChanged
         '6(qty), 9(harga), 11(ppn), 13(discount)
         Try
-
+            
             If e.RowIndex >= 0 And e.ColumnIndex >= 1 Then
                 If e.ColumnIndex = 5 Then
                     newConnect.ExecuteNonQuery("UPDATE barang Set nama_barang = '" & dataGridView1.Rows(e.RowIndex).Cells(e.ColumnIndex).Value.ToString & "' WHERE id_barang = '" &
@@ -646,7 +646,7 @@ Public Class pembelian1
             End If
 
         End If
-
+      
 
     End Sub
     Private Sub fakturBaru()
