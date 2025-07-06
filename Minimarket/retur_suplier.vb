@@ -102,15 +102,15 @@ Public Class retur_suplier
 
     Private Sub penjualan_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.F11 Then
-            list_barang.frmReturSuplier = Me
-            list_barang.frmPenjualan = Nothing
-            list_barang.frmPembelian = Nothing
-            list_barang.koreksiStok = Nothing
-            list_barang.txtcari.Text = ""
-            list_barang.Show()
-            'newConnect.ExecuteNonQuery("update transaksi_detail set qty=CASE WHEN qty > 0 THEN 0 - qty ELSE qty END where id_transaksi=" & lblIdTransaksi.Text)
-            'loadTable()
-
+            
+            main.listBarangForm.frmReturSuplier = Me
+            main.listBarangForm.frmPenjualan = Nothing
+            main.listBarangForm.frmPembelian = Nothing
+            main.listBarangForm.koreksiStok = Nothing
+            main.listBarangForm.txtcari.Text = ""
+            main.listBarangForm.WindowState = FormWindowState.Normal
+            main.listBarangForm.Show()
+            main.listBarangForm.BringToFront()
         End If
     End Sub
     Private Sub inputReturBarang(ByVal barcode As String, ByVal qty As Integer)

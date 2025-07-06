@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports MySql.Data.MySqlClient
 Public Class main
-
+    Public listBarangForm As New list_barang()
     Public Sub konekbuka()
         Dim strdriverodbc As New String(Space(255))
         Try

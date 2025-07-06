@@ -161,46 +161,36 @@ Public Class penjualan
         End Try
         
     End Sub
-    Private Function getIdDariTabel(ByVal isNeedDelete As Boolean) As String
+    Private Function getIdFromCell(ByVal isNeedDelete As Boolean) As String
         Dim idTransaksiDetail = ""
-        If dataGridView1.SelectedRows.Count > 0 Then
-            idTransaksiDetail = dataGridView1.SelectedRows(0).Cells(0).Value.ToString
+        If dataGridView1.CurrentCell IsNot Nothing Then
+            Dim selectedRow As DataGridViewRow = dataGridView1.CurrentCell.OwningRow
+            idTransaksiDetail = selectedRow.Cells(0).Value.ToString
             If (isNeedDelete) Then
-                dataGridView1.Rows.RemoveAt(0)
+                dataGridView1.Rows.RemoveAt(selectedRow.Index)
             End If
-
-        Else
-            Dim lastRow = dataGridView1.Rows.Count - 1
-            If lastRow >= 0 Then
-                idTransaksiDetail = dataGridView1.Rows(lastRow).Cells(0).Value.ToString
-                If isNeedDelete Then
-                    dataGridView1.Rows.RemoveAt(lastRow)
-                End If
-
-            End If
-
         End If
+
         Return idTransaksiDetail
     End Function
+ 
     Private Function getBarcodeDariTabel() As String
-        Dim barcodeTransaksiDetail = ""
-        If dataGridView1.SelectedRows.Count > 0 Then
-            barcodeTransaksiDetail = dataGridView1.SelectedRows(0).Cells(1).Value.ToString
-        Else
-            Try
-                barcodeTransaksiDetail = dataGridView1.Rows(0).Cells(1).Value.ToString
-            Catch ex As Exception
-                barcodeTransaksiDetail = ""
-            End Try
+
+        Dim barcode = ""
+        If dataGridView1.CurrentCell IsNot Nothing Then
+            Dim selectedRow As DataGridViewRow = dataGridView1.CurrentCell.OwningRow
+            barcode = selectedRow.Cells(1).Value.ToString
 
         End If
-        Return barcodeTransaksiDetail
+
+        Return barcode
     End Function
     Private Sub deleteTransaksiDetail()
-        Dim idDariTable = getIdDariTabel(True)
+        Dim idDariTable = getIdFromCell(True)
         If idDariTable IsNot "" Then
             newConnect.ExecuteNonQuery("DELETE from transaksi_detail WHERE id_transaksi_detail = " & idDariTable)
-            
+            loadTable()
+
         End If
 
     End Sub
@@ -491,6 +481,7 @@ Public Class penjualan
         If Not textBayarString = "" Then
             textBayar.Text = Format(Integer.Parse(textBayarString.Replace(",", "").Replace(".", "")), "#,0;-#,0")
             lblBayar.Text = textBayar.Text
+            labelTotalBig.Text = textBayar.Text
             textBayar.SelectionStart = textBayar.Text.Length
             textBayar.SelectionLength = 0
         End If
@@ -533,12 +524,14 @@ Public Class penjualan
             pendingTransaksi()
         End If
         If e.KeyCode = Keys.F11 Then
-            list_barang.frmPenjualan = Me
-            list_barang.frmReturSuplier = Nothing
-            list_barang.frmPembelian = Nothing
-            list_barang.koreksiStok = Nothing
-            list_barang.txtcari.Text = ""
-            list_barang.Show()
+            main.listBarangForm.frmPenjualan = Me
+            main.listBarangForm.frmReturSuplier = Nothing
+            main.listBarangForm.frmPembelian = Nothing
+            main.listBarangForm.koreksiStok = Nothing
+            main.listBarangForm.txtcari.Text = ""
+            main.listBarangForm.WindowState = FormWindowState.Normal
+            main.listBarangForm.Show()
+            main.listBarangForm.BringToFront()
 
         End If
         If e.KeyCode = Keys.End Then
@@ -564,7 +557,7 @@ Public Class penjualan
             e.Handled = True
         End If
         If e.KeyCode = Keys.Enter Then
-            Dim idDariTabel = getIdDariTabel(False)
+            Dim idDariTabel = getIdFromCell(False)
             If idDariTabel.ToString IsNot "" Then
                 inputUpdateBarang("setvalue", getBarcodeDariTabel, Integer.Parse(textQty.Text))
                 toggleQty()

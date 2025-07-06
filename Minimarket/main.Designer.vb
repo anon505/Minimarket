@@ -202,7 +202,7 @@ Partial Class main
         '
         Me.ReturCustomerMenu.Name = "ReturCustomerMenu"
         Me.ReturCustomerMenu.Size = New System.Drawing.Size(267, 28)
-        Me.ReturCustomerMenu.Text = "Ke Customer"
+        Me.ReturCustomerMenu.Text = "Dari Customer"
         '
         'ReturPembelianMenu
         '

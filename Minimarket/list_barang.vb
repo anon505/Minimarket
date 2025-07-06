@@ -49,7 +49,7 @@ Public Class list_barang
                     Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
                     frmReturSuplier.setPLU(barcode)
                 End If
-                Close()
+                closePage()
             End If
             If Not (frmPenjualan Is Nothing) Then
                 Dim cellSelect = DataGridView1.SelectedCells
@@ -59,7 +59,7 @@ Public Class list_barang
                     Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
                     frmPenjualan.setPLU(barcode)
                 End If
-                Close()
+                closePage()
             End If
 
             If Not (frmPembelian Is Nothing) Then
@@ -70,7 +70,7 @@ Public Class list_barang
                     Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
                     frmPembelian.setPLU(barcode)
                 End If
-                Close()
+                closePage()
             End If
 
             If Not (koreksiStok Is Nothing) Then
@@ -81,7 +81,7 @@ Public Class list_barang
                     Dim barcode = DataGridView1.Rows(cellSelect(0).RowIndex).Cells(0).Value.ToString
                     koreksiStok.setPLU(barcode)
                 End If
-                Close()
+                closePage()
             End If
         End If
         e.Handled = False
@@ -128,6 +128,14 @@ Public Class list_barang
             End If
         End If
 
-        Close()
+        closePage()
+    End Sub
+    Private Sub closePage()
+        main.listBarangForm.frmPenjualan = Nothing
+        main.listBarangForm.frmReturSuplier = Nothing
+        main.listBarangForm.frmPembelian = Nothing
+        main.listBarangForm.koreksiStok = Nothing
+        main.listBarangForm.txtcari.Text = ""
+        main.listBarangForm.WindowState = FormWindowState.Minimized    ' Make sure it's not minimized
     End Sub
 End Class

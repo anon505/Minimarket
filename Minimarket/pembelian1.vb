@@ -446,6 +446,15 @@ Public Class pembelian1
         dataGridView1.SuspendLayout()
         loadTable()
         dataGridView1.ResumeLayout(False)
+        If dataGridView1.RowCount > 0 AndAlso dataGridView1.ColumnCount > 0 Then
+            Dim lastRowIndex As Integer = dataGridView1.RowCount - 1
+
+            ' Select bottom-left cell (last row, first column)
+            dataGridView1.CurrentCell = dataGridView1.Rows(lastRowIndex).Cells(0)
+
+            ' Optional: scroll to make sure it is visible
+            dataGridView1.FirstDisplayedScrollingRowIndex = lastRowIndex
+        End If
     End Sub
     Private Sub updateRowIndex(ByVal rowIndex As Integer)
         Dim pembelianDetailReaders = newConnect.ExecuteReader("SELECT * from pembelian_detail WHERE id_pembelian_detail='" & dataGridView1.Rows(rowIndex).Cells(1).Value.ToString & "'")
@@ -667,30 +676,33 @@ Public Class pembelian1
     End Sub
     Private Function getIdDariTabel() As String
         Dim idTransaksiDetail = ""
-        If dataGridView1.SelectedRows.Count > 0 Then
-            idTransaksiDetail = dataGridView1.SelectedRows(0).Cells(1).Value.ToString
-        Else
-            Dim lastRow = dataGridView1.Rows.Count - 1
-            If lastRow >= 0 Then
-                idTransaksiDetail = dataGridView1.Rows(lastRow).Cells(1).Value.ToString
-            End If
-
+        If dataGridView1.CurrentCell IsNot Nothing Then
+            Dim selectedRow As DataGridViewRow = dataGridView1.CurrentCell.OwningRow
+            idTransaksiDetail = selectedRow.Cells(1).Value.ToString
         End If
+
         Return idTransaksiDetail
+
     End Function
     Private Sub pembelian_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.KeyCode = Keys.Insert Then
+            textPLU.Focus()
+
+        End If
 
         If e.KeyCode = Keys.Delete Then
             deleteTransaksiDetail()
         End If
         If e.KeyCode = Keys.F11 Then
-            list_barang.frmPembelian = Me
-            list_barang.frmReturSuplier = Nothing
-            list_barang.frmPenjualan = Nothing
-            list_barang.koreksiStok = Nothing
-            list_barang.txtcari.Text = ""
-            list_barang.Show()
-
+           
+            main.listBarangForm.frmPembelian = Me
+            main.listBarangForm.frmReturSuplier = Nothing
+            main.listBarangForm.frmPenjualan = Nothing
+            main.listBarangForm.koreksiStok = Nothing
+            main.listBarangForm.txtcari.Text = ""
+            main.listBarangForm.WindowState = FormWindowState.Normal
+            main.listBarangForm.Show()
+            main.listBarangForm.BringToFront()
         End If
     End Sub
     Private Sub deleteTransaksiDetail()

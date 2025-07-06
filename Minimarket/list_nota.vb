@@ -5,7 +5,7 @@ Imports System.Globalization
 Public Class list_nota
     Public frmPenjualan As penjualan
     Public Sub view()
-        Dim ds = newConnect.ExecuteReader("select no_transaksi,waktu from transaksi  where status='done' or status='retur'")
+        Dim ds = newConnect.ExecuteReader("select no_transaksi,waktu from transaksi  where status='done' or status='retur'  order by waktu desc")
         DataGridView1.DataSource = ds
         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         DataGridView1.ReadOnly = True

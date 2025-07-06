@@ -75,6 +75,9 @@ Public Class Login
                     main.KadaluarsaToolStripMenuItem.Enabled = False
                     Me.Close()
                 End If
+                main.listBarangForm.MdiParent = main
+                main.listBarangForm.WindowState = FormWindowState.Minimized  ' Make sure it's not minimized
+                main.listBarangForm.Show()
             Else
                 MsgBox("Akun anda untuk sementara TIDAK AKTIF, silahkan hubungi Administrator", MsgBoxStyle.OkOnly)
             End If
