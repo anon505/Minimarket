@@ -129,7 +129,7 @@ Module koneksidb
             ElseIf bagian = "[mysqld]" Or bagian = "[server]" Or bagian = "[mariadb]" Then
                 If Regex.IsMatch(isi, "^bind[-_]address\s*=\s*""?(127\.0\.0\.1|localhost|::1)""?\s*$", RegexOptions.IgnoreCase) _
                     Or Regex.IsMatch(isi, "^skip[-_]networking\b", RegexOptions.IgnoreCase) Then
-                    baris(i) = "# " + baris(i) + "   # dinonaktifkan oleh setup Minimarket"
+                    baris(i) = "# " + baris(i) + "   # dinonaktifkan oleh setup BetterMoney POS"
                     diubah = True
                 End If
             End If

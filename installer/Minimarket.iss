@@ -1,6 +1,6 @@
-; Installer Minimarket (Inno Setup 6)
+; Installer System POS (Point Of Sale) (Inno Setup 6)
 ; Build: ISCC.exe installer\Minimarket.iss  (setelah build Release & unduh MSI MariaDB ke installer\redist)
-; Logika database dijalankan Minimarket.exe (mode --cek-mysql / --setup-server / --setup-client, lihat modesetup.vb)
+; Logika database dijalankan POS_BetterMoney.exe (mode --cek-mysql / --setup-server / --setup-client, lihat modesetup.vb)
 
 #ifndef AppVersion
   #define AppVersion "1.0.0"
@@ -8,21 +8,26 @@
 #ifndef MariaDBMsi
   #define MariaDBMsi "mariadb-11.8.9-winx64.msi"
 #endif
-#define AppExe "Minimarket.exe"
-#define FirewallRule "Minimarket Database"
+#define AppName "System POS (Point Of Sale)"
+#define AppShortName "System POS"
+#define AppExe "POS_BetterMoney.exe"
+#define FirewallRule "BetterMoney POS Database"
+#define NamaDatabase "bettermoney_pos"
 
 [Setup]
 AppId={{8C1F5E2A-6B7D-4C3E-9A1F-2D5B7E9C4A10}
-AppName=Minimarket
+AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher=BetterMoney
-DefaultDirName={autopf}\Minimarket
-DefaultGroupName=Minimarket
+DefaultDirName={autopf}\BetterMoney
+; selalu tawarkan folder BetterMoney, bukan folder instalasi lama dengan AppId yang sama
+UsePreviousAppDir=no
+DefaultGroupName={#AppShortName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=admin
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir=..\dist
-OutputBaseFilename=MinimarketSetup-{#AppVersion}
+OutputBaseFilename=SystemPOS-Setup-{#AppVersion}
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -37,7 +42,7 @@ Name: "desktopicon"; Description: "Buat shortcut di Desktop"
 
 [Dirs]
 ; koneksi.txt & config.txt (lihat Module1.lokasifile) harus bisa ditulis user biasa
-Name: "{commonappdata}\Minimarket"; Permissions: users-modify; Flags: uninsneveruninstall
+Name: "{commonappdata}\BetterMoney"; Permissions: users-modify; Flags: uninsneveruninstall
 
 [Files]
 Source: "..\Minimarket\bin\Release\*"; DestDir: "{app}"; Excludes: "*.pdb,*.xml,*.vshost.*"; Flags: ignoreversion
@@ -46,11 +51,11 @@ Source: "..\logoku.jpg"; DestDir: "{app}"; Flags: ignoreversion
 Source: "redist\{#MariaDBMsi}"; Flags: dontcopy
 
 [Icons]
-Name: "{autoprograms}\Minimarket"; Filename: "{app}\{#AppExe}"
-Name: "{autodesktop}\Minimarket"; Filename: "{app}\{#AppExe}"; Tasks: desktopicon
+Name: "{autoprograms}\{#AppShortName}"; Filename: "{app}\{#AppExe}"
+Name: "{autodesktop}\{#AppShortName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#AppExe}"; Description: "Jalankan Minimarket"; Flags: postinstall nowait skipifsilent
+Filename: "{app}\{#AppExe}"; Description: "Jalankan {#AppShortName}"; Flags: postinstall nowait skipifsilent
 
 [Code]
 var
@@ -78,7 +83,7 @@ function InitializeSetup: Boolean;
 begin
   Result := DotNet48Terpasang;
   if not Result then
-    MsgBox('Minimarket membutuhkan .NET Framework 4.8.' + #13#10 +
+    MsgBox('{#AppName} membutuhkan .NET Framework 4.8.' + #13#10 +
       'Pasang dari https://dotnet.microsoft.com/download/dotnet-framework/net48 lalu jalankan installer ini lagi.',
       mbCriticalError, MB_OK);
 end;
@@ -114,7 +119,7 @@ begin
   Result := False;
 end;
 
-// Minimarket.exe disalin sementara ke folder tmp agar bisa dipakai mengecek koneksi sebelum instalasi.
+// {#AppExe} disalin sementara ke folder tmp agar bisa dipakai mengecek koneksi sebelum instalasi.
 // ExtractTemporaryFiles menaruh file di {tmp}\{app}\ (folder bernama "{app}" apa adanya, bukan path instalasi)
 function AppSementara: String;
 begin
@@ -126,7 +131,7 @@ begin
   Result := ExpandConstant('{tmp}\') + '{app}\{#AppExe}';
 end;
 
-{ Jalankan Minimarket.exe <Mode> <file.ini>. Isi berisi baris key=value (termasuk password);
+{ Jalankan {#AppExe} <Mode> <file.ini>. Isi berisi baris key=value (termasuk password);
   file ini dihapus aplikasi setelah dibaca. Hasil: exit code (-1 jika exe tidak bisa dijalankan),
   Pesan = isi <file.ini>.hasil }
 function JalankanApp(Exe, Mode: String; Isi: TStringList; var Pesan: String): Integer;
@@ -160,7 +165,7 @@ begin
   DeleteFile(Ini);
   DeleteFile(Ini + '.hasil');
   if (Kode <> 0) and (Pesan = '') then
-    Pesan := 'Minimarket.exe berhenti dengan kode ' + IntToStr(Kode) + '.';
+    Pesan := '{#AppExe} berhenti dengan kode ' + IntToStr(Kode) + '.';
   Result := Kode;
 end;
 
@@ -185,14 +190,14 @@ begin
   ServerDbPage.Values[0] := '3306';
 
   ServerAppPage := CreateInputQueryPage(ServerDbPage.ID,
-    'Akun Aplikasi', 'User database untuk aplikasi Minimarket',
-    'User ini dipakai aplikasi di komputer server dan semua komputer kasir. ' +
-    'Catat username dan password ini untuk memasang client.');
+    'Akun Aplikasi', 'User database untuk aplikasi {#AppShortName}',
+    'User ini dipakai aplikasi di komputer server dan semua komputer kasir untuk terhubung ke database. ' +
+    'Catat username dan password ini untuk memasang client. Akun ini terpisah dari akun login aplikasi.');
   ServerAppPage.Add('Username aplikasi:', False);
   ServerAppPage.Add('Password aplikasi:', True);
   ServerAppPage.Add('Ulangi password aplikasi:', True);
   ServerAppPage.Add('Nama toko:', False);
-  ServerAppPage.Values[0] := 'minimarket';
+  ServerAppPage.Values[0] := 'superadmin';
 
   ClientPage := CreateInputQueryPage(ModePage.ID,
     'Koneksi ke Server', 'Data komputer server',
@@ -204,7 +209,7 @@ begin
   ClientPage.Add('Password aplikasi:', True);
   ClientPage.Add('Nama toko:', False);
   ClientPage.Values[1] := '3306';
-  ClientPage.Values[2] := 'minimarket';
+  ClientPage.Values[2] := 'superadmin';
 
   ProgresPage := CreateOutputProgressPage('Memasang Database', 'Mohon tunggu, proses ini bisa memakan beberapa menit.');
 end;
@@ -267,7 +272,11 @@ begin
   else if Kode = 2 then
   begin
     MySQLSudahAda := False;
-    if RegKeyExists(HKLM, 'SYSTEM\CurrentControlSet\Services\MariaDB') then
+    { MSI MariaDB 10.5+ hanya bisa dipasang di Windows 10 / Server 2016 ke atas }
+    if (GetWindowsVersion shr 24) < 10 then
+      Result := Gagal('MariaDB membutuhkan Windows 10 / Windows Server 2016 atau lebih baru.' + #13#10 +
+        'Pakai komputer lain sebagai Server, atau pasang MySQL/MariaDB sendiri lalu isi password root-nya di sini.')
+    else if RegKeyExists(HKLM, 'SYSTEM\CurrentControlSet\Services\MariaDB') then
       Result := Gagal('Service MariaDB sudah terpasang tetapi tidak berjalan di port ' + Port + '.' + #13#10 +
         'Jalankan service MariaDB (services.msc) atau periksa port, lalu klik Next lagi.');
   end
@@ -326,7 +335,7 @@ begin
     Isi.Add('port=' + Trim(ClientPage.Values[1]));
     Isi.Add('user=' + Trim(ClientPage.Values[2]));
     Isi.Add('password=' + ClientPage.Values[3]);
-    Isi.Add('database=minimarket');
+    Isi.Add('database={#NamaDatabase}');
     Kode := JalankanApp(AppSementara, '--cek-mysql', Isi, Pesan);
   finally
     Isi.Free;
@@ -390,7 +399,7 @@ begin
   try
     Isi.Add('port=' + Port);
     Isi.Add('rootpassword=' + ServerDbPage.Values[1]);
-    Isi.Add('database=minimarket');
+    Isi.Add('database={#NamaDatabase}');
     Isi.Add('appuser=' + ServerAppPage.Values[0]);
     Isi.Add('apppassword=' + ServerAppPage.Values[1]);
     Isi.Add('namatoko=' + Trim(ServerAppPage.Values[3]));
@@ -427,7 +436,7 @@ begin
   try
     Isi.Add('host=' + Trim(ClientPage.Values[0]));
     Isi.Add('port=' + Trim(ClientPage.Values[1]));
-    Isi.Add('database=minimarket');
+    Isi.Add('database={#NamaDatabase}');
     Isi.Add('appuser=' + Trim(ClientPage.Values[2]));
     Isi.Add('apppassword=' + ClientPage.Values[3]);
     Isi.Add('namatoko=' + Trim(ClientPage.Values[4]));

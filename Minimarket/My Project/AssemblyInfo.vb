@@ -10,10 +10,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Minimarket")> 
+<Assembly: AssemblyTitle("System POS")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("BetterMoney")> 
-<Assembly: AssemblyProduct("Minimarket")> 
+<Assembly: AssemblyProduct("System POS (Point Of Sale)")> 
 <Assembly: AssemblyCopyright("Copyright ©  2013")> 
 <Assembly: AssemblyTrademark("")> 
 

@@ -10,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>Minimarket.My.MyApplication</StartupObject>
     <RootNamespace>Minimarket</RootNamespace>
-    <AssemblyName>Minimarket</AssemblyName>
+    <AssemblyName>POS_BetterMoney</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>

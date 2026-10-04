@@ -1,6 +1,6 @@
 # Minimarket — Project Context
 
-Aplikasi desktop Point-of-Sale (kasir) + manajemen stok minimarket. Proyek lama (dump DB 2013, dulu "Minimarket by Um@m Corporation"), di-upgrade ke .NET Framework 4.8. Branding sekarang: judul jendela utama **"System POS by BetterMoney"**, publisher/company **BetterMoney**.
+Aplikasi desktop Point-of-Sale (kasir) + manajemen stok minimarket. Proyek lama (dump DB 2013, dulu "Minimarket by Um@m Corporation"), di-upgrade ke .NET Framework 4.8. Branding sekarang: nama produk **"System POS (Point Of Sale)"** (singkat "System POS": shortcut, AssemblyTitle), judul jendela utama **"System POS by BetterMoney"**, publisher/company **BetterMoney**. Nama teknis: exe `POS_BetterMoney.exe` (AssemblyName), folder `Program Files\BetterMoney` & `ProgramData\BetterMoney`, database `bettermoney_pos`, user database bawaan installer `superadmin` (terpisah dari akun login aplikasi `superadmin` di tabel `kasir`), firewall rule "BetterMoney POS Database". Solution/project/RootNamespace tetap `Minimarket` (resource `.rdlc` = `Minimarket.<nama>.rdlc`). Tidak ada migrasi dari nama lama (Minimarket) — sengaja.
 
 ## Stack
 
@@ -18,9 +18,9 @@ Tiap form = `nama.vb` (logic) + `nama.Designer.vb` (UI generated, jangan edit ma
 
 | File | Peran |
 |---|---|
-| `Module1.vb` | Global state: `konek` (MySqlConnection tunggal, dibuka sekali), `id_kasir`, `hak_akses`, `pathlogo`, `namatoko` (semua `String`). `lokasifile(nama)` → path di `%ProgramData%\Minimarket` |
+| `Module1.vb` | Global state: `konek` (MySqlConnection tunggal, dibuka sekali), `id_kasir`, `hak_akses`, `pathlogo`, `namatoko` (semua `String`). `lokasifile(nama)` → path di `%ProgramData%\BetterMoney` |
 | `koneksidb.vb` | Logika koneksi tanpa UI (dipakai app & nanti installer): `buatkoneksi()`, `cekkoneksi()` (TCP 3s lalu login MySQL tanpa pooling, pesan error per penyebab), `siapkanserver()` (buat DB, import dump jika kosong, user app `'%'`+`'localhost'`), `izinkanjaringan(my.ini)` |
-| `logotoko.vb` | `buatlogo(namatoko, folder)` → PNG 600x300 nama toko di `%ProgramData%\Minimarket\logotoko-<waktu>.png` (nama unik karena `Bitmap.FromFile` mengunci file lama). `logobuatan(path)`, `hapuslogolama(folder, dipakai)` |
+| `logotoko.vb` | `buatlogo(namatoko, folder)` → PNG 600x300 nama toko di `%ProgramData%\BetterMoney\logotoko-<waktu>.png` (nama unik karena `Bitmap.FromFile` mengunci file lama). `logobuatan(path)`, `hapuslogolama(folder, dipakai)` |
 | `main.vb` | MDI parent, startup form (`My Project/Application.myapp` → `MainForm=main`). `konekbuka()` buka koneksi, baca `config.txt`, buka form anak via MenuStrip |
 | `Login.vb` | Login: cek `kasir` by `type` + nama + password, lalu cek `status='Aktif'`. Enable/disable menu sesuai role |
 | `cpanel.vb` | "Konfigurasi": simpan `koneksi.txt` & `config.txt`, tombol Tes Koneksi (`Button4` → `lblstatus`), backup/restore DB via `mysql.exe`/`mysqldump.exe` |
@@ -34,12 +34,12 @@ Tiap form = `nama.vb` (logic) + `nama.Designer.vb` (UI generated, jangan edit ma
 | `cetak.vb` | "Laporan": laporan harian per kasir per tanggal, Penjualan (`penjualan.rdlc` ← `DataTable1`) / Pembelian (`pembelian.rdlc` ← `DataTable2`) |
 | `chat.vb` | "Obrolan": chat sederhana antar user lewat tabel `obrolan`, Timer auto-refresh |
 | `minimarketds.xsd` / `.Designer.vb` | Typed DataSet **hanya skema** (DataTable `nota`, `DataTable1`, `DataTable2`, tanpa TableAdapter). Query report ada di `formnota.vb`/`cetak.vb`. Kolom SELECT harus cocok dengan kolom DataTable & `<DataField>` di `.rdlc` |
-| `modesetup.vb` + `My Project/ApplicationEvents.vb` | Mode command-line untuk installer: `Minimarket.exe --cek-mysql\|--setup-server\|--setup-client <file.ini>` (tanpa form). Exit code 0 sukses / 1 gagal / 2 port tertutup; pesan di `<file.ini>.hasil`; file ini (berisi password) dihapus setelah dibaca |
+| `modesetup.vb` + `My Project/ApplicationEvents.vb` | Mode command-line untuk installer: `POS_BetterMoney.exe --cek-mysql\|--setup-server\|--setup-client <file.ini>` (tanpa form). Exit code 0 sukses / 1 gagal / 2 port tertutup; pesan di `<file.ini>.hasil`; file ini (berisi password) dihapus setelah dibaca |
 | `../minimarket_db.sql` | Dump schema + seed data (phpMyAdmin, MySQL 5.5). Di-import otomatis oleh setup server jika DB kosong |
-| `../installer/Minimarket.iss` | Installer Inno Setup 6: pilih Server/Client |
+| `../installer/Minimarket.iss` | Installer Inno Setup 6: pilih Server/Client. Output `dist/SystemPOS-Setup-<versi>.exe` |
 | `../.github/workflows/build-installer.yml` | CI Windows: msbuild Release x86 → unduh MSI MariaDB (cek SHA256) → ISCC → artifact `dist/*.exe` |
 
-## Database `minimarket`
+## Database `bettermoney_pos`
 
 Tanpa foreign key constraint (relasi hanya konvensi). Engine InnoDB, latin1.
 
@@ -67,7 +67,7 @@ Password bawaan = konstanta `PASSWORDBAWAAN` (`Module1.vb`). Selama password aku
 ## Alur kunci
 
 **Startup**: `main_Load` → `konekbuka()`:
-1. Baca `lokasifile("koneksi.txt")` → `MySqlConnectionStringBuilder` (database kosong → `cpanel.txtdb.Text`, default `minimarket`).
+1. Baca `lokasifile("koneksi.txt")` → `MySqlConnectionStringBuilder` (database kosong → `cpanel.txtdb.Text`, default `bettermoney_pos`).
 2. `cekkoneksi()`; gagal → MsgBox pesan penyebab + buka `cpanel`. Berhasil → buka `konek`.
 3. Tampilkan `Login` sebagai MDI child, MenuStrip disabled sampai login.
 4. Baca `config.txt` (`logo=<path>;` baris 1, `toko=<nama>` baris 2).
@@ -110,7 +110,7 @@ Satu transaksi tidak punya nomor nota; item sama di keranjang digabung (qty dita
 
 ## Installer (Inno Setup)
 
-- **Server**: halaman port + password root, lalu user aplikasi + nama toko. Next di halaman root menjalankan `--cek-mysql` (exe diekstrak sementara ke `{tmp}`): port tertutup → pasang MariaDB 11.8 LTS MSI (`/qn SERVICENAME=MariaDB PORT= PASSWORD=`) di `PrepareToInstall`; MySQL sudah ada + root benar → pakai yang ada. Setelah file disalin: `--setup-server` (buat DB, import dump, user app `'%'`+`'localhost'`, cek my.ini, tulis koneksi/config, tampilkan IP server) + `netsh` rule firewall "Minimarket Database".
+- **Server**: halaman port + password root, lalu user aplikasi + nama toko. Next di halaman root menjalankan `--cek-mysql` (exe diekstrak sementara ke `{tmp}`): port tertutup → pasang MariaDB 11.8 LTS MSI (`/qn SERVICENAME=MariaDB PORT= PASSWORD=`) di `PrepareToInstall`; MySQL sudah ada + root benar → pakai yang ada. Setelah file disalin: `--setup-server` (buat DB, import dump, user app `'%'`+`'localhost'`, cek my.ini, tulis koneksi/config, tampilkan IP server) + `netsh` rule firewall "BetterMoney POS Database". Kode 2 (perlu pasang MariaDB) di Windows < 10 ditolak: MSI MariaDB 10.5+ butuh Windows 10 / Server 2016.
 - **Client**: halaman IP server, port, user/password app, nama toko; Next menjalankan `--cek-mysql` ke server (gagal → tetap di halaman). Setelah install `--setup-client` menulis koneksi/config.
 - JANGAN kirim `ALLOWREMOTEROOTACCESS` ke msiexec (nilai apa pun mengaktifkan root dari jaringan). MSI 11.8 tidak punya properti `UTF8`.
 - Password root tidak boleh mengandung `"` (dikirim ke msiexec dalam tanda kutip).
@@ -127,7 +127,7 @@ Satu transaksi tidak punya nomor nota; item sama di keranjang digabung (qty dita
 
 ## File runtime (tidak di repo)
 
-`koneksi.txt` dan `config.txt` ada di `C:\ProgramData\Minimarket\` (via `lokasifile`). File lama di folder exe otomatis disalin ke sana saat pertama dibaca. Installer perlu memberi hak tulis folder ini ke group Users.
+`koneksi.txt` dan `config.txt` ada di `C:\ProgramData\BetterMoney\` (via `lokasifile`). File lama di folder exe otomatis disalin ke sana saat pertama dibaca. Installer perlu memberi hak tulis folder ini ke group Users.
 
 - `koneksi.txt`: satu baris connection string dari `MySqlConnectionStringBuilder` (`server=..;port=..;user id=..;password=..;database=..`). Format lama 4 baris tanpa `database` tetap terbaca.
 - `config.txt`: `logo=<path>;` baris 1, `toko=<nama>` baris 2.

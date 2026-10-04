@@ -1,6 +1,6 @@
 ﻿Namespace My
     Partial Friend Class MyApplication
-        'Dipanggil installer: Minimarket.exe --cek-mysql|--setup-server|--setup-client <file.ini>
+        'Dipanggil installer: POS_BetterMoney.exe --cek-mysql|--setup-server|--setup-client <file.ini>
         'Jalan tanpa membuka form, hasil lewat exit code & <file.ini>.hasil
         Private Sub MyApplication_Startup(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
             If e.CommandLine.Count = 2 AndAlso e.CommandLine(0).StartsWith("--") Then

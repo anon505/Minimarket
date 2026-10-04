@@ -1,4 +1,4 @@
-"""Membuat docs/Panduan-Instalasi-Minimarket.pdf (panduan instalasi untuk toko).
+"""Membuat docs/Panduan-Instalasi-System-POS.pdf (panduan instalasi untuk toko).
 
 Jalankan dari folder project:
     python3 -m venv .venv && .venv/bin/pip install reportlab
@@ -19,7 +19,7 @@ from reportlab.platypus import Flowable
 from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph, Spacer, Table,
                                 TableStyle, PageBreak, KeepTogether, CondPageBreak, NextPageTemplate)
 
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "Panduan-Instalasi-Minimarket.pdf")
+OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), "Panduan-Instalasi-System-POS.pdf")
 
 UTAMA = colors.HexColor("#00695C")
 GELAP = colors.HexColor("#1F2933")
@@ -123,12 +123,14 @@ def sampul(c, doc):
     c.rect(0, h - 120 * mm, w, 120 * mm, fill=1, stroke=0)
     c.setFillColor(colors.white)
     c.setFont("Helvetica", 12)
-    c.drawString(20 * mm, h - 40 * mm, "System POS by BetterMoney")
+    c.drawString(20 * mm, h - 40 * mm, "BetterMoney")
     c.setFont("Helvetica-Bold", 30)
     c.drawString(20 * mm, h - 62 * mm, "Panduan Instalasi")
-    c.drawString(20 * mm, h - 76 * mm, "Minimarket")
+    c.drawString(20 * mm, h - 76 * mm, "System POS")
+    c.setFont("Helvetica", 16)
+    c.drawString(20 * mm, h - 85 * mm, "(Point Of Sale)")
     c.setFont("Helvetica", 12.5)
-    c.drawString(20 * mm, h - 94 * mm, "Kebutuhan sistem, pemasangan Server & Client, dan pengaturan awal")
+    c.drawString(20 * mm, h - 101 * mm, "Kebutuhan sistem, pemasangan Server & Client, dan pengaturan awal")
     c.setFillColor(ABU)
     c.setFont("Helvetica", 9.5)
     c.drawString(20 * mm, 22 * mm, "BetterMoney  \u00b7  Versi dokumen: %s" % date.today().strftime("%d-%m-%Y"))
@@ -142,13 +144,13 @@ def halaman(c, doc):
     c.line(20 * mm, h - 14 * mm, w - 20 * mm, h - 14 * mm)
     c.setFont("Helvetica", 8.5)
     c.setFillColor(ABU)
-    c.drawString(20 * mm, h - 11.5 * mm, "Panduan Instalasi Minimarket")
+    c.drawString(20 * mm, h - 11.5 * mm, "Panduan Instalasi System POS")
     c.drawRightString(w - 20 * mm, h - 11.5 * mm, "System POS by BetterMoney")
     c.drawRightString(w - 20 * mm, 11 * mm, "Halaman %d" % (doc.page - 1))
     c.restoreState()
 
 doc = BaseDocTemplate(OUT, pagesize=A4, leftMargin=20 * mm, rightMargin=20 * mm, topMargin=20 * mm,
-                      bottomMargin=18 * mm, title="Panduan Instalasi Minimarket", author="BetterMoney",
+                      bottomMargin=18 * mm, title="Panduan Instalasi System POS (Point Of Sale)", author="BetterMoney",
                       subject="Kebutuhan sistem dan cara instalasi Server & Client")
 frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="isi")
 doc.addPageTemplates([PageTemplate(id="sampul", frames=[frame], onPage=sampul),
@@ -166,18 +168,18 @@ s.append(PageBreak())
 
 # 1
 s.append(p("1. Gambaran sistem", H1))
-s.append(p("Minimarket adalah aplikasi kasir (Point-of-Sale) dan manajemen stok untuk Windows. "
+s.append(p("<b>System POS (Point Of Sale)</b> adalah aplikasi kasir dan manajemen stok untuk Windows. "
            "Semua data (barang, stok, transaksi, akun kasir) disimpan di <b>satu database pusat</b> "
            "di komputer <b>Server</b>. Komputer kasir (<b>Client</b>) terhubung ke database itu lewat "
            "jaringan lokal (LAN/WiFi), sehingga stok dan laporan selalu sama di semua komputer."))
 s.append(tabel([
     ["Peran", "Jumlah", "Yang dipasang"],
-    ["<b>Server</b>", "1 komputer", "Database MariaDB + aplikasi Minimarket. Komputer ini boleh sekaligus dipakai untuk kasir."],
-    ["<b>Client</b>", "0 atau lebih", "Aplikasi Minimarket saja, terhubung ke database di Server."],
+    ["<b>Server</b>", "1 komputer", "Database MariaDB + aplikasi System POS. Komputer ini boleh sekaligus dipakai untuk kasir."],
+    ["<b>Client</b>", "0 atau lebih", "Aplikasi System POS saja, terhubung ke database di Server."],
 ], [28 * mm, 28 * mm, 114 * mm]))
 s.append(Spacer(1, 8))
 s.append(kotak("Satu file installer untuk semua komputer", [
-    "File <b>MinimarketSetup-x.x.x.exe</b> (sekitar 90 MB) dipakai untuk Server maupun Client. "
+    "File <b>SystemPOS-Setup-x.x.x.exe</b> (sekitar 90 MB) dipakai untuk Server maupun Client. "
     "Jenisnya dipilih di awal instalasi. Pasang <b>Server lebih dulu</b>, baru Client.",
     "Kalau toko hanya punya satu komputer, cukup pasang sebagai Server."]))
 
@@ -186,8 +188,9 @@ s.append(p("2. Kebutuhan komputer", H1))
 s.append(p("Sistem operasi & perangkat", H2))
 s.append(tabel([
     ["", "Server", "Client (kasir)"],
-    ["<b>Windows</b>", "Windows 10 atau 11 <b>64-bit</b> (wajib 64-bit). Windows Server 2016 atau lebih baru juga bisa.",
-     "Windows 10 atau 11, 32-bit atau 64-bit."],
+    ["<b>Windows</b>", "Windows 10 atau 11 <b>64-bit</b> (wajib 64-bit). Windows Server 2016 atau lebih baru juga bisa. "
+     "<b>Windows 7 / 8 / 8.1 tidak bisa</b> (lihat catatan di bawah).",
+     "Windows 10 atau 11, 32-bit atau 64-bit. Windows 7 SP1 / 8.1 kemungkinan bisa, tetapi belum diuji (lihat catatan)."],
     ["<b>Prosesor</b>", "2 core atau lebih", "2 core"],
     ["<b>RAM</b>", "4 GB atau lebih", "2 GB atau lebih"],
     ["<b>Ruang disk</b>", "Minimal 2 GB kosong (aplikasi, database, backup)", "Minimal 500 MB kosong"],
@@ -195,8 +198,17 @@ s.append(tabel([
     ["<b>Printer</b>", "Opsional, untuk nota & laporan", "Opsional, untuk nota"],
 ], [30 * mm, 70 * mm, 70 * mm]))
 s.append(p("Angka prosesor, RAM, dan disk adalah rekomendasi, bukan batas yang diperiksa installer. "
-           "Yang diperiksa installer: Windows 64-bit untuk Server dan .NET Framework 4.8 untuk semua komputer.", KECIL))
+           "Yang diperiksa installer: Windows 64-bit untuk Server, Windows 10 ke atas jika MariaDB perlu dipasang, "
+           "dan .NET Framework 4.8 untuk semua komputer.", KECIL))
+s.append(Spacer(1, 6))
+s.append(kotak("Catatan Windows 7 dan 8.1", [
+    "&bull; <b>Server:</b> tidak bisa. Database MariaDB versi baru hanya bisa dipasang di Windows 10 / Server 2016 ke atas, "
+    "dan Microsoft sudah tidak memberi update keamanan untuk Windows 7 / 8.1. Installer menolak memasang MariaDB di Windows lama.",
+    "&bull; <b>Client:</b> secara teknis bisa di Windows 7 SP1 atau 8.1 karena Client hanya butuh .NET Framework 4.8, "
+    "tetapi belum diuji. Di Windows 7, .NET 4.8 harus dipasang manual dan Windows harus sudah berisi update SHA-2 (KB4474419). "
+    "Untuk pemakaian di toko, disarankan Windows 10 atau 11."]))
 
+s.append(CondPageBreak(60 * mm))
 s.append(p("Program & library", H2))
 s.append(tabel([
     ["Komponen", "Server", "Client", "Keterangan"],
@@ -217,7 +229,7 @@ s.append(tabel([
     ["Kebutuhan", "Keterangan"],
     ["Satu jaringan lokal", "Server dan semua Client terhubung ke router/switch/WiFi yang sama."],
     ["Port TCP 3306", "Port database di Server. Installer Server otomatis membuka port ini di Windows Firewall "
-                      "(aturan bernama <i>Minimarket Database</i>). Jika memakai antivirus dengan firewall sendiri, buka port ini di sana."],
+                      "(aturan bernama <i>BetterMoney POS Database</i>). Jika memakai antivirus dengan firewall sendiri, buka port ini di sana."],
     ["IP Server tetap", "Sangat disarankan. Jika IP Server berubah, semua Client tidak bisa terhubung (lihat bagian 3)."],
     ["Internet", "Tidak diperlukan untuk instalasi maupun pemakaian sehari-hari."],
 ], [40 * mm, 130 * mm]))
@@ -226,7 +238,7 @@ s.append(tabel([
 s.append(CondPageBreak(90 * mm))
 s.append(p("3. Persiapan sebelum instalasi", H1))
 s.append(langkah([
-    "<b>Siapkan file installer</b> <font name='Courier'>MinimarketSetup-x.x.x.exe</font> di flashdisk atau folder bersama.",
+    "<b>Siapkan file installer</b> <font name='Courier'>SystemPOS-Setup-x.x.x.exe</font> di flashdisk atau folder bersama.",
     "<b>Tentukan komputer Server.</b> Pilih komputer yang paling sering menyala selama jam buka toko. "
     "Client hanya bisa bertransaksi jika komputer Server menyala.",
     ["<b>Buat IP Server tetap.</b> Pilih salah satu:",
@@ -257,15 +269,15 @@ s.append(langkah([
      "&bull; Belum ada database di port itu &gt; MariaDB akan dipasang dengan password tadi.",
      "&bull; Sudah ada MySQL/MariaDB dan password root benar &gt; muncul pesan bahwa database yang ada akan dipakai.",
      "&bull; Sudah ada MySQL/MariaDB tetapi password salah &gt; isi password root yang benar (lihat bagian 8)."],
-    ["<b>Akun Aplikasi:</b> isi <b>Username aplikasi</b> (bawaan: minimarket), <b>Password aplikasi</b>, "
+    ["<b>Akun Aplikasi:</b> isi <b>Username aplikasi</b> (bawaan: superadmin), <b>Password aplikasi</b>, "
      "ulangi password, dan <b>Nama toko</b>. Klik Next.",
-     "Username dan password ini nanti diisi di setiap komputer kasir. <b>Catat.</b>"],
-    "Pilih folder instalasi (bawaan <font name='Courier'>C:\\Program Files\\Minimarket</font>) dan centang "
+     "Username dan password ini nanti diisi di setiap komputer kasir. <b>Catat.</b> Ini akun koneksi database, terpisah dari akun login aplikasi superadmin di bagian 6, dan passwordnya boleh berbeda."],
+    "Pilih folder instalasi (bawaan <font name='Courier'>C:\\Program Files\\BetterMoney</font>) dan centang "
     "<i>Buat shortcut di Desktop</i> bila perlu. Klik <b>Install</b>.",
     "Tunggu proses <b>Memasang Database</b>. Bisa memakan beberapa menit.",
     ["Di akhir instalasi muncul pesan <b>Server siap dipakai</b> berisi:",
      "&bull; <b>IP komputer server ini</b> &gt; <b>catat</b>, dipakai saat memasang Client.",
-     "&bull; Akun login pertama: <b>superadmin / password</b>.",
+     "&bull; Akun login aplikasi pertama: <b>superadmin / password</b>.",
      "&bull; Kadang ada catatan untuk <b>restart MySQL/MariaDB</b> (hanya jika memakai MySQL lama yang pengaturannya diubah). "
      "Jika ada, restart komputer Server sebelum memasang Client."],
     "Klik <b>Finish</b>. Aplikasi bisa langsung dijalankan.",
@@ -273,7 +285,7 @@ s.append(langkah([
 s.append(Spacer(1, 6))
 s.append(kotak("Yang dikerjakan installer Server secara otomatis", [
     "&bull; Memasang MariaDB 11.8 sebagai service Windows bernama <i>MariaDB</i> (jalan otomatis saat komputer menyala).",
-    "&bull; Membuat database <b>minimarket</b> berisi data awal (contoh supplier, satuan, barang, dan akun superadmin).",
+    "&bull; Membuat database <b>bettermoney_pos</b> berisi data awal (contoh supplier, satuan, barang, dan akun superadmin).",
     "&bull; Membuat akun aplikasi yang boleh login dari komputer lain di jaringan. Akun root hanya bisa login dari komputer Server.",
     "&bull; Membuka port database di Windows Firewall.",
     "&bull; Menyimpan pengaturan koneksi, nama toko, dan logo (dibuat otomatis dari nama toko)."]))
@@ -301,7 +313,7 @@ s.append(PageBreak())
 s.append(p("6. Pengaturan awal setelah instalasi", H1))
 s.append(p("Login pertama", H2))
 s.append(langkah([
-    "Jalankan <b>Minimarket</b> dari Desktop atau Start Menu.",
+    "Jalankan <b>System POS</b> dari shortcut di Desktop atau Start Menu.",
     "Di jendela Login pilih Jabatan <b>Administrator</b>, User name <b>superadmin</b>, Password <b>password</b>.",
     "Karena password masih bawaan, aplikasi menampilkan peringatan dan membuka form <b>Kasir</b>. "
     "Ganti password superadmin di sana.",
@@ -350,17 +362,17 @@ s.append(tabel([
                                 "Setelah selesai, kembalikan isian ke akun aplikasi; jangan simpan koneksi dengan akun root."],
     ["<b>Update aplikasi</b>", "Jalankan installer versi baru di setiap komputer dengan jenis yang sama (Server/Client). "
                                "Data, pengaturan koneksi, dan logo pilihan sendiri tetap dipakai."],
-    ["<b>Uninstall</b>", "Settings &gt; Apps &gt; Minimarket &gt; Uninstall. Database MariaDB dan folder "
-                         "<font name='Courier'>C:\\ProgramData\\Minimarket</font> <b>tidak</b> ikut terhapus."],
+    ["<b>Uninstall</b>", "Settings &gt; Apps &gt; System POS (Point Of Sale) &gt; Uninstall. Database MariaDB dan folder "
+                         "<font name='Courier'>C:\\ProgramData\\BetterMoney</font> <b>tidak</b> ikut terhapus."],
 ], [36 * mm, 134 * mm]))
 s.append(Spacer(1, 6))
 s.append(p("Lokasi file", H2))
 s.append(tabel([
     ["Lokasi", "Isi"],
-    [kode("C:\\Program Files\\Minimarket\\"), "Aplikasi"],
-    [kode("C:\\ProgramData\\Minimarket\\koneksi.txt"), "Pengaturan koneksi database (diubah lewat menu Konfigurasi)"],
-    [kode("C:\\ProgramData\\Minimarket\\config.txt"), "Lokasi logo dan nama toko"],
-    [kode("C:\\ProgramData\\Minimarket\\logotoko-*.png"), "Logo buatan dari nama toko"],
+    [kode("C:\\Program Files\\BetterMoney\\"), "Aplikasi (POS_BetterMoney.exe)"],
+    [kode("C:\\ProgramData\\BetterMoney\\koneksi.txt"), "Pengaturan koneksi database (diubah lewat menu Konfigurasi)"],
+    [kode("C:\\ProgramData\\BetterMoney\\config.txt"), "Lokasi logo dan nama toko"],
+    [kode("C:\\ProgramData\\BetterMoney\\logotoko-*.png"), "Logo buatan dari nama toko"],
     [kode("C:\\Program Files\\MariaDB 11.8\\"), "Program database (hanya di Server)"],
 ], [95 * mm, 75 * mm]))
 
@@ -369,9 +381,11 @@ s.append(PageBreak())
 s.append(p("8. Mengatasi masalah", H1))
 s.append(tabel([
     ["Pesan / gejala", "Penyebab", "Yang dilakukan"],
-    ["Minimarket membutuhkan .NET Framework 4.8", "Windows belum punya .NET 4.8",
+    ["System POS (Point Of Sale) membutuhkan .NET Framework 4.8", "Windows belum punya .NET 4.8",
      "Pasang dari dotnet.microsoft.com/download/dotnet-framework/net48, lalu jalankan installer lagi."],
     ["Server membutuhkan Windows 64-bit", "Komputer memakai Windows 32-bit", "Pilih komputer lain sebagai Server. Komputer ini tetap bisa jadi Client."],
+    ["MariaDB membutuhkan Windows 10 / Windows Server 2016 atau lebih baru", "Komputer Server memakai Windows 7 / 8 / 8.1",
+     "Pakai komputer dengan Windows 10/11 sebagai Server."],
     ["Sudah ada MySQL/MariaDB di port 3306, tetapi login root gagal", "Ada database lain berjalan (misalnya XAMPP, MySQL80, atau MariaDB dari instalasi sebelumnya)",
      "Isi password root database itu, atau hentikan/uninstall database itu lalu klik Next lagi. "
      "Cek pemakai port: " + kode("netstat -ano | findstr :3306")],
@@ -396,7 +410,7 @@ s.append(p("Isi lalu simpan lembar ini di tempat aman. Jangan ditempel di dekat 
 s.append(Spacer(1, 4))
 isian = [["Nama toko", ""], ["Tanggal instalasi", ""], ["Nama / lokasi komputer Server", ""],
          ["IP Server", ""], ["Port database", "3306"], ["Password root database", ""],
-         ["Username aplikasi", "minimarket"], ["Password aplikasi", ""],
+         ["Username aplikasi (database)", "superadmin"], ["Password aplikasi (database)", ""],
          ["Password superadmin (baru)", ""], ["Lokasi penyimpanan backup", ""]]
 t = Table([[Paragraph(a, SEL_B), Paragraph(b, SEL)] for a, b in isian], colWidths=[65 * mm, 105 * mm],
           rowHeights=[11 * mm] * len(isian))
