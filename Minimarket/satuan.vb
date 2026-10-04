@@ -32,8 +32,9 @@ Public Class satuan
             MsgBox("Nama Satuan masih kosong", MsgBoxStyle.OkOnly)
         Else
 
-            Query = "INSERT INTO satuan(nama_satuan)VALUES('" + txtnama.Text + "')"
+            Query = "INSERT INTO satuan(nama_satuan)VALUES(@nama)"
             Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+            cmd.Parameters.AddWithValue("@nama", txtnama.Text)
             Dim i As Integer = cmd.ExecuteNonQuery()
             If (i > 0) Then
                 MsgBox("Satuan Baru berhasil ditambahkan", MsgBoxStyle.OkOnly)
@@ -68,8 +69,10 @@ Public Class satuan
         If (txtnama.Text = "") Then
             MsgBox("Data tentang barang, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "UPDATE  satuan SET nama_satuan='" + txtnama.Text + "' WHERE  id_satuan ='" + Label4.Text + "'"
+            Query = "UPDATE  satuan SET nama_satuan=@nama WHERE  id_satuan=@id"
             Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+            cmd.Parameters.AddWithValue("@nama", txtnama.Text)
+            cmd.Parameters.AddWithValue("@id", Label4.Text)
             Dim i As Integer = cmd.ExecuteNonQuery()
             If (i > 0) Then
                 MsgBox("Data Satuan berhasil diubah", MsgBoxStyle.OkOnly)
@@ -85,18 +88,21 @@ Public Class satuan
         If (txtnama.Text = "") Then
             MsgBox("Harap pilih satuan yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Dim coba As MySqlCommand = New MySqlCommand("select count(*) from barang where satuan='" + Label4.Text + "'", konek)
+            Dim coba As MySqlCommand = New MySqlCommand("select count(*) from barang where satuan=@id", konek)
+            coba.Parameters.AddWithValue("@id", Label4.Text)
             Dim rdr As Integer = coba.ExecuteScalar
             If (rdr > 0) Then
                 Dim buton As DialogResult = MsgBox("Satuan masih di pakai di Tabel Barang!!!. Jika anda klik Yes maka Barang juga akan terhapus.", MsgBoxStyle.YesNo)
                 If buton = 6 Then
 
-                    hapus = "delete from barang WHERE  satuan ='" + Label4.Text + "'"
+                    hapus = "delete from barang WHERE  satuan=@id"
                     Dim del As MySqlCommand = New MySqlCommand(hapus, konek)
+                    del.Parameters.AddWithValue("@id", Label4.Text)
                     Dim j As Integer = del.ExecuteNonQuery()
 
-                    Query = "delete from satuan WHERE  id_satuan ='" + Label4.Text + "'"
+                    Query = "delete from satuan WHERE  id_satuan=@id"
                     Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+                    cmd.Parameters.AddWithValue("@id", Label4.Text)
                     Dim i As Integer = cmd.ExecuteNonQuery()
 
                     If (i > 0) And (j > 0) Then
@@ -107,8 +113,9 @@ Public Class satuan
                     End If
                 End If
             Else
-                Query = "delete from satuan WHERE  id_satuan ='" + Label4.Text + "'"
+                Query = "delete from satuan WHERE  id_satuan=@id"
                 Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+                cmd.Parameters.AddWithValue("@id", Label4.Text)
                 Dim i As Integer = cmd.ExecuteNonQuery()
                 If (i > 0) Then
                     MsgBox("Satu Data Satuan berhasil dihapus", MsgBoxStyle.OkOnly)
@@ -122,7 +129,8 @@ Public Class satuan
     Public Sub pencarian()
        txtnama.Text = ""
         Try
-            Dim sql As MySqlCommand = New MySqlCommand("select * from satuan where nama_satuan like '%" + txtcari.Text + "%' order by nama_satuan asc", konek)
+            Dim sql As MySqlCommand = New MySqlCommand("select * from satuan where nama_satuan like @cari order by nama_satuan asc", konek)
+            sql.Parameters.AddWithValue("@cari", "%" + txtcari.Text + "%")
             Dim ds As DataSet = New DataSet
             Dim da As MySqlDataAdapter = New MySqlDataAdapter
             da.SelectCommand = sql

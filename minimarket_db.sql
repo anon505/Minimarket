@@ -64,15 +64,14 @@ CREATE TABLE IF NOT EXISTS `kasir` (
   `type` int(11) NOT NULL,
   `status` char(20) NOT NULL,
   PRIMARY KEY (`id_kasir`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `kasir`
 --
 
 INSERT INTO `kasir` (`id_kasir`, `nama_kasir`, `password`, `alamat`, `type`, `status`) VALUES
-(1, 'Umam', '1', 'Sumenep', 1, 'Aktif'),
-(2, 'Fajri', '2', 'Sumenep', 2, 'Aktif');
+(1, 'superadmin', 'password', '-', 1, 'Aktif');
 
 -- --------------------------------------------------------
 

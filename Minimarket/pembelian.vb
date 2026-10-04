@@ -1,7 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
 Public Class pembelian
     Public Sub baru()
-        Dim sql As MySqlCommand = New MySqlCommand("SELECT pembelian.id_barang, barang.nama_barang, barang.harga_beli, pembelian.jumlah,satuan.nama_satuan FROM pembelian ,barang,satuan where barang.id_barang = pembelian.id_barang and pembelian.status='belum' and satuan.id_satuan=barang.satuan and pembelian.id_kasir = " + Label9.Text, konek)
+        Dim sql As MySqlCommand = New MySqlCommand("SELECT pembelian.id_barang, barang.nama_barang, barang.harga_beli, pembelian.jumlah,satuan.nama_satuan FROM pembelian ,barang,satuan where barang.id_barang = pembelian.id_barang and pembelian.status='belum' and satuan.id_satuan=barang.satuan and pembelian.id_kasir = @id_kasir", konek)
+        sql.Parameters.AddWithValue("@id_kasir", Label9.Text)
         Dim ds As DataSet = New DataSet
         Dim da As MySqlDataAdapter = New MySqlDataAdapter
         da.SelectCommand = sql
@@ -23,20 +24,30 @@ Public Class pembelian
     End Sub
     Public Sub beli(ByVal e As System.Windows.Forms.KeyPressEventArgs)
         Dim tombol As Integer = Asc(e.KeyChar)
-        If tombol = 13 And Not (txtharga.Text = "") Then
+        If tombol = 13 And Not (txtharga.Text = "") And Not (jumlah.Text = "") Then
               total.Tag += Val(txtharga.Tag) * Val(jumlah.Text)
             total.Text = Format(Val(total.Tag), "'Rp' #,0;'Rp' -#,0")
 
-            Dim ada As MySqlCommand = New MySqlCommand("select id_barang from pembelian where id_barang='" + txtid.Text + "' and status='belum' and id_kasir='" + Label9.Text + "'", konek)
+            Dim ada As MySqlCommand = New MySqlCommand("select id_barang from pembelian where id_barang=@id_barang and status='belum' and id_kasir=@id_kasir", konek)
+            ada.Parameters.AddWithValue("@id_barang", txtid.Text)
+            ada.Parameters.AddWithValue("@id_kasir", Label9.Text)
             Dim status As String = ada.ExecuteScalar()
             If Not (status = "") Then
-                Dim update As MySqlCommand = New MySqlCommand(" UPDATE  barang SET  stok =  stok+" + jumlah.Text + " WHERE  id_barang =" + txtid.Text + ";", konek)
+                Dim update As MySqlCommand = New MySqlCommand(" UPDATE  barang SET  stok =  stok+@jumlah WHERE  id_barang=@id_barang", konek)
+                update.Parameters.AddWithValue("@jumlah", Val(jumlah.Text))
+                update.Parameters.AddWithValue("@id_barang", txtid.Text)
                 update.ExecuteNonQuery()
-                Dim update1 As MySqlCommand = New MySqlCommand(" UPDATE  pembelian SET  jumlah =  jumlah+" + jumlah.Text + " WHERE  id_barang ='" + txtid.Text + "'  and status='belum' and id_kasir='" + Label9.Text + "';", konek)
+                Dim update1 As MySqlCommand = New MySqlCommand(" UPDATE  pembelian SET  jumlah =  jumlah+@jumlah WHERE  id_barang=@id_barang  and status='belum' and id_kasir=@id_kasir", konek)
+                update1.Parameters.AddWithValue("@jumlah", Val(jumlah.Text))
+                update1.Parameters.AddWithValue("@id_barang", txtid.Text)
+                update1.Parameters.AddWithValue("@id_kasir", Label9.Text)
                 update1.ExecuteNonQuery()
                 Call baru()
             Else
-                Dim input As MySqlCommand = New MySqlCommand("insert into pembelian(id_barang,id_kasir,tgl_pembelian,jumlah,status)values('" + txtid.Text + "','" + Label9.Text + "',now(),'" + jumlah.Text + "','belum')", konek)
+                Dim input As MySqlCommand = New MySqlCommand("insert into pembelian(id_barang,id_kasir,tgl_pembelian,jumlah,status)values(@id_barang,@id_kasir,now(),@jumlah,'belum')", konek)
+                input.Parameters.AddWithValue("@id_barang", txtid.Text)
+                input.Parameters.AddWithValue("@id_kasir", Label9.Text)
+                input.Parameters.AddWithValue("@jumlah", Val(jumlah.Text))
                 input.ExecuteNonQuery()
                 Call baru()
             End If
@@ -45,16 +56,19 @@ Public Class pembelian
 
     Private Sub txtid_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtid.TextChanged
         Try
-            Dim cmd As MySqlCommand = New MySqlCommand("Select harga_beli from barang where id_barang='" + txtid.Text + "'", konek)
+            Dim cmd As MySqlCommand = New MySqlCommand("Select harga_beli from barang where id_barang=@id_barang", konek)
+            cmd.Parameters.AddWithValue("@id_barang", txtid.Text)
             Dim hargabeli As String = cmd.ExecuteScalar
             txtharga.Text = hargabeli
             txtharga.Tag = Val(txtharga.Text)
             txtharga.Text = Format(Val(txtharga.Text), "'Rp' #,0;'Rp' -#,0")
 
-            Dim sat As MySqlCommand = New MySqlCommand("select satuan.nama_satuan from satuan,barang  where id_barang='" + txtid.Text + "' and barang.satuan=satuan.id_satuan", konek)
+            Dim sat As MySqlCommand = New MySqlCommand("select satuan.nama_satuan from satuan,barang  where id_barang=@id_barang and barang.satuan=satuan.id_satuan", konek)
+            sat.Parameters.AddWithValue("@id_barang", txtid.Text)
             Dim satuan1 As String = sat.ExecuteScalar
             satuan.Text = satuan1
-            Dim nam As MySqlCommand = New MySqlCommand("select nama_barang from barang  where id_barang='" + txtid.Text + "'", konek)
+            Dim nam As MySqlCommand = New MySqlCommand("select nama_barang from barang  where id_barang=@id_barang", konek)
+            nam.Parameters.AddWithValue("@id_barang", txtid.Text)
             Dim nama1 As String = nam.ExecuteScalar
             nama.Text = nama1
             If txtharga.Text = "" Or txtharga.Text = "Rp 0" Then
@@ -79,16 +93,25 @@ Public Class pembelian
     End Sub
 
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+        If id_barang.Text = "" Then
+            MsgBox("Klik satu Baris Data yang akan di Hapus", MsgBoxStyle.OkOnly)
+            Exit Sub
+        End If
         Dim buton As DialogResult = MsgBox("Anda yakin ingin menghapus barang ini?", MsgBoxStyle.YesNo)
         If (buton = 6) Then
-            Dim harga As MySqlCommand = New MySqlCommand("Select harga_beli from barang where id_barang='" + id_barang.Text + "'", konek)
+            Dim harga As MySqlCommand = New MySqlCommand("Select harga_beli from barang where id_barang=@id_barang", konek)
+            harga.Parameters.AddWithValue("@id_barang", id_barang.Text)
             Dim hargabeli As String = harga.ExecuteScalar
-            Dim jumlah As MySqlCommand = New MySqlCommand("Select jumlah from pembelian where id_barang='" + id_barang.Text + "'and status='belum' and id_kasir='" + Label9.Text + "'", konek)
+            Dim jumlah As MySqlCommand = New MySqlCommand("Select jumlah from pembelian where id_barang=@id_barang and status='belum' and id_kasir=@id_kasir", konek)
+            jumlah.Parameters.AddWithValue("@id_barang", id_barang.Text)
+            jumlah.Parameters.AddWithValue("@id_kasir", Label9.Text)
             Dim a As String = jumlah.ExecuteScalar
             total.Tag = Val(total.Tag) - Val(a * hargabeli)
             total.Text = Format(Val(total.Tag), "'Rp' #,0;'Rp' -#,0")
 
-            Dim hapus As MySqlCommand = New MySqlCommand("delete from pembelian where id_barang='" + id_barang.Text + "' and status='belum' and id_kasir='" + Label9.Text + "'", konek)
+            Dim hapus As MySqlCommand = New MySqlCommand("delete from pembelian where id_barang=@id_barang and status='belum' and id_kasir=@id_kasir", konek)
+            hapus.Parameters.AddWithValue("@id_barang", id_barang.Text)
+            hapus.Parameters.AddWithValue("@id_kasir", Label9.Text)
             hapus.ExecuteNonQuery()
             Call baru()
         ElseIf (buton = 7) Then
@@ -101,7 +124,8 @@ Public Class pembelian
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
-        Dim updatebaru As MySqlCommand = New MySqlCommand(" UPDATE  pembelian SET  status='cetak' WHERE status='belum' and id_kasir='" + Label9.Text + "';", konek)
+        Dim updatebaru As MySqlCommand = New MySqlCommand(" UPDATE  pembelian SET  status='cetak' WHERE status='belum' and id_kasir=@id_kasir", konek)
+        updatebaru.Parameters.AddWithValue("@id_kasir", Label9.Text)
         updatebaru.ExecuteNonQuery()
         Call baru()
         txtid.Text = ""

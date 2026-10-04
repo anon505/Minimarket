@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Minimarket")> 
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("Umam Corporation")> 
+<Assembly: AssemblyCompany("BetterMoney")> 
 <Assembly: AssemblyProduct("Minimarket")> 
 <Assembly: AssemblyCopyright("Copyright ©  2013")> 
 <Assembly: AssemblyTrademark("")> 

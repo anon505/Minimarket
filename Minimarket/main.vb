@@ -2,38 +2,36 @@
 Imports MySql.Data.MySqlClient
 Public Class main
     Public Sub konekbuka()
-        Dim strdriverodbc As New String(Space(255))
         Try
-            If File.Exists("koneksi.txt") = True Then
-                Dim TW As New StreamReader("koneksi.txt")
-                Dim koneksi As String
-                koneksi = TW.ReadToEnd + ";database=" + cpanel.txtdb.Text
-                TW.Close()
-                konek = New MySqlConnection
-                konek.ConnectionString = koneksi
-                konek.Open()
-                If konek.State = ConnectionState.Fetching Or konek.State = ConnectionState.Open Then
-                    
-                    If cpanel.checkMySQLDriver(strdriverodbc) = False Then
-                        MsgBox("MySQL ODBC 5.1 Driver tidak di install." + vbCrLf + " Silahkan Instal  MySQl ODBC 5.1 Driver.", MsgBoxStyle.Information, "Buat Mysql DSN")
-                        cpanel.MdiParent = Me
-                        cpanel.Show()
-                        cpanel.MaximizeBox = False
-                    Else
-                        cpanel.MdiParent = Me
-                        cpanel.Show()
-                        cpanel.MaximizeBox = False
-                        cpanel.MakeMySQLDSN(Trim(cpanel.txtdb.Text), Trim(cpanel.txtdsn.Text), Trim(cpanel.txtdesc.Text), strdriverodbc, Trim(cpanel.txtuser.Text), Trim(cpanel.txtpass.Text), Trim(cpanel.txthost.Text), Trim(cpanel.txtport.Text), 3, "")
-                        strdriverodbc = "C:\WINDOWS\System32\odbc32.dll"
-                        If cpanel.Visible = True Then
-                            cpanel.Close()
-                        End If
-                        Login.MdiParent = Me
-                        Login.Show()
-                        MenuStrip1.Enabled = False
-                    End If
+            Dim filekoneksi As String = lokasifile("koneksi.txt")
+            If File.Exists(filekoneksi) = True Then
+                Dim koneksi As New MySqlConnectionStringBuilder(File.ReadAllText(filekoneksi))
+                'koneksi.txt versi lama tidak menyimpan nama database
+                If koneksi.Database = "" Then
+                    koneksi.Database = cpanel.txtdb.Text
                 End If
-            ElseIf File.Exists("koneksi.txt") = False Then
+                koneksi.ConnectionTimeout = 5
+                Dim gagal As String = cekkoneksi(koneksi)
+                If gagal <> "" Then
+                    MenuStrip1.Enabled = False
+                    MsgBox("Aplikasi tidak bisa terkoneksi ke Database." + vbCrLf + gagal, MsgBoxStyle.OkOnly)
+                    cpanel.MdiParent = Me
+                    cpanel.Show()
+                    cpanel.MaximizeBox = False
+                    Exit Sub
+                End If
+                If konek IsNot Nothing Then
+                    konek.Close()
+                End If
+                konek = New MySqlConnection(koneksi.ConnectionString)
+                konek.Open()
+                If cpanel.Visible = True Then
+                    cpanel.Close()
+                End If
+                Login.MdiParent = Me
+                Login.Show()
+                MenuStrip1.Enabled = False
+            Else
                 MenuStrip1.Enabled = False
                 If cpanel.Visible = True Then
                     cpanel.Close()
@@ -49,7 +47,7 @@ Public Class main
             If cpanel.Visible = True Then
                 cpanel.Close()
             End If
-            MsgBox("Maaf, Aplikasi tidak bisa terkoneksi ke Database. Silahkan periksa pengaturan Anda!!!", MsgBoxStyle.OkOnly)
+            MsgBox("Maaf, Aplikasi tidak bisa terkoneksi ke Database. Silahkan periksa pengaturan Anda!!!" + vbCrLf + ex.Message, MsgBoxStyle.OkOnly)
             cpanel.MdiParent = Me
             cpanel.Show()
             cpanel.MaximizeBox = False
@@ -59,12 +57,13 @@ Public Class main
 
         Call konekbuka()
         Try
-            If File.Exists("config.txt") = True Then
-                Dim bc As New StreamReader("config.txt")
+            Dim fileconfig As String = lokasifile("config.txt")
+            If File.Exists(fileconfig) = True Then
+                Dim bc As New StreamReader(fileconfig)
                 pathlogo = (bc.ReadLine).Replace("logo=", "").Replace(";", "")
                 namatoko = (bc.ReadLine).Replace("toko=", "")
                 bc.Close()
-            ElseIf File.Exists("config.txt") = False Then
+            Else
                 MsgBox("File config.txt tidak ada. Silahkan konfigurasi terlebih dahulu.", MsgBoxStyle.OkOnly)
                 cpanel.MdiParent = Me
                 cpanel.Show()

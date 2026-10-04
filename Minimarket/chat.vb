@@ -18,8 +18,8 @@ Public Class chat
         Dim da As MySqlDataAdapter = New MySqlDataAdapter
         da.SelectCommand = sql
         da.Fill(ds, "obrolan")
-        If ds.Tables("obrolan").Rows.Count = 21 Then
-            Dim hapus As MySqlCommand = New MySqlCommand("delete * from obrolan", konek)
+        If ds.Tables("obrolan").Rows.Count >= 21 Then
+            Dim hapus As MySqlCommand = New MySqlCommand("delete from obrolan", konek)
             hapus.ExecuteNonQuery()
         End If
     End Sub
@@ -35,13 +35,15 @@ Public Class chat
         Dim tombol As Integer = Asc(e.KeyChar)
         If tombol = 13 Then
             If hak_akses = "1" Then
-                Dim kirim As MySqlCommand = New MySqlCommand("insert into obrolan(pesan) values('Administator" + id_kasir + ": " + TextBox1.Text + "')", konek)
+                Dim kirim As MySqlCommand = New MySqlCommand("insert into obrolan(pesan) values(@pesan)", konek)
+                kirim.Parameters.AddWithValue("@pesan", "Administator" + id_kasir + ": " + TextBox1.Text)
                 kirim.ExecuteNonQuery()
                 TextBox1.Text = ""
                 TextBox1.Focus()
                 Call reload()
             Else
-                Dim kirim As MySqlCommand = New MySqlCommand("insert into obrolan(pesan) values('Kasir" + id_kasir + ": " + TextBox1.Text + "')", konek)
+                Dim kirim As MySqlCommand = New MySqlCommand("insert into obrolan(pesan) values(@pesan)", konek)
+                kirim.Parameters.AddWithValue("@pesan", "Kasir" + id_kasir + ": " + TextBox1.Text)
                 kirim.ExecuteNonQuery()
                 TextBox1.Text = ""
                 TextBox1.Focus()

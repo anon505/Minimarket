@@ -26,7 +26,6 @@ Partial Class formnota
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.Minimarketds = New Minimarket.minimarketds()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.NotaTableAdapter = New Minimarket.minimarketdsTableAdapters.notaTableAdapter()
         Me.NotaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NotaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -52,10 +51,6 @@ Partial Class formnota
         Me.ReportViewer1.Size = New System.Drawing.Size(396, 371)
         Me.ReportViewer1.TabIndex = 0
         '
-        'NotaTableAdapter
-        '
-        Me.NotaTableAdapter.ClearBeforeFill = True
-        '
         'NotaBindingSource
         '
         Me.NotaBindingSource.DataMember = "nota"
@@ -76,6 +71,5 @@ Partial Class formnota
     End Sub
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents Minimarketds As Minimarket.minimarketds
-    Friend WithEvents NotaTableAdapter As Minimarket.minimarketdsTableAdapters.notaTableAdapter
     Friend WithEvents NotaBindingSource As System.Windows.Forms.BindingSource
 End Class
