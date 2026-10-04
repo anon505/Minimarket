@@ -30,6 +30,7 @@ Public Class Login
                     main.KasirToolStripMenuItem.Enabled = True
                     main.SupplierToolStripMenuItem.Enabled = True
                     main.ToolStripMenuItem1.Enabled = True
+                    main.LisensiToolStripMenuItem.Enabled = True
                     Call ingatkanpassword(cektipe)
                     Me.Close()
                 Else
@@ -46,6 +47,7 @@ Public Class Login
                     main.KasirToolStripMenuItem.Enabled = False
                     main.SupplierToolStripMenuItem.Enabled = False
                     main.ToolStripMenuItem1.Enabled = False
+                    main.LisensiToolStripMenuItem.Enabled = False
                     Call ingatkanpassword(cektipe)
                     Me.Close()
                 End If

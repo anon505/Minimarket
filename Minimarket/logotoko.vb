@@ -14,7 +14,7 @@ Module logotoko
     Public Function buatlogo(ByVal namatoko As String, ByVal folder As String) As String
         Dim teks As String = Trim(namatoko)
         If teks = "" Then
-            teks = "Minimarket"
+            teks = "System POS"
         End If
         Const LEBAR As Integer = 600
         Const TINGGI As Integer = 300

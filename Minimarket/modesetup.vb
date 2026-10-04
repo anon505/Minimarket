@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports MySql.Data.MySqlClient
-'Mode setup yang dipanggil installer: Minimarket.exe <mode> <file.ini>
+'Mode setup yang dipanggil installer: POS_BetterMoney.exe <mode> <file.ini>
 'file.ini berisi baris key=value (termasuk password), langsung dihapus setelah dibaca.
 'Pesan hasil ditulis ke <file.ini>.hasil, kode hasil = exit code proses.
 Module modesetup
@@ -35,6 +35,13 @@ Module modesetup
             Select Case mode.ToLower()
                 Case "--cek-mysql"
                     kode = cekmysql(nilai, pesan)
+                Case "--id-mesin"
+                    pesan = idmesin()
+                    kode = SUKSES
+                Case "--cek-lisensi"
+                    Dim hasil As hasillisensi = periksakey(ambil(nilai, "lisensi"), idmesin())
+                    pesan = hasil.pesan
+                    kode = If(hasil.valid, SUKSES, GAGAL)
                 Case "--setup-server"
                     kode = setupserver(nilai, folderdata, pesan)
                 Case "--setup-client"
@@ -62,13 +69,18 @@ Module modesetup
         Return If(pesan = "", SUKSES, GAGAL)
     End Function
 
-    'key: port, rootpassword, database, appuser, apppassword, namatoko, sqlfile, logo
+    'key: port, rootpassword, database, appuser, apppassword, namatoko, sqlfile, logo, lisensi
     Public Function setupserver(ByVal nilai As Dictionary(Of String, String), ByVal folderdata As String, ByRef pesan As String) As Integer
         Dim port As String = ambil(nilai, "port", "3306")
-        Dim database As String = ambil(nilai, "database", "minimarket")
+        Dim database As String = ambil(nilai, "database", "bettermoney_pos")
         Dim appuser As String = ambil(nilai, "appuser")
         Dim apppassword As String = ambil(nilai, "apppassword")
         Dim root As MySqlConnectionStringBuilder = buatkoneksi("localhost", port, "root", ambil(nilai, "rootpassword"), "")
+        Dim lisensi As hasillisensi = periksakey(ambil(nilai, "lisensi"), idmesin())
+        If Not lisensi.valid Then
+            pesan = lisensi.pesan
+            Return GAGAL
+        End If
 
         'service MariaDB yang baru dipasang bisa butuh beberapa detik sampai siap
         Dim batas As Date = Now.AddSeconds(60)
@@ -80,11 +92,17 @@ Module modesetup
         If pesan <> "" Then
             Return GAGAL
         End If
+        Using koneksi As New MySqlConnection(root.ConnectionString)
+            koneksi.Open()
+            koneksi.ChangeDatabase(database)
+            simpanlisensi(koneksi, lisensi.key)
+        End Using
         Dim catatan As String = aturjaringan(root)
         Call tuliskonfigurasi(folderdata, buatkoneksi("localhost", port, appuser, apppassword, database), ambil(nilai, "namatoko"), ambil(nilai, "logo"))
-        pesan = "IP komputer server ini: " + ipkomputer() + vbCrLf + "Isi IP ini saat memasang aplikasi di komputer kasir (client)."
+        pesan = "IP komputer server ini: " + ipkomputer() + vbCrLf + "Isi IP ini saat memasang aplikasi di komputer kasir (client)." + vbCrLf + vbCrLf +
+            "Lisensi: " + lisensi.keterangan() + "."
         If masihpasswordbawaan(root, database) Then
-            pesan = pesan + vbCrLf + vbCrLf + "Login pertama: superadmin / password" + vbCrLf + "Segera ganti password setelah login (menu Kasir)."
+            pesan = pesan + vbCrLf + vbCrLf + "Login pertama di aplikasi (jabatan Administrator): superadmin / password" + vbCrLf + "Segera ganti password setelah login (menu Kasir). Akun login ini terpisah dari akun database yang diisi di installer."
         End If
         If catatan <> "" Then
             pesan = pesan + vbCrLf + vbCrLf + catatan
@@ -118,7 +136,7 @@ Module modesetup
 
     'key: host, port, database, appuser, apppassword, namatoko, logo
     Public Function setupclient(ByVal nilai As Dictionary(Of String, String), ByVal folderdata As String, ByRef pesan As String) As Integer
-        Dim koneksi As MySqlConnectionStringBuilder = buatkoneksi(ambil(nilai, "host"), ambil(nilai, "port", "3306"), ambil(nilai, "appuser"), ambil(nilai, "apppassword"), ambil(nilai, "database", "minimarket"))
+        Dim koneksi As MySqlConnectionStringBuilder = buatkoneksi(ambil(nilai, "host"), ambil(nilai, "port", "3306"), ambil(nilai, "appuser"), ambil(nilai, "apppassword"), ambil(nilai, "database", "bettermoney_pos"))
         pesan = cekkoneksi(koneksi)
         If pesan <> "" Then
             Return GAGAL

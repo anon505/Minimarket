@@ -28,6 +28,10 @@ Public Class main
                 If cpanel.Visible = True Then
                     cpanel.Close()
                 End If
+                If Not lisensiberlaku(koneksi.Server) Then
+                    MenuStrip1.Enabled = False
+                    Exit Sub
+                End If
                 Login.MdiParent = Me
                 Login.Show()
                 MenuStrip1.Enabled = False
@@ -53,6 +57,36 @@ Public Class main
             cpanel.MaximizeBox = False
         End Try
     End Sub
+    'Cek license key di database. Tidak valid: di server minta key baru, di client tutup aplikasi.
+    'Hasil False = aplikasi sedang ditutup.
+    Private Function lisensiberlaku(ByVal host As String) As Boolean
+        Dim hasil As hasillisensi
+        Try
+            hasil = ceklisensi(konek, host)
+        Catch ex As Exception
+            hasil = New hasillisensi()
+            hasil.pesan = "Lisensi tidak bisa diperiksa: " + ex.Message
+        End Try
+        If hasil.valid Then
+            Dim sisa As Integer = sisahari(hasil)
+            If sisa >= 0 And sisa <= HARIPERINGATAN Then
+                MsgBox("Lisensi System POS akan habis dalam " + sisa.ToString() + " hari (" + hasil.sampai.ToString("dd-MM-yyyy") + ")." + vbCrLf +
+                       "Hubungi BetterMoney untuk perpanjangan, lalu masukkan key baru lewat menu Lisensi di komputer server.", MsgBoxStyle.Exclamation)
+            End If
+            Return True
+        End If
+        If hostlokal(host) Then
+            MsgBox(hasil.pesan + vbCrLf + "Masukkan license key untuk komputer server ini.", MsgBoxStyle.Exclamation)
+            If formlisensi.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                Return True
+            End If
+        Else
+            MsgBox(hasil.pesan + vbCrLf + "Hubungi admin: license key dimasukkan di komputer server.", MsgBoxStyle.Critical)
+        End If
+        Me.BeginInvoke(New MethodInvoker(AddressOf Me.Close))
+        Return False
+    End Function
+
     Private Sub main_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Call konekbuka()
@@ -118,6 +152,10 @@ Public Class main
     Private Sub LaporanHarianToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LaporanHarianToolStripMenuItem.Click
         cetak.MdiParent = Me
         cetak.Show()
+    End Sub
+
+    Private Sub LisensiToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LisensiToolStripMenuItem.Click
+        formlisensi.ShowDialog()
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolStripMenuItem1.Click

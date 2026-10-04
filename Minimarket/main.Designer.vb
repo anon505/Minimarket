@@ -34,6 +34,7 @@ Partial Class main
         Me.LaporanHarianToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoginToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LisensiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -41,7 +42,7 @@ Partial Class main
         '
         Me.MenuStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.MenuStrip1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BarangToolStripMenuItem, Me.SatuanToolStripMenuItem, Me.KasirToolStripMenuItem, Me.SupplierToolStripMenuItem, Me.ObrolanToolStripMenuItem, Me.PembelianToolStripMenuItem, Me.PenjualanToolStripMenuItem, Me.LaporanHarianToolStripMenuItem, Me.ToolStripMenuItem1, Me.LoginToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BarangToolStripMenuItem, Me.SatuanToolStripMenuItem, Me.KasirToolStripMenuItem, Me.SupplierToolStripMenuItem, Me.ObrolanToolStripMenuItem, Me.PembelianToolStripMenuItem, Me.PenjualanToolStripMenuItem, Me.LaporanHarianToolStripMenuItem, Me.ToolStripMenuItem1, Me.LisensiToolStripMenuItem, Me.LoginToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1006, 26)
@@ -127,6 +128,14 @@ Partial Class main
         Me.ToolStripMenuItem1.Size = New System.Drawing.Size(115, 22)
         Me.ToolStripMenuItem1.Text = "Konfigurasi"
         '
+        'LisensiToolStripMenuItem
+        '
+        Me.LisensiToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control
+        Me.LisensiToolStripMenuItem.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LisensiToolStripMenuItem.Name = "LisensiToolStripMenuItem"
+        Me.LisensiToolStripMenuItem.Size = New System.Drawing.Size(67, 22)
+        Me.LisensiToolStripMenuItem.Text = "Lisensi"
+        '
         'LoginToolStripMenuItem
         '
         Me.LoginToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control
@@ -166,4 +175,5 @@ Partial Class main
     Friend WithEvents SatuanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ObrolanToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents LisensiToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

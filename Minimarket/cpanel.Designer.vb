@@ -109,7 +109,7 @@ Partial Class cpanel
         Me.txtdb.ReadOnly = True
         Me.txtdb.Size = New System.Drawing.Size(217, 26)
         Me.txtdb.TabIndex = 5
-        Me.txtdb.Text = "minimarket"
+        Me.txtdb.Text = "bettermoney_pos"
         '
         'Label1
         '

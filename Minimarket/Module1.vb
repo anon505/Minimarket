@@ -5,10 +5,10 @@ Module Module1
     'password akun bawaan superadmin (minimarket_db.sql); user diingatkan menggantinya saat login
     Public Const PASSWORDBAWAAN As String = "password"
 
-    'koneksi.txt & config.txt disimpan di C:\ProgramData\Minimarket, karena folder aplikasi
+    'koneksi.txt & config.txt disimpan di C:\ProgramData\BetterMoney, karena folder aplikasi
     '(C:\Program Files) tidak bisa ditulis user biasa.
     Public Function folderdata() As String
-        Dim folder As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Minimarket")
+        Dim folder As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "BetterMoney")
         IO.Directory.CreateDirectory(folder)
         Return folder
     End Function
