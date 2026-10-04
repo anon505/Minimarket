@@ -127,21 +127,31 @@ Module modesetup
         Return SUKSES
     End Function
 
-    'Tulis koneksi.txt & config.txt (format sama dengan cpanel). Logo yang sudah diatur sebelumnya dipertahankan.
-    Public Sub tuliskonfigurasi(ByVal folderdata As String, ByVal koneksi As MySqlConnectionStringBuilder, ByVal namatoko As String, ByVal logo As String)
+    'Tulis koneksi.txt & config.txt (format sama dengan cpanel). Logo pilihan user sebelumnya dipertahankan;
+    'selain itu logo dibuat dari nama toko (logobawaan dipakai jika gagal membuat gambar).
+    Public Sub tuliskonfigurasi(ByVal folderdata As String, ByVal koneksi As MySqlConnectionStringBuilder, ByVal namatoko As String, ByVal logobawaan As String)
         Directory.CreateDirectory(folderdata)
         File.WriteAllText(Path.Combine(folderdata, "koneksi.txt"), koneksi.ConnectionString)
         Dim fileconfig As String = Path.Combine(folderdata, "config.txt")
+        Dim logo As String = ""
         If File.Exists(fileconfig) Then
             Dim baris() As String = File.ReadAllLines(fileconfig)
             If baris.Length > 0 Then
                 Dim logolama As String = baris(0).Replace("logo=", "").Replace(";", "")
-                If File.Exists(logolama) Then
+                If File.Exists(logolama) AndAlso Not logobuatan(logolama) AndAlso Not String.Equals(logolama, logobawaan, StringComparison.OrdinalIgnoreCase) Then
                     logo = logolama
                 End If
             End If
         End If
+        If logo = "" Then
+            Try
+                logo = buatlogo(namatoko, folderdata)
+            Catch ex As Exception
+                logo = logobawaan
+            End Try
+        End If
         File.WriteAllLines(fileconfig, New String() {"logo=" + logo + ";", "toko=" + namatoko})
+        hapuslogolama(folderdata, logo)
     End Sub
 
     'MySQL yang sudah terpasang sebelumnya (mis. XAMPP) bisa dibatasi hanya untuk localhost lewat my.ini.
