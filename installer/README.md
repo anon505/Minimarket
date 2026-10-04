@@ -64,15 +64,17 @@ Pasang **server dulu**, baru client.
 ### Server (satu komputer pusat, Windows 64-bit)
 
 1. Jalankan installer → pilih **Server**.
-2. Isi port database (biarkan `3306`) dan password root database. Simpan password ini.
+2. Halaman **Lisensi** menampilkan **ID mesin**. Buat key dengan generator (repo terpisah `POS-License-Generator`):
+   `bmlisensi buat --id <ID mesin> [--sampai YYYY-MM-DD]`, lalu tempel key-nya. Next memeriksa key.
+3. Isi port database (biarkan `3306`) dan password root database. Simpan password ini.
    - Jika di komputer ini sudah ada MySQL/MariaDB/XAMPP yang berjalan, isi password root yang sudah ada; installer akan memakainya, tidak memasang MariaDB baru.
-3. Isi username & password aplikasi serta nama toko. **Catat** username & password ini untuk memasang client.
-4. Selesai instalasi, muncul pesan berisi **IP komputer server**. Catat IP ini.
+4. Isi username & password aplikasi serta nama toko. **Catat** username & password ini untuk memasang client.
+5. Selesai instalasi, muncul pesan berisi **IP komputer server** dan masa berlaku lisensi. Catat IP ini.
 
 ### Client (setiap komputer kasir)
 
 1. Jalankan installer yang sama → pilih **Client**.
-2. Isi IP server (dari langkah server no. 4), port, username & password aplikasi, nama toko.
+2. Isi IP server (dari langkah server no. 5), port, username & password aplikasi, nama toko.
 3. Klik Next — koneksi ke server langsung dites. Jika gagal, pesan menjelaskan penyebabnya (IP salah, firewall, password salah, dll).
 
 ### Cek setelah instalasi
@@ -84,6 +86,9 @@ Pasang **server dulu**, baru client.
 - [ ] Cetak nota dan Laporan (Penjualan & Pembelian)
 - [ ] Menu Konfigurasi → **Tes Koneksi** berhasil
 - [ ] Backup database dari komputer server
+- [ ] Menu **Lisensi** di server menampilkan ID mesin & status valid; di client kotak key nonaktif
+- [ ] Key untuk ID mesin lain / key diubah satu huruf ditolak (installer & menu Lisensi)
+- [ ] Key dengan `--sampai` dekat (≤ 14 hari) → peringatan saat aplikasi dibuka
 
 Akun bawaan `superadmin` / `password` wajib diganti passwordnya sebelum dipakai di toko. Aplikasi menampilkan peringatan setiap login selama password masih `password`. Pesan akhir instalasi server juga menyebutkan akun ini (hanya jika passwordnya belum diganti).
 

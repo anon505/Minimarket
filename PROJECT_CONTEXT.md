@@ -20,6 +20,7 @@ Tiap form = `nama.vb` (logic) + `nama.Designer.vb` (UI generated, jangan edit ma
 |---|---|
 | `Module1.vb` | Global state: `konek` (MySqlConnection tunggal, dibuka sekali), `id_kasir`, `hak_akses`, `pathlogo`, `namatoko` (semua `String`). `lokasifile(nama)` → path di `%ProgramData%\BetterMoney` |
 | `koneksidb.vb` | Logika koneksi tanpa UI (dipakai app & nanti installer): `buatkoneksi()`, `cekkoneksi()` (TCP 3s lalu login MySQL tanpa pooling, pesan error per penyebab), `siapkanserver()` (buat DB, import dump jika kosong, user app `'%'`+`'localhost'`), `izinkanjaringan(my.ini)` |
+| `lisensikunci.vb` + `formlisensi.vb` | License key (lihat bagian "Lisensi"). `formlisensi` = menu **Lisensi** (admin) & dialog saat lisensi tidak valid |
 | `logotoko.vb` | `buatlogo(namatoko, folder)` → PNG 600x300 nama toko di `%ProgramData%\BetterMoney\logotoko-<waktu>.png` (nama unik karena `Bitmap.FromFile` mengunci file lama). `logobuatan(path)`, `hapuslogolama(folder, dipakai)` |
 | `main.vb` | MDI parent, startup form (`My Project/Application.myapp` → `MainForm=main`). `konekbuka()` buka koneksi, baca `config.txt`, buka form anak via MenuStrip |
 | `Login.vb` | Login: cek `kasir` by `type` + nama + password, lalu cek `status='Aktif'`. Enable/disable menu sesuai role |
@@ -50,6 +51,7 @@ Tanpa foreign key constraint (relasi hanya konvensi). Engine InnoDB, latin1.
 - `penjualan(id_barang, id_kasir, total, status, tanggal)` — **tanpa PK, tanpa id transaksi/nota**. Kolom `total` = **jumlah qty**, bukan rupiah.
 - `pembelian(id_barang, id_kasir, tgl_pembelian, jumlah, status)` — tanpa PK.
 - `obrolan(pesan)`
+- `lisensi(id TINYINT PK, kunci VARCHAR(255))` — satu baris `id=1`. Dibuat oleh kode (`simpanlisensi`, `CREATE TABLE IF NOT EXISTS`), tidak ada di dump.
 - View `keuntungan` (penjualan status `'cetak'` + barang + satuan), view `view_beli` (pembelian status `'cetak'`).
 
 ### Trigger stok (penting)
@@ -69,7 +71,8 @@ Password bawaan = konstanta `PASSWORDBAWAAN` (`Module1.vb`). Selama password aku
 **Startup**: `main_Load` → `konekbuka()`:
 1. Baca `lokasifile("koneksi.txt")` → `MySqlConnectionStringBuilder` (database kosong → `cpanel.txtdb.Text`, default `bettermoney_pos`).
 2. `cekkoneksi()`; gagal → MsgBox pesan penyebab + buka `cpanel`. Berhasil → buka `konek`.
-3. Tampilkan `Login` sebagai MDI child, MenuStrip disabled sampai login.
+3. `lisensiberlaku()` cek tabel `lisensi`. Tidak valid: di server (host lokal) buka `formlisensi`, batal → aplikasi ditutup; di client MsgBox lalu tutup. Sisa ≤ 14 hari → peringatan.
+4. Tampilkan `Login` sebagai MDI child, MenuStrip disabled sampai login.
 4. Baca `config.txt` (`logo=<path>;` baris 1, `toko=<nama>` baris 2).
 Jika file tidak ada / koneksi gagal → buka `cpanel`.
 
@@ -108,9 +111,17 @@ Satu transaksi tidak punya nomor nota; item sama di keranjang digabung (qty dita
 - Restore database (`cpanel`) butuh login root: dump berisi `DEFINER=root@localhost` untuk view/trigger, user aplikasi tidak boleh membuatnya.
 - Setting `koneksi` di `My Project/Settings.settings` tidak dipakai (sisa lama).
 
+## Lisensi
+
+- Key dibuat generator command-line `bmlisensi` di **repo terpisah** `../POS-License-Generator` (VB.NET .NET 8). Kunci privat ECDSA P-256 di `~/.bettermoney-lisensi/kunci-privat.txt` (di luar repo, jangan di-commit); di sini hanya `KUNCIPUBLIK` (`lisensikunci.vb`).
+- Format key (77 byte → base32 Crockford, kelompok 4): versi 1 | ID mesin 10 byte | hari sejak 2020-01-01 UInt16 LE (0 = selamanya) | tanda tangan P1363 64 byte atas 13 byte pertama. **Harus identik** dengan `Lisensi.vb` di repo generator.
+- ID mesin = 10 byte pertama SHA-256("BetterMoney-POS|" + MachineGuid). MachineGuid dibaca dari registry **64-bit** (`RegistryView.Registry64`, karena app x86). Berubah jika Windows diinstal ulang.
+- Key diikat ke komputer **server**; disimpan di tabel `lisensi`. `ceklisensi(konek, host)`: host lokal (`hostlokal`) → ID mesin wajib cocok; client → hanya keaslian + masa berlaku (client tidak bisa membaca ID mesin server).
+- Ganti pasangan kunci = semua key lama tidak berlaku.
+
 ## Installer (Inno Setup)
 
-- **Server**: halaman port + password root, lalu user aplikasi + nama toko. Next di halaman root menjalankan `--cek-mysql` (exe diekstrak sementara ke `{tmp}`): port tertutup → pasang MariaDB 11.8 LTS MSI (`/qn SERVICENAME=MariaDB PORT= PASSWORD=`) di `PrepareToInstall`; MySQL sudah ada + root benar → pakai yang ada. Setelah file disalin: `--setup-server` (buat DB, import dump, user app `'%'`+`'localhost'`, cek my.ini, tulis koneksi/config, tampilkan IP server) + `netsh` rule firewall "BetterMoney POS Database". Kode 2 (perlu pasang MariaDB) di Windows < 10 ditolak: MSI MariaDB 10.5+ butuh Windows 10 / Server 2016.
+- **Server**: halaman Lisensi (ID mesin dari `--id-mesin`, key dicek `--cek-lisensi`, key ikut ke `--setup-server` yang memeriksa ulang & menyimpan ke tabel `lisensi`), lalu halaman port + password root, lalu user aplikasi + nama toko. Next di halaman root menjalankan `--cek-mysql` (exe diekstrak sementara ke `{tmp}`): port tertutup → pasang MariaDB 11.8 LTS MSI (`/qn SERVICENAME=MariaDB PORT= PASSWORD=`) di `PrepareToInstall`; MySQL sudah ada + root benar → pakai yang ada. Setelah file disalin: `--setup-server` (buat DB, import dump, user app `'%'`+`'localhost'`, cek my.ini, tulis koneksi/config, tampilkan IP server) + `netsh` rule firewall "BetterMoney POS Database". Kode 2 (perlu pasang MariaDB) di Windows < 10 ditolak: MSI MariaDB 10.5+ butuh Windows 10 / Server 2016.
 - **Client**: halaman IP server, port, user/password app, nama toko; Next menjalankan `--cek-mysql` ke server (gagal → tetap di halaman). Setelah install `--setup-client` menulis koneksi/config.
 - JANGAN kirim `ALLOWREMOTEROOTACCESS` ke msiexec (nilai apa pun mengaktifkan root dari jaringan). MSI 11.8 tidak punya properti `UTF8`.
 - Password root tidak boleh mengandung `"` (dikirim ke msiexec dalam tanda kutip).

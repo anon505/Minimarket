@@ -63,6 +63,7 @@ var
   ServerDbPage: TInputQueryWizardPage;
   ServerAppPage: TInputQueryWizardPage;
   ClientPage: TInputQueryWizardPage;
+  LisensiPage: TInputQueryWizardPage;
   ProgresPage: TOutputProgressWizardPage;
   MySQLSudahAda: Boolean;
   AppSudahDiekstrak: Boolean;
@@ -179,7 +180,8 @@ begin
   ModePage.Add('Client - komputer kasir (aplikasi saja, terhubung ke server)');
   ModePage.SelectedValueIndex := 0;
 
-  { dibuat setelah ModePage -> urutan: Mode, Client, Server DB, Server App (yang tidak dipakai dilewati) }
+  { tiap halaman disisipkan tepat setelah ModePage -> urutan: Mode, Lisensi, Client, Server DB, Server App
+    (yang tidak dipakai dilewati) }
   ServerDbPage := CreateInputQueryPage(ModePage.ID,
     'Database Server', 'Password administrator (root) database',
     'Jika MariaDB/MySQL sudah terpasang di komputer ini, isi password root yang sudah ada. ' +
@@ -211,13 +213,23 @@ begin
   ClientPage.Values[1] := '3306';
   ClientPage.Values[2] := 'superadmin';
 
+  { license key hanya untuk server: diikat ke ID mesin komputer server, client membaca lisensi dari database server }
+  LisensiPage := CreateInputQueryPage(ModePage.ID,
+    'Lisensi', 'License key komputer server',
+    'Kirim ID mesin di bawah ke BetterMoney (klik kotaknya, Ctrl+A lalu Ctrl+C untuk menyalin). ' +
+    'Tempel license key yang Anda terima, lalu klik Next. ' +
+    'Jika belum punya key, klik Cancel dan jalankan installer ini lagi setelah key diterima.');
+  LisensiPage.Add('ID mesin komputer ini:', False);
+  LisensiPage.Add('License key:', False);
+  LisensiPage.Edits[0].ReadOnly := True;
+
   ProgresPage := CreateOutputProgressPage('Memasang Database', 'Mohon tunggu, proses ini bisa memakan beberapa menit.');
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
   Result := False;
-  if (PageID = ServerDbPage.ID) or (PageID = ServerAppPage.ID) then
+  if (PageID = LisensiPage.ID) or (PageID = ServerDbPage.ID) or (PageID = ServerAppPage.ID) then
     Result := not IsServer
   else if PageID = ClientPage.ID then
     Result := IsServer;
@@ -346,11 +358,60 @@ begin
     Result := True;
 end;
 
+{ ID mesin ditampilkan saat halaman Lisensi dibuka }
+procedure CurPageChanged(CurPageID: Integer);
+var
+  Isi: TStringList;
+  Pesan: String;
+begin
+  if (CurPageID = LisensiPage.ID) and (LisensiPage.Values[0] = '') then
+  begin
+    Isi := TStringList.Create;
+    try
+      if JalankanApp(AppSementara, '--id-mesin', Isi, Pesan) = 0 then
+        LisensiPage.Values[0] := Trim(Pesan)
+      else
+        MsgBox('ID mesin komputer ini tidak bisa dibaca:' + #13#10 + Pesan, mbError, MB_OK);
+    finally
+      Isi.Free;
+    end;
+  end;
+end;
+
+function CekLisensi: Boolean;
+var
+  Isi: TStringList;
+  Kode: Integer;
+  Pesan: String;
+begin
+  if Trim(LisensiPage.Values[1]) = '' then
+  begin
+    Result := Gagal('Isi license key dari BetterMoney. Kirim ID mesin di halaman ini untuk mendapatkannya.');
+    exit;
+  end;
+  Isi := TStringList.Create;
+  try
+    Isi.Add('lisensi=' + Trim(LisensiPage.Values[1]));
+    Kode := JalankanApp(AppSementara, '--cek-lisensi', Isi, Pesan);
+  finally
+    Isi.Free;
+  end;
+  if Kode = 0 then
+  begin
+    MsgBox(Pesan, mbInformation, MB_OK);
+    Result := True;
+  end
+  else
+    Result := Gagal(Pesan);
+end;
+
 function NextButtonClick(CurPageID: Integer): Boolean;
 begin
   Result := True;
   if (CurPageID = ModePage.ID) and IsServer and not IsWin64 then
     Result := Gagal('Server membutuhkan Windows 64-bit (MariaDB hanya tersedia 64-bit).')
+  else if CurPageID = LisensiPage.ID then
+    Result := CekLisensi
   else if CurPageID = ServerDbPage.ID then
     Result := CekServerDb
   else if CurPageID = ServerAppPage.ID then
@@ -405,6 +466,7 @@ begin
     Isi.Add('namatoko=' + Trim(ServerAppPage.Values[3]));
     Isi.Add('sqlfile=' + ExpandConstant('{app}\minimarket_db.sql'));
     Isi.Add('logo=' + ExpandConstant('{app}\logoku.jpg'));
+    Isi.Add('lisensi=' + Trim(LisensiPage.Values[1]));
     Kode := JalankanApp(ExpandConstant('{app}\{#AppExe}'), '--setup-server', Isi, Pesan);
   finally
     Isi.Free;

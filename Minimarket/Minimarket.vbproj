@@ -273,6 +273,12 @@
     <Compile Include="cpanel.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formlisensi.Designer.vb">
+      <DependentUpon>formlisensi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formlisensi.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="formnota.Designer.vb">
       <DependentUpon>formnota.vb</DependentUpon>
     </Compile>
@@ -306,6 +312,7 @@
       <DependentUpon>minimarketds.xsd</DependentUpon>
     </Compile>
     <Compile Include="koneksidb.vb" />
+    <Compile Include="lisensikunci.vb" />
     <Compile Include="logotoko.vb" />
     <Compile Include="modesetup.vb" />
     <Compile Include="Module1.vb" />

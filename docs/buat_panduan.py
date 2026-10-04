@@ -181,7 +181,8 @@ s.append(Spacer(1, 8))
 s.append(kotak("Satu file installer untuk semua komputer", [
     "File <b>SystemPOS-Setup-x.x.x.exe</b> (sekitar 90 MB) dipakai untuk Server maupun Client. "
     "Jenisnya dipilih di awal instalasi. Pasang <b>Server lebih dulu</b>, baru Client.",
-    "Kalau toko hanya punya satu komputer, cukup pasang sebagai Server."]))
+    "Kalau toko hanya punya satu komputer, cukup pasang sebagai Server.",
+    "Komputer Server membutuhkan <b>license key</b> dari BetterMoney (bagian 3 dan 4). Komputer Client tidak."]))
 
 # 2
 s.append(p("2. Kebutuhan komputer", H1))
@@ -245,6 +246,11 @@ s.append(langkah([
      "&bull; Di pengaturan router: buat <i>DHCP reservation</i> / <i>IP binding</i> untuk komputer Server (cara paling aman).",
      "&bull; Di Windows komputer Server: Settings &gt; Network &amp; Internet &gt; (Ethernet/WiFi) &gt; IP assignment &gt; Edit &gt; "
      "Manual, isi IP di luar rentang DHCP router, misalnya 192.168.1.10."],
+    ["<b>Siapkan license key.</b> Key dibuat BetterMoney khusus untuk <b>ID mesin</b> komputer Server. "
+     "ID mesin tampil di halaman <b>Lisensi</b> installer Server (bagian 4 langkah 3).",
+     "Jalankan installer di komputer Server sampai halaman itu, kirim ID mesin ke BetterMoney, lalu klik Cancel. "
+     "Setelah key diterima, jalankan installer lagi. ID mesin tidak berubah selama Windows tidak diinstal ulang, "
+     "jadi key boleh diminta beberapa hari sebelum instalasi."],
     "<b>Tutup program database lain</b> yang tidak dipakai (misalnya XAMPP) supaya port 3306 kosong. "
     "Jika database itu memang ingin dipakai, siapkan password root-nya.",
     "<b>Siapkan dua password</b> dan catat di Lembar Catatan (bagian 9): password <b>root</b> database "
@@ -264,6 +270,10 @@ s.append(p("4. Instalasi komputer Server", H1))
 s.append(langkah([
     "Klik kanan file installer &gt; <b>Run as administrator</b>. Klik <b>Next</b> di halaman pembuka.",
     "<b>Jenis Instalasi:</b> pilih <b>Server - komputer pusat</b>, klik Next.",
+    ["<b>Lisensi:</b> kotak <b>ID mesin komputer ini</b> terisi otomatis (contoh 7K2M-9QXR-4HTB-0ZPA). "
+     "Untuk menyalin: klik kotaknya, Ctrl+A, lalu Ctrl+C.",
+     "Tempel license key dari BetterMoney di kotak <b>License key</b>, klik Next. Key langsung diperiksa dan "
+     "muncul pesan masa berlakunya. Key untuk komputer lain, salah salin, atau sudah habis akan ditolak."],
     ["<b>Database Server:</b> isi <b>Port database</b> (biarkan 3306), <b>Password root</b>, dan ulangi password. Klik Next.",
      "Installer memeriksa komputer ini:",
      "&bull; Belum ada database di port itu &gt; MariaDB akan dipasang dengan password tadi.",
@@ -277,6 +287,7 @@ s.append(langkah([
     "Tunggu proses <b>Memasang Database</b>. Bisa memakan beberapa menit.",
     ["Di akhir instalasi muncul pesan <b>Server siap dipakai</b> berisi:",
      "&bull; <b>IP komputer server ini</b> &gt; <b>catat</b>, dipakai saat memasang Client.",
+     "&bull; Masa berlaku lisensi.",
      "&bull; Akun login aplikasi pertama: <b>superadmin / password</b>.",
      "&bull; Kadang ada catatan untuk <b>restart MySQL/MariaDB</b> (hanya jika memakai MySQL lama yang pengaturannya diubah). "
      "Jika ada, restart komputer Server sebelum memasang Client."],
@@ -287,13 +298,15 @@ s.append(kotak("Yang dikerjakan installer Server secara otomatis", [
     "&bull; Memasang MariaDB 11.8 sebagai service Windows bernama <i>MariaDB</i> (jalan otomatis saat komputer menyala).",
     "&bull; Membuat database <b>bettermoney_pos</b> berisi data awal (contoh supplier, satuan, barang, dan akun superadmin).",
     "&bull; Membuat akun aplikasi yang boleh login dari komputer lain di jaringan. Akun root hanya bisa login dari komputer Server.",
+    "&bull; Menyimpan license key di database Server (dipakai juga oleh semua Client).",
     "&bull; Membuka port database di Windows Firewall.",
     "&bull; Menyimpan pengaturan koneksi, nama toko, dan logo (dibuat otomatis dari nama toko)."]))
 
 # 5
 s.append(CondPageBreak(120 * mm))
 s.append(p("5. Instalasi komputer Kasir (Client)", H1))
-s.append(p("Pastikan komputer Server <b>menyala</b> dan berada di jaringan yang sama sebelum mulai."))
+s.append(p("Pastikan komputer Server <b>menyala</b> dan berada di jaringan yang sama sebelum mulai. "
+           "Client <b>tidak perlu license key</b>: lisensi dibaca dari database Server."))
 s.append(langkah([
     "Klik kanan file installer yang sama &gt; <b>Run as administrator</b>. Klik Next.",
     "<b>Jenis Instalasi:</b> pilih <b>Client - komputer kasir</b>, klik Next.",
@@ -340,6 +353,20 @@ s.append(tabel([
     ["<b>Tes Koneksi</b> / <b>Tes dan Simpan Koneksi</b>", "Memeriksa dan menyimpan koneksi ke database (IP server, port, user, password)."],
 ], [55 * mm, 115 * mm]))
 s.append(Spacer(1, 6))
+s.append(CondPageBreak(70 * mm))
+s.append(p("Lisensi", H2))
+s.append(p("Lisensi diperiksa setiap kali aplikasi dibuka. Statusnya bisa dilihat di menu <b>Lisensi</b> (Administrator)."))
+s.append(tabel([
+    ["Keadaan", "Yang terjadi / yang dilakukan"],
+    ["<b>Akan habis</b>", "14 hari sebelum habis, muncul peringatan setiap aplikasi dibuka. Hubungi BetterMoney untuk perpanjangan."],
+    ["<b>Perpanjang</b>", "Minta key baru ke BetterMoney (ID mesin sama). Di komputer <b>Server</b>: menu Lisensi, tempel key di "
+                          "<b>License key baru</b>, klik Simpan. Semua Client otomatis ikut."],
+    ["<b>Habis / tidak valid</b>", "Di Server: jendela Lisensi terbuka, aplikasi baru bisa dipakai setelah key valid disimpan. "
+                                   "Di Client: muncul pesan lalu aplikasi tertutup sampai key di Server diperbarui."],
+    ["<b>Windows Server diinstal ulang / Server pindah komputer</b>", "ID mesin berubah. Kirim ID mesin yang baru (menu Lisensi "
+                                   "atau installer) ke BetterMoney untuk mendapatkan key baru."],
+], [50 * mm, 120 * mm]))
+s.append(Spacer(1, 6))
 s.append(p("Daftar periksa", H2))
 cek = ["Login superadmin di Server berhasil dan password sudah diganti",
        "Login dengan akun yang sama di setiap Client berhasil",
@@ -347,7 +374,8 @@ cek = ["Login superadmin di Server berhasil dan password sudah diganti",
        "Cetak nota penjualan berhasil",
        "Menu Laporan (Penjualan dan Pembelian) tampil",
        "Menu Konfigurasi &gt; Tes Koneksi berhasil di setiap komputer",
-       "Backup database dari komputer Server berhasil"]
+       "Backup database dari komputer Server berhasil",
+       "Menu Lisensi di Server menampilkan status valid dan masa berlaku yang benar"]
 s.append(tabel([[Centang(), c] for c in cek], [8 * mm, 162 * mm], kepala=False))
 
 # 7
@@ -361,7 +389,8 @@ s.append(tabel([
                                 "<b>Re/Store Database</b> dan pilih file .sql. Restore menimpa data yang ada. "
                                 "Setelah selesai, kembalikan isian ke akun aplikasi; jangan simpan koneksi dengan akun root."],
     ["<b>Update aplikasi</b>", "Jalankan installer versi baru di setiap komputer dengan jenis yang sama (Server/Client). "
-                               "Data, pengaturan koneksi, dan logo pilihan sendiri tetap dipakai."],
+                               "Data, pengaturan koneksi, dan logo pilihan sendiri tetap dipakai. "
+                               "Installer Server meminta license key lagi: isi dengan key yang sama."],
     ["<b>Uninstall</b>", "Settings &gt; Apps &gt; System POS (Point Of Sale) &gt; Uninstall. Database MariaDB dan folder "
                          "<font name='Courier'>C:\\ProgramData\\BetterMoney</font> <b>tidak</b> ikut terhapus."],
 ], [36 * mm, 134 * mm]))
@@ -400,6 +429,14 @@ s.append(tabel([
      "Jalankan ulang installer Server di komputer Server dengan akun aplikasi yang sama."],
     ["Semua Client tiba-tiba tidak bisa terhubung", "IP Server berubah",
      "Buat IP Server tetap (bagian 3), lalu di setiap Client ubah SERVER di menu Konfigurasi &gt; Tes dan Simpan Koneksi."],
+    ["License key ini untuk komputer lain", "Key dibuat untuk ID mesin lain, atau dimasukkan di komputer selain Server",
+     "Periksa ID mesin di installer/menu Lisensi komputer Server, minta key untuk ID itu."],
+    ["License key tidak asli / Format license key salah", "Key salah salin (terpotong atau ada huruf berubah)",
+     "Salin ulang seluruh key dari pesan BetterMoney, lalu tempel lagi."],
+    ["License key sudah habis masa berlakunya", "Tanggal berlaku sudah lewat",
+     "Minta key perpanjangan, masukkan lewat menu Lisensi di komputer Server."],
+    ["Client: Belum ada license key / ... hubungi admin", "Lisensi di Server belum diisi atau sudah tidak valid",
+     "Buka aplikasi di komputer Server dan masukkan key yang valid."],
     ["Aplikasi menampilkan form Konfigurasi saat dibuka", "Koneksi ke database gagal", "Baca pesan yang muncul, perbaiki data koneksi, klik Tes Koneksi lalu Simpan."],
 ], [48 * mm, 50 * mm, 72 * mm]))
 
@@ -411,7 +448,8 @@ s.append(Spacer(1, 4))
 isian = [["Nama toko", ""], ["Tanggal instalasi", ""], ["Nama / lokasi komputer Server", ""],
          ["IP Server", ""], ["Port database", "3306"], ["Password root database", ""],
          ["Username aplikasi (database)", "superadmin"], ["Password aplikasi (database)", ""],
-         ["Password superadmin (baru)", ""], ["Lokasi penyimpanan backup", ""]]
+         ["Password superadmin (baru)", ""], ["ID mesin Server", ""],
+         ["Lisensi berlaku sampai", ""], ["Lokasi penyimpanan backup", ""]]
 t = Table([[Paragraph(a, SEL_B), Paragraph(b, SEL)] for a, b in isian], colWidths=[65 * mm, 105 * mm],
           rowHeights=[11 * mm] * len(isian))
 t.setStyle(TableStyle([("GRID", (0, 0), (-1, -1), 0.5, GARIS), ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
