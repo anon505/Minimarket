@@ -42,8 +42,12 @@ Public Class kasir
         If (hak_akses.Text = "" Or txtnama.Text = "" Or txtalamat.Text = "" Or txtpassword.Text = "") Then
             MsgBox("Data tentang Kasir, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "INSERT INTO kasir(nama_kasir,password,alamat,type,status)VALUES('" + txtnama.Text + "','" + txtpassword.Text + "','" + txtalamat.Text + "','" + (hak_akses.SelectedIndex + 1).ToString + "','Tidak Aktif')"
+            Query = "INSERT INTO kasir(nama_kasir,password,alamat,type,status)VALUES(@nama,@password,@alamat,@type,'Tidak Aktif')"
             Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+            cmd.Parameters.AddWithValue("@nama", txtnama.Text)
+            cmd.Parameters.AddWithValue("@password", txtpassword.Text)
+            cmd.Parameters.AddWithValue("@alamat", txtalamat.Text)
+            cmd.Parameters.AddWithValue("@type", hak_akses.SelectedIndex + 1)
             Dim i As Integer = cmd.ExecuteNonQuery()
             If (i > 0) Then
                 MsgBox("Kasir baru berhasil ditambahkan", MsgBoxStyle.OkOnly)
@@ -87,8 +91,13 @@ Public Class kasir
         If (hak_akses.Text = "" Or txtnama.Text = "" Or txtalamat.Text = "") Then
             MsgBox("Data tentang kasir, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "UPDATE  kasir SET type='" + (hak_akses.SelectedIndex + 1).ToString + "',  nama_kasir= '" + txtnama.Text + "',  password= '" + txtpassword.Text + "',alamat ='" + txtalamat.Text + "' WHERE  id_kasir ='" + Label4.Text + "'"
+            Query = "UPDATE  kasir SET type=@type,  nama_kasir=@nama,  password=@password,alamat=@alamat WHERE  id_kasir=@id"
             Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+            cmd.Parameters.AddWithValue("@type", hak_akses.SelectedIndex + 1)
+            cmd.Parameters.AddWithValue("@nama", txtnama.Text)
+            cmd.Parameters.AddWithValue("@password", txtpassword.Text)
+            cmd.Parameters.AddWithValue("@alamat", txtalamat.Text)
+            cmd.Parameters.AddWithValue("@id", Label4.Text)
             Dim i As Integer = cmd.ExecuteNonQuery()
             If (i > 0) Then
                 MsgBox("Data Kasir berhasil diubah", MsgBoxStyle.OkOnly)
@@ -104,8 +113,9 @@ Public Class kasir
         If (hak_akses.Text = "" Or txtnama.Text = "" Or txtalamat.Text = "") Then
             MsgBox("Harap pilih data yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Query = "delete from kasir WHERE  id_kasir ='" + Label4.Text + "'"
+            Query = "delete from kasir WHERE  id_kasir=@id"
             Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+            cmd.Parameters.AddWithValue("@id", Label4.Text)
             Dim i As Integer = cmd.ExecuteNonQuery()
             If (i > 0) Then
                 MsgBox("Satu Kasir berhasil dihapus", MsgBoxStyle.OkOnly)
@@ -122,7 +132,11 @@ Public Class kasir
         txtalamat.Text = ""
         If berdasarkan.SelectedIndex = 0 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where id_kasir=" + txtcari.Text + "'", konek)
+                If Not IsNumeric(txtcari.Text) Then
+                    Throw New FormatException("ID Kasir harus angka")
+                End If
+                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where id_kasir=@cari", konek)
+                sql.Parameters.AddWithValue("@cari", Val(txtcari.Text))
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql
@@ -136,7 +150,8 @@ Public Class kasir
         End If
         If berdasarkan.SelectedIndex = 1 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where nama_kasir  like '%" + txtcari.Text + "%'", konek)
+                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where nama_kasir  like @cari", konek)
+                sql.Parameters.AddWithValue("@cari", "%" + txtcari.Text + "%")
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql
@@ -150,7 +165,8 @@ Public Class kasir
         End If
         If berdasarkan.SelectedIndex = 2 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where alamat like '%" + txtcari.Text + "%'", konek)
+                Dim sql As MySqlCommand = New MySqlCommand("select * from kasir where alamat like @cari", konek)
+                sql.Parameters.AddWithValue("@cari", "%" + txtcari.Text + "%")
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql
@@ -176,13 +192,15 @@ Public Class kasir
             MsgBox("Kasir belum dipilih", MsgBoxStyle.OkOnly)
         ElseIf (Button1.Text = "Aktifkan Kasir") Then
            
-            Dim status As MySqlCommand = New MySqlCommand("update kasir set status='Aktif' where id_kasir='" + Label4.Text + "'", konek)
+            Dim status As MySqlCommand = New MySqlCommand("update kasir set status='Aktif' where id_kasir=@id", konek)
+            status.Parameters.AddWithValue("@id", Label4.Text)
             status.ExecuteNonQuery()
             MsgBox("Kasir No" + Label4.Text + " telah Aktif", MsgBoxStyle.OkOnly)
             Call view()
         ElseIf (Button1.Text = "Nonaktifkan Kasir") Then
            
-            Dim status As MySqlCommand = New MySqlCommand("update kasir set status='Tidak Aktif' where id_kasir='" + Label4.Text + "'", konek)
+            Dim status As MySqlCommand = New MySqlCommand("update kasir set status='Tidak Aktif' where id_kasir=@id", konek)
+            status.Parameters.AddWithValue("@id", Label4.Text)
             status.ExecuteNonQuery()
             MsgBox("Kasir No" + Label4.Text + " di Nonaktifkan", MsgBoxStyle.OkOnly)
             Call view()

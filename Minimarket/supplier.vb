@@ -35,8 +35,11 @@ Public Class supplier
         If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "") Then
             MsgBox("Data tentang supplier, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "INSERT INTO supplier(nama_suplier,alamat_suplier,contact_person)VALUES('" + txtnama.Text + "','" + txtharga.Text + "','" + txtstok.Text + "')"
+            Query = "INSERT INTO supplier(nama_suplier,alamat_suplier,contact_person)VALUES(@nama,@alamat,@contact)"
             Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+            cmd.Parameters.AddWithValue("@nama", txtnama.Text)
+            cmd.Parameters.AddWithValue("@alamat", txtharga.Text)
+            cmd.Parameters.AddWithValue("@contact", txtstok.Text)
             Dim i As Integer = cmd.ExecuteNonQuery()
             If (i > 0) Then
                 MsgBox("Supplier baru berhasil ditambahkan", MsgBoxStyle.OkOnly)
@@ -74,8 +77,12 @@ Public Class supplier
         If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "") Then
             MsgBox("Data tentang supplier, ada yang kosong", MsgBoxStyle.OkOnly)
         Else
-            Query = "UPDATE  supplier SET nama_suplier= '" + txtnama.Text + "',alamat_suplier ='" + txtharga.Text + "',contact_person ='" + txtstok.Text + "' WHERE  id_suplier ='" + Label4.Text + "'"
+            Query = "UPDATE  supplier SET nama_suplier=@nama,alamat_suplier=@alamat,contact_person=@contact WHERE  id_suplier=@id"
             Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+            cmd.Parameters.AddWithValue("@nama", txtnama.Text)
+            cmd.Parameters.AddWithValue("@alamat", txtharga.Text)
+            cmd.Parameters.AddWithValue("@contact", txtstok.Text)
+            cmd.Parameters.AddWithValue("@id", Label4.Text)
             Dim i As Integer = cmd.ExecuteNonQuery()
             If (i > 0) Then
                 MsgBox("Data Suplier berhasil diubah", MsgBoxStyle.OkOnly)
@@ -91,18 +98,21 @@ Public Class supplier
         If (txtnama.Text = "" Or txtharga.Text = "" Or txtstok.Text = "") Then
             MsgBox("Harap pilih supplier yang akan dihapus", MsgBoxStyle.OkOnly)
         Else
-            Dim coba As MySqlCommand = New MySqlCommand("select count(*) from barang where id_suplier='" + Label4.Text + "'", konek)
+            Dim coba As MySqlCommand = New MySqlCommand("select count(*) from barang where id_suplier=@id", konek)
+            coba.Parameters.AddWithValue("@id", Label4.Text)
             Dim rdr As Integer = coba.ExecuteScalar
             If (rdr > 0) Then
                 Dim buton As DialogResult = MsgBox("Supplier masih di pakai di Tabel Barang!!!. Jika anda klik Yes maka Barang juga akan terhapus.", MsgBoxStyle.YesNo)
                 If buton = 6 Then
 
-                    hapus = "delete from barang WHERE  id_suplier ='" + Label4.Text + "'"
+                    hapus = "delete from barang WHERE  id_suplier=@id"
                     Dim del As MySqlCommand = New MySqlCommand(hapus, konek)
+                    del.Parameters.AddWithValue("@id", Label4.Text)
                     Dim j As Integer = del.ExecuteNonQuery()
 
-                    Query = "delete from supplier WHERE  id_suplier ='" + Label4.Text + "'"
+                    Query = "delete from supplier WHERE  id_suplier=@id"
                     Dim status As MySqlCommand = New MySqlCommand(Query, konek)
+                    status.Parameters.AddWithValue("@id", Label4.Text)
                     Dim i As Integer = status.ExecuteNonQuery()
 
                     If (i > 0) And j > 0 Then
@@ -113,8 +123,9 @@ Public Class supplier
                     End If
                 End If
             ElseIf Not (rdr > 0) Then
-                Query = "delete from supplier WHERE  id_suplier ='" + Label4.Text + "'"
+                Query = "delete from supplier WHERE  id_suplier=@id"
                 Dim cmd As MySqlCommand = New MySqlCommand(Query, konek)
+                cmd.Parameters.AddWithValue("@id", Label4.Text)
                 Dim i As Integer = cmd.ExecuteNonQuery()
                 If (i > 0) Then
                     MsgBox("Satu Data Supplier berhasil dihapus", MsgBoxStyle.OkOnly)
@@ -133,7 +144,11 @@ Public Class supplier
         txtstok.Text = ""
         If berdasarkan.SelectedIndex = 0 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where id_suplier=" + txtcari.Text + " order by id_suplier asc", konek)
+                If Not IsNumeric(txtcari.Text) Then
+                    Throw New FormatException("ID Supplier harus angka")
+                End If
+                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where id_suplier=@cari order by id_suplier asc", konek)
+                sql.Parameters.AddWithValue("@cari", Val(txtcari.Text))
             Dim ds As DataSet = New DataSet
             Dim da As MySqlDataAdapter = New MySqlDataAdapter
             da.SelectCommand = sql
@@ -147,7 +162,8 @@ Public Class supplier
         End If
         If berdasarkan.SelectedIndex = 1 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where nama_suplier like '%" + txtcari.Text + "%'", konek)
+                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where nama_suplier like @cari", konek)
+                sql.Parameters.AddWithValue("@cari", "%" + txtcari.Text + "%")
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql
@@ -162,7 +178,8 @@ Public Class supplier
         End If
         If berdasarkan.SelectedIndex = 2 Then
             Try
-                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where alamat_suplier like '%" + txtcari.Text + "%'", konek)
+                Dim sql As MySqlCommand = New MySqlCommand("select * from supplier where alamat_suplier like @cari", konek)
+                sql.Parameters.AddWithValue("@cari", "%" + txtcari.Text + "%")
                 Dim ds As DataSet = New DataSet
                 Dim da As MySqlDataAdapter = New MySqlDataAdapter
                 da.SelectCommand = sql

@@ -1,0 +1,50 @@
+name: Build installer
+
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+env:
+  MARIADB_VERSION: "11.8.9"
+  MARIADB_SHA256: "372822572baa7f429b9068d583336a9e46b109c12bb0b24eb66dbeb6ad0a563e"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: microsoft/setup-msbuild@v2
+
+      - uses: nuget/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore Minimarket.sln
+
+      - name: Build aplikasi (Release x86)
+        run: msbuild Minimarket.sln /p:Configuration=Release /p:Platform=x86 /m /v:minimal
+
+      - name: Unduh MariaDB MSI
+        shell: pwsh
+        run: |
+          $msi = "mariadb-$env:MARIADB_VERSION-winx64.msi"
+          New-Item -ItemType Directory -Force installer\redist | Out-Null
+          Invoke-WebRequest "https://downloads.mariadb.org/rest-api/mariadb/$env:MARIADB_VERSION/$msi" -OutFile "installer\redist\$msi"
+          $hash = (Get-FileHash "installer\redist\$msi" -Algorithm SHA256).Hash.ToLower()
+          if ($hash -ne $env:MARIADB_SHA256) { throw "Checksum MariaDB tidak cocok: $hash" }
+
+      - name: Pasang Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $versi = "1.0.$env:GITHUB_RUN_NUMBER"
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "/DAppVersion=$versi" "/DMariaDBMsi=mariadb-$env:MARIADB_VERSION-winx64.msi" installer\Minimarket.iss
+          if ($LASTEXITCODE -ne 0) { throw "ISCC gagal" }
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MinimarketSetup
+          path: dist/*.exe

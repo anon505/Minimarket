@@ -1,11 +1,18 @@
 ﻿Imports Microsoft.Reporting.WinForms
+Imports MySql.Data.MySqlClient
 Public Class formnota
 
     Private Sub formnota_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'TODO: This line of code loads data into the 'Minimarketds.kasir' table. You can move, or remove it, as needed.
         Me.ReportViewer1.LocalReport.EnableExternalImages = True
-        Me.NotaTableAdapter.Fill(Me.Minimarketds.nota, id_kasir)
-        'TODO: This line of code loads data into the 'minimarketDataSet1.nota' table. You can move, or remove it, as needed.
+        'isi nota: barang di keranjang (status 'belum') milik kasir yang login
+        Dim sql As MySqlCommand = New MySqlCommand("SELECT penjualan.id_barang, barang.nama_barang, barang.harga_jual, SUM(penjualan.total) AS jumlah, penjualan.id_kasir, satuan.nama_satuan" & _
+            " FROM penjualan JOIN barang ON barang.id_barang = penjualan.id_barang JOIN satuan ON satuan.id_satuan = barang.satuan" & _
+            " WHERE penjualan.id_kasir = @id_kasir AND penjualan.status = 'belum'" & _
+            " GROUP BY penjualan.id_barang, barang.nama_barang, barang.harga_jual, penjualan.id_kasir, satuan.nama_satuan", konek)
+        sql.Parameters.AddWithValue("@id_kasir", id_kasir)
+        Me.Minimarketds.nota.Clear()
+        Dim da As MySqlDataAdapter = New MySqlDataAdapter(sql)
+        da.Fill(Me.Minimarketds.nota)
         Dim paramlist As New Generic.List(Of ReportParameter)
         paramlist.Clear()
          'Add the BASE64 stream to the parameters

@@ -1,15 +1,20 @@
 ﻿Imports MySql.Data.MySqlClient
 Public Class Login
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        Dim login As MySqlCommand = New MySqlCommand("SELECT id_kasir FROM KASIR where type='" + (jabatan.SelectedIndex + 1).ToString + "' and nama_kasir='" + txtusername.Text + "' and password='" + txtpassword.Text + "'", konek)
+        Dim login As MySqlCommand = New MySqlCommand("SELECT id_kasir FROM kasir where type=@type and nama_kasir=@nama and password=@password", konek)
+        login.Parameters.AddWithValue("@type", jabatan.SelectedIndex + 1)
+        login.Parameters.AddWithValue("@nama", txtusername.Text)
+        login.Parameters.AddWithValue("@password", txtpassword.Text)
         Dim i As String = login.ExecuteScalar
         If (i = "") Then
             MsgBox("Username atau Password anda salah", MsgBoxStyle.OkOnly)
         Else
-            Dim cek As MySqlCommand = New MySqlCommand("SELECT status FROM kasir where id_kasir='" + i + "'", konek)
+            Dim cek As MySqlCommand = New MySqlCommand("SELECT status FROM kasir where id_kasir=@id", konek)
+            cek.Parameters.AddWithValue("@id", i)
             Dim status As String = cek.ExecuteScalar
             If (status = "Aktif") Then
-                Dim tipe As MySqlCommand = New MySqlCommand("SELECT type FROM kasir where id_kasir='" + i + "'", konek)
+                Dim tipe As MySqlCommand = New MySqlCommand("SELECT type FROM kasir where id_kasir=@id", konek)
+                tipe.Parameters.AddWithValue("@id", i)
                 Dim cektipe As String = tipe.ExecuteScalar
                 If (cektipe = "1") Then
                     MsgBox("Login Sukses. Anda login sebagai ADMINISTRATOR", MsgBoxStyle.OkOnly)   

@@ -37,8 +37,6 @@ Partial Class cetak
         Me.txtdatetime = New System.Windows.Forms.TextBox()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.DataTable2BindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DataTable1TableAdapter = New Minimarket.minimarketdsTableAdapters.DataTable1TableAdapter()
-        Me.DataTable2TableAdapter = New Minimarket.minimarketdsTableAdapters.DataTable2TableAdapter()
         CType(Me.DataTable1BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Minimarketds, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataTable2BindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -166,14 +164,6 @@ Partial Class cetak
         Me.DataTable2BindingSource.DataMember = "DataTable2"
         Me.DataTable2BindingSource.DataSource = Me.Minimarketds
         '
-        'DataTable1TableAdapter
-        '
-        Me.DataTable1TableAdapter.ClearBeforeFill = True
-        '
-        'DataTable2TableAdapter
-        '
-        Me.DataTable2TableAdapter.ClearBeforeFill = True
-        '
         'cetak
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -207,8 +197,6 @@ Partial Class cetak
     Friend WithEvents txtdatetime As System.Windows.Forms.TextBox
     Friend WithEvents DataTable1BindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents Minimarketds As Minimarket.minimarketds
-    Friend WithEvents DataTable1TableAdapter As Minimarket.minimarketdsTableAdapters.DataTable1TableAdapter
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents DataTable2BindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DataTable2TableAdapter As Minimarket.minimarketdsTableAdapters.DataTable2TableAdapter
 End Class

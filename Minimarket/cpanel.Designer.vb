@@ -29,6 +29,7 @@ Partial Class cpanel
         Me.txtuser = New System.Windows.Forms.TextBox()
         Me.txtpass = New System.Windows.Forms.TextBox()
         Me.txtdb = New System.Windows.Forms.TextBox()
+        Me.lblstatus = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -36,8 +37,6 @@ Partial Class cpanel
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtdsn = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txtpath = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -46,8 +45,6 @@ Partial Class cpanel
         Me.txtnamatoko = New System.Windows.Forms.TextBox()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtdesc = New System.Windows.Forms.TextBox()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.OpenFileDialog2 = New System.Windows.Forms.OpenFileDialog()
@@ -187,27 +184,6 @@ Partial Class cpanel
         Me.Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.Button2.UseVisualStyleBackColor = True
         '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(21, 30)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(106, 20)
-        Me.Label6.TabIndex = 14
-        Me.Label6.Text = "NAMA DSN "
-        '
-        'txtdsn
-        '
-        Me.txtdsn.BackColor = System.Drawing.Color.White
-        Me.txtdsn.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtdsn.Location = New System.Drawing.Point(164, 24)
-        Me.txtdsn.Name = "txtdsn"
-        Me.txtdsn.ReadOnly = True
-        Me.txtdsn.Size = New System.Drawing.Size(217, 26)
-        Me.txtdsn.TabIndex = 13
-        Me.txtdsn.Text = "minimarket"
-        '
         'PictureBox1
         '
         Me.PictureBox1.Location = New System.Drawing.Point(434, 174)
@@ -267,26 +243,14 @@ Partial Class cpanel
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'Label9
+        'lblstatus
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(21, 77)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(129, 20)
-        Me.Label9.TabIndex = 22
-        Me.Label9.Text = "KETERANGAN"
-        '
-        'txtdesc
-        '
-        Me.txtdesc.BackColor = System.Drawing.Color.White
-        Me.txtdesc.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtdesc.Location = New System.Drawing.Point(164, 70)
-        Me.txtdesc.Name = "txtdesc"
-        Me.txtdesc.ReadOnly = True
-        Me.txtdesc.Size = New System.Drawing.Size(217, 26)
-        Me.txtdesc.TabIndex = 21
-        Me.txtdesc.Text = "MySQL ODBC 5.1 Driver"
+        Me.lblstatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblstatus.Location = New System.Drawing.Point(21, 22)
+        Me.lblstatus.Name = "lblstatus"
+        Me.lblstatus.Size = New System.Drawing.Size(360, 78)
+        Me.lblstatus.TabIndex = 13
+        Me.lblstatus.Text = "Isi data server MySQL, klik Tes Koneksi untuk memeriksa, lalu klik Simpan."
         '
         'Button4
         '
@@ -296,7 +260,7 @@ Partial Class cpanel
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(132, 72)
         Me.Button4.TabIndex = 23
-        Me.Button4.Text = "Lihat DSN"
+        Me.Button4.Text = "Tes Koneksi"
         Me.Button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.Button4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
         Me.Button4.UseVisualStyleBackColor = True
@@ -346,17 +310,14 @@ Partial Class cpanel
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(692, 425)
         Me.Controls.Add(Me.Button5)
+        Me.Controls.Add(Me.lblstatus)
         Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.txtdesc)
         Me.Controls.Add(Me.txtnamatoko)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.txtpath)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.txtdsn)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Label5)
@@ -392,8 +353,6 @@ Partial Class cpanel
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents txtdsn As System.Windows.Forms.TextBox
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents txtpath As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
@@ -402,10 +361,9 @@ Partial Class cpanel
     Friend WithEvents txtnamatoko As System.Windows.Forms.TextBox
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
-    Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents txtdesc As System.Windows.Forms.TextBox
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents lblstatus As System.Windows.Forms.Label
     Friend WithEvents OpenFileDialog2 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents RectangleShape2 As Microsoft.VisualBasic.PowerPacks.RectangleShape
