@@ -306,6 +306,7 @@
       <DependentUpon>minimarketds.xsd</DependentUpon>
     </Compile>
     <Compile Include="koneksidb.vb" />
+    <Compile Include="logotoko.vb" />
     <Compile Include="modesetup.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\ApplicationEvents.vb" />

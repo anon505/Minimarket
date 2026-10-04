@@ -41,6 +41,7 @@ Partial Class cpanel
         Me.txtpath = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtnamatoko = New System.Windows.Forms.TextBox()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
@@ -199,7 +200,7 @@ Partial Class cpanel
         Me.txtpath.Location = New System.Drawing.Point(434, 242)
         Me.txtpath.Name = "txtpath"
         Me.txtpath.ReadOnly = True
-        Me.txtpath.Size = New System.Drawing.Size(150, 20)
+        Me.txtpath.Size = New System.Drawing.Size(80, 20)
         Me.txtpath.TabIndex = 16
         '
         'Label7
@@ -220,6 +221,15 @@ Partial Class cpanel
         Me.Button3.TabIndex = 18
         Me.Button3.Text = "Upload"
         Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(513, 240)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(71, 22)
+        Me.Button6.TabIndex = 26
+        Me.Button6.Text = "Buat Logo"
+        Me.Button6.UseVisualStyleBackColor = True
         '
         'Label8
         '
@@ -315,6 +325,7 @@ Partial Class cpanel
         Me.Controls.Add(Me.txtnamatoko)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button6)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.txtpath)
         Me.Controls.Add(Me.PictureBox1)
@@ -357,6 +368,7 @@ Partial Class cpanel
     Friend WithEvents txtpath As System.Windows.Forms.TextBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents Button3 As System.Windows.Forms.Button
+    Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtnamatoko As System.Windows.Forms.TextBox
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog

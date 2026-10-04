@@ -197,30 +197,58 @@ Public Class cpanel
     End Sub
 
     Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
-        If txtpath.Text = "" Then
-            MsgBox("Lokasi logo anda masih kosong", MsgBoxStyle.OkOnly)
-            txtpath.Focus()
-        ElseIf txtnamatoko.Text = "" Then
+        If txtnamatoko.Text = "" Then
             MsgBox("Nama perusahaan anda masih kosong", MsgBoxStyle.OkOnly)
             txtnamatoko.Focus()
-        ElseIf File.Exists(txtpath.Text) = False Then
+        ElseIf txtpath.Text <> "" And Not logobuatan(txtpath.Text) And File.Exists(txtpath.Text) = False Then
             MsgBox("File yang anda maksud tidak ada", MsgBoxStyle.OkOnly)
             txtnamatoko.Focus()
         Else
+            'belum ada logo / logo buatan: buat ulang agar sesuai nama toko terbaru
+            If txtpath.Text = "" Or logobuatan(txtpath.Text) Then
+                If Not tampilkanlogobuatan() Then
+                    Exit Sub
+                End If
+            End If
             Dim tulis As New StreamWriter(lokasifile("config.txt"))
             tulis.WriteLine("logo=" + Me.txtpath.Text + ";")
             tulis.WriteLine("toko=" + Me.txtnamatoko.Text)
             tulis.Close()
             pathlogo = txtpath.Text
             namatoko = txtnamatoko.Text
+            hapuslogolama(folderdata(), txtpath.Text)
             MsgBox("Konfigurasi berhasil disimpan", MsgBoxStyle.OkOnly)
+        End If
+    End Sub
+
+    'Buat logo dari nama toko dan tampilkan. Hasil: False jika gagal.
+    Private Function tampilkanlogobuatan() As Boolean
+        Try
+            txtpath.Text = buatlogo(txtnamatoko.Text, folderdata())
+            If PictureBox1.Image IsNot Nothing Then
+                PictureBox1.Image.Dispose()
+            End If
+            PictureBox1.Image = Bitmap.FromFile(txtpath.Text)
+            Return True
+        Catch ex As Exception
+            MsgBox("Gagal membuat logo: " + ex.Message, MsgBoxStyle.OkOnly)
+            Return False
+        End Try
+    End Function
+
+    Private Sub Button6_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button6.Click
+        If txtnamatoko.Text = "" Then
+            MsgBox("Isi nama toko dulu, logo dibuat dari nama toko", MsgBoxStyle.OkOnly)
+            txtnamatoko.Focus()
+        Else
+            tampilkanlogobuatan()
         End If
     End Sub
 
     Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
         Dim filename As String
         With Me.OpenFileDialog2
-            .Filter = "JPG|*.jpg|BMP|*.bmp"
+            .Filter = "Gambar|*.jpg;*.jpeg;*.png;*.bmp"
             .Multiselect = False
             .DefaultExt = "jpg"
             If .ShowDialog = Windows.Forms.DialogResult.OK Then

@@ -20,6 +20,7 @@ Tiap form = `nama.vb` (logic) + `nama.Designer.vb` (UI generated, jangan edit ma
 |---|---|
 | `Module1.vb` | Global state: `konek` (MySqlConnection tunggal, dibuka sekali), `id_kasir`, `hak_akses`, `pathlogo`, `namatoko` (semua `String`). `lokasifile(nama)` → path di `%ProgramData%\Minimarket` |
 | `koneksidb.vb` | Logika koneksi tanpa UI (dipakai app & nanti installer): `buatkoneksi()`, `cekkoneksi()` (TCP 3s lalu login MySQL tanpa pooling, pesan error per penyebab), `siapkanserver()` (buat DB, import dump jika kosong, user app `'%'`+`'localhost'`), `izinkanjaringan(my.ini)` |
+| `logotoko.vb` | `buatlogo(namatoko, folder)` → PNG 600x300 nama toko di `%ProgramData%\Minimarket\logotoko-<waktu>.png` (nama unik karena `Bitmap.FromFile` mengunci file lama). `logobuatan(path)`, `hapuslogolama(folder, dipakai)` |
 | `main.vb` | MDI parent, startup form (`My Project/Application.myapp` → `MainForm=main`). `konekbuka()` buka koneksi, baca `config.txt`, buka form anak via MenuStrip |
 | `Login.vb` | Login: cek `kasir` by `type` + nama + password, lalu cek `status='Aktif'`. Enable/disable menu sesuai role |
 | `cpanel.vb` | "Konfigurasi": simpan `koneksi.txt` & `config.txt`, tombol Tes Koneksi (`Button4` → `lblstatus`), backup/restore DB via `mysql.exe`/`mysqldump.exe` |
@@ -130,3 +131,4 @@ Satu transaksi tidak punya nomor nota; item sama di keranjang digabung (qty dita
 
 - `koneksi.txt`: satu baris connection string dari `MySqlConnectionStringBuilder` (`server=..;port=..;user id=..;password=..;database=..`). Format lama 4 baris tanpa `database` tetap terbaca.
 - `config.txt`: `logo=<path>;` baris 1, `toko=<nama>` baris 2.
+- Logo: setup server/client (`tuliskonfigurasi`) mempertahankan logo pilihan user; selain itu (belum ada / logo buatan / `logoku.jpg` bawaan) dibuat dari nama toko. `logoku.jpg` hanya cadangan jika gagal. Di `cpanel`, tombol "Buat Logo" (`Button6`); Simpan membuat ulang logo buatan agar sesuai nama toko.
