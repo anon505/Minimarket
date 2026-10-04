@@ -83,10 +83,23 @@ Module modesetup
         Dim catatan As String = aturjaringan(root)
         Call tuliskonfigurasi(folderdata, buatkoneksi("localhost", port, appuser, apppassword, database), ambil(nilai, "namatoko"), ambil(nilai, "logo"))
         pesan = "IP komputer server ini: " + ipkomputer() + vbCrLf + "Isi IP ini saat memasang aplikasi di komputer kasir (client)."
+        If masihpasswordbawaan(root, database) Then
+            pesan = pesan + vbCrLf + vbCrLf + "Login pertama: superadmin / password" + vbCrLf + "Segera ganti password setelah login (menu Kasir)."
+        End If
         If catatan <> "" Then
             pesan = pesan + vbCrLf + vbCrLf + catatan
         End If
         Return SUKSES
+    End Function
+
+    'Akun bawaan superadmin dari minimarket_db.sql belum diganti passwordnya?
+    Public Function masihpasswordbawaan(ByVal root As MySqlConnectionStringBuilder, ByVal database As String) As Boolean
+        Using koneksi As New MySqlConnection(root.ConnectionString)
+            koneksi.Open()
+            koneksi.ChangeDatabase(database)
+            Dim cek As New MySqlCommand("SELECT COUNT(*) FROM kasir WHERE nama_kasir='superadmin' AND password='password'", koneksi)
+            Return CInt(cek.ExecuteScalar()) > 0
+        End Using
     End Function
 
     'Alamat IPv4 jaringan lokal komputer ini (untuk diisi di client)

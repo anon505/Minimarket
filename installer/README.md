@@ -77,14 +77,15 @@ Pasang **server dulu**, baru client.
 
 ### Cek setelah instalasi
 
-- [ ] Login di server: `Umam` / `1` (Administrator) — data contoh bawaan
+- [ ] Login di server: jabatan **Administrator**, `superadmin` / `password` (akun bawaan)
+- [ ] Muncul peringatan ganti password + form Manajemen Kasir terbuka → ganti password `superadmin`
 - [ ] Login di client dengan akun yang sama
 - [ ] Transaksi penjualan di client → stok berkurang, terlihat juga di server
 - [ ] Cetak nota dan Laporan (Penjualan & Pembelian)
 - [ ] Menu Konfigurasi → **Tes Koneksi** berhasil
 - [ ] Backup database dari komputer server
 
-Ganti password akun bawaan (`Umam`, `Fajri`) lewat menu **Kasir** sebelum dipakai di toko.
+Akun bawaan `superadmin` / `password` wajib diganti passwordnya sebelum dipakai di toko. Aplikasi menampilkan peringatan setiap login selama password masih `password`. Pesan akhir instalasi server juga menyebutkan akun ini (hanya jika passwordnya belum diganti).
 
 ## Lokasi file setelah terpasang
 

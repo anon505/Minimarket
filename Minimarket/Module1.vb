@@ -2,6 +2,8 @@
 Module Module1
     Public id_kasir, hak_akses, pathlogo, namatoko As String
     Public konek As MySqlClient.MySqlConnection
+    'password akun bawaan superadmin (minimarket_db.sql); user diingatkan menggantinya saat login
+    Public Const PASSWORDBAWAAN As String = "password"
 
     'koneksi.txt & config.txt disimpan di C:\ProgramData\Minimarket, karena folder aplikasi
     '(C:\Program Files) tidak bisa ditulis user biasa.

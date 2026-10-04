@@ -15,7 +15,7 @@
 AppId={{8C1F5E2A-6B7D-4C3E-9A1F-2D5B7E9C4A10}
 AppName=Minimarket
 AppVersion={#AppVersion}
-AppPublisher=Um@m Corporation
+AppPublisher=BetterMoney
 DefaultDirName={autopf}\Minimarket
 DefaultGroupName=Minimarket
 DisableProgramGroupPage=yes

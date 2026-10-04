@@ -147,7 +147,7 @@ Partial Class main
         Me.IsMdiContainer = True
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "main"
-        Me.Text = "Minimarket by Um@m Corporation"
+        Me.Text = "System POS by BetterMoney"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

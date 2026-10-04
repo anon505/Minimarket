@@ -1,6 +1,6 @@
 # Minimarket — Project Context
 
-Aplikasi desktop Point-of-Sale (kasir) + manajemen stok minimarket. Proyek lama (dump DB 2013, "Minimarket by Um@m Corporation"), di-upgrade ke .NET Framework 4.8.
+Aplikasi desktop Point-of-Sale (kasir) + manajemen stok minimarket. Proyek lama (dump DB 2013, dulu "Minimarket by Um@m Corporation"), di-upgrade ke .NET Framework 4.8. Branding sekarang: judul jendela utama **"System POS by BetterMoney"**, publisher/company **BetterMoney**.
 
 ## Stack
 
@@ -59,7 +59,9 @@ Tanpa foreign key constraint (relasi hanya konvensi). Engine InnoDB, latin1.
 
 ### Seed
 
-User: `Umam`/`1` (admin), `Fajri`/`2` (kasir). 4 supplier, 6 satuan, 5 barang.
+User: `superadmin`/`password` (Administrator, satu-satunya akun). 4 supplier, 6 satuan, 5 barang.
+
+Password bawaan = konstanta `PASSWORDBAWAAN` (`Module1.vb`). Selama password akun masih itu, `Login.ingatkanpassword()` memperingatkan setiap login (admin: form Kasir dibuka; kasir: diminta hubungi admin). `modesetup.masihpasswordbawaan()` menambahkan info login pertama di pesan akhir setup server. Ubah seed → sesuaikan keduanya.
 
 ## Alur kunci
 
