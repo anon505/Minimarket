@@ -114,7 +114,8 @@ begin
   Result := False;
 end;
 
-// Minimarket.exe disalin sementara ke folder tmp agar bisa dipakai mengecek koneksi sebelum instalasi
+// Minimarket.exe disalin sementara ke folder tmp agar bisa dipakai mengecek koneksi sebelum instalasi.
+// ExtractTemporaryFiles menaruh file di {tmp}\{app}\ (folder bernama "{app}" apa adanya, bukan path instalasi)
 function AppSementara: String;
 begin
   if not AppSudahDiekstrak then
@@ -122,11 +123,12 @@ begin
     ExtractTemporaryFiles('{app}\*');
     AppSudahDiekstrak := True;
   end;
-  Result := ExpandConstant('{tmp}\{#AppExe}');
+  Result := ExpandConstant('{tmp}\') + '{app}\{#AppExe}';
 end;
 
 { Jalankan Minimarket.exe <Mode> <file.ini>. Isi berisi baris key=value (termasuk password);
-  file ini dihapus aplikasi setelah dibaca. Hasil: exit code, Pesan = isi <file.ini>.hasil }
+  file ini dihapus aplikasi setelah dibaca. Hasil: exit code (-1 jika exe tidak bisa dijalankan),
+  Pesan = isi <file.ini>.hasil }
 function JalankanApp(Exe, Mode: String; Isi: TStringList; var Pesan: String): Integer;
 var
   Ini: String;
@@ -138,7 +140,7 @@ begin
   if not FileExists(Exe) then
   begin
     Pesan := 'File ' + Exe + ' tidak ditemukan.';
-    Result := 1;
+    Result := -1;
     exit;
   end;
   Ini := ExpandConstant('{tmp}\setup.ini');
@@ -150,7 +152,7 @@ begin
   if not Exec(Exe, Mode + ' "' + Ini + '"', '', SW_HIDE, ewWaitUntilTerminated, Kode) then
   begin
     Pesan := 'Gagal menjalankan ' + Exe + ': ' + SysErrorMessage(Kode);
-    Kode := 1;
+    Kode := -1;
   end
   else if LoadStringFromFile(Ini + '.hasil', Hasil) then
     Pesan := String(Hasil);
@@ -269,9 +271,12 @@ begin
       Result := Gagal('Service MariaDB sudah terpasang tetapi tidak berjalan di port ' + Port + '.' + #13#10 +
         'Jalankan service MariaDB (services.msc) atau periksa port, lalu klik Next lagi.');
   end
-  else
+  else if Kode = 1 then
     Result := Gagal('Sudah ada MySQL/MariaDB di port ' + Port + ', tetapi login root gagal:' + #13#10 + Pesan + #13#10#13#10 +
-      'Isi password root MySQL yang sudah ada.');
+      'Isi password root MySQL yang sudah ada.')
+  else
+    { exe tidak ditemukan / crash (mis. .NET Framework 4.8 belum terpasang): bukan masalah MySQL }
+    Result := Gagal('Pemeriksaan MySQL tidak bisa dijalankan:' + #13#10 + Pesan);
 end;
 
 function CekServerApp: Boolean;
